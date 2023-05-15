@@ -1,0 +1,62 @@
+{
+  "name": "strapion",
+  "version": "0.1.0",
+  "description": "Alternative Strapi admin for content creators.",
+  "author": "Devtastic <hi@devtastic.build>",
+  "bin": {
+    "strapion": "./scripts/index.js"
+  },
+  "maintainers": [
+    {
+      "name": "Leon van der Grient",
+      "url": "https://github.com/StructuralRealist",
+      "email": "leon@devtastic.build"
+    }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^37.0.1",
+    "@ckeditor/ckeditor5-react": "^5.1.0",
+    "@dnd-kit/core": "^6.0.8",
+    "@dnd-kit/sortable": "^7.0.2",
+    "@dnd-kit/utilities": "^3.2.1",
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@types/node": "18.15.11",
+    "@types/ramda": "^0.28.24",
+    "@types/react": "18.0.35",
+    "@types/react-dom": "18.0.11",
+    "@vitejs/plugin-react": "^3.1.0",
+    "antd": "^5.4.2",
+    "autoprefixer": "^10.4.14",
+    "axios": "^1.3.5",
+    "chalk": "^4.1.2",
+    "classnames": "^2.3.2",
+    "commander": "^10.0.1",
+    "dayjs": "^1.11.7",
+    "eslint": "8.38.0",
+    "filesize": "^10.0.7",
+    "flag-icons": "^6.6.6",
+    "formik": "^2.2.9",
+    "i18next": "^22.4.14",
+    "i18next-browser-languagedetector": "^7.0.1",
+    "i18next-http-backend": "^2.2.0",
+    "postcss": "^8.4.21",
+    "prettier": "^2.8.8",
+    "ramda": "^0.28.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-i18next": "^12.2.0",
+    "react-router-dom": "^6.10.0",
+    "react-use": "^17.4.0",
+    "slugify": "^1.6.6",
+    "string-to-color": "^2.2.2",
+    "tailwindcss": "^3.3.1",
+    "typescript": "^5.0.4",
+    "vite": "^4.2.1",
+    "vite-tsconfig-paths": "^4.2.0",
+    "yup": "^1.1.0",
+    "zustand": "^4.3.7"
+  }
+}

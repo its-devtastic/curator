@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply m-0 p-0 antialiased font-sans text-base text-slate-700;
+}
+
+.ant-notification-notice-message {
+  @apply text-sm font-semibold text-gray-700;
+}
