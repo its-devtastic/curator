@@ -17,6 +17,21 @@ function init() {
       resolve: {
         alias: { "~": path.resolve(__dirname, "../app") },
       },
+      css: {
+        postcss: {
+          plugins: [
+            require("tailwindcss")({
+              // config: path.resolve(__dirname, "../tailwind.config.js"),
+              corePlugins: { preflight: false },
+              content: [
+                path.resolve(__dirname, "../app/**/*.{js,ts,jsx,tsx}"),
+                path.resolve(root, "./config/**/*.{js,ts,jsx,tsx}"),
+              ],
+            }),
+            require("autoprefixer")(),
+          ],
+        },
+      },
       server: {
         port: 1338,
       },
