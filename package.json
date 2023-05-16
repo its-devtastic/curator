@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "description": "Alternative Strapi admin for content creators.",
   "author": "Devtastic <hi@devtastic.build>",
+  "module": "index.ts",
+  "main": "index.ts",
   "bin": {
     "strapion": "./scripts/index.js"
   },
@@ -39,6 +41,7 @@
     "filesize": "^10.0.7",
     "flag-icons": "^6.6.6",
     "formik": "^2.2.9",
+    "fs-extra": "^11.1.1",
     "i18next": "^22.4.14",
     "i18next-browser-languagedetector": "^7.0.1",
     "i18next-http-backend": "^2.2.0",
