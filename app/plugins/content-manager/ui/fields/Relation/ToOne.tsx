@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
+import { useFormikContext } from "formik";
 
 import { Entity } from "~/types/content";
 import useStrapi from "~/hooks/useStrapi";
@@ -19,6 +20,7 @@ const ToOne: React.FC<{
   const { t } = useTranslation();
   const [model, setModel] = useState(value);
   const { sdk, contentTypes } = useStrapi();
+  const { values } = useFormikContext<{ locale: string }>();
   const [search, setSearch] = useState("");
   const [edit, setEdit] = useState(false);
   const targetModelApiID = contentTypes.find(
@@ -31,7 +33,10 @@ const ToOne: React.FC<{
     }
 
     try {
-      const { results } = await sdk.getMany(targetModelApiID, { _q: search });
+      const { results } = await sdk.getMany(targetModelApiID, {
+        _q: search,
+        locale: values.locale,
+      });
 
       return results;
     } catch (e) {
