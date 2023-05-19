@@ -8,14 +8,15 @@ import useStrapi from "~/hooks/useStrapi";
 
 import UploadButton from "../../UploadButton";
 
-const MediaLibraryPopover: React.FC<{ onChange(item: MediaItem): void }> = ({
-  onChange,
-}) => {
+const MediaLibraryPopover: React.FC<{
+  onChange(item: MediaItem): void;
+  mime: "image";
+}> = ({ onChange, mime }) => {
   const { sdk } = useStrapi();
   const { t } = useTranslation();
 
   const { value, retry, loading } = useAsyncRetry(async () => {
-    return sdk.getMediaItems();
+    return sdk.getMediaItems({ "filters[$and][0][mime][$contains]": mime });
   }, [sdk]);
 
   return (

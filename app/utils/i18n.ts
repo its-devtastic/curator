@@ -17,17 +17,14 @@ i18n
     interpolation: {
       escapeValue: false,
     },
-    resources: {
-      en: {
-        translation: translationEn,
-      },
-      nl: {
-        translation: translationNl,
-      },
-    },
     backend: {
       loadPath: "/locales/{{lng}}/{{ns}}.json",
     },
   });
+
+// Add default translation files.
+i18n
+  .addResources("en", "translation", translationEn)
+  .addResources("nl", "translation", translationNl);
 
 export default i18n;

@@ -58,11 +58,10 @@
   "form_submissions.email_copied": "Email copied to clipboard",
   "form_submissions.confirm_delete": "Are you sure you want to delete this message?",
 
-  "filters.search": "Search",
+  "dashboard.welcome": "Welcome 👋",
+  "dashboard.description": "What are you working on today?",
 
-  "trigger.purge": "Purge cache",
-  "trigger.purge_started": "Cache is being cleared",
-  "trigger.purge_failed": "An error occurred while clearing cache.",
+  "filters.search": "Search",
 
   "locales.en": "English",
   "locales.nl": "Dutch",

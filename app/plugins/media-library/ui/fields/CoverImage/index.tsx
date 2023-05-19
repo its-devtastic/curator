@@ -24,7 +24,12 @@ const CoverImage: React.FC<{
           value ? "hidden group-hover:flex group-hover:bg-black/20" : "flex"
         )}
       >
-        <MediaField showAvatar={false} value={value} onChange={onChange} />
+        <MediaField
+          mime="image"
+          showAvatar={false}
+          value={value}
+          onChange={onChange}
+        />
       </div>
     </div>
   );

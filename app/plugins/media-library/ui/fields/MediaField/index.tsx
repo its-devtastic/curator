@@ -11,6 +11,7 @@ import MediaLibraryPopover from "./MediaLibraryPopover";
 const MediaField: React.FC<MediaFieldProps> = ({
   value,
   onChange,
+  mime,
   showAvatar = true,
   clearable = true,
   ...props
@@ -37,6 +38,7 @@ const MediaField: React.FC<MediaFieldProps> = ({
         onOpenChange={setOpen}
         content={() => (
           <MediaLibraryPopover
+            mime={mime}
             onChange={(item) => {
               onChange(item);
               setOpen(false);
@@ -67,6 +69,7 @@ export default MediaField;
 interface MediaFieldProps {
   value: MediaItem | null;
   onChange(item: MediaItem | null): void;
+  mime: "image";
   showAvatar?: boolean;
   clearable?: boolean;
 }

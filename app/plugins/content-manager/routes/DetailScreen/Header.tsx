@@ -36,7 +36,7 @@ const Header: React.FC = () => {
       <LanguageSwitcher />
 
       <div className="flex flex-col items-end gap-2">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 justify-center w-full md:w-auto">
           <div>
             {hasDraftState && (
               <div>
@@ -124,9 +124,9 @@ const Header: React.FC = () => {
             </Dropdown>
           )}
         </div>
-        <span className="flex items-center gap-1 text-xs">
+        <span className="text-xs text-center mt-2 md:mt-0 md:text-right">
           {values.updatedAt && (
-            <span className="text-gray-400 flex items-center gap-1">
+            <span className="text-gray-400 space-x-1">
               <span>{t("phrases.last_updated_at")}</span>
               <CalendarTime>{values.updatedAt}</CalendarTime>
               {values.updatedBy && (
@@ -146,7 +146,7 @@ const Header: React.FC = () => {
           )}
           {values.id && contentTypeConfig?.buildUrl && (
             <a
-              className="text-blue-500 space-x-1"
+              className="text-blue-500 space-x-1 ml-1"
               href={contentTypeConfig?.buildUrl(values)}
               target="_blank"
               rel="noreferrer nofollow noopener"

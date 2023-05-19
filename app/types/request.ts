@@ -10,5 +10,5 @@ export interface GetMediaParams {
   page?: number;
   pageSize?: number;
   sort?: `${string}:ASC` | `${string}:DESC`;
-  filters?: string;
+  [p: `filters${string}`]: string;
 }
