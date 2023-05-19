@@ -16,11 +16,11 @@ const ContentManagerMenu: React.FC<{
 
   return (
     <div className="w-[600px] max-w-full">
-      <div className="space-y-6 py-3">
+      <div className="space-y-8 py-3">
         {groups.map(({ label, items }, idx) => (
           <div key={idx}>
             {label && (
-              <h4 className="pl-3 mb-3 mt-0 uppercase text-xs text-slate-500">
+              <h4 className="pl-3 mb-3 mt-0 text-sm font-bold text-gray-900 select-none">
                 {t(label, { ns: "custom" })}
               </h4>
             )}
@@ -36,25 +36,25 @@ const ContentManagerMenu: React.FC<{
                       key={apiID}
                       onClick={() => onSelect?.()}
                       to={`/content-manager/${apiID}`}
-                      className="group flex items-center gap-3 hover:bg-slate-100 rounded-lg p-3 select-none"
+                      className="group hover:bg-gray-100 rounded-lg p-3 select-none"
                     >
-                      {custom?.icon && (
-                        <div className="flex-none text-slate-500">
-                          {custom.icon}
-                        </div>
-                      )}
-                      <div>
-                        <div className="text-sm font-semibold text-slate-600 group-hover:text-slate-600">
+                      <div className="flex items-center gap-3">
+                        {custom?.icon && (
+                          <div className="flex-none text-gray-500">
+                            {custom.icon}
+                          </div>
+                        )}
+                        <div className="text-sm font-semibold text-gray-700">
                           {t(custom?.name || info.displayName, {
                             ns: "custom",
                           })}
                         </div>
-                        {custom?.description && (
-                          <div className="text-xs text-slate-500">
-                            {t(custom.description, { ns: "custom" })}
-                          </div>
-                        )}
                       </div>
+                      {custom?.description && (
+                        <div className="text-sm text-gray-500">
+                          {t(custom.description, { ns: "custom" })}
+                        </div>
+                      )}
                     </Link>
                   );
                 })}

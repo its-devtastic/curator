@@ -1,14 +1,12 @@
 import React from "react";
 import * as R from "ramda";
 import { Link, RouteObject } from "react-router-dom";
-import { Tooltip } from "antd";
 
 import type { InjectionZoneEntry, StrapionConfig } from "~/types/config";
 import { InjectionZone } from "~/types/config";
 
 import MainMenu from "~/ui/MainMenu";
 
-import logo from "./icon.png";
 import PlausibleDashboard from "./routes/PlausibleDashboard";
 
 export default function plausiblePlugin({ sharedLink }: PluginOptions) {
@@ -18,13 +16,7 @@ export default function plausiblePlugin({ sharedLink }: PluginOptions) {
         zone: InjectionZone.MainMenuTop,
         weight: 20,
         render() {
-          return (
-            <Tooltip title="Plausible Analytics" placement="right">
-              <MainMenu.Item as={Link} to="/analytics">
-                <img src={logo} alt="" className="w-8 h-8 object-contain" />
-              </MainMenu.Item>
-            </Tooltip>
-          );
+          return <MainMenu.Item as={Link} to="/analytics" label="Analytics" />;
         },
       }),
       routes: R.append<RouteObject>({

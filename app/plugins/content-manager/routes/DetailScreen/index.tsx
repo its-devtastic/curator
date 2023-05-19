@@ -69,7 +69,7 @@ const DetailScreen: React.FC = () => {
 
   return (
     <div>
-      <div className="p-4 border-b border-0 border-solid border-gray-200 flex justify-between items-center">
+      <div className="p-4 border-b border-0 border-dashed border-slate-200 max-w-screen-xl mx-auto flex justify-between items-center">
         <div className="flex-1">
           {!isSingleType && (
             <Link

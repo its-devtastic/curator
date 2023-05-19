@@ -10,10 +10,12 @@ const Auth: React.FC = () => (
   <SecretsProvider>
     <div className="flex flex-col h-screen">
       <AppHeader />
-      <div className="flex-1 flex overflow-hidden">
-        <MainMenu />
-        <div className="flex-1 overflow-y-auto flex flex-col bg-gray-50">
-          <Outlet />
+      <MainMenu />
+      <div className="flex-1 flex flex-col items-center overflow-y-auto bg-white">
+        <div className="flex-1 flex flex-col items-center w-full max-w-screen-xl">
+          <div className="px-12 py-6 flex-1 flex flex-col w-full">
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>

@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import { Tooltip } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPhotoFilm } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 
 import MainMenu from "~/ui/MainMenu";
@@ -14,11 +11,10 @@ const MainMenuItem: React.FC = () => {
 
   return (
     <>
-      <Tooltip title={t("common.media_library")} placement="right">
-        <MainMenu.Item onClick={() => setOpen(true)}>
-          <FontAwesomeIcon icon={faPhotoFilm} />
-        </MainMenu.Item>
-      </Tooltip>
+      <MainMenu.Item
+        onClick={() => setOpen(true)}
+        label={t("common.media_library")}
+      />
       {open && (
         <MediaLibraryDrawer open={open} onClose={() => setOpen(false)} />
       )}

@@ -69,7 +69,7 @@ const ListScreen: React.FC = () => {
           }}
         >
           {({ values, setFieldValue, submitForm }) => (
-            <div className="p-12 max-w-screen-xl">
+            <div>
               <div className="flex items-center justify-between mb-24">
                 <h1>{t(name, { count: 2, ns: "custom" })}</h1>
 
@@ -88,13 +88,12 @@ const ListScreen: React.FC = () => {
               </div>
 
               <Table
-                className="border border-solid rounded-lg border-slate-300 overflow-hidden shadow-sm"
                 dataSource={collection.results}
                 tableLayout="auto"
                 sortDirections={["ascend", "descend", "ascend"]}
                 rowKey="id"
                 showSorterTooltip={false}
-                size="middle"
+                size="small"
                 onRow={(record) => ({
                   onClick: () =>
                     navigate(`/content-manager/${apiID}/${record.id}`),

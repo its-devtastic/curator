@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import dayjs from "dayjs";
 import { ConfigProvider } from "antd";
+import * as R from "ramda";
 
 import "flag-icons/css/flag-icons.min.css";
 
@@ -27,7 +28,12 @@ dayjs.extend(calendar);
 export default function createStrapionApp(strapionConfig: StrapionConfig) {
   ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
-      <ConfigProvider theme={strapionConfig.theme}>
+      <ConfigProvider
+        theme={R.mergeDeepLeft(
+          { token: { controlHeight: 36 } },
+          strapionConfig.theme ?? {}
+        )}
+      >
         <StrapionProvider config={strapionConfig}>
           <StrapiProvider apiUrl={strapionConfig.strapiUrl}>
             <App />

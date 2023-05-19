@@ -1,6 +1,5 @@
 import React from "react";
 import * as R from "ramda";
-import { Link } from "react-router-dom";
 
 import { InjectionZone } from "~/types/config";
 import useStrapion from "~/hooks/useStrapion";
@@ -23,20 +22,22 @@ const MainMenu: React.FC & {
   );
 
   return (
-    <nav className="py-6 w-16 flex-none flex flex-col items-center justify-between bg-gray-50 border-r border-solid border-0 border-gray-200">
-      <div className="space-y-6">
-        {menuItems
-          .filter(R.whereEq({ zone: InjectionZone.MainMenuTop }))
-          .map(({ render }, index) => (
-            <div key={index}>{render()}</div>
-          ))}
-      </div>
-      <div className="space-y-6">
-        {menuItems
-          .filter(R.whereEq({ zone: InjectionZone.MainMenuBottom }))
-          .map(({ render }, index) => (
-            <div key={index}>{render()}</div>
-          ))}
+    <nav className="px-12 h-12 flex-none flex justify-center bg-white border-b border-solid border-0 border-gray-200">
+      <div className="w-full max-w-screen-xl flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          {menuItems
+            .filter(R.whereEq({ zone: InjectionZone.MainMenuTop }))
+            .map(({ render }, index) => (
+              <div key={index}>{render()}</div>
+            ))}
+        </div>
+        <div className="flex items-center gap-4">
+          {menuItems
+            .filter(R.whereEq({ zone: InjectionZone.MainMenuBottom }))
+            .map(({ render }, index) => (
+              <div key={index}>{render()}</div>
+            ))}
+        </div>
       </div>
     </nav>
   );

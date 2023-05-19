@@ -13,7 +13,7 @@ const PlausibleDashboard: React.FC<{ sharedLink: string }> = ({
         plausible-embed
         src={getSecret(sharedLink)}
         loading="lazy"
-        className="min-w-full h-full border-0 border-l border-solid border-gray-200"
+        className="min-w-full h-full border-0"
       />
     </div>
   );

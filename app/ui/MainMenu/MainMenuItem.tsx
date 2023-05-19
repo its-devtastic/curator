@@ -4,9 +4,9 @@ import classNames from "classnames";
 
 const MainMenuItem: React.FC<{
   as?: React.FC<any> | string;
-  children: React.ReactNode;
+  label: React.ReactNode;
   [p: string]: any;
-}> = ({ as = "div", children, to, ...props }) => {
+}> = ({ as = "div", label, to, ...props }) => {
   const match = useMatch(to ?? "");
 
   return React.createElement(
@@ -15,11 +15,13 @@ const MainMenuItem: React.FC<{
       ...props,
       to,
       className: classNames(
-        "flex items-center justify-center gap-2 h-10 w-10 rounded-lg text-lg text-gray-600 font-semibold hover:bg-gray-100 hover:cursor-pointer",
-        { "bg-indigo-100": to && match }
+        "flex items-center select-none justify-center gap-2 py-1 px-4 rounded-full text-lg text-gray-600 font-semibold hover:cursor-pointer no-underline text-sm",
+        to && match
+          ? "bg-indigo-500 text-white hover:bg-indigo-500"
+          : "hover:bg-gray-100"
       ),
     },
-    children
+    label
   );
 };
 
