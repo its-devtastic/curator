@@ -66,6 +66,23 @@ export class StrapiSdk {
     return data;
   }
 
+  public async forgotPassword(email: string) {
+    await this.http.post("/admin/forgot-password", { email });
+  }
+
+  public async resetPassword(payload: { code: string; password: string }) {
+    const {
+      data: { data },
+    } = await this.http.post<{
+      data: { token: string; user: SessionUser };
+    }>("/admin/reset-password", {
+      password: payload.password,
+      resetPasswordToken: payload.code,
+    });
+
+    return data;
+  }
+
   public async getRegistrationInfo(registrationToken: string) {
     const {
       data: { data },

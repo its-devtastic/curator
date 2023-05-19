@@ -17,7 +17,11 @@ import useStrapion from "~/hooks/useStrapion";
 import "~/utils/i18n";
 
 import Auth from "~/routes/Auth";
+import Anon from "~/routes/Anon";
 import Login from "~/routes/Login";
+import ForgotPassword from "~/routes/ForgotPassword";
+import ForgotPasswordSuccess from "~/routes/ForgotPasswordSuccess";
+import ResetPassword from "~/routes/ResetPassword";
 import Profile from "~/routes/Profile";
 import Register from "~/routes/Register";
 
@@ -48,14 +52,31 @@ const App: React.FC = () => {
       children: [{ path: "/profile", element: <Profile /> }, ...config.routes],
     },
     {
-      path: "/login",
-      element: <Login />,
+      path: "/",
+      element: <Anon />,
       loader: () => (!user ? null : redirect("/")),
-    },
-    {
-      path: "/register",
-      element: <Register />,
-      loader: () => (!user ? null : redirect("/")),
+      children: [
+        {
+          path: "/login",
+          element: <Login />,
+        },
+        {
+          path: "/forgot-password",
+          element: <ForgotPassword />,
+        },
+        {
+          path: "/forgot-password-success",
+          element: <ForgotPasswordSuccess />,
+        },
+        {
+          path: "/auth/reset-password",
+          element: <ResetPassword />,
+        },
+        {
+          path: "/register",
+          element: <Register />,
+        },
+      ],
     },
   ]);
 

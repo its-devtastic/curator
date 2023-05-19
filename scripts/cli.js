@@ -15,7 +15,10 @@ function init() {
     const server = await createServer({
       root,
       resolve: {
-        alias: { "~": path.resolve(__dirname, "../app") },
+        alias: {
+          "~": path.resolve(__dirname, "../app"),
+          react: path.resolve(root, "node_modules/react"),
+        },
       },
       css: {
         postcss: {

@@ -35,73 +35,71 @@ const Register: React.FC = () => {
   }, [registrationToken]);
 
   return registrationInfo && registrationToken ? (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50">
-      <div className="max-w-md w-full">
-        <div className="text-center mb-6">
-          <img src={icon} alt="" className="h-16" />
-        </div>
-        <Card className="shadow-[0_3px_0] shadow-slate-100">
-          <h1 className="mt-0 mb-6 text-center">{t("register.title")}</h1>
-          {
-            <Formik
-              initialValues={{
-                email: registrationInfo.email ?? "",
-                firstname: registrationInfo.firstname ?? "",
-                lastname: registrationInfo.lastname ?? "",
-                password: "",
-              }}
-              onSubmit={async ({ email, ...userInfo }) => {
-                try {
-                  const data = await sdk.register({
-                    registrationToken,
-                    ...userInfo,
-                  });
-                  setSession(data);
-                } catch (e: any) {
-                  message.error(e.response.data.error.message);
-                }
-              }}
-            >
-              {({ isSubmitting }) => (
-                <Form className="space-y-4">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-1">
-                      <FormField label={t("register.first_name")}>
-                        <Field name="firstname" as={Input} />
-                      </FormField>
-                    </div>
-                    <div className="flex-1">
-                      <FormField label={t("register.last_name")}>
-                        <Field name="lastname" as={Input} />
-                      </FormField>
-                    </div>
-                  </div>
-                  <FormField label={t("register.email")}>
-                    <Field name="email" as={Input} type="email" disabled />
-                  </FormField>
-                  <FormField
-                    label={t("register.password")}
-                    help={t("register.password_requirements")}
-                  >
-                    <Field name="password" as={Input.Password} />
-                  </FormField>
-                  <Button
-                    type="primary"
-                    className="w-full"
-                    htmlType="submit"
-                    loading={isSubmitting}
-                  >
-                    {t("register.register_button")}
-                  </Button>
-                  <div className="text-center">
-                    <Link to="/login">{t("register.already_account")}</Link>
-                  </div>
-                </Form>
-              )}
-            </Formik>
-          }
-        </Card>
+    <div className="max-w-md w-full">
+      <div className="text-center mb-6">
+        <img src={icon} alt="" className="h-16" />
       </div>
+      <Card className="shadow-[0_3px_0] shadow-slate-100">
+        <h1 className="mt-0 mb-6 text-center">{t("register.title")}</h1>
+        {
+          <Formik
+            initialValues={{
+              email: registrationInfo.email ?? "",
+              firstname: registrationInfo.firstname ?? "",
+              lastname: registrationInfo.lastname ?? "",
+              password: "",
+            }}
+            onSubmit={async ({ email, ...userInfo }) => {
+              try {
+                const data = await sdk.register({
+                  registrationToken,
+                  ...userInfo,
+                });
+                setSession(data);
+              } catch (e: any) {
+                message.error(e.response.data.error.message);
+              }
+            }}
+          >
+            {({ isSubmitting }) => (
+              <Form className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="flex-1">
+                    <FormField label={t("register.first_name")}>
+                      <Field name="firstname" as={Input} />
+                    </FormField>
+                  </div>
+                  <div className="flex-1">
+                    <FormField label={t("register.last_name")}>
+                      <Field name="lastname" as={Input} />
+                    </FormField>
+                  </div>
+                </div>
+                <FormField label={t("register.email")}>
+                  <Field name="email" as={Input} type="email" disabled />
+                </FormField>
+                <FormField
+                  label={t("register.password")}
+                  help={t("register.password_requirements")}
+                >
+                  <Field name="password" as={Input.Password} />
+                </FormField>
+                <Button
+                  type="primary"
+                  className="w-full"
+                  htmlType="submit"
+                  loading={isSubmitting}
+                >
+                  {t("register.register_button")}
+                </Button>
+                <div className="text-center">
+                  <Link to="/login">{t("register.already_account")}</Link>
+                </div>
+              </Form>
+            )}
+          </Formik>
+        }
+      </Card>
     </div>
   ) : null;
 };

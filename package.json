@@ -1,6 +1,6 @@
 {
   "name": "strapion",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Alternative Strapi admin for content creators.",
   "author": "Devtastic <hi@devtastic.build>",
   "module": "index.ts",

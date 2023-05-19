@@ -1,8 +1,27 @@
 {
-  "login.login_button": "Log in",
+  "login.button": "Log in",
+  "login.title": "Log in",
   "login.email": "Email",
   "login.password": "Password",
-  "login.forgot_password": "Forgot password",
+  "login.": "Forgot password",
+
+  "forgot_password.button": "Reset password",
+  "forgot_password.email": "Email",
+  "forgot_password.title": "Forgot password",
+  "forgot_password.ready": "Ready to log in?",
+
+  "forgot_password_success.title": "Check your inbox",
+  "forgot_password_success.description": "An email with a reset link has been sent to your account.",
+  "forgot_password_success.ready": "Ready to log in?",
+
+  "reset_password.title": "Reset password",
+  "reset_password.button": "Change password",
+  "reset_password.requirements": "Your password needs to be at least 8 characters and contain at least 1 uppercase, 1 lowercase and 1 number.",
+  "reset_password.password": "Password",
+  "reset_password.confirm_password": "Confirm password",
+  "reset_password.ready": "Ready to log in?",
+  "reset_password.error": "The reset code is not valid. Please request a new one.",
+  "reset_password.no_code": "We could not find a reset code. Check if the URL matches the link from the reset email.",
 
   "register.title": "Complete registration",
   "register.register_button": "Create account",

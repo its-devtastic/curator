@@ -1,8 +1,27 @@
 {
-  "login.login_button": "Inloggen",
+  "login.button": "Inloggen",
   "login.email": "E-mail",
+  "login.title": "Inloggen",
   "login.password": "Wachtwoord",
   "login.forgot_password": "Wachtwoord vergeten",
+
+  "forgot_password.button": "Reset wachtwoord",
+  "forgot_password.email": "E-mail",
+  "forgot_password.title": "Wachtwoord vergeten",
+  "forgot_password.ready": "Klaar om in te loggen?",
+
+  "forgot_password_success.title": "Check je inbox",
+  "forgot_password_success.description": "Er is een e-mail verstuurd naar je account.",
+  "forgot_password_success.ready": "Klaar om in te loggen?",
+
+  "reset_password.title": "Reset wachtwoord",
+  "reset_password.button": "Verander wachtwoord",
+  "reset_password.requirements": "Je wachtwoord moet minstens 8 karakters, 1 hoofdletter, 1 kleine letter en 1 nummer bevatten",
+  "reset_password.password": "Wachtwoord",
+  "reset_password.confirm_password": "Bevestig wachtwoord",
+  "reset_password.ready": "Klaar om in te loggen?",
+  "reset_password.error": "De resetcode is niet geldig. Vraag een nieuwe aan.",
+  "reset_password.no_code": "We kunnen geen resetcode vinden. Controleer dat de URL gelijk is aan de link in de reset-mail.",
 
   "register.title": "Registratie voltooien",
   "register.register_button": "Account aanmaken",
