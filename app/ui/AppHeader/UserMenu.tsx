@@ -19,6 +19,7 @@ const UserMenu: React.FC = () => {
   return user ? (
     <Dropdown
       trigger={["click"]}
+      placement="bottomRight"
       menu={{
         items: [
           {

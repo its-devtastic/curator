@@ -25,7 +25,7 @@ const MainMenuItem: React.FC<{
       <MainMenu.Item
         label={
           <>
-            {t("common.content")}
+            {t("phrases.manage_content")}
             <FontAwesomeIcon icon={faCaretDown} />
           </>
         }

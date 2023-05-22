@@ -79,6 +79,7 @@
   "phrases.add_component": "Add component",
   "phrases.add_translation": "Add translation",
   "phrases.view_page": "View page",
+  "phrases.manage_content": "Manage content",
 
   "common.edit": "Edit",
   "common.save": "Save",
@@ -95,5 +96,9 @@
   "common.no": "No",
   "common.by": "By",
   "common.translation_plural": "Translations",
-  "common.content": "Content"
+  "common.dashboard": "Dashboard",
+  "common.result": "Result",
+  "common.result_other": "Results",
+  "common.previous": "Previous",
+  "common.next": "Next"
 }

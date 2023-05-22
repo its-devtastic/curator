@@ -3,9 +3,37 @@
 @tailwind utilities;
 
 body {
-  @apply m-0 p-0 antialiased font-sans text-base text-slate-700;
+  @apply m-0 p-0 antialiased font-sans text-base text-gray-700;
 }
 
+/* Button */
 .ant-notification-notice-message {
   @apply text-sm font-semibold text-gray-700;
+}
+
+.ant-btn {
+  @apply font-medium disabled:opacity-50 rounded-md;
+}
+
+.ant-btn-primary {
+  @apply shadow-md shadow-indigo-500/20;
+}
+
+.ant-btn-default {
+  @apply shadow-md shadow-gray-700/5 border-gray-200 text-gray-700 disabled:bg-white disabled:text-gray-700 disabled:border-gray-200 disabled:cursor-default disabled:shadow-md disabled:shadow-gray-700/5;
+}
+
+.ant-btn.ant-btn-sm {
+  @apply text-xs rounded-md;
+}
+
+/* Table */
+.ant-table-content {
+  @apply border-t border-gray-300 border-solid border-0;
+}
+.ant-table .ant-table-thead > tr > th {
+  @apply bg-white uppercase text-xs border-gray-100 before:hidden;
+}
+.ant-table .ant-table-thead > tr > td {
+  @apply bg-white border-gray-100 before:hidden;
 }
