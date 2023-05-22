@@ -60,6 +60,7 @@
 
   "dashboard.welcome": "Welcome 👋",
   "dashboard.description": "What are you working on today?",
+  "dashboard.recently_opened": "Recently opened",
 
   "filters.search": "Search",
 

@@ -12,7 +12,7 @@ export interface StrapionConfig {
   components?: ComponentConfig[];
   plugins: StrapionPlugin[];
   routes: RouteObject[];
-  hooks?: Partial<Record<"save", Hook>>;
+  hooks: Hook[];
   interfaceLanguages?: string[];
   theme?: Partial<ThemeConfig>;
   icon?: string;
@@ -44,5 +44,10 @@ export interface ComponentConfig {
 }
 
 export interface Hook {
-  (apiID: string, entity: any, utils: { getSecret(key: string): string }): void;
+  trigger: "view" | "save";
+  action(
+    apiID: string,
+    entity: any,
+    utils: { getSecret(key: string): string }
+  ): void;
 }
