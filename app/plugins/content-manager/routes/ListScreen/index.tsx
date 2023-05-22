@@ -194,7 +194,7 @@ const ListScreen: React.FC = () => {
                                     : "ASC"
                                 }`
                               );
-                              fetch(apiID);
+                              submitForm();
                             }
                           },
                         }),
