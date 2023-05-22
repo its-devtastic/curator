@@ -22,21 +22,23 @@ const MainMenu: React.FC & {
   );
 
   return (
-    <nav className="px-12 h-12 flex-none flex justify-center bg-white border-b border-solid border-0 border-gray-200">
-      <div className="w-full max-w-screen-xl flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          {menuItems
-            .filter(R.whereEq({ zone: InjectionZone.MainMenuTop }))
-            .map(({ render }, index) => (
-              <div key={index}>{render()}</div>
-            ))}
-        </div>
-        <div className="flex items-center gap-4">
-          {menuItems
-            .filter(R.whereEq({ zone: InjectionZone.MainMenuBottom }))
-            .map(({ render }, index) => (
-              <div key={index}>{render()}</div>
-            ))}
+    <nav className="h-12 flex-none flex justify-center bg-white border-b border-solid border-0 border-gray-200 overflow-y-auto">
+      <div className="w-full max-w-screen-xl">
+        <div className="flex items-center justify-between h-full px-4 md:px-12">
+          <div className="flex items-center gap-4">
+            {menuItems
+              .filter(R.whereEq({ zone: InjectionZone.MainMenuTop }))
+              .map(({ render }, index) => (
+                <div key={index}>{render()}</div>
+              ))}
+          </div>
+          <div className="flex items-center gap-4">
+            {menuItems
+              .filter(R.whereEq({ zone: InjectionZone.MainMenuBottom }))
+              .map(({ render }, index) => (
+                <div key={index}>{render()}</div>
+              ))}
+          </div>
         </div>
       </div>
     </nav>

@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 const Table: React.FC<TableProps<any>> = ({ ...props }) => {
   const { t } = useTranslation();
 
-  return <BaseTable pagination={false} {...props} />;
+  return <BaseTable pagination={false} scroll={{ x: true }} {...props} />;
 };
 
 export default Table;

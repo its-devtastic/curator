@@ -16,7 +16,7 @@ const Popover: React.FC<
       content={content(() => setOpen(false))}
       arrow={false}
       {...props}
-      overlayClassName="border-solid border border-gray-200/80 rounded-md"
+      overlayClassName="border-solid border border-gray-200/80 rounded-md max-w-[100vw]"
     >
       {children}
     </BasePopover>

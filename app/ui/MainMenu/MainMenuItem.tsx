@@ -15,7 +15,7 @@ const MainMenuItem: React.FC<{
       ...props,
       to,
       className: classNames(
-        "flex items-center select-none justify-center gap-2 py-1 px-4 rounded-full text-lg text-gray-600 font-semibold hover:cursor-pointer no-underline text-sm",
+        "flex items-center select-none justify-center gap-2 py-1 px-4 rounded-full text-lg text-gray-600 font-semibold hover:cursor-pointer no-underline text-sm whitespace-nowrap",
         to && match
           ? "bg-indigo-500 text-white hover:bg-indigo-500"
           : "hover:bg-gray-100"

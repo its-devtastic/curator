@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { useInterval } from "react-use";
+import classNames from "classnames";
 
 export default function CalendarTime({
   children,
@@ -22,7 +23,7 @@ export default function CalendarTime({
   return (
     <time
       dateTime={then.isValid() ? then.toISOString() : ""}
-      className={className}
+      className={classNames(className, "whitespace-nowrap")}
     >
       {format}
     </time>

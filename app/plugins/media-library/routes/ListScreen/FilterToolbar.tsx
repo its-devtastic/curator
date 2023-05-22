@@ -5,15 +5,13 @@ import { faRefresh } from "@fortawesome/free-solid-svg-icons";
 import { useFormikContext } from "formik";
 import { useTranslation } from "react-i18next";
 
-import LanguageSelect from "~/ui/LanguageSelect";
-
 const FilterToolbar: React.FC = () => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState<false | "button" | "search">(false);
-  const { setFieldValue, values, submitForm } = useFormikContext<any>();
+  const { setFieldValue, submitForm } = useFormikContext<any>();
 
   return (
-    <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+    <div className="flex justify-between items-center">
       <div className="flex gap-4 items-center">
         <Input.Search
           loading={loading === "search"}
@@ -27,14 +25,6 @@ const FilterToolbar: React.FC = () => {
         />
       </div>
       <div className="flex items-center gap-2">
-        <LanguageSelect
-          className="w-48"
-          value={values.locale}
-          onChange={async (locale) => {
-            setFieldValue("locale", locale);
-            await submitForm();
-          }}
-        />
         <Button
           loading={loading === "button"}
           type="text"
