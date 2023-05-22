@@ -6,11 +6,19 @@ import { InjectionZone, InjectionZoneEntry } from "~/types/config";
 
 import DashboardScreen from "./routes/DashboardScreen";
 import MainMenuItem from "./MainMenuItem";
+import useDashboard from "./useDashboard";
 
-export default function dashboardPlugin() {
+export default function dashboardPlugin(
+  pluginOptions: DashboardPluginOptions = {}
+) {
   return (config: StrapionConfig): StrapionConfig => {
     return R.evolve({
-      routes: R.concat([{ path: "/", element: <DashboardScreen /> }]),
+      routes: R.concat([
+        {
+          path: "/",
+          element: <DashboardScreen pluginOptions={pluginOptions} />,
+        },
+      ]),
       zones: R.append<InjectionZoneEntry>({
         zone: InjectionZone.MainMenuTop,
         weight: 0,
@@ -18,6 +26,18 @@ export default function dashboardPlugin() {
           return <MainMenuItem />;
         },
       }),
+      hooks: R.append<any>({
+        trigger: "view",
+        action: (apiID: string, { id }: any) => {
+          useDashboard.getState().addRecentlyOpened(apiID, id);
+        },
+      }),
     })(config);
+  };
+}
+
+export interface DashboardPluginOptions {
+  recentlyOpened?: {
+    renderTitle?(item: any): React.ReactNode;
   };
 }

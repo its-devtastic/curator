@@ -52,11 +52,18 @@ const DetailScreen: React.FC = () => {
     }
 
     try {
-      return await sdk.getOne<any>(
+      const data = await sdk.getOne<any>(
         apiID,
         isSingleType ? undefined : Number(params.id),
         { params: { locale: defaultLocale } }
       );
+      const hooks = config.hooks.filter(R.whereEq({ trigger: "view" }));
+
+      for (const hook of hooks) {
+        hook.action(apiID, data, { getSecret });
+      }
+
+      return data;
     } catch (e: any) {
       if (e.response.status === 404) {
         if (isSingleType) {
@@ -96,10 +103,11 @@ const DetailScreen: React.FC = () => {
               const data = await sdk.save(apiID, values, {
                 params: { "plugins[i18n][locale]": values.locale },
               });
+              const hooks = config.hooks.filter(R.whereEq({ trigger: "save" }));
               resetForm({ values: data });
 
-              if (config.hooks?.save) {
-                config.hooks.save(apiID, data, { getSecret });
+              for (const hook of hooks) {
+                hook.action(apiID, data, { getSecret });
               }
 
               notification.success({ message: t("phrases.document_saved") });

@@ -119,8 +119,10 @@ export class StrapiSdk {
     id?: number,
     config?: any
   ) {
+    const isSingleType =
+      this.contentTypes.find(R.whereEq({ apiID }))?.kind === "singleType";
     const { data } = await this.http.get<T>(
-      `${this.getContentUrl(apiID)}/${id ?? ""}`,
+      `${this.getContentUrl(apiID)}/${(isSingleType ? "" : id) ?? ""}`,
       config
     );
 
