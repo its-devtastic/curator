@@ -1,24 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 import MainMenu from "~/ui/MainMenu";
 
-import MediaLibraryDrawer from "../ui/MediaLibraryDrawer";
-
 const MainMenuItem: React.FC = () => {
   const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
 
   return (
-    <>
-      <MainMenu.Item
-        onClick={() => setOpen(true)}
-        label={t("common.media_library")}
-      />
-      {open && (
-        <MediaLibraryDrawer open={open} onClose={() => setOpen(false)} />
-      )}
-    </>
+    <MainMenu.Item
+      as={Link}
+      to="/media-library"
+      label={t("common.media_library")}
+    />
   );
 };
 

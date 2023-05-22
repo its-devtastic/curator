@@ -68,8 +68,8 @@ const DetailScreen: React.FC = () => {
   }, [sdk, apiID, params.id, locale]);
 
   return (
-    <div>
-      <div className="p-4 border-b border-0 border-dashed border-slate-200 max-w-screen-xl mx-auto flex justify-between items-center">
+    <div className="px-4 md:px-12">
+      <div className="py-4 border-b border-0 border-dashed border-slate-200 flex justify-between items-center">
         <div className="flex-1">
           {!isSingleType && (
             <Link
@@ -116,12 +116,9 @@ const DetailScreen: React.FC = () => {
 
             return (
               <div
-                className={classNames(
-                  "p-6 max-w-screen-xl my-6 mx-auto rounded-xl",
-                  {
-                    "bg-amber-50": hasDraftState && !values.publishedAt,
-                  }
-                )}
+                className={classNames("my-6 mx-auto rounded-xl", {
+                  "bg-amber-50": hasDraftState && !values.publishedAt,
+                })}
               >
                 <Header />
 
@@ -140,7 +137,7 @@ const DetailScreen: React.FC = () => {
                     </Card>
                   )}
                   {main && (
-                    <Card className="flex-1 border-slate-200 max-w-screen-md shadow-sm">
+                    <Card className="flex-1 border-gray-200 shadow-sm">
                       <div className="space-y-6">
                         {main.map((field: FieldDefinition) => (
                           <FieldRenderer

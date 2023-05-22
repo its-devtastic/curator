@@ -47,7 +47,7 @@ const ListScreen: React.FC = () => {
   }, [sdk, contentTypes, apiID]);
 
   return (
-    <div className="px-12 py-6">
+    <div className="px-4 md:px-12 py-6">
       {contentTypeConfig && contentType && !loading ? (
         <Formik<GetManyParams>
           initialValues={{
@@ -64,8 +64,8 @@ const ListScreen: React.FC = () => {
         >
           {({ values, setFieldValue, submitForm }) => (
             <div>
-              <div className="flex items-center justify-between mb-24">
-                <h1>{t(name, { count: 2, ns: "custom" })}</h1>
+              <div className="flex flex-col md:flex-row items-center justify-between my-12 md:mb-24 gap-4">
+                <h1 className="m-0">{t(name, { count: 2, ns: "custom" })}</h1>
 
                 <Button
                   type="primary"

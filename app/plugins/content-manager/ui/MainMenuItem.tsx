@@ -20,7 +20,7 @@ const MainMenuItem: React.FC<{
         <ContentManagerMenu groups={groups} onSelect={close} />
       )}
       trigger={["click"]}
-      placement="bottomLeft"
+      placement="bottom"
     >
       <MainMenu.Item
         label={

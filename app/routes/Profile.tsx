@@ -35,8 +35,8 @@ export default function Profile() {
           }}
         >
           {() => (
-            <Form>
-              <div className="flex items-center justify-between mb-12 pb-6 border-b border-0 border-solid border-gray-200">
+            <Form className="px-4 md:px-12">
+              <div className="flex items-center justify-between my-12 pb-6 border-b border-0 border-solid border-gray-200">
                 <h1 className="m-0">{t("common.profile")}</h1>
                 <Button type="primary" htmlType="submit">
                   {t("common.save")}
