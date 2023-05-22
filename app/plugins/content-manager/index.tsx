@@ -20,7 +20,7 @@ export default function contentManagerPlugin(
       ]),
       zones: R.append<InjectionZoneEntry>({
         zone: InjectionZone.MainMenuTop,
-        weight: 0,
+        weight: 10,
         render() {
           return <MainMenuItem groups={groups} />;
         },

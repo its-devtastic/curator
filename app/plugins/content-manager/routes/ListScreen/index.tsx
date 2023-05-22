@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  Badge,
-  Button,
-  Dropdown,
-  Image,
-  notification,
-  Table,
-  Tooltip,
-} from "antd";
+import { Badge, Button, Dropdown, Image, notification, Tooltip } from "antd";
 import * as R from "ramda";
 import { useAsync } from "react-use";
 import { Formik } from "formik";
@@ -16,17 +8,19 @@ import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 
-import { Pagination } from "~/types/response";
+import { Pagination as IPagination } from "~/types/response";
+import { GetManyParams } from "~/types/request";
 
 import useStrapion from "~/hooks/useStrapion";
 import useStrapi from "~/hooks/useStrapi";
 
 import Spinner from "~/ui/Spinner";
 import CalendarTime from "~/ui/CalendarTime";
+import Table from "~/ui/Table";
+import Pagination from "~/ui/Pagination";
 
 import { SORTABLE_FIELD_TYPES } from "../../utils/constants";
 import FilterToolbar from "./FilterToolbar";
-import { GetManyParams } from "~/types/request";
 
 const ListScreen: React.FC = () => {
   const { t } = useTranslation();
@@ -40,7 +34,7 @@ const ListScreen: React.FC = () => {
   const hasDraftState = contentType?.options.draftAndPublish;
   const name = contentTypeConfig?.name ?? contentType?.info.displayName ?? "";
   const [collection, setCollection] = useState<{
-    pagination: Pagination | null;
+    pagination: IPagination | null;
     results: any[];
   }>({
     pagination: null,
@@ -53,7 +47,7 @@ const ListScreen: React.FC = () => {
   }, [sdk, contentTypes, apiID]);
 
   return (
-    <div>
+    <div className="px-12 py-6">
       {contentTypeConfig && contentType && !loading ? (
         <Formik<GetManyParams>
           initialValues={{
@@ -88,6 +82,7 @@ const ListScreen: React.FC = () => {
               </div>
 
               <Table
+                className="mb-6"
                 dataSource={collection.results}
                 tableLayout="auto"
                 sortDirections={["ascend", "descend", "ascend"]}
@@ -264,17 +259,14 @@ const ListScreen: React.FC = () => {
                     },
                   },
                 ].filter(Boolean)}
-                pagination={{
-                  pageSize: values.pageSize,
-                  current: values.page,
-                  total: collection.pagination?.total,
-                  showSizeChanger: false,
-                  onChange: (page) => {
-                    setFieldValue("page", page);
-                    submitForm();
-                  },
-                  showTotal: (total, range) =>
-                    `${range[0]}-${range[1]} of ${total} items`,
+              />
+              <Pagination
+                current={values.page}
+                pageSize={values.pageSize}
+                total={collection.pagination?.total}
+                onChange={(page) => {
+                  setFieldValue("page", page);
+                  submitForm();
                 }}
               />
             </div>

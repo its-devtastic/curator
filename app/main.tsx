@@ -30,7 +30,16 @@ export default function createStrapionApp(strapionConfig: StrapionConfig) {
     <React.StrictMode>
       <ConfigProvider
         theme={R.mergeDeepLeft(
-          { token: { controlHeight: 36 } },
+          {
+            token: {
+              colorPrimary: "#4f46e5",
+              colorSuccess: "#10b981",
+              colorError: "#f43f5e",
+              colorWarning: "#f59e0b",
+              colorTextBase: "#030712",
+              motion: false,
+            },
+          },
           strapionConfig.theme ?? {}
         )}
       >
