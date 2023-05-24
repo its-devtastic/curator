@@ -24,12 +24,15 @@ const RecentlyOpened: React.FC<{
   );
 
   const { value = [] } = useAsync(async () => {
-    return Promise.all(
+    const all = await Promise.all(
       recentlyOpened.map(async ({ apiID, id }) => {
-        const item = await sdk.getOne(apiID, Number(id));
-        return { apiID, ...item };
+        try {
+          const item = await sdk.getOne(apiID, Number(id));
+          return { apiID, ...item };
+        } catch (e) {}
       })
     );
+    return all.filter(Boolean);
   }, [hash]);
 
   return (

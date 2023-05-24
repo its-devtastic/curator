@@ -7,6 +7,8 @@ import { SessionUser } from "~/types/session";
 import { MediaItem } from "~/types/media";
 import { PaginatedResponse } from "~/types/response";
 import { GetManyParams, GetMediaParams } from "~/types/request";
+import { Permission } from "~/types/permission";
+import { Session } from "inspector";
 
 export class StrapiSdk {
   public apiUrl: string;
@@ -51,6 +53,22 @@ export class StrapiSdk {
   public async getComponents() {
     const { data } = await this.http.get<{ data: StrapiComponent[] }>(
       "/content-manager/components"
+    );
+
+    return data.data;
+  }
+
+  public async getPermissions() {
+    const { data } = await this.http.get<{ data: Permission[] }>(
+      "/admin/users/me/permissions"
+    );
+
+    return data.data;
+  }
+
+  public async getMe() {
+    const { data } = await this.http.get<{ data: SessionUser }>(
+      "/admin/users/me"
     );
 
     return data.data;

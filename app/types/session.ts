@@ -1,3 +1,5 @@
+import { UserRole } from "~/types/permission";
+
 export interface SessionUser {
   blocked: boolean;
   createdAt: string;
@@ -9,4 +11,5 @@ export interface SessionUser {
   preferedLanguage: null;
   updatedAt: string;
   username: string | null;
+  roles?: UserRole[];
 }

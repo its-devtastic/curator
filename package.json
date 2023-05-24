@@ -15,6 +15,13 @@
       "email": "leon@devtastic.build"
     }
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/its-devtastic/strapion"
+  },
+  "bugs": {
+    "url": "https://github.com/its-devtastic/strapion/issues"
+  },
   "license": "MIT",
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^38.0.0",
