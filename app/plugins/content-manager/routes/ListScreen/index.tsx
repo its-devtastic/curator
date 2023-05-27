@@ -211,7 +211,9 @@ const ListScreen: React.FC = () => {
                             case "media":
                               return value?.mime?.startsWith("image/") ? (
                                 <Image
-                                  src={value.formats.thumbnail.url}
+                                  src={
+                                    value.formats?.thumbnail.url || value.url
+                                  }
                                   alt=""
                                   width={64}
                                   height={64}

@@ -20,7 +20,7 @@ export class StrapiSdk {
     this.http = axios.create({ baseURL: apiUrl });
 
     this.http.interceptors.response.use(R.identity, (error) => {
-      if (error.response.status === 401) {
+      if (error.response?.status === 401) {
         this.setAuthorization(null);
       }
       throw error;

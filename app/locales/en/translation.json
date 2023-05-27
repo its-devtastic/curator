@@ -42,6 +42,10 @@
   "profile.username": "Username",
   "profile.interfaceLanguage": "Interface language",
 
+  "team.title": "Manage team",
+  "team.description": "Users of the CMS such as admins, editors and authors.",
+  "team.invite": "Invite new user",
+
   "content_types.page.label": "Page",
   "content_types.page.description": "A generic page",
 
@@ -81,8 +85,10 @@
   "phrases.add_translation": "Add translation",
   "phrases.view_page": "View page",
   "phrases.manage_content": "Manage content",
+  "phrases.no_view_permission": "You don't have permission to view this resource",
 
   "common.edit": "Edit",
+  "common.create": "Create",
   "common.save": "Save",
   "common.draft": "Draft",
   "common.publish": "Publish",

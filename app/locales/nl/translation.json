@@ -36,11 +36,17 @@
   "user_menu.log_out": "Uitloggen",
   "user_menu.profile": "Profiel",
 
+  "project_menu.team": "Beheer team",
+
   "profile.email": "E-mailadres",
   "profile.firstname": "Voornaam",
   "profile.lastname": "Achternaam",
   "profile.username": "Gebruikersnaam",
   "profile.interfaceLanguage": "Interface-taal",
+
+  "team.title": "Beheer team",
+  "team.description": "Gebruikers van het CMS zoals admins, editors and authors.",
+  "team.invite": "Nieuwe gebruiker uitnodigen",
 
   "media_library.upload": "Upload",
   "media_library.new_folder": "Nieuwe folder",
@@ -78,8 +84,10 @@
   "phrases.add_translation": "Voeg vertaling toe",
   "phrases.view_page": "Bekijk pagina",
   "phrases.manage_content": "Beheer content",
+  "phrases.no_view_permission": "Je hebt geen toegang tot dit gedeelte",
 
   "common.edit": "Bewerk",
+  "common.create": "Aanmaken",
   "common.save": "Opslaan",
   "common.draft": "Concept",
   "common.publish": "Publiceren",

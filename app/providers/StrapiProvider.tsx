@@ -9,6 +9,7 @@ import useSession from "~/hooks/useSession";
 
 import { StrapiSdk } from "~/utils/sdk";
 import { Permission } from "~/types/permission";
+import { Alert } from "antd";
 
 export const Context = createContext<{
   sdk: StrapiSdk;
@@ -32,14 +33,14 @@ export const StrapiProvider: React.FC<{
 
   useEffect(() => {
     sdk.http.interceptors.response.use(R.identity, (error) => {
-      if (error.response.status === 401) {
+      if (error.response?.status === 401) {
         clearSession();
       }
       throw error;
     });
   }, [clearSession]);
 
-  useAsync(async () => {
+  const { error } = useAsync(async () => {
     sdk.setAuthorization(token);
 
     if (token) {
@@ -62,6 +63,7 @@ export const StrapiProvider: React.FC<{
     <Context.Provider
       value={{ sdk, locales, contentTypes, components, permissions }}
     >
+      {error && <Alert banner type="error" description={error.message} />}
       {init && children}
     </Context.Provider>
   );
