@@ -53,6 +53,8 @@
   "team.delete_user": "Delete user",
   "team.this_is_you": "This is you",
   "team.user_deleted": "The user account for {{name}} has been deleted.",
+  "team.update_user": "Update user",
+  "team.update_error": "There was an error when trying to update the user.",
 
   "content_types.page.label": "Page",
   "content_types.page.description": "A generic page",

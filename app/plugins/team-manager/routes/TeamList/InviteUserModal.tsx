@@ -50,7 +50,7 @@ export default function InviteUserModal({
         }
       }}
     >
-      {({ submitForm, isSubmitting, errors }) => (
+      {({ submitForm, isSubmitting, errors, touched }) => (
         <Modal
           open
           centered
@@ -89,17 +89,20 @@ export default function InviteUserModal({
               <div className="grid grid-cols-2 gap-3 mb-6">
                 <FormField
                   label={t("common.first_name")}
-                  error={errors.firstname}
+                  error={touched.firstname && errors.firstname}
                 >
                   <FormikField name="firstname" as={Input} />
                 </FormField>
                 <FormField
                   label={t("common.last_name")}
-                  error={errors.lastname}
+                  error={touched.lastname && errors.lastname}
                 >
                   <FormikField name="lastname" as={Input} />
                 </FormField>
-                <FormField label={t("common.email")} error={errors.email}>
+                <FormField
+                  label={t("common.email")}
+                  error={touched.email && errors.email}
+                >
                   <FormikField name="email" as={Input} type="email" />
                 </FormField>
               </div>
@@ -109,7 +112,7 @@ export default function InviteUserModal({
                 <FormField
                   label={t("team.user_roles_label")}
                   help={t("team.user_roles_help")}
-                  error={errors.roles}
+                  error={touched.roles && errors.roles}
                 >
                   <Field name="roles">
                     <Select

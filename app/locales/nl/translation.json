@@ -55,6 +55,8 @@
   "team.delete_user": "Verwijder gebruiker",
   "team.this_is_you": "Dit ben jij",
   "team.user_deleted": "Het gebruikersaccount voor {{name}} is verwijderd.",
+  "team.update_user": "Bewerk gebruiker",
+  "team.update_error": "Er heeft zich een fout voorgedaan bij het updaten van de gebruiker.",
 
   "media_library.upload": "Upload",
   "media_library.new_folder": "Nieuwe folder",

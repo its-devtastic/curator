@@ -269,15 +269,15 @@ export class StrapiSdk {
     }>(`/admin/users/${id}`);
   }
 
-  public async updateAdminUser(
-    value: Pick<
-      AdminUser,
-      "id" | "email" | "firstname" | "lastname" | "roles" | "isActive"
-    >
-  ) {
+  public async updateAdminUser({
+    id,
+    ...value
+  }: Pick<AdminUser, "id" | "email" | "firstname" | "lastname" | "isActive"> & {
+    roles: number[];
+  }) {
     const { data } = await this.http.put<{
       data: AdminUser;
-    }>(`/admin/users/${value.id}`, value);
+    }>(`/admin/users/${id}`, value);
 
     return data.data;
   }

@@ -10,7 +10,7 @@ import { AdminUser } from "~/types/adminUser";
 import useStrapi from "~/hooks/useStrapi";
 import FormField from "~/ui/FormField";
 
-export default function DeleteUser({
+export default function DeleteUserModal({
   onClose,
   onDelete,
   user,
