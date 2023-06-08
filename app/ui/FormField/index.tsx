@@ -33,9 +33,7 @@ const FormField: React.FC<FormFieldProps> = ({
         <div className="mt-1 text-xs text-gray-500 cursor-default">{help}</div>
       )}
       {error && (
-        <div className="mt-1 text-sm text-rose-500 font-bold cursor-default">
-          {error}
-        </div>
+        <div className="mt-1 text-sm text-rose-500 cursor-default">{error}</div>
       )}
     </div>
   );

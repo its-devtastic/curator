@@ -7,6 +7,8 @@ import { SessionUser } from "~/types/session";
 import { MediaItem } from "~/types/media";
 import { PaginatedResponse } from "~/types/response";
 import { GetManyParams, GetMediaParams } from "~/types/request";
+import { Permission, UserRole } from "~/types/permission";
+import { AdminUser } from "~/types/adminUser";
 
 export class StrapiSdk {
   public apiUrl: string;
@@ -18,7 +20,7 @@ export class StrapiSdk {
     this.http = axios.create({ baseURL: apiUrl });
 
     this.http.interceptors.response.use(R.identity, (error) => {
-      if (error.response.status === 401) {
+      if (error.response?.status === 401) {
         this.setAuthorization(null);
       }
       throw error;
@@ -51,6 +53,22 @@ export class StrapiSdk {
   public async getComponents() {
     const { data } = await this.http.get<{ data: StrapiComponent[] }>(
       "/content-manager/components"
+    );
+
+    return data.data;
+  }
+
+  public async getPermissions() {
+    const { data } = await this.http.get<{ data: Permission[] }>(
+      "/admin/users/me/permissions"
+    );
+
+    return data.data;
+  }
+
+  public async getMe() {
+    const { data } = await this.http.get<{ data: SessionUser }>(
+      "/admin/users/me"
     );
 
     return data.data;
@@ -227,6 +245,57 @@ export class StrapiSdk {
     });
 
     return data;
+  }
+
+  public async getAdminUsers(params: GetManyParams) {
+    const { data } = await this.http.get<{
+      data: PaginatedResponse<AdminUser>;
+    }>("/admin/users", { params });
+
+    return data.data;
+  }
+
+  public async getAdminUser(id: number) {
+    const { data } = await this.http.get<{
+      data: AdminUser;
+    }>(`/admin/users/${id}`);
+
+    return data.data;
+  }
+
+  public async deleteAdminUser(id: number) {
+    await this.http.delete<{
+      data: AdminUser;
+    }>(`/admin/users/${id}`);
+  }
+
+  public async updateAdminUser({
+    id,
+    ...value
+  }: Pick<AdminUser, "id" | "email" | "firstname" | "lastname" | "isActive"> & {
+    roles: number[];
+  }) {
+    const { data } = await this.http.put<{
+      data: AdminUser;
+    }>(`/admin/users/${id}`, value);
+
+    return data.data;
+  }
+
+  public async createAdminUser(
+    value: Pick<AdminUser, "email" | "firstname" | "lastname" | "roles">
+  ) {
+    const { data } = await this.http.post<{
+      data: AdminUser & { registrationToken: string };
+    }>("/admin/users", value);
+
+    return data.data;
+  }
+
+  public async getAdminRoles() {
+    const { data } = await this.http.get<{ data: UserRole[] }>("/admin/roles");
+
+    return data.data;
   }
 
   private getContentUrl(apiID: string): string {

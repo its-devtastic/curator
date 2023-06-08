@@ -10,8 +10,8 @@ const DashboardScreen: React.FC<{ pluginOptions: DashboardPluginOptions }> = ({
   const { t } = useTranslation();
 
   return (
-    <div className="px-4 md:px-12 py-12 grid grid-cols-1 md:grid-cols-3 gap-12">
-      <div className="md:col-span-3">
+    <div className="px-4 md:px-12 py-12 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-12">
+      <div className="md:col-span-2 xl:col-span-3">
         <h1>{t("dashboard.welcome")}</h1>
         <div>{t("dashboard.description")}</div>
       </div>

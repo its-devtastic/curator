@@ -42,6 +42,20 @@
   "profile.username": "Username",
   "profile.interfaceLanguage": "Interface language",
 
+  "team.title": "Manage team",
+  "team.description": "Users of the CMS such as admins, editors and authors.",
+  "team.invite": "Invite new user",
+  "team.send_invite": "Send invite",
+  "team.user_roles_label": "User roles",
+  "team.user_roles_help": "A user can have one or more roles",
+  "team.error": "Could not create user. Make sure the email address is not already in use.",
+  "team.copy_link": "Copy and share this link with {{name}}",
+  "team.delete_user": "Delete user",
+  "team.this_is_you": "This is you",
+  "team.user_deleted": "The user account for {{name}} has been deleted.",
+  "team.update_user": "Update user",
+  "team.update_error": "There was an error when trying to update the user.",
+
   "content_types.page.label": "Page",
   "content_types.page.description": "A generic page",
 
@@ -81,8 +95,12 @@
   "phrases.add_translation": "Add translation",
   "phrases.view_page": "View page",
   "phrases.manage_content": "Manage content",
+  "phrases.no_view_permission": "You don't have permission to view this resource",
+  "phrases.are_you_sure": "Are you sure?",
+  "phrases.type_delete": "Type DELETE to confirm",
 
   "common.edit": "Edit",
+  "common.create": "Create",
   "common.save": "Save",
   "common.draft": "Draft",
   "common.publish": "Publish",
@@ -101,5 +119,14 @@
   "common.result": "Result",
   "common.result_other": "Results",
   "common.previous": "Previous",
-  "common.next": "Next"
+  "common.next": "Next",
+  "common.active": "Active",
+  "common.inactive": "Inactive",
+  "common.name": "Name",
+  "common.email": "Email",
+  "common.first_name": "First name",
+  "common.last_name": "Last name",
+  "common.role": "Role",
+  "common.role_other": "Roles",
+  "common.done": "Done"
 }
