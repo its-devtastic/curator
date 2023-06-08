@@ -1,15 +1,15 @@
 import React, { createContext, useEffect, useMemo, useState } from "react";
 import { useAsync } from "react-use";
 import * as R from "ramda";
+import { Alert } from "antd";
 
 import { ContentType, StrapiComponent } from "~/types/contentType";
 import { StrapiLocale } from "~/types/locales";
+import { Permission, UserRole } from "~/types/permission";
 
 import useSession from "~/hooks/useSession";
 
 import { StrapiSdk } from "~/utils/sdk";
-import { Permission } from "~/types/permission";
-import { Alert } from "antd";
 
 export const Context = createContext<{
   sdk: StrapiSdk;
@@ -17,6 +17,7 @@ export const Context = createContext<{
   components: StrapiComponent[];
   contentTypes: ContentType[];
   permissions: Permission[];
+  roles: UserRole[];
 }>({} as any);
 
 export const StrapiProvider: React.FC<{
@@ -28,6 +29,7 @@ export const StrapiProvider: React.FC<{
   const [contentTypes, setContentTypes] = useState<ContentType[]>([]);
   const [components, setComponents] = useState<StrapiComponent[]>([]);
   const [permissions, setPermissions] = useState<Permission[]>([]);
+  const [roles, setRoles] = useState<UserRole[]>([]);
   const [locales, setLocales] = useState<StrapiLocale[]>([]);
   const sdk = useMemo(() => new StrapiSdk(apiUrl), []);
 
@@ -46,10 +48,12 @@ export const StrapiProvider: React.FC<{
     if (token) {
       const user = await sdk.getMe();
       const permissions = await sdk.getPermissions();
+      const roles = await sdk.getAdminRoles();
       const contentTypes = await sdk.getContentTypes();
       const components = await sdk.getComponents();
       const locales = await sdk.getLocales();
       setPermissions(permissions);
+      setRoles(roles);
       setContentTypes(contentTypes);
       setComponents(components);
       setLocales(locales);
@@ -61,7 +65,7 @@ export const StrapiProvider: React.FC<{
 
   return (
     <Context.Provider
-      value={{ sdk, locales, contentTypes, components, permissions }}
+      value={{ sdk, locales, contentTypes, components, permissions, roles }}
     >
       {error && <Alert banner type="error" description={error.message} />}
       {init && children}

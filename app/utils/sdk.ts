@@ -7,8 +7,8 @@ import { SessionUser } from "~/types/session";
 import { MediaItem } from "~/types/media";
 import { PaginatedResponse } from "~/types/response";
 import { GetManyParams, GetMediaParams } from "~/types/request";
-import { Permission } from "~/types/permission";
-import { Session } from "inspector";
+import { Permission, UserRole } from "~/types/permission";
+import { AdminUser } from "~/types/adminUser";
 
 export class StrapiSdk {
   public apiUrl: string;
@@ -245,6 +245,30 @@ export class StrapiSdk {
     });
 
     return data;
+  }
+
+  public async getAdminUsers(params: GetManyParams) {
+    const { data } = await this.http.get<{
+      data: PaginatedResponse<AdminUser>;
+    }>("/admin/users", { params });
+
+    return data.data;
+  }
+
+  public async createAdminUser(
+    value: Pick<AdminUser, "email" | "firstname" | "lastname" | "roles">
+  ) {
+    const { data } = await this.http.post<{
+      data: AdminUser & { registrationToken: string };
+    }>("/admin/users", value);
+
+    return data.data;
+  }
+
+  public async getAdminRoles() {
+    const { data } = await this.http.get<{ data: UserRole[] }>("/admin/roles");
+
+    return data.data;
   }
 
   private getContentUrl(apiID: string): string {

@@ -45,6 +45,11 @@
   "team.title": "Manage team",
   "team.description": "Users of the CMS such as admins, editors and authors.",
   "team.invite": "Invite new user",
+  "team.send_invite": "Send invite",
+  "team.user_roles_label": "User roles",
+  "team.user_roles_help": "A user can have one or more roles",
+  "team.error": "Could not create user. Make sure the email address is not already in use.",
+  "team.copy_link": "Copy and share this link with {{name}}",
 
   "content_types.page.label": "Page",
   "content_types.page.description": "A generic page",
@@ -107,5 +112,14 @@
   "common.result": "Result",
   "common.result_other": "Results",
   "common.previous": "Previous",
-  "common.next": "Next"
+  "common.next": "Next",
+  "common.active": "Active",
+  "common.inactive": "Inactive",
+  "common.name": "Name",
+  "common.email": "Email",
+  "common.first_name": "First name",
+  "common.last_name": "Last name",
+  "common.role": "Role",
+  "common.role_other": "Roles",
+  "common.done": "Done"
 }
