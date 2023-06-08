@@ -52,6 +52,9 @@
   "team.user_roles_help": "Een gebruiker kan één of meerdere rollen hebben",
   "team.error": "Kan gebruiker niet aanmaken. Controleer of het e-mailadres niet al in gebruik is.",
   "team.copy_link": "Kopieer en deel deze link met {{name}}",
+  "team.delete_user": "Verwijder gebruiker",
+  "team.this_is_you": "Dit ben jij",
+  "team.user_deleted": "Het gebruikersaccount voor {{name}} is verwijderd.",
 
   "media_library.upload": "Upload",
   "media_library.new_folder": "Nieuwe folder",
@@ -90,6 +93,8 @@
   "phrases.view_page": "Bekijk pagina",
   "phrases.manage_content": "Beheer content",
   "phrases.no_view_permission": "Je hebt geen toegang tot dit gedeelte",
+  "phrases.are_you_sure": "Weet je het zeker?",
+  "phrases.type_delete": "Typ DELETE om te bevestigen",
 
   "common.edit": "Bewerk",
   "common.create": "Aanmaken",

@@ -48,12 +48,14 @@ export const StrapiProvider: React.FC<{
     if (token) {
       const user = await sdk.getMe();
       const permissions = await sdk.getPermissions();
-      const roles = await sdk.getAdminRoles();
+      if (permissions.some(R.whereEq({ action: "admin::roles.read" }))) {
+        const roles = await sdk.getAdminRoles();
+        setRoles(roles);
+      }
       const contentTypes = await sdk.getContentTypes();
       const components = await sdk.getComponents();
       const locales = await sdk.getLocales();
       setPermissions(permissions);
-      setRoles(roles);
       setContentTypes(contentTypes);
       setComponents(components);
       setLocales(locales);

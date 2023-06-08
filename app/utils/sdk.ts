@@ -255,6 +255,33 @@ export class StrapiSdk {
     return data.data;
   }
 
+  public async getAdminUser(id: number) {
+    const { data } = await this.http.get<{
+      data: AdminUser;
+    }>(`/admin/users/${id}`);
+
+    return data.data;
+  }
+
+  public async deleteAdminUser(id: number) {
+    await this.http.delete<{
+      data: AdminUser;
+    }>(`/admin/users/${id}`);
+  }
+
+  public async updateAdminUser(
+    value: Pick<
+      AdminUser,
+      "id" | "email" | "firstname" | "lastname" | "roles" | "isActive"
+    >
+  ) {
+    const { data } = await this.http.put<{
+      data: AdminUser;
+    }>(`/admin/users/${value.id}`, value);
+
+    return data.data;
+  }
+
   public async createAdminUser(
     value: Pick<AdminUser, "email" | "firstname" | "lastname" | "roles">
   ) {

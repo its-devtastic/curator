@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Button, Tag } from "antd";
 import { useAsyncRetry } from "react-use";
 import * as R from "ramda";
+import { useNavigate } from "react-router-dom";
 
 import { Pagination as IPagination } from "~/types/response";
 import { AdminUser } from "~/types/adminUser";
@@ -14,6 +15,7 @@ import InviteUserModal from "./InviteUserModal";
 export default function TeamList() {
   const { t } = useTranslation();
   const { sdk, permissions } = useStrapi();
+  const navigate = useNavigate();
   const canCreate = permissions.some(
     R.whereEq({ action: "admin::users.create" })
   );
@@ -62,6 +64,11 @@ export default function TeamList() {
         <Table
           dataSource={collection.results}
           loading={loading}
+          onRow={({ id }) => ({
+            onClick() {
+              navigate(`/team/${id}`);
+            },
+          })}
           columns={[
             {
               key: "name",

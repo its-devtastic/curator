@@ -50,6 +50,9 @@
   "team.user_roles_help": "A user can have one or more roles",
   "team.error": "Could not create user. Make sure the email address is not already in use.",
   "team.copy_link": "Copy and share this link with {{name}}",
+  "team.delete_user": "Delete user",
+  "team.this_is_you": "This is you",
+  "team.user_deleted": "The user account for {{name}} has been deleted.",
 
   "content_types.page.label": "Page",
   "content_types.page.description": "A generic page",
@@ -91,6 +94,8 @@
   "phrases.view_page": "View page",
   "phrases.manage_content": "Manage content",
   "phrases.no_view_permission": "You don't have permission to view this resource",
+  "phrases.are_you_sure": "Are you sure?",
+  "phrases.type_delete": "Type DELETE to confirm",
 
   "common.edit": "Edit",
   "common.create": "Create",
