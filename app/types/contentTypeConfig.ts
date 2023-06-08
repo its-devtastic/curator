@@ -1,18 +1,14 @@
 import type React from "react";
-import type { ColumnType } from "antd/es/table";
 import { TFunction } from "i18next";
+
+import { Entity } from "./content";
 
 export interface ContentTypeConfig {
   apiID: string;
   name?: string;
   description?: string;
   icon?: React.ReactNode;
-  buildUrl?(entity: any): string;
-  columns?: ColumnType<any>[];
-  fields?: {
-    main?: FieldDefinition[];
-    side?: FieldDefinition[];
-  };
+  fields: FieldDefinition[];
 }
 
 export interface FieldDefinition {
@@ -23,5 +19,5 @@ export interface FieldDefinition {
   input?: string;
   inputProps?: Record<string, any>;
   /** Config for relation and enum fields */
-  renderItem?(item: any, utils: { t: TFunction }): React.ReactNode;
+  renderItem?(item: Entity, utils: { t: TFunction }): React.ReactNode;
 }

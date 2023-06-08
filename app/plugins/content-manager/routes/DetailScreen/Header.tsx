@@ -15,9 +15,12 @@ import useStrapi from "~/hooks/useStrapi";
 import useStrapion from "~/hooks/useStrapion";
 import CalendarTime from "~/ui/CalendarTime";
 
+import { PluginOptions } from "../../types";
 import LanguageSwitcher from "./LanguageSwitcher";
 
-const Header: React.FC = () => {
+const Header: React.FC<{
+  options: Required<Required<PluginOptions>["edit"]>[""]["header"];
+}> = ({ options }) => {
   const { t } = useTranslation();
   const params = useParams();
   const apiID = params.apiID as string;
@@ -27,7 +30,7 @@ const Header: React.FC = () => {
   const contentType = contentTypes.find(R.whereEq({ apiID }));
   const { values, resetForm, dirty, isSubmitting, submitForm } =
     useFormikContext<any>();
-  const contentTypeConfig = config.contentTypes.find(R.whereEq({ apiID }));
+  const contentTypeConfig = config.contentTypes?.find(R.whereEq({ apiID }));
   const hasDraftState = contentType?.options.draftAndPublish;
   const isSingleType = contentType?.kind === "singleType";
 
@@ -144,10 +147,10 @@ const Header: React.FC = () => {
               )}
             </span>
           )}
-          {values.id && contentTypeConfig?.buildUrl && (
+          {values.id && options?.getEntityUrl && (
             <a
               className="text-blue-500 space-x-1 ml-1"
-              href={contentTypeConfig?.buildUrl(values)}
+              href={options.getEntityUrl(values)}
               target="_blank"
               rel="noreferrer nofollow noopener"
             >

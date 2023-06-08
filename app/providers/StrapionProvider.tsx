@@ -8,10 +8,9 @@ const StrapionProvider: React.FC<{
   config: StrapionConfig;
   children: React.ReactNode;
 }> = ({ children, config }) => {
-  const configAfterPlugins = config.plugins.reduce(
-    (config, plugin) => plugin(config),
-    config
-  );
+  const configAfterPlugins = config.plugins
+    ? config.plugins.reduce((config, plugin) => plugin(config), config)
+    : config;
 
   return (
     <Context.Provider value={configAfterPlugins}>{children}</Context.Provider>

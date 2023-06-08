@@ -5,7 +5,7 @@ import { Tooltip } from "antd";
 import { useTranslation } from "react-i18next";
 
 import { FieldDefinition } from "~/types/contentTypeConfig";
-import { ContentType } from "~/types/contentType";
+import { StrapiContentType } from "~/types/contentType";
 
 import Field from "~/ui/Field";
 import FormField from "~/ui/FormField";
@@ -14,7 +14,7 @@ import { FIELD_TYPES } from "~/plugins/content-manager/utils/constants";
 
 const FieldRenderer: React.FC<{
   field: FieldDefinition;
-  contentType: ContentType;
+  contentType: StrapiContentType;
 }> = ({
   field: { path, input, label, description, inputProps, hint, ...field },
   contentType,

@@ -13,7 +13,7 @@ export default function teamManagerPlugin() {
   return (config: StrapionConfig): StrapionConfig => {
     return R.evolve({
       zones: R.append<InjectionZoneEntry>({
-        zone: InjectionZone.MainMenuTop,
+        zone: InjectionZone.MainMenu,
         weight: 40,
         render() {
           return <MainMenuItem />;

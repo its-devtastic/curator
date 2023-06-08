@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 import * as R from "ramda";
 
-import { ContentType, StrapiComponent } from "~/types/contentType";
+import { StrapiContentType, StrapiComponent } from "~/types/contentType";
 import { StrapiLocale } from "~/types/locales";
 import { SessionUser } from "~/types/session";
 import { MediaItem } from "~/types/media";
@@ -13,7 +13,7 @@ import { AdminUser } from "~/types/adminUser";
 export class StrapiSdk {
   public apiUrl: string;
   public http: AxiosInstance;
-  public contentTypes: ContentType[] = [];
+  public contentTypes: StrapiContentType[] = [];
   public authenticated: boolean = false;
   constructor(apiUrl: string) {
     this.apiUrl = apiUrl;
@@ -38,7 +38,7 @@ export class StrapiSdk {
     const {
       data: { data },
     } = await this.http.get<{
-      data: ContentType[];
+      data: StrapiContentType[];
     }>("/content-manager/content-types");
 
     this.contentTypes = data;

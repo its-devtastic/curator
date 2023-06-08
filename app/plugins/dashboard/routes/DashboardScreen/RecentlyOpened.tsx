@@ -44,7 +44,7 @@ const RecentlyOpened: React.FC<{
         dataSource={value}
         size="small"
         renderItem={(item: any) => {
-          const contentType = config.contentTypes.find(
+          const contentType = config.contentTypes?.find(
             R.whereEq({ apiID: item.apiID })
           );
           return (

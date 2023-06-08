@@ -1,4 +1,4 @@
-export interface ContentType {
+export interface StrapiContentType {
   uid: string;
   apiID: string;
   kind: "singleType" | "collectionType";

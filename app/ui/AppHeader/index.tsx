@@ -14,7 +14,7 @@ const AppHeader: React.FC & {
   const config = useStrapion();
   const icon = config.icon;
   const items = R.sortBy(R.prop("weight"))(
-    config.zones.filter(
+    config.zones?.filter(
       R.where({
         zone: (zone: InjectionZone) =>
           [
@@ -23,7 +23,7 @@ const AppHeader: React.FC & {
             InjectionZone.AppHeaderRight,
           ].includes(zone),
       })
-    )
+    ) ?? []
   );
 
   return (

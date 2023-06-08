@@ -49,7 +49,10 @@ const App: React.FC = () => {
       path: "/",
       element: <Auth />,
       loader: () => (user ? null : redirect("/login")),
-      children: [{ path: "/profile", element: <Profile /> }, ...config.routes],
+      children: [
+        { path: "/profile", element: <Profile /> },
+        ...(config.routes ?? []),
+      ],
     },
     {
       path: "/",

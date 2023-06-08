@@ -85,9 +85,9 @@ const DynamicItem: React.FC<{
               ns: "custom",
             })}
           </div>
-          {customConfig?.labelField && (
+          {customConfig?.renderLabel && (
             <div className="text-sm text-slate-500">
-              {attrs[customConfig?.labelField]}
+              {customConfig.renderLabel(attrs)}
             </div>
           )}
         </div>
