@@ -11,7 +11,7 @@ const RichTextField: React.FC<{
   return (
     <CKEditor
       editor={ClassicEditor}
-      data={value}
+      data={value ?? ""}
       onChange={(value, editor) => {
         const data = editor.getData();
         onChange(data);
