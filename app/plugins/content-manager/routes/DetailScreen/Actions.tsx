@@ -20,6 +20,8 @@ import { useParams, useNavigate, unstable_useBlocker } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useDebounce, useBeforeUnload, useKey } from "react-use";
 
+import { ContentTypeConfig } from "~/types/contentTypeConfig";
+
 import useStrapi from "~/hooks/useStrapi";
 import useModifierKey from "~/hooks/useModifierKey";
 import usePreferences from "~/hooks/usePreferences";
@@ -28,7 +30,8 @@ import { PluginOptions } from "../../types";
 
 const Actions: React.FC<{
   options: Required<Required<PluginOptions>["edit"]>[""]["header"];
-}> = ({ options }) => {
+  contentTypeConfig: ContentTypeConfig;
+}> = ({ options, contentTypeConfig }) => {
   const { t } = useTranslation();
   const params = useParams();
   const apiID = params.apiID as string;
@@ -158,12 +161,12 @@ const Actions: React.FC<{
           )}
         </div>
 
-        {values.id && options?.getEntityUrl && (
+        {values.id && contentTypeConfig?.getEntityUrl && (
           <Tooltip title={t("phrases.view_page")}>
             <Button
               type="text"
               onClick={() => {
-                window.open(options.getEntityUrl?.(values));
+                window.open(contentTypeConfig.getEntityUrl?.(values));
               }}
               icon={<FontAwesomeIcon icon={faExternalLink} />}
             />

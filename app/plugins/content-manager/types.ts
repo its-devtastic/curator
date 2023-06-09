@@ -15,9 +15,7 @@ export interface PluginOptions {
     {
       main?: FieldConfig[];
       side?: FieldConfig[];
-      header?: {
-        getEntityUrl?(entity: Entity): string;
-      };
+      header?: {};
     }
   >;
   // Configure the columns in the list screen. Object key should be an apiID.

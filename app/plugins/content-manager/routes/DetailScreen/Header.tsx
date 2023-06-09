@@ -67,7 +67,10 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
       <div className="flex-1 flex items-center justify-center lg:justify-end">
-        <Actions options={pluginOptions} />
+        <Actions
+          options={pluginOptions}
+          contentTypeConfig={contentTypeConfig}
+        />
       </div>
     </div>
   );

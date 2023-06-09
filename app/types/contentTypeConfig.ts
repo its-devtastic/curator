@@ -9,6 +9,7 @@ export interface ContentTypeConfig {
   description?: string;
   icon?: React.ReactNode;
   fields: FieldDefinition[];
+  getEntityUrl?(entity: Entity): string;
 }
 
 export interface FieldDefinition {
@@ -19,5 +20,5 @@ export interface FieldDefinition {
   input?: string;
   inputProps?: Record<string, any>;
   /** Config for relation and enum fields */
-  renderItem?(item: Entity, utils: { t: TFunction }): React.ReactNode;
+  renderItem?(item: any, utils: { t: TFunction }): React.ReactNode;
 }
