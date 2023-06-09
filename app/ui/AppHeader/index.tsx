@@ -7,6 +7,7 @@ import useStrapion from "~/hooks/useStrapion";
 
 import AppHeaderItem from "./AppHeaderItem";
 import UserMenu from "./UserMenu";
+import HelpMenu from "./HelpMenu";
 
 const AppHeader: React.FC & {
   Item: typeof AppHeaderItem;
@@ -61,9 +62,8 @@ const AppHeader: React.FC & {
               .map(({ render }, index) => (
                 <div key={index}>{render()}</div>
               ))}
-            <div>
-              <UserMenu />
-            </div>
+            <HelpMenu />
+            <UserMenu />
           </div>
         </div>
       </div>

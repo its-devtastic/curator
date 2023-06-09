@@ -18,9 +18,10 @@ import * as R from "ramda";
 import { useFormikContext } from "formik";
 import { useParams, useNavigate, unstable_useBlocker } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useDebounce, useBeforeUnload } from "react-use";
+import { useDebounce, useBeforeUnload, useKey } from "react-use";
 
 import useStrapi from "~/hooks/useStrapi";
+import useModifierKey from "~/hooks/useModifierKey";
 import usePreferences from "~/hooks/usePreferences";
 
 import { PluginOptions } from "../../types";
@@ -37,11 +38,12 @@ const Actions: React.FC<{
   const { values, resetForm, dirty, isSubmitting, submitForm } =
     useFormikContext<any>();
   const hasDraftState = contentType?.options.draftAndPublish;
+  const isDraft = hasDraftState && !values.publishedAt;
   const isSingleType = contentType?.kind === "singleType";
   const [modal, contextHolder] = Modal.useModal();
   const { preferences, setPreference } = usePreferences();
-  const isDraft = !values.publishedAt;
   const { state, proceed, location } = unstable_useBlocker(dirty);
+  const modifierKey = useModifierKey();
 
   // Autosave for drafts
   useDebounce(
@@ -54,10 +56,9 @@ const Actions: React.FC<{
     [isDraft, preferences.autosave, dirty]
   );
 
+  // Warn user if navigating from a dirty form
   useBeforeUnload(dirty, t("content_manager.unsaved_changes"));
-
   useEffect(() => {
-    console.log("location change", location);
     if (
       location &&
       state === "blocked" &&
@@ -66,6 +67,19 @@ const Actions: React.FC<{
       proceed();
     }
   }, [location]);
+
+  // Catch native save shortcut
+  useKey(
+    "s",
+    (e) => {
+      if (e[modifierKey.value]) {
+        e.preventDefault();
+        submitForm();
+      }
+    },
+    {},
+    [modifierKey.value]
+  );
 
   return (
     <>
@@ -80,9 +94,9 @@ const Actions: React.FC<{
                 items: [
                   {
                     key: 1,
-                    label: values.publishedAt
-                      ? t("common.unpublish")
-                      : t("common.publish"),
+                    label: isDraft
+                      ? t("common.publish")
+                      : t("common.unpublish"),
                     async onClick() {
                       try {
                         const data = isDraft
@@ -108,8 +122,8 @@ const Actions: React.FC<{
             >
               <Button type="text">
                 <Badge
-                  color={isDraft ? "green" : "yellow"}
-                  text={isDraft ? t("common.published") : t("common.draft")}
+                  color={isDraft ? "yellow" : "green"}
+                  text={isDraft ? t("common.draft") : t("common.published")}
                 />
               </Button>
             </Dropdown>

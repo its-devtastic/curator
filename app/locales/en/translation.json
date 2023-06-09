@@ -36,6 +36,9 @@
   "user_menu.log_out": "Log out",
   "user_menu.profile": "Profile",
 
+  "help_menu.docs": "Documentation",
+  "help_menu.shortcuts": "Shortcuts",
+
   "profile.email": "Email address",
   "profile.firstname": "First name",
   "profile.lastname": "Last name",
@@ -128,5 +131,6 @@
   "common.last_name": "Last name",
   "common.role": "Role",
   "common.role_other": "Roles",
-  "common.done": "Done"
+  "common.done": "Done",
+  "common.close": "Close"
 }

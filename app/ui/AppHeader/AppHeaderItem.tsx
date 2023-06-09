@@ -10,7 +10,7 @@ const AppHeaderItem: React.FC<{
     {
       ...props,
       className:
-        "flex items-center justify-center gap-2 h-10 w-10 rounded-lg text-lg text-slate-600 font-semibold hover:bg-slate-200 hover:cursor-pointer",
+        "flex items-center justify-center gap-2 h-10 w-10 rounded-lg text-white font-semibold hover:bg-indigo-700 hover:cursor-pointer",
     },
     children
   );
