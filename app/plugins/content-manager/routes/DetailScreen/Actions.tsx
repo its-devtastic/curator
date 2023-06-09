@@ -51,12 +51,12 @@ const Actions: React.FC<{
   // Autosave for drafts
   useDebounce(
     () => {
-      if (isDraft && preferences.autosave && dirty) {
+      if (values.id && isDraft && preferences.autosave && dirty) {
         submitForm();
       }
     },
     3_000,
-    [isDraft, preferences.autosave, dirty]
+    [values.id, isDraft, preferences.autosave, dirty]
   );
 
   // Warn user if navigating from a dirty form
@@ -147,12 +147,17 @@ const Actions: React.FC<{
           {isDraft && (
             <div
               className="space-x-2 cursor-pointer"
-              onClick={() => setPreference("autosave", !preferences.autosave)}
+              onClick={() => {
+                if (values.id) {
+                  setPreference("autosave", !preferences.autosave);
+                }
+              }}
             >
               <Switch
                 loading={isSubmitting}
                 size="small"
                 checked={Boolean(preferences.autosave)}
+                disabled={!values.id}
               />
               <span className="text-xs select-none">
                 {t("content_manager.autosave")}
