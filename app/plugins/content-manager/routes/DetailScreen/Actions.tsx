@@ -45,7 +45,9 @@ const Actions: React.FC<{
   const isSingleType = contentType?.kind === "singleType";
   const [modal, contextHolder] = Modal.useModal();
   const { preferences, setPreference } = usePreferences();
-  const { state, proceed, location } = unstable_useBlocker(dirty);
+  const { state, proceed, location } = unstable_useBlocker(
+    !R.isNil(values.id) && dirty
+  );
   const modifierKey = useModifierKey();
 
   // Autosave for drafts
@@ -60,7 +62,10 @@ const Actions: React.FC<{
   );
 
   // Warn user if navigating from a dirty form
-  useBeforeUnload(dirty, t("content_manager.unsaved_changes"));
+  useBeforeUnload(
+    !R.isNil(values.id) && dirty,
+    t("content_manager.unsaved_changes")
+  );
   useEffect(() => {
     if (
       location &&
@@ -144,20 +149,15 @@ const Actions: React.FC<{
           >
             {t("common.save")}
           </Button>
-          {isDraft && (
+          {isDraft && !R.isNil(values.id) && (
             <div
               className="space-x-2 cursor-pointer"
-              onClick={() => {
-                if (values.id) {
-                  setPreference("autosave", !preferences.autosave);
-                }
-              }}
+              onClick={() => setPreference("autosave", !preferences.autosave)}
             >
               <Switch
                 loading={isSubmitting}
                 size="small"
                 checked={Boolean(preferences.autosave)}
-                disabled={!values.id}
               />
               <span className="text-xs select-none">
                 {t("content_manager.autosave")}
