@@ -56,7 +56,8 @@
   "team.update_user": "Bewerk gebruiker",
   "team.update_error": "Er heeft zich een fout voorgedaan bij het updaten van de gebruiker.",
 
-  "content_manager.autosave": "Autosave",
+  "content_manager.autosave": "Auto-opslaan",
+  "content_manager.unsaved_changes": "Je hebt niet-opgeslagen wijzigingen. Weet je het zeker?",
 
   "media_library.upload": "Upload",
   "media_library.new_folder": "Nieuwe folder",

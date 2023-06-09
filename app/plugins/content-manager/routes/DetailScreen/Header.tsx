@@ -28,7 +28,7 @@ const Header: React.FC<HeaderProps> = ({
         {!isSingleType && (
           <Link
             to={`/content-manager/${apiID}`}
-            className="hover:no-underline text-sm space-x-2"
+            className="link hover:no-underline text-sm space-x-2"
           >
             <FontAwesomeIcon icon={faArrowLeft} />
             <span>{t("common.back")}</span>
@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({
                   <span>{t("common.by").toLowerCase()}</span>
                   <Link
                     to={`/team/${values.updatedBy.id}`}
-                    className="inline-flex items-center gap-2"
+                    className="link inline-flex items-center gap-2"
                   >
                     {`${
                       [values.updatedBy.firstname, values.updatedBy.lastname]

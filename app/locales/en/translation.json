@@ -57,6 +57,7 @@
   "team.update_error": "There was an error when trying to update the user.",
 
   "content_manager.autosave": "Autosave",
+  "content_manager.unsaved_changes": "You have unsaved changes. Are you sure?",
 
   "media_library.upload": "Upload",
   "media_library.new_folder": "New folder",

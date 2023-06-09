@@ -23,9 +23,16 @@ const Auth: React.FC = () => (
       </div>
       <footer className="w-full border-t border-solid border-0 border-gray-200">
         <div className="py-2 px-4 md:px-12 max-w-screen-xl mx-auto flex items-center justify-center md:justify-end gap-6">
-          <ul className="list-none [&_a]:no-underline [&_a]:text-indigo-500 space-x-2 [&_a]:text-sm [&_a:hover]:underline">
+          <img
+            src={logo}
+            alt="Strapion"
+            className="object-contain w-auto h-8"
+          />
+          <div className="text-xs font-semibold text-gray-400 select-none">{`version ${pkg.version}`}</div>
+          <ul className="list-none space-x-2 text-xs font-semibold p-0">
             <li>
               <a
+                className="link"
                 href="https://its-devtastic.github.io/strapion-docs"
                 target="_blank"
                 rel="noreferrer noopener nofollow"
@@ -34,12 +41,6 @@ const Auth: React.FC = () => (
               </a>
             </li>
           </ul>
-          <img
-            src={logo}
-            alt="Strapion"
-            className="object-contain w-auto h-8"
-          />
-          <span className="text-xs font-semibold text-gray-400 select-none">{`version ${pkg.version}`}</span>
         </div>
       </footer>
     </div>

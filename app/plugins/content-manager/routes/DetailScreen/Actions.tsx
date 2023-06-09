@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Badge,
   Button,
@@ -16,9 +16,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import * as R from "ramda";
 import { useFormikContext } from "formik";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, unstable_useBlocker } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useDebounce } from "react-use";
+import { useDebounce, useBeforeUnload } from "react-use";
 
 import useStrapi from "~/hooks/useStrapi";
 import usePreferences from "~/hooks/usePreferences";
@@ -41,6 +41,7 @@ const Actions: React.FC<{
   const [modal, contextHolder] = Modal.useModal();
   const { preferences, setPreference } = usePreferences();
   const isDraft = !values.publishedAt;
+  const { state, proceed, location } = unstable_useBlocker(dirty);
 
   // Autosave for drafts
   useDebounce(
@@ -52,6 +53,19 @@ const Actions: React.FC<{
     3_000,
     [isDraft, preferences.autosave, dirty]
   );
+
+  useBeforeUnload(dirty, t("content_manager.unsaved_changes"));
+
+  useEffect(() => {
+    console.log("location change", location);
+    if (
+      location &&
+      state === "blocked" &&
+      confirm(t("content_manager.unsaved_changes"))
+    ) {
+      proceed();
+    }
+  }, [location]);
 
   return (
     <>
