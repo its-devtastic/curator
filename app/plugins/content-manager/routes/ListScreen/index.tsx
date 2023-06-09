@@ -20,9 +20,10 @@ import Table from "~/ui/Table";
 import Pagination from "~/ui/Pagination";
 
 import { SORTABLE_FIELD_TYPES } from "../../utils/constants";
+import { PluginOptions } from "../../types";
 import FilterToolbar from "./FilterToolbar";
 
-const ListScreen: React.FC = () => {
+const ListScreen: React.FC<ListScreenProps> = ({ pluginOptions }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const params = useParams();
@@ -30,9 +31,10 @@ const ListScreen: React.FC = () => {
   const { contentTypes, sdk } = useStrapi();
   const contentType = contentTypes.find(R.whereEq({ apiID }));
   const config = useStrapion();
-  const contentTypeConfig = config.contentTypes.find(R.whereEq({ apiID }));
+  const contentTypeConfig = config.contentTypes?.find(R.whereEq({ apiID }));
   const hasDraftState = contentType?.options.draftAndPublish;
   const name = contentTypeConfig?.name ?? contentType?.info.displayName ?? "";
+  const { columns } = pluginOptions?.[apiID] ?? {};
   const [collection, setCollection] = useState<{
     pagination: IPagination | null;
     results: any[];
@@ -167,71 +169,67 @@ const ListScreen: React.FC = () => {
                       );
                     },
                   },
-                  ...(contentTypeConfig.columns?.map(
-                    ({ title, ...column }: any) => {
-                      const config =
-                        column.dataIndex &&
-                        contentType.attributes[String(column.dataIndex)];
-                      const sortable = SORTABLE_FIELD_TYPES.includes(
-                        config?.type
-                      );
-                      const isSorted =
-                        values.sort?.split(":")[0] === column.dataIndex;
+                  ...(columns?.map(({ title, ...column }: any) => {
+                    const config =
+                      column.dataIndex &&
+                      contentType.attributes[String(column.dataIndex)];
+                    const sortable = SORTABLE_FIELD_TYPES.includes(
+                      config?.type
+                    );
+                    const isSorted =
+                      values.sort?.split(":")[0] === column.dataIndex;
 
-                      return {
-                        title: t(title, { ns: "custom" }),
-                        width: config?.type === "media" ? 72 : undefined,
-                        onHeaderCell: (column: any) => ({
-                          onClick: () => {
-                            if (sortable) {
-                              setFieldValue(
-                                "sort",
-                                `${column.dataIndex}:${
-                                  isSorted
-                                    ? values.sort?.split(":")[1] === "DESC"
-                                      ? "ASC"
-                                      : "DESC"
-                                    : "ASC"
-                                }`
-                              );
-                              submitForm();
-                            }
-                          },
-                        }),
-                        sorter: sortable,
-                        sortOrder: isSorted
-                          ? values.sort?.split(":")[1] === "ASC"
-                            ? "ascend"
-                            : "descend"
-                          : null,
-                        render(value: any) {
-                          switch (config?.type) {
-                            case "datetime":
-                              return <CalendarTime>{value}</CalendarTime>;
-                            case "media":
-                              return value?.mime?.startsWith("image/") ? (
-                                <Image
-                                  src={
-                                    value.formats?.thumbnail.url || value.url
-                                  }
-                                  alt=""
-                                  width={64}
-                                  height={64}
-                                  preview={false}
-                                  fallback="/image_fallback.png"
-                                  className="rounded-md object-cover"
-                                />
-                              ) : (
-                                value
-                              );
-                            default:
-                              return value;
+                    return {
+                      title: t(title, { ns: "custom" }),
+                      width: config?.type === "media" ? 72 : undefined,
+                      onHeaderCell: (column: any) => ({
+                        onClick: () => {
+                          if (sortable) {
+                            setFieldValue(
+                              "sort",
+                              `${column.dataIndex}:${
+                                isSorted
+                                  ? values.sort?.split(":")[1] === "DESC"
+                                    ? "ASC"
+                                    : "DESC"
+                                  : "ASC"
+                              }`
+                            );
+                            submitForm();
                           }
                         },
-                        ...column,
-                      };
-                    }
-                  ) ?? []),
+                      }),
+                      sorter: sortable,
+                      sortOrder: isSorted
+                        ? values.sort?.split(":")[1] === "ASC"
+                          ? "ascend"
+                          : "descend"
+                        : null,
+                      render(value: any) {
+                        switch (config?.type) {
+                          case "datetime":
+                            return <CalendarTime>{value}</CalendarTime>;
+                          case "media":
+                            return value?.mime?.startsWith("image/") ? (
+                              <Image
+                                src={value.formats?.thumbnail.url || value.url}
+                                alt=""
+                                width={64}
+                                height={64}
+                                preview={false}
+                                fallback="/image_fallback.png"
+                                className="rounded-md object-cover"
+                              />
+                            ) : (
+                              value
+                            );
+                          default:
+                            return value;
+                        }
+                      },
+                      ...column,
+                    };
+                  }) ?? []),
                   {
                     title: (
                       <Tooltip title={t("common.translation_plural")}>
@@ -284,3 +282,7 @@ const ListScreen: React.FC = () => {
 };
 
 export default ListScreen;
+
+interface ListScreenProps {
+  pluginOptions: PluginOptions["list"];
+}

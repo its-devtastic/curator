@@ -15,7 +15,7 @@ export default function formSubmissionPlugin() {
         { path: "/form-submissions", element: <FormSubmissionsScreen /> },
       ]),
       zones: R.append<InjectionZoneEntry>({
-        zone: InjectionZone.MainMenuTop,
+        zone: InjectionZone.MainMenu,
         weight: 10,
         render() {
           return <MainMenuItem />;

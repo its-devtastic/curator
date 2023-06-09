@@ -12,7 +12,7 @@ export default function mediaLibraryPlugin() {
     return R.evolve({
       routes: R.concat([{ path: "/media-library", element: <ListScreen /> }]),
       zones: R.append<InjectionZoneEntry>({
-        zone: InjectionZone.MainMenuTop,
+        zone: InjectionZone.MainMenu,
         weight: 10,
         render() {
           return <MainMenuItem />;

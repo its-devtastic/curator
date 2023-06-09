@@ -22,7 +22,18 @@ const Auth: React.FC = () => (
         </div>
       </div>
       <footer className="w-full border-t border-solid border-0 border-gray-200">
-        <div className="py-2 px-4 md:px-12 max-w-screen-xl mx-auto flex items-center justify-center md:justify-end gap-4">
+        <div className="py-2 px-4 md:px-12 max-w-screen-xl mx-auto flex items-center justify-center md:justify-end gap-6">
+          <ul className="list-none [&_a]:no-underline [&_a]:text-indigo-500 space-x-2 [&_a]:text-sm [&_a:hover]:underline">
+            <li>
+              <a
+                href="https://its-devtastic.github.io/strapion-docs"
+                target="_blank"
+                rel="noreferrer noopener nofollow"
+              >
+                Docs
+              </a>
+            </li>
+          </ul>
           <img
             src={logo}
             alt="Strapion"

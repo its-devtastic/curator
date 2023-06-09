@@ -8,27 +8,28 @@ import MainMenuItem from "./ui/MainMenuItem";
 
 import DetailScreen from "./routes/DetailScreen";
 import ContentKindScreen from "./routes/ContentKindScreen";
+import { PluginOptions } from "./types";
 
-export default function contentManagerPlugin(
-  { groups }: PluginOptions = { groups: [] }
-) {
+export default function contentManagerPlugin(options: PluginOptions) {
   return (config: StrapionConfig): StrapionConfig => {
     return R.evolve({
       routes: R.concat([
-        { path: "/content-manager/:apiID", element: <ContentKindScreen /> },
-        { path: "/content-manager/:apiID/:id", element: <DetailScreen /> },
+        {
+          path: "/content-manager/:apiID",
+          element: <ContentKindScreen pluginOptions={options} />,
+        },
+        {
+          path: "/content-manager/:apiID/:id",
+          element: <DetailScreen pluginOptions={options.edit} />,
+        },
       ]),
       zones: R.append<InjectionZoneEntry>({
-        zone: InjectionZone.MainMenuTop,
+        zone: InjectionZone.MainMenu,
         weight: 10,
         render() {
-          return <MainMenuItem groups={groups} />;
+          return <MainMenuItem groups={options.menu?.groups ?? []} />;
         },
       }),
     })(config);
   };
-}
-
-interface PluginOptions {
-  groups: { label: string; items: string[] }[];
 }

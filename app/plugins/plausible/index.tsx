@@ -13,7 +13,7 @@ export default function plausiblePlugin({ sharedLink }: PluginOptions) {
   return (config: StrapionConfig): StrapionConfig => {
     return R.evolve({
       zones: R.append<InjectionZoneEntry>({
-        zone: InjectionZone.MainMenuTop,
+        zone: InjectionZone.MainMenu,
         weight: 20,
         render() {
           return <MainMenu.Item as={Link} to="/analytics" label="Analytics" />;

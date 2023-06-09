@@ -29,7 +29,9 @@ const ContentManagerMenu: React.FC<{
                 .map((apiID) => contentTypes.find(R.whereEq({ apiID })))
                 .filter((i): i is any => Boolean(i))
                 .map(({ apiID, info }) => {
-                  const custom = config.contentTypes.find(R.whereEq({ apiID }));
+                  const custom = config.contentTypes?.find(
+                    R.whereEq({ apiID })
+                  );
 
                   return (
                     <Link

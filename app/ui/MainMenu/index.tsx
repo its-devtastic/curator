@@ -11,14 +11,11 @@ const MainMenu: React.FC & {
 } = () => {
   const config = useStrapion();
   const menuItems = R.sortBy(R.prop("weight"))(
-    config.zones.filter(
-      R.where({
-        zone: (zone: InjectionZone) =>
-          [InjectionZone.MainMenuTop, InjectionZone.MainMenuBottom].includes(
-            zone
-          ),
+    config.zones?.filter(
+      R.whereEq({
+        zone: InjectionZone.MainMenu,
       })
-    )
+    ) ?? []
   );
 
   return (
@@ -26,18 +23,9 @@ const MainMenu: React.FC & {
       <div className="w-full max-w-screen-xl">
         <div className="flex items-center justify-between h-full px-4 md:px-12">
           <div className="flex items-center gap-4">
-            {menuItems
-              .filter(R.whereEq({ zone: InjectionZone.MainMenuTop }))
-              .map(({ render }, index) => (
-                <div key={index}>{render()}</div>
-              ))}
-          </div>
-          <div className="flex items-center gap-4">
-            {menuItems
-              .filter(R.whereEq({ zone: InjectionZone.MainMenuBottom }))
-              .map(({ render }, index) => (
-                <div key={index}>{render()}</div>
-              ))}
+            {menuItems.map(({ render }, index) => (
+              <div key={index}>{render()}</div>
+            ))}
           </div>
         </div>
       </div>

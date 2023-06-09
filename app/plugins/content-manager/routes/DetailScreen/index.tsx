@@ -14,17 +14,17 @@ import classNames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
-import { FieldDefinition } from "~/types/contentTypeConfig";
 import useSecrets from "~/hooks/useSecrets";
 import useStrapi from "~/hooks/useStrapi";
 import useStrapion from "~/hooks/useStrapion";
-
 import Spinner from "~/ui/Spinner";
+
 import FieldRenderer from "../../ui/FieldRenderer";
+import { PluginOptions } from "../../types";
 
 import Header from "./Header";
 
-const DetailScreen: React.FC = () => {
+const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
   const { t } = useTranslation();
   const params = useParams();
   const apiID = params.apiID as string;
@@ -33,9 +33,10 @@ const DetailScreen: React.FC = () => {
   const config = useStrapion();
   const { contentTypes, sdk, locales } = useStrapi();
   const { getSecret } = useSecrets();
+  const { side, main, header } = pluginOptions?.[apiID] ?? {};
 
   const contentType = contentTypes.find(R.whereEq({ apiID }));
-  const contentTypeConfig = config.contentTypes.find(R.whereEq({ apiID }));
+  const contentTypeConfig = config.contentTypes?.find(R.whereEq({ apiID }));
   const hasDraftState = contentType?.options.draftAndPublish;
   const isSingleType = contentType?.kind === "singleType";
   const locale = search.get("locale");
@@ -57,7 +58,7 @@ const DetailScreen: React.FC = () => {
         isSingleType ? undefined : Number(params.id),
         { params: { locale: defaultLocale } }
       );
-      const hooks = config.hooks.filter(R.whereEq({ trigger: "view" }));
+      const hooks = config.hooks?.filter(R.whereEq({ trigger: "view" })) ?? [];
 
       for (const hook of hooks) {
         hook.action(apiID, data, { getSecret });
@@ -103,7 +104,8 @@ const DetailScreen: React.FC = () => {
               const data = await sdk.save(apiID, values, {
                 params: { "plugins[i18n][locale]": values.locale },
               });
-              const hooks = config.hooks.filter(R.whereEq({ trigger: "save" }));
+              const hooks =
+                config.hooks?.filter(R.whereEq({ trigger: "save" })) ?? [];
               resetForm({ values: data });
 
               for (const hook of hooks) {
@@ -120,24 +122,26 @@ const DetailScreen: React.FC = () => {
           }}
         >
           {({ values }) => {
-            const { side, main } = contentTypeConfig.fields ?? {};
-
             return (
               <div
                 className={classNames("my-6 mx-auto rounded-xl", {
                   "bg-amber-50": hasDraftState && !values.publishedAt,
                 })}
               >
-                <Header />
+                <Header options={header} />
 
                 <div className="flex flex-col md:items-start md:flex-row justify-between gap-8">
                   {side && (
                     <Card className="flex-none lg:w-[400px] border-gray-200 overflow-hidden">
                       <div className="space-y-6">
-                        {side.map((field: FieldDefinition) => (
+                        {side.map((field) => (
                           <FieldRenderer
                             key={field.path}
-                            field={field}
+                            field={
+                              contentTypeConfig.fields.find(
+                                R.whereEq({ path: field.path })
+                              )!
+                            }
                             contentType={contentType}
                           />
                         ))}
@@ -147,10 +151,14 @@ const DetailScreen: React.FC = () => {
                   {main && (
                     <Card className="flex-1 border-gray-200 shadow-sm">
                       <div className="space-y-6">
-                        {main.map((field: FieldDefinition) => (
+                        {main.map((field) => (
                           <FieldRenderer
                             key={field.path}
-                            field={field}
+                            field={
+                              contentTypeConfig.fields.find(
+                                R.whereEq({ path: field.path })
+                              )!
+                            }
                             contentType={contentType}
                           />
                         ))}
@@ -172,3 +180,7 @@ const DetailScreen: React.FC = () => {
 };
 
 export default DetailScreen;
+
+interface DetailScreenProps {
+  pluginOptions?: PluginOptions["edit"];
+}
