@@ -1,28 +1,21 @@
 import React from "react";
-import { Card, notification } from "antd";
+import { notification } from "antd";
 import * as R from "ramda";
 import { useAsync } from "react-use";
 import { Formik } from "formik";
-import {
-  useParams,
-  useNavigate,
-  useSearchParams,
-  Link,
-} from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import classNames from "classnames";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 import useSecrets from "~/hooks/useSecrets";
 import useStrapi from "~/hooks/useStrapi";
 import useStrapion from "~/hooks/useStrapion";
 import Spinner from "~/ui/Spinner";
 
-import FieldRenderer from "../../ui/FieldRenderer";
 import { PluginOptions } from "../../types";
 
 import Header from "./Header";
+import Main from "./Main";
 
 const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
   const { t } = useTranslation();
@@ -33,7 +26,6 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
   const config = useStrapion();
   const { contentTypes, sdk, locales } = useStrapi();
   const { getSecret } = useSecrets();
-  const { side, main, header } = pluginOptions?.[apiID] ?? {};
 
   const contentType = contentTypes.find(R.whereEq({ apiID }));
   const contentTypeConfig = config.contentTypes?.find(R.whereEq({ apiID }));
@@ -77,25 +69,6 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
 
   return (
     <div className="px-4 md:px-12">
-      <div className="py-4 border-b border-0 border-dashed border-slate-200 flex justify-between items-center">
-        <div className="flex-1">
-          {!isSingleType && (
-            <Link
-              to={`/content-manager/${apiID}`}
-              className="text-blue-600 no-underline text-sm space-x-2"
-            >
-              <FontAwesomeIcon icon={faArrowLeft} />
-              <span>{t("common.back")}</span>
-            </Link>
-          )}
-        </div>
-        <h1 className="m-0 text-right lg:text-center flex-1 text-lg font-semibold text-gray-700">
-          {`${t("common.edit")} ${t(contentTypeConfig?.name ?? "", {
-            ns: "custom",
-          }).toLowerCase()}`}
-        </h1>
-        <div className="flex-1 hidden lg:block" />
-      </div>
       {contentTypeConfig && contentType && value && !loading ? (
         <Formik
           initialValues={value}
@@ -112,7 +85,6 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
                 hook.action(apiID, data, { getSecret });
               }
 
-              notification.success({ message: t("phrases.document_saved") });
               if (params.id === "create") {
                 navigate(`/content-manager/${apiID}/${data.id}`);
               }
@@ -123,48 +95,27 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
         >
           {({ values }) => {
             return (
-              <div
-                className={classNames("my-6 mx-auto rounded-xl", {
-                  "bg-amber-50": hasDraftState && !values.publishedAt,
-                })}
-              >
-                <Header options={header} />
-
-                <div className="flex flex-col md:items-start md:flex-row justify-between gap-8">
-                  {side && (
-                    <Card className="flex-none lg:w-[400px] border-gray-200 overflow-hidden">
-                      <div className="space-y-6">
-                        {side.map((field) => (
-                          <FieldRenderer
-                            key={field.path}
-                            field={
-                              contentTypeConfig.fields.find(
-                                R.whereEq({ path: field.path })
-                              )!
-                            }
-                            contentType={contentType}
-                          />
-                        ))}
-                      </div>
-                    </Card>
+              <div>
+                <Header
+                  apiID={apiID}
+                  contentTypeConfig={contentTypeConfig}
+                  contentType={contentType}
+                  pluginOptions={pluginOptions}
+                />
+                <div
+                  className={classNames(
+                    "my-6 p-4 mx-auto rounded-xl",
+                    hasDraftState && !values.publishedAt
+                      ? "bg-amber-50 border-2 border-dashed border-amber-100"
+                      : "bg-gray-50"
                   )}
-                  {main && (
-                    <Card className="flex-1 border-gray-200 shadow-sm">
-                      <div className="space-y-6">
-                        {main.map((field) => (
-                          <FieldRenderer
-                            key={field.path}
-                            field={
-                              contentTypeConfig.fields.find(
-                                R.whereEq({ path: field.path })
-                              )!
-                            }
-                            contentType={contentType}
-                          />
-                        ))}
-                      </div>
-                    </Card>
-                  )}
+                >
+                  <Main
+                    contentType={contentType}
+                    contentTypeConfig={contentTypeConfig}
+                    apiID={apiID}
+                    pluginOptions={pluginOptions}
+                  />
                 </div>
               </div>
             );
