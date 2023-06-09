@@ -15,11 +15,11 @@ const Main: React.FC<MainProps> = ({
   contentTypeConfig,
   apiID,
 }) => {
-  const { side, main, header } = pluginOptions?.[apiID] ?? {};
+  const { side, main } = pluginOptions?.[apiID] ?? {};
 
   return (
-    <div>
-      <Top options={header} />
+    <div className="space-y-6">
+      <Top />
 
       <div className="flex flex-col md:items-start md:flex-row justify-between gap-8">
         {side && (

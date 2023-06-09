@@ -1,5 +1,13 @@
 import React from "react";
-import { Badge, Button, Dropdown, notification, Modal } from "antd";
+import {
+  Badge,
+  Button,
+  Dropdown,
+  notification,
+  Modal,
+  Tooltip,
+  Switch,
+} from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEllipsisV,
@@ -10,12 +18,12 @@ import * as R from "ramda";
 import { useFormikContext } from "formik";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useDebounce } from "react-use";
 
 import useStrapi from "~/hooks/useStrapi";
-import CalendarTime from "~/ui/CalendarTime";
+import usePreferences from "~/hooks/usePreferences";
 
 import { PluginOptions } from "../../types";
-import LanguageSwitcher from "./LanguageSwitcher";
 
 const Actions: React.FC<{
   options: Required<Required<PluginOptions>["edit"]>[""]["header"];
@@ -31,143 +39,145 @@ const Actions: React.FC<{
   const hasDraftState = contentType?.options.draftAndPublish;
   const isSingleType = contentType?.kind === "singleType";
   const [modal, contextHolder] = Modal.useModal();
+  const { preferences, setPreference } = usePreferences();
+  const isDraft = !values.publishedAt;
+
+  // Autosave for drafts
+  useDebounce(
+    () => {
+      if (isDraft && preferences.autosave && dirty) {
+        submitForm();
+      }
+    },
+    3_000,
+    [isDraft, preferences.autosave, dirty]
+  );
 
   return (
-    <div className="mb-12 flex flex-col md:flex-row gap-6 items-center justify-between">
+    <>
       {contextHolder}
 
-      <div className="flex flex-col items-end gap-2">
-        <div className="flex items-center gap-4 justify-center w-full md:w-auto">
+      <div className="flex items-top gap-2">
+        {hasDraftState && (
           <div>
-            {hasDraftState && (
-              <div>
-                <Dropdown
-                  disabled={!values.id}
-                  menu={{
-                    items: [
-                      {
-                        key: 1,
-                        label: values.publishedAt
-                          ? t("common.unpublish")
-                          : t("common.publish"),
-                        async onClick() {
-                          const isDraft = !values.publishedAt;
-                          try {
-                            const data = isDraft
-                              ? await sdk.publish(apiID, values.id)
-                              : await sdk.unpublish(apiID, values.id);
-                            resetForm({ values: data });
-                            notification.success({
-                              message: t("phrases.document_status_changed"),
-                              description: t(
-                                isDraft
-                                  ? "phrases.document_published"
-                                  : "phrases.document_unpublished"
-                              ),
-                            });
-                          } catch (e) {
-                            notification.error({ message: "Oops" });
-                          }
-                        },
-                      },
-                    ],
-                  }}
-                  trigger={["click"]}
-                >
-                  <Button type="text">
-                    <Badge
-                      color={values.publishedAt ? "green" : "yellow"}
-                      text={
-                        values.publishedAt
-                          ? t("common.published")
-                          : t("common.draft")
-                      }
-                    />
-                  </Button>
-                </Dropdown>
-              </div>
-            )}
-          </div>
-          <Button
-            type="primary"
-            disabled={!dirty}
-            loading={isSubmitting}
-            onClick={() => submitForm()}
-          >
-            {t("common.save")}
-          </Button>
-          {values.id && !isSingleType && (
             <Dropdown
-              trigger={["click"]}
-              placement="bottomRight"
+              disabled={!values.id}
               menu={{
                 items: [
                   {
-                    label: t("common.delete"),
-                    key: "delete",
-                    icon: <FontAwesomeIcon icon={faTrashAlt} />,
-                    danger: true,
-                    onClick() {
-                      modal.confirm({
-                        title: t("phrases.are_you_sure"),
-                        okText: t("common.delete"),
-                        cancelText: t("common.cancel"),
-                        okButtonProps: { danger: true },
-                        centered: true,
-                        async onOk() {
-                          await sdk.deleteOne(apiID, values.id);
-                          notification.success({
-                            message: t("phrases.document_deleted"),
-                          });
-                          navigate(`/content-manager/${apiID}`);
-                        },
-                      });
+                    key: 1,
+                    label: values.publishedAt
+                      ? t("common.unpublish")
+                      : t("common.publish"),
+                    async onClick() {
+                      try {
+                        const data = isDraft
+                          ? await sdk.publish(apiID, values.id)
+                          : await sdk.unpublish(apiID, values.id);
+                        resetForm({ values: data });
+                        notification.success({
+                          message: t("phrases.document_status_changed"),
+                          description: t(
+                            isDraft
+                              ? "phrases.document_published"
+                              : "phrases.document_unpublished"
+                          ),
+                        });
+                      } catch (e) {
+                        notification.error({ message: "Oops" });
+                      }
                     },
                   },
                 ],
               }}
+              trigger={["click"]}
             >
-              <Button
-                type="text"
-                icon={<FontAwesomeIcon icon={faEllipsisV} />}
-              />
+              <Button type="text">
+                <Badge
+                  color={isDraft ? "green" : "yellow"}
+                  text={isDraft ? t("common.published") : t("common.draft")}
+                />
+              </Button>
             </Dropdown>
+          </div>
+        )}
+
+        <div className="flex flex-col items-end">
+          <Button
+            type="primary"
+            loading={isSubmitting}
+            onClick={async () => {
+              await submitForm();
+              notification.success({ message: t("phrases.document_saved") });
+            }}
+          >
+            {t("common.save")}
+          </Button>
+          {isDraft && (
+            <div
+              className="space-x-2 cursor-pointer"
+              onClick={() => setPreference("autosave", !preferences.autosave)}
+            >
+              <Switch
+                loading={isSubmitting}
+                size="small"
+                checked={Boolean(preferences.autosave)}
+              />
+              <span className="text-xs select-none">
+                {t("content_manager.autosave")}
+              </span>
+            </div>
           )}
         </div>
-        <span className="text-xs text-center mt-2 md:mt-0 md:text-right">
-          {values.updatedAt && (
-            <span className="text-gray-400 space-x-1">
-              <span>{t("phrases.last_updated_at")}</span>
-              <CalendarTime>{values.updatedAt}</CalendarTime>
-              {values.updatedBy && (
-                <>
-                  <span>{t("common.by").toLowerCase()}</span>
-                  <span className="inline-flex items-center gap-2">
-                    {`${
-                      [values.updatedBy.firstname, values.updatedBy.lastname]
-                        .filter(Boolean)
-                        .join(" ")
-                        .trim() || values.updatedBy.username
-                    }.`}
-                  </span>
-                </>
-              )}
-            </span>
-          )}
-          {values.id && options?.getEntityUrl && (
-            <a
-              className="text-blue-500 space-x-1 ml-1"
-              href={options.getEntityUrl(values)}
-              target="_blank"
-              rel="noreferrer nofollow noopener"
-            >
-              <span>{t("phrases.view_page")}</span>
-              <FontAwesomeIcon icon={faExternalLink} />
-            </a>
-          )}
-        </span>
+
+        {values.id && options?.getEntityUrl && (
+          <Tooltip title={t("phrases.view_page")}>
+            <Button
+              type="text"
+              onClick={() => {
+                window.open(options.getEntityUrl?.(values));
+              }}
+              icon={<FontAwesomeIcon icon={faExternalLink} />}
+            />
+          </Tooltip>
+        )}
+
+        {values.id && !isSingleType && (
+          <Dropdown
+            trigger={["click"]}
+            placement="bottomRight"
+            menu={{
+              items: [
+                {
+                  label: t("common.delete"),
+                  key: "delete",
+                  icon: <FontAwesomeIcon icon={faTrashAlt} />,
+                  danger: true,
+                  onClick() {
+                    modal.confirm({
+                      title: t("phrases.are_you_sure"),
+                      okText: t("common.delete"),
+                      cancelText: t("common.cancel"),
+                      okButtonProps: { danger: true },
+                      centered: true,
+                      async onOk() {
+                        await sdk.deleteOne(apiID, values.id);
+                        notification.success({
+                          message: t("phrases.document_deleted"),
+                        });
+                        navigate(`/content-manager/${apiID}`);
+                      },
+                    });
+                  },
+                },
+              ],
+            }}
+          >
+            <Button type="text" icon={<FontAwesomeIcon icon={faEllipsisV} />} />
+          </Dropdown>
+        )}
       </div>
-    </div>
+    </>
   );
 };
 

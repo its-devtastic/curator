@@ -36,8 +36,6 @@
   "user_menu.log_out": "Uitloggen",
   "user_menu.profile": "Profiel",
 
-  "project_menu.team": "Beheer team",
-
   "profile.email": "E-mailadres",
   "profile.firstname": "Voornaam",
   "profile.lastname": "Achternaam",
@@ -57,6 +55,8 @@
   "team.user_deleted": "Het gebruikersaccount voor {{name}} is verwijderd.",
   "team.update_user": "Bewerk gebruiker",
   "team.update_error": "Er heeft zich een fout voorgedaan bij het updaten van de gebruiker.",
+
+  "content_manager.autosave": "Autosave",
 
   "media_library.upload": "Upload",
   "media_library.new_folder": "Nieuwe folder",

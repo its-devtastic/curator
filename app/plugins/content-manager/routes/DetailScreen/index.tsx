@@ -85,7 +85,6 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
                 hook.action(apiID, data, { getSecret });
               }
 
-              notification.success({ message: t("phrases.document_saved") });
               if (params.id === "create") {
                 navigate(`/content-manager/${apiID}/${data.id}`);
               }
@@ -101,11 +100,15 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
                   apiID={apiID}
                   contentTypeConfig={contentTypeConfig}
                   contentType={contentType}
+                  pluginOptions={pluginOptions}
                 />
                 <div
-                  className={classNames("my-6 mx-auto rounded-xl", {
-                    "bg-amber-50 p-4": hasDraftState && !values.publishedAt,
-                  })}
+                  className={classNames(
+                    "my-6 p-4 mx-auto rounded-xl",
+                    hasDraftState && !values.publishedAt
+                      ? "bg-amber-50 border-2 border-dashed border-amber-100"
+                      : "bg-gray-50"
+                  )}
                 >
                   <Main
                     contentType={contentType}
