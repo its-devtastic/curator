@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAsyncRetry } from "react-use";
-import { Button } from "antd";
+import { Button, Input } from "antd";
 import { useTranslation } from "react-i18next";
+import * as R from "ramda";
 
 import { MediaItem } from "~/types/media";
 import useStrapi from "~/hooks/useStrapi";
@@ -14,14 +15,20 @@ const MediaLibraryPopover: React.FC<{
 }> = ({ onChange, mime }) => {
   const { sdk } = useStrapi();
   const { t } = useTranslation();
+  const [search, setSearch] = useState("");
 
   const { value, retry, loading } = useAsyncRetry(async () => {
-    return sdk.getMediaItems({ "filters[$and][0][mime][$contains]": mime });
-  }, [sdk]);
+    return sdk.getMediaItems({
+      "filters[$and][0][mime][$contains]": mime,
+      _q: search,
+      sort: "createdAt:DESC",
+      pageSize: 12,
+    });
+  }, [sdk, search]);
 
   return (
     <div>
-      <div className="p-2 border-b border-0 border-solid border-gray-200">
+      <div className="p-2 border-b border-0 border-solid border-gray-200 flex items-center gap-2">
         <UploadButton
           onUploadComplete={(item) => {
             retry();
@@ -33,20 +40,27 @@ const MediaLibraryPopover: React.FC<{
             </Button>
           }
         />
+        <Input.Search
+          size="small"
+          onSearch={(value) => setSearch(value)}
+          loading={loading}
+        />
       </div>
       <div className="grid grid-cols-4 gap-2 p-2">
-        {loading && (
+        {loading && !value && (
           <>
-            <div className="w-12 h-12 rounded-sm bg-gray-100 animate-pulse" />
-            <div className="w-12 h-12 rounded-sm bg-gray-100 animate-pulse" />
-            <div className="w-12 h-12 rounded-sm bg-gray-100 animate-pulse" />
-            <div className="w-12 h-12 rounded-sm bg-gray-100 animate-pulse" />
+            {R.times(R.identity, 12).map((idx) => (
+              <div
+                key={idx}
+                className="w-12 h-12 rounded-sm bg-gray-100 animate-pulse"
+              />
+            ))}
           </>
         )}
         {value?.results.map((item) => (
           <div key={item.id} onClick={() => onChange(item)}>
             <img
-              className="flex w-12 h-12 rounded-sm hover:cursor-pointer"
+              className="flex w-12 h-12 rounded-sm hover:cursor-pointer object-cover hover:opacity-80 bg-gray-50"
               src={
                 item.mime === "image/svg+xml"
                   ? item.url

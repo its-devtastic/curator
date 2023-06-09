@@ -12,5 +12,6 @@ export interface GetMediaParams {
   page?: number;
   pageSize?: number;
   sort?: Sort;
+  _q?: string;
   [p: `filters${string}`]: string;
 }

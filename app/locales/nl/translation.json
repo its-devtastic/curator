@@ -36,6 +36,9 @@
   "user_menu.log_out": "Uitloggen",
   "user_menu.profile": "Profiel",
 
+  "help_menu.docs": "Documentatie",
+  "help_menu.shortcuts": "Sneltoetsen",
+
   "profile.email": "E-mailadres",
   "profile.firstname": "Voornaam",
   "profile.lastname": "Achternaam",
@@ -128,5 +131,6 @@
   "common.last_name": "Achternaam",
   "common.role": "Rol",
   "common.role_other": "Rollen",
-  "common.done": "Klaar"
+  "common.done": "Klaar",
+  "common.close": "Sluiten"
 }
