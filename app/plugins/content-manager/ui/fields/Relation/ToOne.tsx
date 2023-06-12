@@ -23,7 +23,7 @@ const ToOne: React.FC<{
   const [search, setSearch] = useState("");
   const [edit, setEdit] = useState(false);
 
-  const { value: items, loading } = useAsync(async () => {
+  const { value: items = [], loading } = useAsync(async () => {
     try {
       const { results } = await sdk.getMany(targetModelApiID, {
         _q: search,
