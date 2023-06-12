@@ -1,7 +1,5 @@
 import { ColumnType } from "antd/es/table";
 
-import { Entity } from "~/types/content";
-
 export interface FieldConfig {
   path: string;
 }

@@ -19,7 +19,7 @@ const Main: React.FC<MainProps> = ({
 
   return (
     <div className="space-y-6">
-      <Top />
+      <Top contentType={contentType} />
 
       <div className="flex flex-col md:items-start md:flex-row justify-between gap-8">
         {side && (

@@ -10,7 +10,7 @@ import { StrapiContentType } from "~/types/contentType";
 import Field from "~/ui/Field";
 import FormField from "~/ui/FormField";
 
-import { FIELD_TYPES } from "~/plugins/content-manager/utils/constants";
+import { FIELD_TYPES } from "../utils/constants";
 
 const FieldRenderer: React.FC<{
   field: FieldDefinition;

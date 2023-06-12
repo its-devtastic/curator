@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import * as R from "ramda";
+import { nanoid } from "nanoid";
 
 import { StrapiContentType, StrapiComponent } from "~/types/contentType";
 import { StrapiLocale } from "~/types/locales";
@@ -165,7 +166,7 @@ export class StrapiSdk {
       attributes.id || isSingleType ? "put" : "post"
     ](
       `${this.getContentUrl(apiID)}/${isSingleType ? "" : attributes.id ?? ""}`,
-      attributes,
+      StrapiSdk.removeTmpId(attributes),
       config
     );
 
@@ -298,6 +299,10 @@ export class StrapiSdk {
     return data.data;
   }
 
+  public generateTempId() {
+    return `__tmp__${nanoid()}`;
+  }
+
   private getContentUrl(apiID: string): string {
     const contentType = this.contentTypes.find(R.whereEq({ apiID }));
 
@@ -316,6 +321,23 @@ export class StrapiSdk {
     const mapFn = R.mapObjIndexed(
       R.when(Array.isArray, (items) =>
         items.map((item, idx) => ({ ...item, __temp_key__: idx + 1 }))
+      )
+    );
+
+    return (Array.isArray(data) ? R.map(mapFn)(data) : mapFn(data)) as T;
+  }
+
+  private static removeTmpId<
+    T extends Record<string, unknown> | Record<string, unknown>[]
+  >(data: T): T {
+    const mapFn = R.mapObjIndexed(
+      R.when(
+        Array.isArray,
+        R.map(
+          R.evolve({
+            id: R.when(R.startsWith("__tmp__"), R.always(undefined)),
+          })
+        )
       )
     );
 

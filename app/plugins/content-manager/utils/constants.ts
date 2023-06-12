@@ -7,6 +7,7 @@ import SlugField from "~/plugins/content-manager/ui/fields/Slug";
 import Relation from "~/plugins/content-manager/ui/fields/Relation";
 import Enumeration from "~/plugins/content-manager/ui/fields/Enumeration";
 import BooleanField from "~/plugins/content-manager/ui/fields/Boolean";
+import ComponentField from "~/plugins/content-manager/ui/fields/Component";
 
 import DynamicZone from "~/plugins/content-manager/ui/DynamicZone";
 
@@ -27,4 +28,5 @@ export const FIELD_TYPES: Record<string, React.FC<any>> = {
   relation: Relation,
   enumeration: Enumeration,
   boolean: BooleanField,
+  component: ComponentField,
 };
