@@ -4,6 +4,7 @@ export interface GetManyParams {
   sort?: `${string}:ASC` | `${string}:DESC`;
   _q?: string;
   locale?: string;
+  [p: `filters${string}`]: string | string[] | number | number[];
 }
 
 export type Sort = `${string}:ASC` | `${string}:DESC`;

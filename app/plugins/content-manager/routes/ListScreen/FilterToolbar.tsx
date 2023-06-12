@@ -6,8 +6,11 @@ import { useFormikContext } from "formik";
 import { useTranslation } from "react-i18next";
 
 import LanguageSelect from "~/ui/LanguageSelect";
+import { StrapiContentType } from "~/types/contentType";
 
-const FilterToolbar: React.FC = () => {
+const FilterToolbar: React.FC<{ contentType: StrapiContentType }> = ({
+  contentType,
+}) => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState<false | "button" | "search">(false);
   const { setFieldValue, values, submitForm } = useFormikContext<any>();
@@ -27,14 +30,16 @@ const FilterToolbar: React.FC = () => {
         />
       </div>
       <div className="flex items-center gap-2">
-        <LanguageSelect
-          className="w-48"
-          value={values.locale}
-          onChange={async (locale) => {
-            setFieldValue("locale", locale);
-            await submitForm();
-          }}
-        />
+        {contentType.pluginOptions.localized && (
+          <LanguageSelect
+            className="w-48"
+            value={values.locale}
+            onChange={async (locale) => {
+              await setFieldValue("locale", locale);
+              await submitForm();
+            }}
+          />
+        )}
         <Button
           loading={loading === "button"}
           type="text"

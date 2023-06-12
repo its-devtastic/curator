@@ -80,7 +80,7 @@ const ListScreen: React.FC<ListScreenProps> = ({ pluginOptions }) => {
               </div>
 
               <div className="mb-4">
-                <FilterToolbar />
+                <FilterToolbar contentType={contentType} />
               </div>
 
               <Table
@@ -230,7 +230,7 @@ const ListScreen: React.FC<ListScreenProps> = ({ pluginOptions }) => {
                       ...column,
                     };
                   }) ?? []),
-                  {
+                  contentType?.pluginOptions.localized && {
                     title: (
                       <Tooltip title={t("common.translation_plural")}>
                         <FontAwesomeIcon icon={faLanguage} />
