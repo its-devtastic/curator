@@ -4,7 +4,6 @@ import * as R from "ramda";
 import { useAsync } from "react-use";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 import { useFormikContext } from "formik";
 
@@ -12,26 +11,19 @@ import { Entity } from "~/types/content";
 import useStrapi from "~/hooks/useStrapi";
 
 const ToOne: React.FC<{
-  targetModel: string;
+  targetModelApiID: string;
   onChange(mutation: { set: [number] }): void;
   value: Entity | null;
-  renderItem?(item: any, utils: { t: TFunction }): React.ReactNode;
-}> = ({ value, onChange, targetModel, renderItem }) => {
+  renderItem?(item: any, utils: { t: any }): React.ReactNode;
+}> = ({ value, onChange, targetModelApiID, renderItem }) => {
   const { t } = useTranslation();
   const [model, setModel] = useState(value);
-  const { sdk, contentTypes } = useStrapi();
+  const { sdk } = useStrapi();
   const { values } = useFormikContext<{ locale: string }>();
   const [search, setSearch] = useState("");
   const [edit, setEdit] = useState(false);
-  const targetModelApiID = contentTypes.find(
-    R.whereEq({ uid: targetModel })
-  )?.apiID;
 
   const { value: items, loading } = useAsync(async () => {
-    if (!targetModelApiID) {
-      return console.error(`No content type with apiID ${targetModelApiID}`);
-    }
-
     try {
       const { results } = await sdk.getMany(targetModelApiID, {
         _q: search,
@@ -65,7 +57,9 @@ const ToOne: React.FC<{
       loading={loading}
       options={items?.map((item: any) => ({
         value: item.id,
-        label: renderItem?.(item, { t }),
+        label: renderItem?.(item, {
+          t: (s: string, options: any) => t(s, { ns: "custom", ...options }),
+        }),
       }))}
       filterOption={false}
       onSearch={setSearch}

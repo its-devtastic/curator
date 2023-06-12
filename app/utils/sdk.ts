@@ -145,13 +145,32 @@ export class StrapiSdk {
       config
     );
 
-    return StrapiSdk.addTempKey(data);
+    return data;
   }
 
   public async getMany<T>(apiID: string, params?: GetManyParams) {
-    const { data } = await this.http.get(this.getContentUrl(apiID), { params });
+    const { data } = await this.http.get<PaginatedResponse<any>>(
+      this.getContentUrl(apiID),
+      { params }
+    );
 
-    return StrapiSdk.addTempKey(data);
+    return data;
+  }
+
+  public async getRelations(
+    apiID: string,
+    id: number,
+    field: string,
+    params?: GetManyParams
+  ) {
+    const contentType = this.contentTypes.find(R.whereEq({ apiID }));
+
+    const { data } = await this.http.get<PaginatedResponse<{ id: number }>>(
+      `/content-manager/relations/${contentType?.uid}/${id}/${field}`,
+      { params }
+    );
+
+    return data;
   }
 
   public async save(
@@ -170,7 +189,7 @@ export class StrapiSdk {
       config
     );
 
-    return StrapiSdk.addTempKey(data);
+    return data;
   }
 
   public async deleteOne(apiID: string, id: number) {
@@ -182,7 +201,7 @@ export class StrapiSdk {
       `${this.getContentUrl(apiID)}/${id}/actions/publish`
     );
 
-    return StrapiSdk.addTempKey(data);
+    return data;
   }
 
   public async unpublish(apiID: string, id: number) {
@@ -190,7 +209,7 @@ export class StrapiSdk {
       `${this.getContentUrl(apiID)}/${id}/actions/unpublish`
     );
 
-    return StrapiSdk.addTempKey(data);
+    return data;
   }
 
   public async updateProfile(values: Partial<SessionUser>) {
@@ -313,18 +332,6 @@ export class StrapiSdk {
     return `/content-manager/${
       contentType.kind === "singleType" ? "single-types" : "collection-types"
     }/${contentType.uid}`;
-  }
-
-  private static addTempKey<
-    T extends Record<string, unknown> | Record<string, unknown>[]
-  >(data: T): T {
-    const mapFn = R.mapObjIndexed(
-      R.when(Array.isArray, (items) =>
-        items.map((item, idx) => ({ ...item, __temp_key__: idx + 1 }))
-      )
-    );
-
-    return (Array.isArray(data) ? R.map(mapFn)(data) : mapFn(data)) as T;
   }
 
   private static removeTmpId<
