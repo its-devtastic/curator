@@ -9,6 +9,7 @@ import Relation from "~/plugins/content-manager/ui/fields/Relation";
 import Enumeration from "~/plugins/content-manager/ui/fields/Enumeration";
 import BooleanField from "~/plugins/content-manager/ui/fields/Boolean";
 import ComponentField from "~/plugins/content-manager/ui/fields/Component";
+import RepeatableComponent from "~/plugins/content-manager/ui/fields/RepeatableComponent";
 
 import DynamicZone from "~/plugins/content-manager/ui/DynamicZone";
 
@@ -31,4 +32,5 @@ export const FIELD_TYPES: Record<string, React.FC<any>> = {
   enumeration: Enumeration,
   boolean: BooleanField,
   component: ComponentField,
+  repeatableComponent: RepeatableComponent,
 };

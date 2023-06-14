@@ -28,7 +28,7 @@ const ToMany: React.FC<{
   name: string;
   targetModelApiID: string;
   onChange(mutation: {
-    set: { id: number; position: { before: number } }[];
+    set: { id: number | string; position: { before: number | string } }[];
   }): void;
   renderItem?(item: any, utils: { t: any }): React.ReactNode;
 }> = ({ onChange, targetModelApiID, renderItem, apiID, name }) => {
@@ -43,7 +43,7 @@ const ToMany: React.FC<{
     })
   );
 
-  const handleChange = useCallback((ids: number[]) => {
+  const handleChange = useCallback((ids: (number | string)[]) => {
     onChange({
       set: ids.map((id, idx) => ({
         id,

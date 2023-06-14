@@ -10,15 +10,18 @@ import useStrapi from "~/hooks/useStrapi";
 import { Entity } from "~/types/content";
 
 const RelationSelect: React.FC<{
-  idsToOmit: number[];
+  idsToOmit: (number | string)[];
   targetModelApiID: string;
   onChange(item: Entity): void;
   renderItem?(item: any, utils: { t: TFunction }): React.ReactNode;
-  value: number[];
+  value: (number | string)[];
 }> = ({ onChange, targetModelApiID, renderItem, value = [] }) => {
   const { t } = useTranslation();
   const { sdk } = useStrapi();
-  const { values } = useFormikContext<{ locale: string; id: number }>();
+  const { values } = useFormikContext<{
+    locale: string;
+    id: number | string;
+  }>();
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
 

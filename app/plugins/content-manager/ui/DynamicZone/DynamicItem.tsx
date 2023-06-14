@@ -80,16 +80,16 @@ const DynamicItem: React.FC<{
           </div>
         )}
         <div className="flex-1">
-          <div className="font-semibold">
+          {customConfig?.renderLabel && (
+            <div className="font-semibold">
+              {customConfig.renderLabel(attrs)}
+            </div>
+          )}
+          <div className="text-sm text-slate-500">
             {t(customConfig?.name ?? component?.info.displayName ?? "", {
               ns: "custom",
             })}
           </div>
-          {customConfig?.renderLabel && (
-            <div className="text-sm text-slate-500">
-              {customConfig.renderLabel(attrs)}
-            </div>
-          )}
         </div>
         <Button
           type="text"

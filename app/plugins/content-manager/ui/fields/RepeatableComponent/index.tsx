@@ -19,18 +19,27 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "antd";
 import { useTranslation } from "react-i18next";
 
+import { Entity } from "~/types/content";
+import { Attribute } from "~/types/contentType";
+import { FieldDefinition } from "~/types/contentTypeConfig";
 import useStrapi from "~/hooks/useStrapi";
+import useStrapion from "~/hooks/useStrapion";
 
-import ComponentItem from "./ComponentItem";
+import RepeatableComponentItem from "./RepeatableComponentItem";
 
 const RepeatableComponent: React.FC<RepeatableComponentProps> = ({
+  field,
   value = [],
   onChange,
-  config,
-  customConfig,
+  attribute,
 }) => {
   const { t } = useTranslation();
-  const { sdk } = useStrapi();
+  const strapionConfig = useStrapion();
+  const { sdk, components } = useStrapi();
+  const component = components.find(R.whereEq({ uid: attribute.component }));
+  const config = strapionConfig.components?.find(
+    R.whereEq({ apiID: component?.apiID })
+  );
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 10 } }),
     useSensor(KeyboardSensor, {
@@ -38,9 +47,7 @@ const RepeatableComponent: React.FC<RepeatableComponentProps> = ({
     })
   );
 
-  console.log(config);
-
-  return (
+  return component && config ? (
     <div className="space-y-3 bg-gray-50 rounded-lg p-4 flex flex-col items-center">
       <DndContext
         sensors={sensors}
@@ -56,20 +63,16 @@ const RepeatableComponent: React.FC<RepeatableComponentProps> = ({
         }}
       >
         <SortableContext
-          items={value as any[]}
+          items={value as Entity[]}
           strategy={verticalListSortingStrategy}
         >
-          {value.map((item) => (
-            <ComponentItem
+          {value.map((item, idx) => (
+            <RepeatableComponentItem
               key={item.id}
-              repeatable
+              component={component}
               config={config}
-              customConfig={customConfig}
               value={item}
-              onChange={(attributes) => {
-                const idx = value.findIndex(R.whereEq({ id: item.id }));
-                onChange?.(R.update(idx, attributes, value));
-              }}
+              path={`${field.path}.${idx}`}
               onRemove={() => {
                 const idx = value.findIndex(R.whereEq({ id: item.id }));
                 onChange?.(R.remove(idx, 1, value));
@@ -86,27 +89,29 @@ const RepeatableComponent: React.FC<RepeatableComponentProps> = ({
           onChange?.([
             ...value,
             {
-              ...R.mapObjIndexed(R.always(undefined))(config?.attributes ?? {}),
+              ...R.mapObjIndexed(R.always(undefined))(
+                component?.attributes ?? {}
+              ),
               id: sdk.generateTempId(),
             },
           ]);
         }}
       >
         {t("phrases.add_item", {
-          item: customConfig?.name
-            ? t(customConfig.name, { ns: "custom" }).toLowerCase()
-            : config.info.displayName.toLowerCase(),
+          item: config?.name
+            ? t(config.name, { ns: "custom" }).toLowerCase()
+            : component?.info.displayName.toLowerCase(),
         })}
       </Button>
     </div>
-  );
+  ) : null;
 };
 
 export default RepeatableComponent;
 
 interface RepeatableComponentProps {
-  value?: Record<string, any>[];
-  onChange?(item: Record<string, any>[]): void;
-  config: any;
-  customConfig: any;
+  value: Entity[];
+  onChange(value: Entity[]): void;
+  field: FieldDefinition;
+  attribute: Attribute;
 }

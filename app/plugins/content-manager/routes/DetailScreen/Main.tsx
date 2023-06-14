@@ -33,7 +33,7 @@ const Main: React.FC<MainProps> = ({
                       R.whereEq({ path: field.path })
                     )!
                   }
-                  contentType={contentType}
+                  attribute={contentType.attributes[field.path]}
                 />
               ))}
             </div>
@@ -50,7 +50,7 @@ const Main: React.FC<MainProps> = ({
                       R.whereEq({ path: field.path })
                     )!
                   }
-                  contentType={contentType}
+                  attribute={contentType.attributes[field.path]}
                 />
               ))}
             </div>

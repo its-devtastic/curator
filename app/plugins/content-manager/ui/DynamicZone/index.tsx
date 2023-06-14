@@ -29,8 +29,8 @@ import DynamicItem from "./DynamicItem";
 const DynamicZone: React.FC<{
   value: DynamicZoneEntry[];
   onChange(value: any): void;
-  config: Attribute;
-}> = ({ value = [], onChange, config }) => {
+  attribute: Attribute;
+}> = ({ value = [], onChange, attribute }) => {
   const { components, sdk } = useStrapi();
   const { t } = useTranslation();
   const strapionConfig = useStrapion();
@@ -90,7 +90,7 @@ const DynamicZone: React.FC<{
         placement="bottom"
         content={(close) => (
           <div className="grid grid-cols-4 gap-3 max-w-3xl">
-            {config.components?.map((uid) => {
+            {attribute.components?.map((uid) => {
               const component = components.find(R.whereEq({ uid }));
               const customConfig = strapionConfig.components?.find(
                 R.whereEq({ apiID: component?.apiID })
