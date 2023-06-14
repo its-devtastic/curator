@@ -8,7 +8,7 @@ const Top: React.FC<TopProps> = ({ contentType }) => {
   return (
     <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
       <div />
-      {contentType.pluginOptions.localized && <LanguageSwitcher />}
+      {contentType.pluginOptions.i18n?.localized && <LanguageSwitcher />}
     </div>
   );
 };

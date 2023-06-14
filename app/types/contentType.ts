@@ -6,7 +6,9 @@ export interface StrapiContentType {
     draftAndPublish: boolean;
   };
   pluginOptions: {
-    localized?: boolean;
+    i18n?: {
+      localized: boolean;
+    };
   };
   info: {
     displayName: string;

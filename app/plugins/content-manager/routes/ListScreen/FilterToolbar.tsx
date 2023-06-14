@@ -30,7 +30,7 @@ const FilterToolbar: React.FC<{ contentType: StrapiContentType }> = ({
         />
       </div>
       <div className="flex items-center gap-2">
-        {contentType.pluginOptions.localized && (
+        {contentType.pluginOptions.i18n?.localized && (
           <LanguageSelect
             className="w-48"
             value={values.locale}

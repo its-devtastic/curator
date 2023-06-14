@@ -230,7 +230,7 @@ const ListScreen: React.FC<ListScreenProps> = ({ pluginOptions }) => {
                       ...column,
                     };
                   }) ?? []),
-                  contentType?.pluginOptions.localized && {
+                  contentType?.pluginOptions.i18n?.localized && {
                     title: (
                       <Tooltip title={t("common.translation_plural")}>
                         <FontAwesomeIcon icon={faLanguage} />

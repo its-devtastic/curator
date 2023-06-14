@@ -38,6 +38,8 @@ const RepeatableComponent: React.FC<RepeatableComponentProps> = ({
     })
   );
 
+  console.log(config);
+
   return (
     <div className="space-y-3 bg-gray-50 rounded-lg p-4 flex flex-col items-center">
       <DndContext
@@ -93,7 +95,7 @@ const RepeatableComponent: React.FC<RepeatableComponentProps> = ({
         {t("phrases.add_item", {
           item: customConfig?.name
             ? t(customConfig.name, { ns: "custom" }).toLowerCase()
-            : config.displayName.toLowerCase(),
+            : config.info.displayName.toLowerCase(),
         })}
       </Button>
     </div>
