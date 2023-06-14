@@ -17,7 +17,9 @@ const Relation: React.FC<{
     renderItem(): React.ReactNode;
   };
   onChange(mutation: {
-    set: number[] | { id: number; position: { before: number } }[];
+    set:
+      | (number | string)[]
+      | { id: number | string; position: { before: number | string } }[];
   }): void;
   value: Entity | null;
   name: string;

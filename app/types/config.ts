@@ -4,7 +4,6 @@ import { RouteObject } from "react-router-dom";
 
 import { ContentTypeConfig, FieldDefinition } from "./contentTypeConfig";
 import { StrapionPlugin } from "./plugin";
-import { Entity } from "./content";
 
 export interface StrapionConfig {
   strapiUrl: string;
@@ -40,7 +39,11 @@ export interface ComponentConfig {
   description?: string;
   icon?: React.ReactNode;
   fields?: FieldDefinition[];
-  renderLabel?(entity: Record<string, unknown>): React.ReactNode;
+  collapsible?: boolean;
+  renderLabel?(
+    entity: Record<string, unknown>,
+    utils: { t: (s: string) => string }
+  ): React.ReactNode;
 }
 
 export interface Hook {

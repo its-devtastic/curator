@@ -1,42 +1,41 @@
 import React from "react";
 import * as R from "ramda";
 
+import { Attribute } from "~/types/contentType";
+import { FieldDefinition } from "~/types/contentTypeConfig";
 import useStrapion from "~/hooks/useStrapion";
-
-import RepeatableComponent from "./RepeatableComponent";
-import ComponentItem from "./ComponentItem";
 import useStrapi from "~/hooks/useStrapi";
 
-const Component: React.FC<ComponentProps> = ({ value, onChange, config }) => {
+import FieldRenderer from "../../FieldRenderer";
+
+const Component: React.FC<ComponentProps> = ({ field, attribute }) => {
   const strapionConfig = useStrapion();
   const { components } = useStrapi();
-  const { repeatable, component: uid } = config;
-  const componentConfig = components.find(R.whereEq({ uid }));
-  const customConfig = strapionConfig.components?.find(
-    R.whereEq({ apiID: componentConfig?.apiID })
+  const component = components.find(R.whereEq({ uid: attribute.component }));
+  const config = strapionConfig.components?.find(
+    R.whereEq({ apiID: component?.apiID })
   );
 
-  return repeatable ? (
-    <RepeatableComponent
-      value={value as Record<string, any>[]}
-      onChange={onChange}
-      config={componentConfig}
-      customConfig={customConfig}
-    />
-  ) : (
-    <ComponentItem
-      value={value as Record<string, any>}
-      onChange={onChange}
-      config={componentConfig}
-      customConfig={customConfig}
-    />
-  );
+  return config && component ? (
+    <div className="w-full relative bg-gray-50 rounded-md">
+      <div className="p-4 space-y-6 rounded-b-lg">
+        {config.fields?.map((f: FieldDefinition) => (
+          <FieldRenderer
+            key={f.path}
+            field={R.evolve({
+              path: (p) => `${field.path}.${p}`,
+            })(f)}
+            attribute={component.attributes[f.path]}
+          />
+        ))}
+      </div>
+    </div>
+  ) : null;
 };
 
 export default Component;
 
 interface ComponentProps {
-  value?: Record<string, any> | Record<string, any>[];
-  onChange?(item: Record<string, any> | Record<string, any>[]): void;
-  config: any;
+  field: FieldDefinition;
+  attribute: Attribute;
 }
