@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import * as R from "ramda";
 import {
   arrayMove,
@@ -31,7 +31,7 @@ const DynamicZone: React.FC<{
   onChange(value: any): void;
   config: Attribute;
 }> = ({ value = [], onChange, config }) => {
-  const { components } = useStrapi();
+  const { components, sdk } = useStrapi();
   const { t } = useTranslation();
   const strapionConfig = useStrapion();
   const sensors = useSensors(
@@ -39,16 +39,6 @@ const DynamicZone: React.FC<{
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
-  );
-
-  const valueWithUniqueId = useMemo(
-    () =>
-      value.map((item) => ({
-        ...item,
-        _id: item.id,
-        id: item.__temp_key__,
-      })),
-    [value]
   );
 
   return (
@@ -62,12 +52,12 @@ const DynamicZone: React.FC<{
           if (over && active.id !== over.id) {
             const oldIndex = value.findIndex(
               R.whereEq({
-                __temp_key__: active.id,
+                id: active.id,
               })
             );
             const newIndex = value.findIndex(
               R.whereEq({
-                __temp_key__: over.id,
+                id: over.id,
               })
             );
 
@@ -75,29 +65,20 @@ const DynamicZone: React.FC<{
           }
         }}
       >
-        <SortableContext
-          items={valueWithUniqueId}
-          strategy={verticalListSortingStrategy}
-        >
-          {valueWithUniqueId.map((item) => (
+        <SortableContext items={value} strategy={verticalListSortingStrategy}>
+          {value.map((item) => (
             <DynamicItem
               key={item.id}
               item={item}
-              onChange={({ id, _id, __temp_key__, ...attributes }) =>
+              onChange={({ id, ...attributes }) =>
                 onChange(
                   value.map((item) =>
-                    item.__temp_key__ === __temp_key__
-                      ? { ...item, ...attributes }
-                      : item
+                    item.id === id ? { ...item, ...attributes } : item
                   )
                 )
               }
               onRemove={() =>
-                onChange(
-                  R.reject(R.whereEq({ __temp_key__: item.__temp_key__ }))(
-                    value
-                  )
-                )
+                onChange(R.reject(R.whereEq({ id: item.id }))(value))
               }
             />
           ))}
@@ -122,19 +103,12 @@ const DynamicZone: React.FC<{
                     close();
                     onChange(
                       R.append({
-                        __temp_key__: value.length
-                          ? R.pipe(
-                              R.pluck("__temp_key__"),
-                              R.sortBy(R.identity),
-                              R.last,
-                              R.inc
-                            )(value)
-                          : 0,
                         __component: uid,
                         ...R.mapObjIndexed(R.always(undefined))(
                           component?.attributes ?? {}
                         ),
-                      })(value)
+                        id: sdk.generateTempId(),
+                      })(value as any)
                     );
                   }}
                   className="select-none border border-solid border-gray-200 p-2 rounded-md cursor-pointer hover:bg-gray-50 hover:border-gray-300 flex gap-2 items-center"
@@ -183,7 +157,6 @@ export default DynamicZone;
 
 export interface DynamicZoneEntry {
   __component: string;
-  __temp_key__: number;
-  id: number;
+  id: number | string;
   [s: string]: any;
 }
