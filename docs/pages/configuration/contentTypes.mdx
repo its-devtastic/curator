@@ -1,0 +1,29 @@
+# contentTypes
+
+`ContentTypeConfig[]`
+
+A list of content type definitions.
+
+### Types
+
+```ts
+interface ContentTypeConfig {
+  apiID: string;
+  fields: FieldDefinition[];
+  name?: string;
+  description?: string;
+  icon?: React.ReactNode;
+  getEntityUrl?(entity: Entity): string;
+}
+
+export interface FieldDefinition {
+  path: string;
+  label?: string;
+  description?: string;
+  hint?: string;
+  input?: string;
+  inputProps?: Record<string, any>;
+  /** Only for relation and enum fields */
+  renderItem?(item: any, utils: { t: TFunction }): React.ReactNode;
+}
+```

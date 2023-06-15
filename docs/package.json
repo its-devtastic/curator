@@ -1,0 +1,38 @@
+{
+  "name": "strapion-docs",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Strapion documentation website",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "deploy": "next build && touch out/.nojekyll && git add out/ && git commit -m \"Deploy\" && git subtree push --prefix out origin gh-pages"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/its-devtastic/strapion-docs"
+  },
+  "author": "Devtastic <hi@devtastic.build>",
+  "maintainers": [
+    {
+      "name": "Leon van der Grient",
+      "url": "https://github.com/StructuralRealist",
+      "email": "leon@devtastic.build"
+    }
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/its-devtastic/strapion-docs#readme",
+  "dependencies": {
+    "next": "^13.4.5",
+    "nextra": "2.7.1",
+    "nextra-theme-docs": "2.7.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.16.18",
+    "prettier": "^2.8.8",
+    "typescript": "^5.1.3"
+  }
+}

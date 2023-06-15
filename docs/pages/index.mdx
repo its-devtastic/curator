@@ -1,0 +1,46 @@
+# Strapion
+
+**Strapion** is an alternative Strapi admin for content creators. It is customizable, translatable and mobile-friendly.
+
+## Features
+
+- 🌐 Multilingual (i18next)
+- 🎨 Customizable theme (antd and Tailwind CSS)
+- 🧩 Multiple injection zones
+- 🧱 Swappable components
+- 📜 Custom pages
+- 🔌 Plugins
+- 💯 100% TypeScript
+
+## Quick Start
+
+Create a new Strapion project with the Create Strapion App tool:
+
+```shell
+npx create-strapion-app@latest cms
+```
+
+Next, go into the newly created `cms` directory and install the dependencies. When that's done, run
+
+```shell
+npm run dev
+```
+
+Your Strapion project will run on http://localhost:1338
+
+## Motivation
+
+Strapi is the most popular JavaScript headless CMS available but its admin is notoriously uncustomizable. Strapion
+provides an alternative admin that is built with React and easy to customize and extend. It uses popular frameworks and
+libraries that should be familiar to many developers. The goal of Strapion is not to be a full replacement of Strapi's
+own admin. Creating content types, setting up login providers and other plugin management tasks are things that content
+creators never have to deal with. These features only confuse most admin users. Instead, Strapion wants to be the "third wheel"
+in the Jamstack relationship: the frontend (e.g. Next.js), the API (Strapi) and the content management UI (Strapion).
+
+## Limitations
+
+Strapion is **not a drop-in** replacement of the Strapi admin, and for two reasons. The first reason is that Strapion targets
+_content creators_ and does not support features such as content creation and plugin settings. But another reason is that
+Strapion takes a different approach on how to **configure** the admin. Instead of putting all configuration in the database -
+making it hard to migrate between environments, do translations, etc. - Strapion takes most configuration from a single
+configuration object.

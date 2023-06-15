@@ -1,0 +1,13 @@
+# plugins
+
+`StrapionPlugin[]`
+
+A list of Strapion plugins. Plugins get and return a Strapion config object.
+
+### Types
+
+```ts
+interface StrapionPlugin {
+  (config: StrapionConfig): StrapionConfig;
+}
+```
