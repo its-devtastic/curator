@@ -39,6 +39,10 @@
   "help_menu.docs": "Documentation",
   "help_menu.shortcuts": "Shortcuts",
 
+  "dark_mode.dark": "Dark",
+  "dark_mode.light": "Light",
+  "dark_mode.system": "System",
+
   "profile.email": "Email address",
   "profile.firstname": "First name",
   "profile.lastname": "Last name",

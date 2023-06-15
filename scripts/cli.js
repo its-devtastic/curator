@@ -31,6 +31,7 @@ function init() {
                 path.resolve(__dirname, "../app/**/*.{js,ts,jsx,tsx}"),
                 path.resolve(root, "./config/**/*.{js,ts,jsx,tsx}"),
               ],
+              darkMode: "class",
               theme: {
                 extend: {
                   fontFamily: {

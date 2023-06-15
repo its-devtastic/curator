@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import dayjs from "dayjs";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, theme } from "antd";
 import * as R from "ramda";
 
 import "flag-icons/css/flag-icons.min.css";
@@ -31,6 +31,7 @@ export default function createStrapionApp(strapionConfig: StrapionConfig) {
       <ConfigProvider
         theme={R.mergeDeepLeft(
           {
+            algorithm: theme.darkAlgorithm,
             token: {
               colorPrimary: "#4f46e5",
               colorSuccess: "#10b981",

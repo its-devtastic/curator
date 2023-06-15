@@ -8,6 +8,7 @@ import useStrapion from "~/hooks/useStrapion";
 import AppHeaderItem from "./AppHeaderItem";
 import UserMenu from "./UserMenu";
 import HelpMenu from "./HelpMenu";
+import DarkModeToggle from "./DarkModeToggle";
 
 const AppHeader: React.FC & {
   Item: typeof AppHeaderItem;
@@ -28,7 +29,7 @@ const AppHeader: React.FC & {
   );
 
   return (
-    <header className="flex-none h-12 bg-indigo-600 z-10 flex justify-center border-b border-0 border-solid border-indigo-900">
+    <header className="flex-none h-12 bg-indigo-600 dark:bg-indigo-800 z-10 flex justify-center border-b border-0 border-solid border-indigo-900">
       <div className="w-full max-w-screen-xl">
         <div className="flex items-center justify-between px-4 md:px-12 h-full">
           <div className="flex items-center gap-3">
@@ -56,14 +57,17 @@ const AppHeader: React.FC & {
                 <div key={index}>{render()}</div>
               ))}
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1">
             {items
               .filter(R.whereEq({ zone: InjectionZone.AppHeaderRight }))
               .map(({ render }, index) => (
                 <div key={index}>{render()}</div>
               ))}
+            <DarkModeToggle />
             <HelpMenu />
-            <UserMenu />
+            <div className="ml-2">
+              <UserMenu />
+            </div>
           </div>
         </div>
       </div>
