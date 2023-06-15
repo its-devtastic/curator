@@ -2,16 +2,23 @@ import React from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
+import { FieldDefinition } from "~/types/contentTypeConfig";
+import { Attribute } from "~/types/contentType";
+
 import "./RichtText.css";
 
 const RichTextField: React.FC<{
   value: string;
   onChange(value: string): void;
-}> = ({ value, onChange }) => {
+  field: FieldDefinition;
+  attribute: Attribute;
+  disabled?: boolean;
+}> = ({ value, onChange, disabled }) => {
   return (
     <CKEditor
       editor={ClassicEditor}
       data={value ?? ""}
+      disabled={disabled}
       config={{
         heading: {
           options: [

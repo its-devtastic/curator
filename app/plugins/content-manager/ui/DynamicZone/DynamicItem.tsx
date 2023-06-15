@@ -82,7 +82,9 @@ const DynamicItem: React.FC<{
         <div className="flex-1">
           {customConfig?.renderLabel && (
             <div className="font-semibold">
-              {customConfig.renderLabel(attrs)}
+              {customConfig.renderLabel(attrs, {
+                t: (s) => t(s, { ns: "custom" }),
+              })}
             </div>
           )}
           <div className="text-sm text-slate-500">

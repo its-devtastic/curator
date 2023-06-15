@@ -4,7 +4,7 @@ import { DocsThemeConfig } from "nextra-theme-docs";
 import logo from "./public/strapion.png";
 
 const config: DocsThemeConfig = {
-  logo: <img src={logo.src} style={{ height: 32, width: "auto" }} />,
+  logo: <img src={logo.src} alt="" style={{ height: 32, width: "auto" }} />,
   project: {
     link: "https://github.com/its-devtastic/strapion",
   },

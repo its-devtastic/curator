@@ -4,9 +4,12 @@ import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 import { Tooltip } from "antd";
 import { useTranslation } from "react-i18next";
 import * as R from "ramda";
+import { useParams } from "react-router-dom";
 
 import { FieldDefinition } from "~/types/contentTypeConfig";
 import { Attribute } from "~/types/contentType";
+
+import useContentPermission from "~/hooks/useContentPermission";
 
 import Field from "~/ui/Field";
 import FormField from "~/ui/FormField";
@@ -18,12 +21,24 @@ const FieldRenderer: React.FC<{
   attribute?: Attribute;
 }> = ({ field = {}, attribute }) => {
   const { t } = useTranslation();
+  const { apiID, id } = useParams();
   const inputName = R.when(R.equals("component"), () =>
     attribute?.repeatable ? "repeatableComponent" : "component"
   )(field.input || attribute?.type || "");
   const InputComponent = inputName ? FIELD_TYPES[inputName] : null;
+  const hasPermission = useContentPermission();
+  const hasReadPermission = !apiID || hasPermission("read", apiID, field.path);
+  const hasCreatePermission =
+    !apiID || hasPermission("create", apiID, field.path);
+  const hasUpdatePermission =
+    !apiID || hasPermission("update", apiID, field.path);
+  const hasSavePermission =
+    (R.isNil(id) && hasCreatePermission) ||
+    (!R.isNil(id) && hasUpdatePermission);
 
-  return InputComponent && field.path ? (
+  return (hasReadPermission || hasSavePermission) &&
+    InputComponent &&
+    field.path ? (
     <FormField
       label={field.label && t(field.label, { ns: "custom" })}
       help={field.description}
@@ -42,6 +57,7 @@ const FieldRenderer: React.FC<{
         {React.createElement(InputComponent, {
           attribute,
           field,
+          disabled: !hasSavePermission,
           ...field.inputProps,
         })}
       </Field>
