@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { useFormikContext } from "formik";
 
 import { StrapiContentType } from "~/types/contentType";
 import { ContentTypeConfig } from "~/types/contentTypeConfig";
-import { PluginOptions } from "~/plugins/content-manager/types";
-
-import Actions from "./Actions";
 import CalendarTime from "~/ui/CalendarTime";
-import { useFormikContext } from "formik";
+
+import { PluginOptions } from "../../types";
+import Actions from "./Actions";
 
 const Header: React.FC<HeaderProps> = ({
   apiID,

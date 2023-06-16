@@ -2,15 +2,15 @@ import React from "react";
 import { Select } from "antd";
 import { useTranslation } from "react-i18next";
 
-const EnumerationField: React.FC<any> = ({ config, error, name, ...props }) => {
+const EnumerationField: React.FC<any> = ({ attribute, field, ...props }) => {
   const { t } = useTranslation();
 
   return (
     <Select
       className="w-full"
-      options={config.enum.map((option: string) => ({
-        label: config.renderItem
-          ? config.renderItem(option, { t })
+      options={attribute.enum.map((option: string) => ({
+        label: field.renderItem
+          ? field.renderItem(option, { t })
           : t(option, { ns: "custom" }),
         value: option,
       }))}

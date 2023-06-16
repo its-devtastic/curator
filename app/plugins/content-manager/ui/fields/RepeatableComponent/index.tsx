@@ -32,6 +32,7 @@ const RepeatableComponent: React.FC<RepeatableComponentProps> = ({
   value = [],
   onChange,
   attribute,
+  disabled,
 }) => {
   const { t } = useTranslation();
   const strapionConfig = useStrapion();
@@ -65,6 +66,7 @@ const RepeatableComponent: React.FC<RepeatableComponentProps> = ({
         <SortableContext
           items={value as Entity[]}
           strategy={verticalListSortingStrategy}
+          disabled={disabled}
         >
           {value.map((item, idx) => (
             <RepeatableComponentItem
@@ -114,4 +116,5 @@ interface RepeatableComponentProps {
   onChange(value: Entity[]): void;
   field: FieldDefinition;
   attribute: Attribute;
+  disabled?: boolean;
 }

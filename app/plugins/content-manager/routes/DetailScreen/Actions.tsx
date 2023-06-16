@@ -27,6 +27,7 @@ import useModifierKey from "~/hooks/useModifierKey";
 import usePreferences from "~/hooks/usePreferences";
 
 import { PluginOptions } from "../../types";
+import useContentPermission from "~/hooks/useContentPermission";
 
 const Actions: React.FC<{
   options: Required<Required<PluginOptions>["edit"]>[""]["header"];
@@ -34,6 +35,7 @@ const Actions: React.FC<{
 }> = ({ options, contentTypeConfig }) => {
   const { t } = useTranslation();
   const params = useParams();
+  const hasPermission = useContentPermission();
   const apiID = params.apiID as string;
   const navigate = useNavigate();
   const { contentTypes, sdk } = useStrapi();
@@ -50,10 +52,24 @@ const Actions: React.FC<{
   );
   const modifierKey = useModifierKey();
 
+  // CRUD permissions
+  const hasCreatePermission = hasPermission("create", apiID);
+  const hasUpdatePermission = hasPermission("update", apiID);
+  const hasDeletePermission = hasPermission("delete", apiID);
+  const hasPublishPermission = hasPermission("publish", apiID);
+  const hasSavePermission =
+    (!values.id && hasCreatePermission) || (values.id && hasUpdatePermission);
+
   // Autosave for drafts
   useDebounce(
     () => {
-      if (values.id && isDraft && preferences.autosave && dirty) {
+      if (
+        hasUpdatePermission &&
+        values.id &&
+        isDraft &&
+        preferences.autosave &&
+        dirty
+      ) {
         submitForm();
       }
     },
@@ -80,7 +96,7 @@ const Actions: React.FC<{
   useKey(
     "s",
     (e) => {
-      if (e[modifierKey.value]) {
+      if (e[modifierKey.value] && hasSavePermission) {
         e.preventDefault();
         submitForm();
       }
@@ -94,7 +110,7 @@ const Actions: React.FC<{
       {contextHolder}
 
       <div className="flex items-top gap-2">
-        {hasDraftState && (
+        {hasDraftState && hasPublishPermission && (
           <div>
             <Dropdown
               disabled={!values.id}
@@ -139,17 +155,19 @@ const Actions: React.FC<{
         )}
 
         <div className="flex flex-col items-end">
-          <Button
-            type="primary"
-            loading={isSubmitting}
-            onClick={async () => {
-              await submitForm();
-              notification.success({ message: t("phrases.document_saved") });
-            }}
-          >
-            {t("common.save")}
-          </Button>
-          {isDraft && !R.isNil(values.id) && (
+          {hasSavePermission && (
+            <Button
+              type="primary"
+              loading={isSubmitting}
+              onClick={async () => {
+                await submitForm();
+                notification.success({ message: t("phrases.document_saved") });
+              }}
+            >
+              {t("common.save")}
+            </Button>
+          )}
+          {isDraft && !R.isNil(values.id) && hasSavePermission && (
             <div
               className="space-x-2 cursor-pointer"
               onClick={() => setPreference("autosave", !preferences.autosave)}
@@ -178,7 +196,7 @@ const Actions: React.FC<{
           </Tooltip>
         )}
 
-        {values.id && !isSingleType && (
+        {values.id && !isSingleType && hasDeletePermission && (
           <Dropdown
             trigger={["click"]}
             placement="bottomRight"

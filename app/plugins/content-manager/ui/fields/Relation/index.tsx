@@ -7,14 +7,15 @@ import useStrapi from "~/hooks/useStrapi";
 
 import ToOne from "./ToOne";
 import ToMany from "./ToMany";
+import { FieldDefinition } from "~/types/contentTypeConfig";
 
 const Relation: React.FC<{
-  config: {
+  field: FieldDefinition;
+  attribute: {
     mappedBy: string;
     inversedBy: string;
     relationType: "oneToOne" | "oneToMany";
     targetModel: string;
-    renderItem(): React.ReactNode;
   };
   onChange(mutation: {
     set:
@@ -22,34 +23,33 @@ const Relation: React.FC<{
       | { id: number | string; position: { before: number | string } }[];
   }): void;
   value: Entity | null;
-  name: string;
-}> = ({ config, name, ...props }) => {
+}> = ({ attribute, field, ...props }) => {
   const { contentTypes } = useStrapi();
   const targetModelApiID = contentTypes.find(
-    R.whereEq({ uid: config.targetModel })
+    R.whereEq({ uid: attribute.targetModel })
   )?.apiID;
   const apiID =
-    config.mappedBy ||
+    attribute.mappedBy ||
     contentTypes.find(
-      R.where({ info: R.whereEq({ pluralName: config.inversedBy }) })
+      R.where({ info: R.whereEq({ pluralName: attribute.inversedBy }) })
     )?.apiID;
 
   if (!targetModelApiID) {
     console.error(`No content type with apiID ${targetModelApiID}`);
   }
 
-  return !targetModelApiID ? null : config.relationType === "oneToOne" ? (
+  return !targetModelApiID ? null : attribute.relationType === "oneToOne" ? (
     <ToOne
       targetModelApiID={targetModelApiID}
-      renderItem={config.renderItem}
+      renderItem={field.renderItem}
       {...props}
     />
-  ) : ["oneToMany", "manyToMany"].includes(config.relationType) ? (
+  ) : ["oneToMany", "manyToMany"].includes(attribute.relationType) ? (
     <ToMany
       apiID={apiID!}
       targetModelApiID={targetModelApiID}
-      renderItem={config.renderItem}
-      name={name}
+      renderItem={field.renderItem}
+      name={field.path}
       {...props}
     />
   ) : null;
