@@ -21,16 +21,23 @@ const MediaField: React.FC<MediaFieldProps> = ({
 
   return (
     <div className="flex items-center gap-3">
-      {showAvatar && (
-        <Avatar
-          size="large"
-          src={
-            value?.mime === "image/svg+xml"
-              ? value?.url
-              : value?.formats?.thumbnail?.url
-          }
-        />
-      )}
+      {showAvatar &&
+        value &&
+        (value.mime.startsWith("image/") ? (
+          <Avatar
+            size="large"
+            src={
+              value?.mime === "image/svg+xml"
+                ? value?.url
+                : value?.formats?.thumbnail?.url
+            }
+          />
+        ) : value.mime.startsWith("video/") ? (
+          <video
+            className="flex w-9 h-9 rounded-full object-cover"
+            src={value.url}
+          />
+        ) : null)}
       <Popover
         trigger={["click"]}
         placement="top"

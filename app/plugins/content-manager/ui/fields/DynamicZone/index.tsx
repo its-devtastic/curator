@@ -20,6 +20,7 @@ import { Button, Tooltip } from "antd";
 import { useTranslation } from "react-i18next";
 
 import { Attribute } from "~/types/contentType";
+import { FieldDefinition } from "~/types/contentTypeConfig";
 import useStrapi from "~/hooks/useStrapi";
 import useStrapion from "~/hooks/useStrapion";
 import Popover from "~/ui/Popover";
@@ -30,7 +31,8 @@ const DynamicZone: React.FC<{
   value: DynamicZoneEntry[];
   onChange(value: any): void;
   attribute: Attribute;
-}> = ({ value = [], onChange, attribute }) => {
+  field: FieldDefinition;
+}> = ({ value = [], onChange, attribute, field }) => {
   const { components, sdk } = useStrapi();
   const { t } = useTranslation();
   const strapionConfig = useStrapion();
@@ -50,14 +52,18 @@ const DynamicZone: React.FC<{
           const { active, over } = event;
 
           if (over && active.id !== over.id) {
+            const [activeId, activeComponent] = String(active.id).split("+");
+            const [overId, overComponent] = String(over.id).split("+");
             const oldIndex = value.findIndex(
-              R.whereEq({
-                id: active.id,
+              R.where({
+                id: (id: string | number) => String(id) === activeId,
+                __component: R.equals(activeComponent),
               })
             );
             const newIndex = value.findIndex(
-              R.whereEq({
-                id: over.id,
+              R.where({
+                id: (id: string | number) => String(id) === overId,
+                __component: R.equals(overComponent),
               })
             );
 
@@ -65,18 +71,17 @@ const DynamicZone: React.FC<{
           }
         }}
       >
-        <SortableContext items={value} strategy={verticalListSortingStrategy}>
-          {value.map((item) => (
+        <SortableContext
+          items={value.map(({ id, __component }) => ({
+            id: `${id}+${__component}`,
+          }))}
+          strategy={verticalListSortingStrategy}
+        >
+          {value.map((item, idx) => (
             <DynamicItem
-              key={item.id}
-              item={item}
-              onChange={({ id, ...attributes }) =>
-                onChange(
-                  value.map((item) =>
-                    item.id === id ? { ...item, ...attributes } : item
-                  )
-                )
-              }
+              key={`${item.id}+${item.__component}`}
+              value={item}
+              path={`${field.path}.${idx}`}
               onRemove={() =>
                 onChange(R.reject(R.whereEq({ id: item.id }))(value))
               }

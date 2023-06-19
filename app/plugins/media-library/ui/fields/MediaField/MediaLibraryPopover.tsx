@@ -59,15 +59,22 @@ const MediaLibraryPopover: React.FC<{
         )}
         {value?.results.map((item) => (
           <div key={item.id} onClick={() => onChange(item)}>
-            <img
-              className="flex w-12 h-12 rounded-sm hover:cursor-pointer object-cover hover:opacity-80 bg-gray-50"
-              src={
-                item.mime === "image/svg+xml"
-                  ? item.url
-                  : item.formats?.thumbnail?.url
-              }
-              alt=""
-            />
+            {item.mime.startsWith("image/") ? (
+              <img
+                className="flex w-12 h-12 rounded-sm hover:cursor-pointer object-cover hover:opacity-80 bg-gray-50"
+                src={
+                  item.mime === "image/svg+xml"
+                    ? item.url
+                    : item.formats?.thumbnail?.url
+                }
+                alt=""
+              />
+            ) : item.mime.startsWith("video/") ? (
+              <video
+                className="flex w-12 h-12 rounded-sm hover:cursor-pointer object-cover hover:opacity-80 bg-gray-50"
+                src={item.url}
+              />
+            ) : null}
           </div>
         ))}
       </div>

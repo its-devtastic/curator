@@ -337,17 +337,22 @@ export class StrapiSdk {
   private static removeTmpId<
     T extends Record<string, unknown> | Record<string, unknown>[]
   >(data: T): T {
-    const mapFn = R.mapObjIndexed(
-      R.when(
-        Array.isArray,
-        R.map(
-          R.evolve({
-            id: R.when(R.startsWith("__tmp__"), R.always(undefined)),
-          })
-        )
-      )
-    );
+    function removeId(value: any): any {
+      return R.cond([
+        [Array.isArray, R.map(removeId)],
+        [
+          R.is(Object),
+          R.pipe(
+            R.evolve({
+              id: R.when(R.startsWith("__tmp__"), R.always(undefined)),
+            }),
+            R.mapObjIndexed(removeId)
+          ),
+        ],
+        [R.T, R.identity],
+      ])(value as any);
+    }
 
-    return (Array.isArray(data) ? R.map(mapFn)(data) : mapFn(data)) as T;
+    return removeId(data);
   }
 }

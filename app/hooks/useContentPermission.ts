@@ -10,7 +10,7 @@ export default function useContentPermission() {
     (
       action: "read" | "update" | "create" | "delete" | "publish",
       contentType: string,
-      field?: string
+      field?: string | null
     ) =>
       permissions.some(
         R.where({
@@ -19,7 +19,10 @@ export default function useContentPermission() {
             contentTypes.find(R.whereEq({ apiID: contentType }))?.uid
           ),
           properties: R.where({
-            fields: R.either(() => !field, R.includes(field)),
+            fields: R.either(
+              () => !field,
+              (fields: string[]) => fields.some(R.startsWith(field as string))
+            ),
           }),
         })
       ),

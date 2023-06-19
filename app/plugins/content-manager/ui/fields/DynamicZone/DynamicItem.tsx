@@ -15,23 +15,20 @@ import { CSS } from "@dnd-kit/utilities";
 import useStrapi from "~/hooks/useStrapi";
 import useStrapion from "~/hooks/useStrapion";
 
-import FormField from "~/ui/FormField";
-
-import { FIELD_TYPES } from "~/plugins/content-manager/utils/constants";
-
+import FieldRenderer from "../../FieldRenderer";
 import { DynamicZoneEntry } from "./index";
 
 const DynamicItem: React.FC<{
-  item: DynamicZoneEntry;
-  onChange(item: DynamicZoneEntry): void;
+  value: DynamicZoneEntry;
   onRemove: VoidFunction;
-}> = ({ item: { __component, id, ...attrs }, onChange, onRemove }) => {
+  path: string;
+}> = ({ value: { __component, id, ...attrs }, path, onRemove }) => {
   const { t } = useTranslation();
   const { components } = useStrapi();
   const strapionConfig = useStrapion();
   const [opened, setOpened] = useState(false);
   const component = components.find(R.whereEq({ uid: __component }));
-  const customConfig = strapionConfig.components?.find(
+  const config = strapionConfig.components?.find(
     R.whereEq({ apiID: component?.apiID })
   );
   const {
@@ -41,7 +38,7 @@ const DynamicItem: React.FC<{
     transform,
     transition,
     isDragging,
-  } = useSortable({ id });
+  } = useSortable({ id: `${id}+${__component}` });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -74,21 +71,21 @@ const DynamicItem: React.FC<{
             })}
           />
         </span>
-        {customConfig?.icon && (
+        {config?.icon && (
           <div className="flex-none text-lg border border-solid border-gray-300 flex items-center justify-center h-8 w-8 shadow-[0_3px] shadow-black/5 rounded-md">
-            {customConfig.icon}
+            {config.icon}
           </div>
         )}
         <div className="flex-1">
-          {customConfig?.renderLabel && (
+          {config?.renderLabel && (
             <div className="font-semibold">
-              {customConfig.renderLabel(attrs, {
+              {config.renderLabel(attrs, {
                 t: (s) => t(s, { ns: "custom" }),
               })}
             </div>
           )}
           <div className="text-sm text-slate-500">
-            {t(customConfig?.name ?? component?.info.displayName ?? "", {
+            {t(config?.name ?? component?.info.displayName ?? "", {
               ns: "custom",
             })}
           </div>
@@ -113,30 +110,15 @@ const DynamicItem: React.FC<{
       </div>
       {opened && (
         <div className="p-4 space-y-6 rounded-b-lg">
-          {customConfig?.fields?.map(
-            ({ path, label, input, description, hint, inputProps }) => {
-              const InputComponent =
-                component &&
-                FIELD_TYPES[input ?? component.attributes[path]?.type];
-              return (
-                InputComponent && (
-                  <FormField
-                    key={path}
-                    label={t(label ?? path, { ns: "custom" })}
-                    help={description && t(description, { ns: "custom" })}
-                    hint={hint && t(hint, { ns: "custom" })}
-                  >
-                    {React.createElement(InputComponent, {
-                      value: attrs[path],
-                      onChange(value: any) {
-                        onChange({ ...attrs, id, __component, [path]: value });
-                      },
-                      ...inputProps,
-                    })}
-                  </FormField>
-                )
-              );
-            }
+          {config?.fields?.map(
+            (field) =>
+              component && (
+                <FieldRenderer
+                  key={field.path}
+                  field={R.evolve({ path: (p) => `${path}.${p}` })(field)}
+                  attribute={component.attributes[field.path]}
+                />
+              )
           )}
         </div>
       )}

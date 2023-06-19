@@ -10,7 +10,9 @@ const EnumerationField: React.FC<any> = ({ attribute, field, ...props }) => {
       className="w-full"
       options={attribute.enum.map((option: string) => ({
         label: field.renderItem
-          ? field.renderItem(option, { t })
+          ? field.renderItem(option, {
+              t: (s: string) => t(s, { ns: "custom" }),
+            })
           : t(option, { ns: "custom" }),
         value: option,
       }))}

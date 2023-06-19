@@ -10,8 +10,7 @@ import Enumeration from "~/plugins/content-manager/ui/fields/Enumeration";
 import BooleanField from "~/plugins/content-manager/ui/fields/Boolean";
 import ComponentField from "~/plugins/content-manager/ui/fields/Component";
 import RepeatableComponent from "~/plugins/content-manager/ui/fields/RepeatableComponent";
-
-import DynamicZone from "~/plugins/content-manager/ui/DynamicZone";
+import DynamicZone from "~/plugins/content-manager/ui/fields/DynamicZone";
 
 import MediaField from "~/plugins/media-library/ui/fields/MediaField";
 import CoverImage from "~/plugins/media-library/ui/fields/CoverImage";
