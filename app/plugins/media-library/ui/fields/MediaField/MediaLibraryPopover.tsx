@@ -32,7 +32,7 @@ const MediaLibraryPopover: React.FC<{
         <UploadButton
           onUploadComplete={(item) => {
             retry();
-            onChange(item);
+            item?.[0] && onChange(item[0]);
           }}
           button={
             <Button size="small" type="primary">

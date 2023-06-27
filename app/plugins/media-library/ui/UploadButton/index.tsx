@@ -5,7 +5,7 @@ import { MediaItem } from "~/types/media";
 
 const UploadButton: React.FC<{
   button: React.ReactElement<{ onClick: VoidFunction; loading?: boolean }>;
-  onUploadComplete?(item: MediaItem): void;
+  onUploadComplete?(item: MediaItem[]): void;
 }> = ({ button, onUploadComplete }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { sdk } = useStrapi();

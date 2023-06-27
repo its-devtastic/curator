@@ -83,7 +83,11 @@ const DynamicZone: React.FC<{
               value={item}
               path={`${field.path}.${idx}`}
               onRemove={() =>
-                onChange(R.reject(R.whereEq({ id: item.id }))(value))
+                onChange(
+                  R.reject(
+                    R.whereEq({ id: item.id, __component: item.__component })
+                  )(value)
+                )
               }
             />
           ))}

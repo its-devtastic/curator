@@ -240,7 +240,7 @@ export class StrapiSdk {
     fd.append("files", file);
     fd.append("fileInfo", JSON.stringify({ name: file.name, folder: null }));
 
-    const { data } = await this.http.post<MediaItem>("/upload", fd);
+    const { data } = await this.http.post<MediaItem[]>("/upload", fd);
 
     return data;
   }
