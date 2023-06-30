@@ -21,7 +21,7 @@ const Main: React.FC<MainProps> = ({
     <div className="space-y-6">
       <Top contentType={contentType} />
 
-      <div className="flex flex-col md:items-start md:flex-row justify-between gap-8">
+      <div className="flex flex-col lg:items-start lg:flex-row justify-between gap-8">
         {side && (
           <Card className="flex-none lg:w-[400px] border-gray-200 overflow-hidden">
             <div className="space-y-6">

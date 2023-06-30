@@ -1,11 +1,21 @@
 import React, { useState } from "react";
-import { Button, Image, List, message, Popconfirm, Typography } from "antd";
+import {
+  Button,
+  Image,
+  List,
+  message,
+  Popconfirm,
+  Segmented,
+  Typography,
+} from "antd";
 import { filesize } from "filesize";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCloudUpload,
   faFile,
   faLink,
+  faTableCells,
+  faTableList,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAsyncRetry, useCopyToClipboard } from "react-use";
@@ -20,11 +30,15 @@ import Pagination from "~/ui/Pagination";
 
 import UploadButton from "../../ui/UploadButton";
 import FilterToolbar from "./FilterToolbar";
+import usePreferences from "~/hooks/usePreferences";
+import classNames from "classnames";
 
 const ListScreen: React.FC = () => {
   const { t } = useTranslation();
   const [_, copy] = useCopyToClipboard();
   const { sdk } = useStrapi();
+  const { preferences, setPreference } = usePreferences();
+  const view = preferences.mediaLibrary?.listView ?? "list";
   const [collection, setCollection] = useState<{
     pagination: IPagination | null;
     results: any[];
@@ -38,7 +52,10 @@ const ListScreen: React.FC = () => {
     retry,
     loading,
   } = useAsyncRetry(async () => {
-    const data = await sdk.getMediaItems({ sort: "createdAt:DESC" });
+    const data = await sdk.getMediaItems({
+      sort: "createdAt:DESC",
+      pageSize: 12,
+    });
     setCollection(data);
   }, [sdk]);
 
@@ -48,7 +65,12 @@ const ListScreen: React.FC = () => {
 
   return (
     <Formik<{ sort: Sort; _q: string; page: number; pageSize: number }>
-      initialValues={{ _q: "", sort: "createdAt:DESC", page: 1, pageSize: 10 }}
+      initialValues={{
+        _q: "",
+        sort: "createdAt:DESC",
+        page: 1,
+        pageSize: 12,
+      }}
       onSubmit={async (values) => {
         const data = await sdk.getMediaItems(values);
         setCollection(data);
@@ -56,8 +78,21 @@ const ListScreen: React.FC = () => {
     >
       {({ setFieldValue, submitForm }) => (
         <div className="px-4 md:px-12 py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between my-12 md:mb-24 gap-4">
-            <h1 className="m-0">{t("common.media_library")}</h1>
+          <div className="flex flex-col md:flex-row items-center my-12 md:mb-24 gap-4">
+            <h1 className="m-0 flex-1">{t("common.media_library")}</h1>
+            <Segmented
+              value={view}
+              onChange={(view) =>
+                setPreference("mediaLibrary.listView", view as "list" | "grid")
+              }
+              options={[
+                {
+                  icon: <FontAwesomeIcon icon={faTableCells} />,
+                  value: "grid",
+                },
+                { icon: <FontAwesomeIcon icon={faTableList} />, value: "list" },
+              ]}
+            />
             <UploadButton
               onUploadComplete={retry}
               button={
@@ -72,6 +107,7 @@ const ListScreen: React.FC = () => {
             <FilterToolbar />
           </div>
           <List
+            grid={view === "grid" ? { gutter: 24, column: 4 } : undefined}
             loading={loading}
             itemLayout="vertical"
             dataSource={collection.results}
@@ -79,43 +115,35 @@ const ListScreen: React.FC = () => {
             renderItem={(item) => (
               <List.Item
                 extra={
-                  <div className="h-full flex gap-2 items-center justify-center">
-                    <Button
-                      type="text"
-                      icon={<FontAwesomeIcon icon={faLink} />}
-                      onClick={() => {
-                        copy(item.url);
-                        message.success(t("media_library.url_copied"));
-                      }}
-                    />
-                    <Popconfirm
-                      title={t("media_library.delete_item_title")}
-                      description={t("media_library.delete_item_description")}
-                      onConfirm={async () => {
-                        await sdk.deleteMediaItem(item.id);
-                        retry();
-                      }}
-                      okText={t("common.yes")}
-                      cancelText={t("common.no")}
-                      okButtonProps={{ type: "primary", danger: true }}
-                    >
+                  view === "grid" ? null : (
+                    <div className="h-full flex gap-2 items-center justify-center">
                       <Button
                         type="text"
-                        icon={<FontAwesomeIcon icon={faTrashAlt} />}
+                        icon={<FontAwesomeIcon icon={faLink} />}
+                        onClick={() => {
+                          copy(item.url);
+                          message.success(t("media_library.url_copied"));
+                        }}
                       />
-                    </Popconfirm>
-                  </div>
+                      <Popconfirm
+                        title={t("media_library.delete_item_title")}
+                        description={t("media_library.delete_item_description")}
+                        onConfirm={async () => {
+                          await sdk.deleteMediaItem(item.id);
+                          retry();
+                        }}
+                        okText={t("common.yes")}
+                        cancelText={t("common.no")}
+                        okButtonProps={{ type: "primary", danger: true }}
+                      >
+                        <Button
+                          type="text"
+                          icon={<FontAwesomeIcon icon={faTrashAlt} />}
+                        />
+                      </Popconfirm>
+                    </div>
+                  )
                 }
-                actions={[
-                  <span key="ext">{item.ext.slice(1).toUpperCase()}</span>,
-                  <span key="size">
-                    {String(filesize(item.size * 1000, { round: 0 }))}
-                  </span>,
-                  item.mime.startsWith("image/") && (
-                    <span key="dimensions">{`${item.width} x ${item.height}`}</span>
-                  ),
-                  <CalendarTime key="createdAt">{item.createdAt}</CalendarTime>,
-                ].filter(Boolean)}
               >
                 <List.Item.Meta
                   avatar={
@@ -127,13 +155,18 @@ const ListScreen: React.FC = () => {
                             ? item.url
                             : item.formats?.thumbnail?.url
                         }
-                        width={64}
-                        height={64}
+                        width={view === "grid" ? 256 : 64}
+                        height={view === "grid" ? 256 : 64}
                         alt=""
                         preview={{ width: 640, src: item.url }}
                       />
                     ) : (
-                      <div className="w-16 h-16 flex items-center justify-center bg-indigo-50 rounded-md">
+                      <div
+                        className={classNames(
+                          "flex items-center justify-center bg-indigo-50 rounded-md",
+                          view === "grid" ? "w-64 h-64" : "h-16 w-16"
+                        )}
+                      >
                         <FontAwesomeIcon
                           icon={faFile}
                           className="text-indigo-500"
@@ -142,14 +175,34 @@ const ListScreen: React.FC = () => {
                     )
                   }
                   title={
-                    <div className="max-w-xs">
-                      <Typography.Text ellipsis={{ tooltip: true }}>
-                        {item.name}
-                      </Typography.Text>
-                    </div>
+                    view === "grid" ? undefined : (
+                      <div className="max-w-xs">
+                        <Typography.Text ellipsis={{ tooltip: true }}>
+                          {item.name}
+                        </Typography.Text>
+                      </div>
+                    )
                   }
                   description={
-                    <div className="font-mono truncate">{item.caption}</div>
+                    view === "grid" ? undefined : (
+                      <div className="space-y-2">
+                        {item.caption && (
+                          <div className="font-mono truncate">
+                            {item.caption}
+                          </div>
+                        )}
+                        <div className="space-x-4">
+                          <span>{item.ext.slice(1).toUpperCase()}</span>
+                          <span>
+                            {String(filesize(item.size * 1000, { round: 0 }))}
+                          </span>
+                          {item.mime.startsWith("image/") && (
+                            <span>{`${item.width} x ${item.height}`}</span>
+                          )}
+                          <CalendarTime>{item.createdAt}</CalendarTime>
+                        </div>
+                      </div>
+                    )
                   }
                 />
               </List.Item>

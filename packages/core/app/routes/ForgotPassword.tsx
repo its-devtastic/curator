@@ -28,7 +28,7 @@ const ForgotPassword: React.FC = () => {
       <h1 className="text-center mb-12 mt-6 select-none">
         {t("forgot_password.title")}
       </h1>
-      <Card className="shadow-[0_3px_0] shadow-slate-100">
+      <Card className="shadow-[0_3px_0] shadow-gray-100">
         {
           <Formik
             initialValues={{ email: "" }}

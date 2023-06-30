@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> = ({
   const { values } = useFormikContext<any>();
 
   return (
-    <div className="pt-12 pb-4 flex flex-col gap-6 lg:flex-row justify-between items-center">
+    <div className="pt-12 pb-4 flex flex-col gap-6 md:flex-row justify-between items-center">
       <div className="flex-1">
         {!isSingleType && (
           <Link

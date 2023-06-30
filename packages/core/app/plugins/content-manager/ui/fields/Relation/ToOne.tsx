@@ -8,18 +8,21 @@ import { useTranslation } from "react-i18next";
 import { useFormikContext } from "formik";
 
 import { Entity } from "~/types/content";
+import { FieldDefinition } from "~/types/contentTypeConfig";
 import useStrapi from "~/hooks/useStrapi";
 
 const ToOne: React.FC<{
+  apiID: string;
+  field: FieldDefinition;
   targetModelApiID: string;
   onChange(mutation: { set: [number] }): void;
   value: Entity | null;
   renderItem?(item: any, utils: { t: any }): React.ReactNode;
-}> = ({ value, onChange, targetModelApiID, renderItem }) => {
+}> = ({ value, onChange, targetModelApiID, renderItem, apiID, field }) => {
   const { t } = useTranslation();
   const [model, setModel] = useState(value);
   const { sdk } = useStrapi();
-  const { values } = useFormikContext<{ locale: string }>();
+  const { values } = useFormikContext<{ locale: string; id: number }>();
   const [search, setSearch] = useState("");
   const [edit, setEdit] = useState(false);
 
@@ -35,6 +38,22 @@ const ToOne: React.FC<{
       console.error(e);
     }
   }, [search]);
+
+  useAsync(async () => {
+    // Get ID of related item
+    const { id } = await sdk.getRelation(apiID, values.id, field.path, {
+      locale: values.locale,
+    });
+
+    // Get full related item object
+    const relation = await sdk.getOne<Entity>(targetModelApiID, id, {
+      params: {
+        locale: values.locale,
+      },
+    });
+
+    setModel(relation);
+  }, []);
 
   return model && !edit ? (
     <div className="flex items-center p-4 border border-solid border-gray-300 rounded-lg">

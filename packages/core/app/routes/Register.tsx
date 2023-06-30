@@ -45,7 +45,7 @@ const Register: React.FC = () => {
           />
         </div>
       )}
-      <Card className="shadow-[0_3px_0] shadow-slate-100">
+      <Card className="shadow-[0_3px_0] shadow-gray-100">
         <h1 className="mt-0 mb-6 text-center">{t("register.title")}</h1>
         {
           <Formik

@@ -51,7 +51,7 @@ const FormSubmissionsScreen: React.FC = () => {
             <List.Item
               className={classNames({ "bg-emerald-50": !item.read })}
               extra={
-                <div className="text-xs text-slate-500">
+                <div className="text-xs text-gray-500">
                   <CalendarTime>{item.createdAt}</CalendarTime>
                 </div>
               }

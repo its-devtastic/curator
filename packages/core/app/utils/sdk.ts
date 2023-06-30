@@ -157,6 +157,24 @@ export class StrapiSdk {
     return data;
   }
 
+  public async getRelation(
+    apiID: string,
+    id: number,
+    field: string,
+    params?: GetManyParams
+  ) {
+    const contentType = this.contentTypes.find(R.whereEq({ apiID }));
+
+    const { data } = await this.http.get<{ data: { id: number } }>(
+      `/content-manager/relations/${contentType?.uid}/${id}/${field}`,
+      {
+        params,
+      }
+    );
+
+    return data.data;
+  }
+
   public async getRelations(
     apiID: string,
     id: number,
@@ -167,7 +185,9 @@ export class StrapiSdk {
 
     const { data } = await this.http.get<PaginatedResponse<{ id: number }>>(
       `/content-manager/relations/${contentType?.uid}/${id}/${field}`,
-      { params }
+      {
+        params,
+      }
     );
 
     return data;

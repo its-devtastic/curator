@@ -8,6 +8,7 @@ import * as R from "ramda";
 
 import useStrapi from "~/hooks/useStrapi";
 import { Entity } from "~/types/content";
+import { FieldDefinition } from "~/types/contentTypeConfig";
 
 const RelationSelect: React.FC<{
   idsToOmit: (number | string)[];
@@ -15,7 +16,8 @@ const RelationSelect: React.FC<{
   onChange(item: Entity): void;
   renderItem?(item: any, utils: { t: TFunction }): React.ReactNode;
   value: (number | string)[];
-}> = ({ onChange, targetModelApiID, renderItem, value = [] }) => {
+  field: FieldDefinition;
+}> = ({ onChange, targetModelApiID, renderItem, value = [], field }) => {
   const { t } = useTranslation();
   const { sdk } = useStrapi();
   const { values } = useFormikContext<{
@@ -62,6 +64,9 @@ const RelationSelect: React.FC<{
       filterOption={false}
       showSearch
       onSearch={setSearch}
+      placeholder={t("phrases.add_item", {
+        item: t(field.label ?? "", { ns: "custom" }).toLowerCase(),
+      })}
     />
   );
 };

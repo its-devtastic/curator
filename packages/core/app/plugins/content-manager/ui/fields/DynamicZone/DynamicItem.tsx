@@ -84,7 +84,7 @@ const DynamicItem: React.FC<{
               })}
             </div>
           )}
-          <div className="text-sm text-slate-500">
+          <div className="text-sm text-gray-500">
             {t(config?.name ?? component?.info.displayName ?? "", {
               ns: "custom",
             })}

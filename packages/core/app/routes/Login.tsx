@@ -28,7 +28,7 @@ const Login: React.FC = () => {
         </div>
       )}
       <h1 className="text-center mb-12 mt-6 select-none">{t("login.title")}</h1>
-      <Card className="shadow-lg shadow-slate-200/50 border-slate-300">
+      <Card className="shadow-lg shadow-gray-200/50 border-gray-300">
         {
           <Formik
             initialValues={{ email: "", password: "" }}

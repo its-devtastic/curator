@@ -3,14 +3,18 @@ import { persist } from "zustand/middleware";
 import * as R from "ramda";
 
 interface PreferenceState {
-  preferences: Record<string, unknown>;
-  setPreference(key: string, value: unknown): void;
+  preferences: Record<string, any>;
+  setPreference(key: string, value: any): void;
 }
 
 const initialState = {
   preferences: {
     // Automatically save drafts after changes
     autosave: true,
+    mediaLibrary: {
+      listView: "list",
+      popoverView: "grid",
+    },
   },
 };
 

@@ -18,6 +18,7 @@ import {
 } from "@dnd-kit/sortable";
 
 import { Entity } from "~/types/content";
+import { FieldDefinition } from "~/types/contentTypeConfig";
 import useStrapi from "~/hooks/useStrapi";
 
 import RelationSelect from "./RelationSelect";
@@ -25,13 +26,13 @@ import Item from "./Item";
 
 const ToMany: React.FC<{
   apiID: string;
-  name: string;
+  field: FieldDefinition;
   targetModelApiID: string;
   onChange(mutation: {
     set: { id: number | string; position: { before: number | string } }[];
   }): void;
   renderItem?(item: any, utils: { t: any }): React.ReactNode;
-}> = ({ onChange, targetModelApiID, renderItem, apiID, name }) => {
+}> = ({ onChange, targetModelApiID, renderItem, apiID, field }) => {
   const { sdk } = useStrapi();
   const { values } = useFormikContext<{ locale: string; id?: number }>();
   const [search, setSearch] = useState("");
@@ -62,7 +63,7 @@ const ToMany: React.FC<{
       const { results: relations } = await sdk.getRelations(
         apiID,
         values.id,
-        name,
+        field.path,
         {
           locale: values.locale,
         }
@@ -93,6 +94,7 @@ const ToMany: React.FC<{
         targetModelApiID={targetModelApiID}
         renderItem={renderItem}
         value={R.pluck("id", items)}
+        field={field}
       />
       <DndContext
         sensors={sensors}
