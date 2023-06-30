@@ -8,7 +8,7 @@
     "build": "curator build"
   },
   "dependencies": {
-    "@curator/studio": "latest",
+    "@curatorjs/core": "latest",
     "react": "18.2.0"
   }
 }
