@@ -9,6 +9,16 @@ const config: DocsThemeConfig = {
     link: "https://github.com/its-devtastic/curator",
   },
   docsRepositoryBase: "https://github.com/its-devtastic/curator/tree/main/docs",
+  useNextSeoProps() {
+    return {
+      title: "Curator",
+    };
+  },
+  head: () => (
+    <>
+      <link rel="icon" type="image/png" href="/favicon.png" />
+    </>
+  ),
   footer: {
     text: (
       <div
@@ -27,7 +37,7 @@ const config: DocsThemeConfig = {
           .
         </div>
         <div>
-          Built in Utrecht by{" "}
+          Created by{" "}
           <a href="https://www.devtastic.build" target="_blank">
             Devtastic
           </a>

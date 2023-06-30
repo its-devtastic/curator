@@ -8,8 +8,10 @@ A list of content type definitions.
 
 ```ts
 interface ContentTypeConfig {
+  /** The apiID is how Strapi identifies the content type. */
   apiID: string;
   fields: FieldDefinition[];
+  /** Name and description can be translation keys or literal strings */
   name?: string;
   description?: string;
   icon?: React.ReactNode;
@@ -17,7 +19,9 @@ interface ContentTypeConfig {
 }
 
 export interface FieldDefinition {
+  /** The path to the key of the field (e.g. "username") */
   path: string;
+  /** Label, description and hint can be translation keys or literal strings */
   label?: string;
   description?: string;
   hint?: string;
