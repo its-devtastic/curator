@@ -6,7 +6,7 @@ import SecretsProvider from "~/providers/SecretsProvider";
 import MainMenu from "~/ui/MainMenu";
 import AppHeader from "~/ui/AppHeader";
 
-import logo from "~/assets/curator.png";
+import logo from "~/assets/logo.svg";
 import pkg from "../../package.json";
 
 const Auth: React.FC = () => (
@@ -29,7 +29,7 @@ const Auth: React.FC = () => (
             <li>
               <a
                 className="link"
-                href="https://its-devtastic.github.io/curator-docs"
+                href="https://its-devtastic.github.io/curator"
                 target="_blank"
                 rel="noreferrer noopener nofollow"
               >

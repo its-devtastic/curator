@@ -15,7 +15,7 @@ export interface CuratorConfig {
   components?: ComponentConfig[];
   interfaceLanguages?: string[];
   theme?: Partial<ThemeConfig>;
-  icon?: string;
+  icon?: string | { auth: string; header: string };
   title?: string;
 }
 

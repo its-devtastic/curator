@@ -35,4 +35,6 @@ const MainMenu: React.FC & {
 
 export default MainMenu;
 
+export const Item = MainMenuItem;
+
 MainMenu.Item = MainMenuItem;

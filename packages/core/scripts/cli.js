@@ -1,7 +1,5 @@
 const path = require("path");
 const { program } = require("commander");
-const chalk = require("chalk");
-const fs = require("fs-extra");
 const { createServer, build } = require("vite");
 const defaultTheme = require("tailwindcss/defaultTheme");
 
@@ -19,13 +17,6 @@ function init() {
         alias: {
           "~": path.resolve(__dirname, "../app"),
           react: path.resolve(root, "node_modules/react"),
-        },
-      },
-      build: {
-        rollupOptions: {
-          input: {
-            app: path.resolve(__dirname, "../app/index.html"),
-          },
         },
       },
       css: {

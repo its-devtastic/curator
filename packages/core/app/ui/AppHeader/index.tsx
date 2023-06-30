@@ -37,7 +37,11 @@ const AppHeader: React.FC & {
               className="flex select-none no-underline items-center gap-3"
             >
               {icon && (
-                <img className="h-8 w-8 object-cover" src={icon} alt="" />
+                <img
+                  className="h-8 w-8 object-cover"
+                  src={typeof icon === "string" ? icon : icon.header}
+                  alt=""
+                />
               )}
               <span className="text-white font-semibold text-sm">
                 {config.title}

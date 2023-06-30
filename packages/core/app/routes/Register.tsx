@@ -36,9 +36,15 @@ const Register: React.FC = () => {
 
   return registrationInfo && registrationToken ? (
     <div className="max-w-md w-full">
-      <div className="text-center mb-6">
-        <img src={icon} alt="" className="h-16" />
-      </div>
+      {icon && (
+        <div className="text-center mb-6">
+          <img
+            src={typeof icon === "string" ? icon : icon.auth}
+            alt=""
+            className="h-16"
+          />
+        </div>
+      )}
       <Card className="shadow-[0_3px_0] shadow-slate-100">
         <h1 className="mt-0 mb-6 text-center">{t("register.title")}</h1>
         {

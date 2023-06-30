@@ -27,9 +27,15 @@ const ResetPassword: React.FC = () => {
 
   return (
     <div className="max-w-sm w-full">
-      <div className="text-center mb-6">
-        <img src={icon} alt="" className="h-16" />
-      </div>
+      {icon && (
+        <div className="text-center mb-6">
+          <img
+            src={typeof icon === "string" ? icon : icon.auth}
+            alt=""
+            className="h-16"
+          />
+        </div>
+      )}
       <h1 className="text-center mb-12 mt-6 select-none">
         {t("reset_password.title")}
       </h1>
