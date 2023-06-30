@@ -1,0 +1,28 @@
+{
+  "name": "create-curator-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "create-curator-app": "./index.js"
+  },
+  "author": "Devtastic <hi@devtastic.build>",
+  "maintainers": [
+    {
+      "name": "Leon van der Grient",
+      "url": "https://github.com/StructuralRealist",
+      "email": "leon@devtastic.build"
+    }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^11.0.0",
+    "fs-extra": "^11.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/its-devtastic/curator"
+  },
+  "homepage": "https://its-devtastic.github.io/curator"
+}

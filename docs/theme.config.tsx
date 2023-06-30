@@ -1,17 +1,14 @@
 import React from "react";
 import { DocsThemeConfig } from "nextra-theme-docs";
 
-import logo from "./public/strapion.png";
+import logo from "./public/logo.svg";
 
 const config: DocsThemeConfig = {
   logo: <img src={logo.src} alt="" style={{ height: 32, width: "auto" }} />,
   project: {
-    link: "https://github.com/its-devtastic/strapion",
+    link: "https://github.com/its-devtastic/curator",
   },
-  chat: {
-    link: "https://discord.com",
-  },
-  docsRepositoryBase: "https://github.com/its-devtastic/strapion-docs",
+  docsRepositoryBase: "https://github.com/its-devtastic/curator/tree/main/docs",
   footer: {
     text: (
       <div
@@ -24,13 +21,13 @@ const config: DocsThemeConfig = {
       >
         <div>
           MIT {new Date().getFullYear()} ©{" "}
-          <a href="https://github.com/its-devtastic/strapion" target="_blank">
-            Strapion
+          <a href="https://github.com/its-devtastic/curator" target="_blank">
+            Curator
           </a>
           .
         </div>
         <div>
-          Build in Utrecht by{" "}
+          Built in Utrecht by{" "}
           <a href="https://www.devtastic.build" target="_blank">
             Devtastic
           </a>

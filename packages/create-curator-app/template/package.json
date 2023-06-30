@@ -1,0 +1,14 @@
+{
+  "name": "template",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A Curator project created by create-curator-app.",
+  "scripts": {
+    "dev": "curator dev",
+    "build": "curator build"
+  },
+  "dependencies": {
+    "@curator/studio": "latest",
+    "react": "18.2.0"
+  }
+}

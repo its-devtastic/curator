@@ -1,1 +1,1 @@
-# Strapion documentation website
+# Curator documentation website

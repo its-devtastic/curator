@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="609px" height="191px" viewBox="0 0 609 191" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Logo" transform="translate(-80.000000, -368.000000)">
+            <g id="Group" transform="translate(82.000000, 106.000000)">
+                <g transform="translate(0.000000, 267.000000)">
+                    <rect id="Rectangle" stroke="#FFFFFF" stroke-width="4" fill="#FFFFFF" x="0" y="0" width="602" height="181"></rect>
+                    <path d="M362,5 L372,5 L372,-5 L362,-5 L362,5 Z M382,5 L392,5 L392,-5 L382,-5 L382,5 Z M402,5 L412,5 L412,-5 L402,-5 L402,5 Z M422,5 L432,5 L432,-5 L422,-5 L422,5 Z M442,5 L452,5 L452,-5 L442,-5 L442,5 Z M462,5 L472,5 L472,-5 L462,-5 L462,5 Z M482,5 L492,5 L492,-5 L482,-5 L482,5 Z M502,5 L512,5 L512,-5 L502,-5 L502,5 Z M522,5 L532,5 L532,-5 L522,-5 L522,5 Z M542,5 L552,5 L552,-5 L542,-5 L542,5 Z M562,5 L572,5 L572,-5 L562,-5 L562,5 Z M582,5 L592,5 L592,-5 L582,-5 L582,5 Z M597,0 L597,10 L607,10 L607,0 L597,0 Z M597,20 L597,30 L607,30 L607,20 L597,20 Z M597,40 L597,50 L607,50 L607,40 L597,40 Z M597,60 L597,70 L607,70 L607,60 L597,60 Z M597,80 L597,90 L607,90 L607,80 L597,80 Z M597,100 L597,110 L607,110 L607,100 L597,100 Z M597,120 L597,130 L607,130 L607,120 L597,120 Z M597,140 L597,150 L607,150 L607,140 L597,140 Z M597,160 L597,170 L607,170 L607,160 L597,160 Z M597,180 L597,181 L602,181 L602,176 L593,176 L593,186 L607,186 L607,180 L597,180 Z M583,176 L573,176 L573,186 L583,186 L583,176 Z M563,176 L553,176 L553,186 L563,186 L563,176 Z M543,176 L533,176 L533,186 L543,186 L543,176 Z M523,176 L513,176 L513,186 L523,186 L523,176 Z M503,176 L493,176 L493,186 L503,186 L503,176 Z M483,176 L473,176 L473,186 L483,186 L483,176 Z M463,176 L453,176 L453,186 L463,186 L463,176 Z M443,176 L433,176 L433,186 L443,186 L443,176 Z M423,176 L413,176 L413,186 L423,186 L423,176 Z M403,176 L393,176 L393,186 L403,186 L403,176 Z M383,176 L373,176 L373,186 L383,186 L383,176 Z M363,176 L362,176 L362,186 L363,186 L363,176 Z" id="Rectangle" fill="#1E293B" fill-rule="nonzero"></path>
+                    <polygon id="Rectangle" fill="#1E293B" fill-rule="nonzero" transform="translate(183.500000, 90.500000) scale(-1, 1) translate(-183.500000, -90.500000) " points="367 -5 367 186 0 186 0 176 357 176 357 5 0 5 0 -5"></polygon>
+                    <text id="Curator" font-family="Inter-Regular_Black, Inter" font-size="140" font-weight="800" fill="#1E293B">
+                        <tspan x="23" y="136">Curator</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
