@@ -11,11 +11,12 @@ import BooleanField from "~/plugins/content-manager/ui/fields/Boolean";
 import ComponentField from "~/plugins/content-manager/ui/fields/Component";
 import RepeatableComponent from "~/plugins/content-manager/ui/fields/RepeatableComponent";
 import DynamicZone from "~/plugins/content-manager/ui/fields/DynamicZone";
+import DateField from "~/plugins/content-manager/ui/fields/Date";
 
 import MediaField from "~/plugins/media-library/ui/fields/MediaField";
 import CoverImage from "~/plugins/media-library/ui/fields/CoverImage";
 
-export const SORTABLE_FIELD_TYPES = ["datetime", "string", "uid"];
+export const SORTABLE_FIELD_TYPES = ["datetime", "date", "string", "uid"];
 
 export const FIELD_TYPES: Record<string, React.FC<any>> = {
   string: StringField,
@@ -30,6 +31,8 @@ export const FIELD_TYPES: Record<string, React.FC<any>> = {
   relation: Relation,
   enumeration: Enumeration,
   boolean: BooleanField,
+  date: DateField,
+  datetime: DateField,
   component: ComponentField,
   repeatableComponent: RepeatableComponent,
 };

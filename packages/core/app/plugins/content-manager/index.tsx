@@ -25,7 +25,7 @@ export default function contentManagerPlugin(options: PluginOptions) {
       ]),
       zones: R.append<InjectionZoneEntry>({
         zone: InjectionZone.MainMenu,
-        weight: 10,
+        weight: options.weight ?? 10,
         render() {
           return <MainMenuItem groups={options.menu?.groups ?? []} />;
         },

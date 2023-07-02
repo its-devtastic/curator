@@ -23,4 +23,5 @@ export interface PluginOptions {
       columns?: ColumnType<any>[];
     }
   >;
+  weight?: number;
 }

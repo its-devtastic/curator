@@ -63,7 +63,8 @@
   "content_manager.unsaved_changes": "Je hebt niet-opgeslagen wijzigingen. Weet je het zeker?",
 
   "media_library.upload": "Upload",
-  "media_library.new_folder": "Nieuwe folder",
+  "media_library.new_folder": "Nieuwe map",
+  "media_library.edit_folder": "Bewerk map",
   "media_library.url_copied": "URL gekopieerd naar klembord",
   "media_library.delete_item_title": "Media verwijderen",
   "media_library.delete_item_description": "Weet je zeker dat je dit item wilt verwijderen?",
@@ -133,5 +134,6 @@
   "common.role": "Rol",
   "common.role_other": "Rollen",
   "common.done": "Klaar",
-  "common.close": "Sluiten"
+  "common.close": "Sluiten",
+  "common.folder": "Map"
 }

@@ -21,7 +21,7 @@ export default function dashboardPlugin(
       ]),
       zones: R.append<InjectionZoneEntry>({
         zone: InjectionZone.MainMenu,
-        weight: 0,
+        weight: pluginOptions.weight ?? 0,
         render() {
           return <MainMenuItem />;
         },
@@ -40,4 +40,5 @@ export interface DashboardPluginOptions {
   recentlyOpened?: {
     renderTitle?(item: any): React.ReactNode;
   };
+  weight?: number;
 }

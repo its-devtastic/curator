@@ -18,26 +18,30 @@ import {
   faTableList,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { useAsyncRetry, useCopyToClipboard } from "react-use";
+import { useAsync, useCopyToClipboard } from "react-use";
 import { useTranslation } from "react-i18next";
 import { Formik } from "formik";
+import classNames from "classnames";
+import { useSearchParams } from "react-router-dom";
+import * as R from "ramda";
 
 import { Pagination as IPagination } from "~/types/response";
 import { Sort } from "~/types/request";
+import usePreferences from "~/hooks/usePreferences";
 import useStrapi from "~/hooks/useStrapi";
 import CalendarTime from "~/ui/CalendarTime";
 import Pagination from "~/ui/Pagination";
 
 import UploadButton from "../../ui/UploadButton";
 import FilterToolbar from "./FilterToolbar";
-import usePreferences from "~/hooks/usePreferences";
-import classNames from "classnames";
+import FolderList from "./FolderList";
 
 const ListScreen: React.FC = () => {
   const { t } = useTranslation();
   const [_, copy] = useCopyToClipboard();
   const { sdk } = useStrapi();
   const { preferences, setPreference } = usePreferences();
+  const [searchParams] = useSearchParams();
   const view = preferences.mediaLibrary?.listView ?? "list";
   const [collection, setCollection] = useState<{
     pagination: IPagination | null;
@@ -46,33 +50,40 @@ const ListScreen: React.FC = () => {
     pagination: null,
     results: [],
   });
+  const folder = R.unless(R.isNil, Number)(searchParams.get("folder"));
 
-  const {
-    value: media = { results: [], pagination: null },
-    retry,
-    loading,
-  } = useAsyncRetry(async () => {
-    const data = await sdk.getMediaItems({
-      sort: "createdAt:DESC",
-      pageSize: 12,
-    });
-    setCollection(data);
-  }, [sdk]);
-
-  const { value: folders } = useAsyncRetry(async () => {
-    return sdk.getFolders(null);
-  }, []);
+  const { value: media = { results: [], pagination: null }, loading } =
+    useAsync(async () => {
+      const data = await sdk.getMediaItems({
+        sort: "createdAt:DESC",
+        pageSize: 12,
+        "filters[$and][0][folder][id]": folder || undefined,
+        "filters[$and][0][folder][id][$null]": !folder || undefined,
+      });
+      setCollection(data);
+    }, [sdk]);
 
   return (
-    <Formik<{ sort: Sort; _q: string; page: number; pageSize: number }>
+    <Formik<{
+      sort: Sort;
+      _q: string;
+      page: number;
+      pageSize: number;
+      folder: number | null;
+    }>
       initialValues={{
         _q: "",
         sort: "createdAt:DESC",
         page: 1,
         pageSize: 12,
+        folder,
       }}
-      onSubmit={async (values) => {
-        const data = await sdk.getMediaItems(values);
+      onSubmit={async ({ folder, ...values }) => {
+        const data = await sdk.getMediaItems({
+          "filters[$and][0][folder][id]": folder ? String(folder) : undefined,
+          "filters[$and][0][folder][id][$null]": !folder || undefined,
+          ...values,
+        });
         setCollection(data);
       }}
     >
@@ -94,7 +105,8 @@ const ListScreen: React.FC = () => {
               ]}
             />
             <UploadButton
-              onUploadComplete={retry}
+              onUploadComplete={submitForm}
+              folder={folder}
               button={
                 <Button type="primary" className="space-x-2">
                   <FontAwesomeIcon icon={faCloudUpload} />
@@ -106,108 +118,118 @@ const ListScreen: React.FC = () => {
           <div className="mb-12">
             <FilterToolbar />
           </div>
-          <List
-            grid={view === "grid" ? { gutter: 24, column: 4 } : undefined}
-            loading={loading}
-            itemLayout="vertical"
-            dataSource={collection.results}
-            size="small"
-            renderItem={(item) => (
-              <List.Item
-                extra={
-                  view === "grid" ? null : (
-                    <div className="h-full flex gap-2 items-center justify-center">
-                      <Button
-                        type="text"
-                        icon={<FontAwesomeIcon icon={faLink} />}
-                        onClick={() => {
-                          copy(item.url);
-                          message.success(t("media_library.url_copied"));
-                        }}
-                      />
-                      <Popconfirm
-                        title={t("media_library.delete_item_title")}
-                        description={t("media_library.delete_item_description")}
-                        onConfirm={async () => {
-                          await sdk.deleteMediaItem(item.id);
-                          retry();
-                        }}
-                        okText={t("common.yes")}
-                        cancelText={t("common.no")}
-                        okButtonProps={{ type: "primary", danger: true }}
-                      >
+          <div className="border-solid border border-gray-200 rounded-md">
+            <div className="mb-2">
+              <FolderList />
+            </div>
+            <List
+              grid={
+                view === "grid"
+                  ? { gutter: 24, lg: 6, md: 4, sm: 4, xs: 2 }
+                  : undefined
+              }
+              loading={loading}
+              dataSource={collection.results}
+              size="small"
+              renderItem={(item) => (
+                <List.Item
+                  extra={
+                    view === "grid" ? null : (
+                      <div className="h-full flex gap-2 items-center justify-center">
                         <Button
                           type="text"
-                          icon={<FontAwesomeIcon icon={faTrashAlt} />}
+                          icon={<FontAwesomeIcon icon={faLink} />}
+                          onClick={() => {
+                            copy(item.url);
+                            message.success(t("media_library.url_copied"));
+                          }}
                         />
-                      </Popconfirm>
-                    </div>
-                  )
-                }
-              >
-                <List.Item.Meta
-                  avatar={
-                    item.mime.startsWith("image/") ? (
-                      <Image
-                        className="rounded-md object-contain"
-                        src={
-                          item.mime === "image/svg+xml"
-                            ? item.url
-                            : item.formats?.thumbnail?.url
-                        }
-                        width={view === "grid" ? 256 : 64}
-                        height={view === "grid" ? 256 : 64}
-                        alt=""
-                        preview={{ width: 640, src: item.url }}
-                      />
-                    ) : (
-                      <div
-                        className={classNames(
-                          "flex items-center justify-center bg-indigo-50 rounded-md",
-                          view === "grid" ? "w-64 h-64" : "h-16 w-16"
-                        )}
-                      >
-                        <FontAwesomeIcon
-                          icon={faFile}
-                          className="text-indigo-500"
-                        />
-                      </div>
-                    )
-                  }
-                  title={
-                    view === "grid" ? undefined : (
-                      <div className="max-w-xs">
-                        <Typography.Text ellipsis={{ tooltip: true }}>
-                          {item.name}
-                        </Typography.Text>
-                      </div>
-                    )
-                  }
-                  description={
-                    view === "grid" ? undefined : (
-                      <div className="space-y-2">
-                        {item.caption && (
-                          <div className="font-mono truncate">
-                            {item.caption}
-                          </div>
-                        )}
-                        <div className="space-x-4">
-                          <span>{item.ext.slice(1).toUpperCase()}</span>
-                          <span>
-                            {String(filesize(item.size * 1000, { round: 0 }))}
-                          </span>
-                          {item.mime.startsWith("image/") && (
-                            <span>{`${item.width} x ${item.height}`}</span>
+                        <Popconfirm
+                          title={t("media_library.delete_item_title")}
+                          description={t(
+                            "media_library.delete_item_description"
                           )}
-                          <CalendarTime>{item.createdAt}</CalendarTime>
-                        </div>
+                          onConfirm={async () => {
+                            await sdk.deleteMediaItem(item.id);
+                            submitForm();
+                          }}
+                          okText={t("common.yes")}
+                          cancelText={t("common.no")}
+                          okButtonProps={{ type: "primary", danger: true }}
+                        >
+                          <Button
+                            type="text"
+                            icon={<FontAwesomeIcon icon={faTrashAlt} />}
+                          />
+                        </Popconfirm>
                       </div>
                     )
                   }
-                />
-              </List.Item>
-            )}
-          />
+                >
+                  <List.Item.Meta
+                    avatar={
+                      item.mime.startsWith("image/") ? (
+                        <Image
+                          className="rounded-md object-contain"
+                          src={
+                            item.mime === "image/svg+xml"
+                              ? item.url
+                              : item.formats?.thumbnail?.url
+                          }
+                          width={view === "grid" ? 128 : 40}
+                          height={view === "grid" ? 128 : 40}
+                          alt=""
+                          preview={{ width: 640, src: item.url }}
+                        />
+                      ) : (
+                        <div
+                          className={classNames(
+                            "flex items-center justify-center bg-indigo-50 rounded-md",
+                            view === "grid" ? "w-32 h-32" : "h-10 w-10"
+                          )}
+                        >
+                          <FontAwesomeIcon
+                            icon={faFile}
+                            className="text-indigo-500"
+                          />
+                        </div>
+                      )
+                    }
+                    title={
+                      view === "grid" ? undefined : (
+                        <div className="max-w-xs">
+                          <Typography.Text ellipsis={{ tooltip: true }}>
+                            {item.name}
+                          </Typography.Text>
+                        </div>
+                      )
+                    }
+                    description={
+                      view === "grid" ? undefined : (
+                        <div className="space-y-2">
+                          {item.caption && (
+                            <div className="font-mono truncate">
+                              {item.caption}
+                            </div>
+                          )}
+                          <div className="space-x-4">
+                            <span>{item.ext.slice(1).toUpperCase()}</span>
+                            <span>
+                              {String(filesize(item.size * 1000, { round: 0 }))}
+                            </span>
+                            {item.mime.startsWith("image/") && (
+                              <span>{`${item.width} x ${item.height}`}</span>
+                            )}
+                            <CalendarTime>{item.createdAt}</CalendarTime>
+                          </div>
+                        </div>
+                      )
+                    }
+                  />
+                </List.Item>
+              )}
+            />
+          </div>
           <div className="mt-12">
             <Pagination
               current={collection.pagination?.page}

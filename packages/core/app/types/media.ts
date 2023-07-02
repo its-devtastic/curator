@@ -27,3 +27,15 @@ export interface MediaItem {
     };
   };
 }
+
+export interface MediaFolder {
+  id: number;
+  children: { count: 0 };
+  createdAt: string;
+  files: { count: 0 };
+  name: string;
+  path: string;
+  pathId: number;
+  updatedAt: string;
+  parent: MediaFolder | null;
+}
