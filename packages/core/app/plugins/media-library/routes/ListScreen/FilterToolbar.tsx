@@ -14,9 +14,10 @@ const FilterToolbar: React.FC = () => {
     <div className="flex justify-between items-center">
       <div className="flex gap-4 items-center">
         <Input.Search
+          allowClear
           loading={loading === "search"}
           onSearch={async (_q) => {
-            setFieldValue("_q", _q);
+            await setFieldValue("_q", _q);
             setLoading("search");
             await submitForm();
             setLoading(false);

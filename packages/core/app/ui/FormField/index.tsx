@@ -7,12 +7,13 @@ const FormField: React.FC<FormFieldProps> = ({
   help,
   hint,
   error,
+  className,
   ...props
 }) => {
   const id = useMemo(() => nanoid(8), []);
 
   return (
-    <div>
+    <div className={className}>
       <div className="flex justify-between mb-2">
         {label && (
           <label
@@ -47,4 +48,5 @@ export interface FormFieldProps {
   help?: React.ReactNode;
   hint?: React.ReactNode;
   error?: React.ReactNode;
+  className?: string;
 }

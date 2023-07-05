@@ -9,12 +9,14 @@ import MainMenuItem from "./ui/MainMenuItem";
 import TeamList from "./routes/TeamList";
 import UserDetail from "./routes/UserDetail";
 
-export default function teamManagerPlugin() {
+export default function teamManagerPlugin({
+  weight,
+}: { weight?: number } = {}) {
   return (config: CuratorConfig): CuratorConfig => {
     return R.evolve({
       zones: R.append<InjectionZoneEntry>({
         zone: InjectionZone.MainMenu,
-        weight: 40,
+        weight: weight ?? 40,
         render() {
           return <MainMenuItem />;
         },
