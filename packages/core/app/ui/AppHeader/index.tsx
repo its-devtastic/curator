@@ -28,7 +28,7 @@ const AppHeader: React.FC & {
   );
 
   return (
-    <header className="flex-none h-12 bg-indigo-600 z-10 flex justify-center border-b border-0 border-solid border-indigo-900">
+    <header className="flex-none h-12 bg-indigo-600 z-10 flex justify-center border-b border-0 border-solid border-indigo-800 shadow-[0_2px] shadow-gray-800/5">
       <div className="w-full max-w-screen-xl">
         <div className="flex items-center justify-between px-4 md:px-12 h-full">
           <div className="flex items-center gap-3">
