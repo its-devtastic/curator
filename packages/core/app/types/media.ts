@@ -12,6 +12,7 @@ export interface MediaItem {
   ext: string;
   alternativeText: string | null;
   caption: string | null;
+  folder: MediaFolder | null;
   formats: {
     large: {
       url: string;
@@ -38,4 +39,10 @@ export interface MediaFolder {
   pathId: number;
   updatedAt: string;
   parent: MediaFolder | null;
+}
+
+export interface MediaFolderStructure {
+  id: number;
+  name: string;
+  children: MediaFolderStructure[];
 }

@@ -5,7 +5,7 @@ import { nanoid } from "nanoid";
 import { StrapiContentType, StrapiComponent } from "~/types/contentType";
 import { StrapiLocale } from "~/types/locales";
 import { SessionUser } from "~/types/session";
-import { MediaFolder, MediaItem } from "~/types/media";
+import { MediaFolder, MediaFolderStructure, MediaItem } from "~/types/media";
 import { PaginatedResponse } from "~/types/response";
 import { GetManyParams, GetMediaParams } from "~/types/request";
 import { Permission, UserRole } from "~/types/permission";
@@ -254,6 +254,26 @@ export class StrapiSdk {
     await this.http.delete(`/upload/files/${id}`);
   }
 
+  public async updateMediaItem(dto: {
+    id: number;
+    caption: string | null;
+    alternativeText: string | null;
+    name: string;
+    folder: number | null;
+  }) {
+    const fd = new FormData();
+
+    fd.append("fileInfo", JSON.stringify(dto));
+
+    const { data } = await this.http.post<MediaItem>("/upload", fd, {
+      params: {
+        id: dto.id,
+      },
+    });
+
+    return data;
+  }
+
   public async upload(file: File, folder: number | null = null) {
     const fd = new FormData();
 
@@ -276,11 +296,16 @@ export class StrapiSdk {
 
   public async updateFolder({
     id,
-    ...dto
-  }: Partial<MediaFolder> & { id: number }) {
+    name,
+    parent,
+  }: {
+    id: number;
+    name: string;
+    parent: number | null;
+  }) {
     const { data } = await this.http.put<{ data: any }>(
       `/upload/folders/${id}`,
-      dto
+      { parent, name }
     );
 
     return data.data;
@@ -306,11 +331,20 @@ export class StrapiSdk {
         params: {
           "filters[$and][0][parent][id][$null]": R.isNil(parent) || undefined,
           "filters[$and][0][parent][id]": parent ?? undefined,
+          "populate[parent][populate][parent]": "*",
           pagination: {
             pageSize: -1,
           },
         },
       }
+    );
+
+    return data.data;
+  }
+
+  public async getFolderStructure() {
+    const { data } = await this.http.get<{ data: MediaFolderStructure[] }>(
+      "/upload/folder-structure"
     );
 
     return data.data;

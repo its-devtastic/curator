@@ -65,6 +65,7 @@
   "media_library.upload": "Upload",
   "media_library.new_folder": "Nieuwe map",
   "media_library.edit_folder": "Bewerk map",
+  "media_library.edit_media_item": "Bewerk media-item",
   "media_library.url_copied": "URL gekopieerd naar klembord",
   "media_library.delete_item_title": "Media verwijderen",
   "media_library.delete_item_description": "Weet je zeker dat je dit item wilt verwijderen?",
@@ -135,5 +136,8 @@
   "common.role_other": "Rollen",
   "common.done": "Klaar",
   "common.close": "Sluiten",
-  "common.folder": "Map"
+  "common.folder": "Map",
+  "common.location": "Locatie",
+  "common.caption": "Bijschrift",
+  "common.alternative_text": "Alternatieve tekst"
 }
