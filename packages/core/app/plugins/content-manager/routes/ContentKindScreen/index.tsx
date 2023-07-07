@@ -15,15 +15,19 @@ const ContentKindScreen: React.FC<ContentKindScreenProps> = ({
   const { apiID } = useParams();
   const contentType = contentTypes.find(R.whereEq({ apiID }));
 
-  return contentType && contentType.kind === "singleType" ? (
-    <DetailScreen pluginOptions={pluginOptions.edit} />
-  ) : (
-    <ListScreen pluginOptions={pluginOptions.list} />
+  return (
+    contentType &&
+    apiID &&
+    (contentType.kind === "singleType" ? (
+      <DetailScreen pluginOptions={pluginOptions} />
+    ) : (
+      <ListScreen pluginOptions={pluginOptions} />
+    ))
   );
 };
 
 export default ContentKindScreen;
 
 interface ContentKindScreenProps {
-  pluginOptions: PluginOptions;
+  pluginOptions: NonNullable<PluginOptions["contentTypes"]>;
 }

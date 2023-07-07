@@ -30,6 +30,7 @@ import Pagination from "~/ui/Pagination";
 
 import { SORTABLE_FIELD_TYPES } from "../../utils/constants";
 import { PluginOptions } from "../../types";
+import CreateContentDialog from "../../dialogs/CreateContentDialog";
 import FilterToolbar from "./FilterToolbar";
 
 const ListScreen: React.FC<ListScreenProps> = ({ pluginOptions }) => {
@@ -44,7 +45,7 @@ const ListScreen: React.FC<ListScreenProps> = ({ pluginOptions }) => {
   const contentTypeConfig = config.contentTypes?.find(R.whereEq({ apiID }));
   const hasDraftState = contentType?.options.draftAndPublish;
   const name = contentTypeConfig?.name ?? contentType?.info.displayName ?? "";
-  const { columns } = pluginOptions?.[apiID] ?? {};
+  const [create, setCreate] = useState<string | null>(null);
   const [collection, setCollection] = useState<{
     pagination: IPagination | null;
     results: any[];
@@ -66,6 +67,14 @@ const ListScreen: React.FC<ListScreenProps> = ({ pluginOptions }) => {
 
   return hasReadPermission || hasCreatePermission ? (
     <div className="px-4 md:px-12 py-6">
+      {create && (
+        <CreateContentDialog
+          apiID={apiID}
+          pluginOptions={pluginOptions[apiID]}
+          onCancel={() => setCreate(null)}
+          onCreate={({ id }) => navigate(`/content-manager/${apiID}/${id}`)}
+        />
+      )}
       {contentTypeConfig && contentType && !loading ? (
         <Formik<GetManyParams>
           initialValues={{
@@ -88,7 +97,15 @@ const ListScreen: React.FC<ListScreenProps> = ({ pluginOptions }) => {
                 {hasCreatePermission && (
                   <Button
                     type="primary"
-                    onClick={() => navigate(`/content-manager/${apiID}/create`)}
+                    onClick={() => {
+                      if (
+                        pluginOptions[apiID]?.create &&
+                        pluginOptions[apiID].create?.when !== "relation"
+                      ) {
+                        return setCreate(apiID);
+                      }
+                      navigate(`/content-manager/${apiID}/create`);
+                    }}
                   >
                     {`${t("phrases.create_new")} ${t(name, {
                       ns: "custom",
@@ -196,7 +213,11 @@ const ListScreen: React.FC<ListScreenProps> = ({ pluginOptions }) => {
                           );
                         },
                       },
-                      ...(columns?.map(({ title, ...column }: any) => {
+                      ...(R.pathOr(
+                        [],
+                        [apiID, "list", "columns"],
+                        pluginOptions
+                      ).map(({ title, ...column }: any) => {
                         const config =
                           column.dataIndex &&
                           contentType.attributes[String(column.dataIndex)];
@@ -319,5 +340,5 @@ const ListScreen: React.FC<ListScreenProps> = ({ pluginOptions }) => {
 export default ListScreen;
 
 interface ListScreenProps {
-  pluginOptions: PluginOptions["list"];
+  pluginOptions: NonNullable<PluginOptions["contentTypes"]>;
 }

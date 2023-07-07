@@ -13,9 +13,8 @@ const Main: React.FC<MainProps> = ({
   pluginOptions,
   contentType,
   contentTypeConfig,
-  apiID,
 }) => {
-  const { side, main } = pluginOptions?.[apiID] ?? {};
+  const { side, main } = pluginOptions.edit ?? {};
 
   return (
     <div className="space-y-6">
@@ -64,8 +63,7 @@ const Main: React.FC<MainProps> = ({
 export default Main;
 
 interface MainProps {
-  pluginOptions: PluginOptions["edit"];
+  pluginOptions: NonNullable<PluginOptions["contentTypes"]>[""];
   contentType: StrapiContentType;
   contentTypeConfig: ContentTypeConfig;
-  apiID: string;
 }

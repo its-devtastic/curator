@@ -112,7 +112,6 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
                   apiID={apiID}
                   contentTypeConfig={contentTypeConfig}
                   contentType={contentType}
-                  pluginOptions={pluginOptions}
                   document={document}
                 />
                 <div
@@ -126,8 +125,7 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
                   <Main
                     contentType={contentType}
                     contentTypeConfig={contentTypeConfig}
-                    apiID={apiID}
-                    pluginOptions={pluginOptions}
+                    pluginOptions={pluginOptions[apiID]}
                   />
                 </div>
               </div>
@@ -146,5 +144,5 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
 export default DetailScreen;
 
 interface DetailScreenProps {
-  pluginOptions?: PluginOptions["edit"];
+  pluginOptions: NonNullable<PluginOptions["contentTypes"]>;
 }

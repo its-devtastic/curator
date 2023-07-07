@@ -16,11 +16,13 @@ export default function contentManagerPlugin(options: PluginOptions) {
       routes: R.concat([
         {
           path: "/content-manager/:apiID",
-          element: <ContentKindScreen pluginOptions={options} />,
+          element: (
+            <ContentKindScreen pluginOptions={options.contentTypes ?? {}} />
+          ),
         },
         {
           path: "/content-manager/:apiID/:id",
-          element: <DetailScreen pluginOptions={options.edit} />,
+          element: <DetailScreen pluginOptions={options.contentTypes ?? {}} />,
         },
       ]),
       zones: R.append<InjectionZoneEntry>({
