@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { useFormikContext } from "formik";
 
+import { Entity } from "~/types/content";
 import { StrapiContentType } from "~/types/contentType";
 import { ContentTypeConfig } from "~/types/contentTypeConfig";
 import CalendarTime from "~/ui/CalendarTime";
@@ -17,10 +17,10 @@ const Header: React.FC<HeaderProps> = ({
   contentType,
   contentTypeConfig,
   pluginOptions,
+  document,
 }) => {
   const { t } = useTranslation();
   const isSingleType = contentType?.kind === "singleType";
-  const { values } = useFormikContext<any>();
 
   return (
     <div className="pt-12 pb-4 flex flex-col gap-6 md:flex-row justify-between items-center">
@@ -42,22 +42,25 @@ const Header: React.FC<HeaderProps> = ({
           }).toLowerCase()}`}
         </h1>
         <div className="text-xs text-center">
-          {values.updatedAt && (
+          {document.updatedAt && (
             <span className="text-gray-400 space-x-1">
               <span>{t("phrases.last_updated_at")}</span>
-              <CalendarTime>{values.updatedAt}</CalendarTime>
-              {values.updatedBy && (
+              <CalendarTime>{document.updatedAt}</CalendarTime>
+              {document.updatedBy && (
                 <>
                   <span>{t("common.by").toLowerCase()}</span>
                   <Link
-                    to={`/team/${values.updatedBy.id}`}
+                    to={`/team/${document.updatedBy.id}`}
                     className="link inline-flex items-center gap-2"
                   >
                     {`${
-                      [values.updatedBy.firstname, values.updatedBy.lastname]
+                      [
+                        document.updatedBy.firstname,
+                        document.updatedBy.lastname,
+                      ]
                         .filter(Boolean)
                         .join(" ")
-                        .trim() || values.updatedBy.username
+                        .trim() || document.updatedBy.username
                     }.`}
                   </Link>
                 </>
@@ -83,4 +86,5 @@ interface HeaderProps {
   contentType: StrapiContentType;
   contentTypeConfig: ContentTypeConfig;
   pluginOptions: PluginOptions["edit"];
+  document: Entity;
 }

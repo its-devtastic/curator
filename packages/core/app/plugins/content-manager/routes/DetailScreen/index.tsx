@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { notification } from "antd";
 import * as R from "ramda";
 import { useAsync } from "react-use";
 import { Formik } from "formik";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import classNames from "classnames";
 
+import { Entity } from "~/types/content";
 import useSecrets from "~/hooks/useSecrets";
 import useStrapi from "~/hooks/useStrapi";
 import useCurator from "~/hooks/useCurator";
@@ -18,7 +18,6 @@ import Header from "./Header";
 import Main from "./Main";
 
 const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
-  const { t } = useTranslation();
   const params = useParams();
   const apiID = params.apiID as string;
   const [search] = useSearchParams();
@@ -26,6 +25,7 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
   const config = useCurator();
   const { contentTypes, sdk, locales } = useStrapi();
   const { getSecret } = useSecrets();
+  const [document, setDocument] = useState<Entity | null>(null);
 
   const contentType = contentTypes.find(R.whereEq({ apiID }));
   const contentTypeConfig = config.contentTypes?.find(R.whereEq({ apiID }));
@@ -33,7 +33,7 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
   const isSingleType = contentType?.kind === "singleType";
   const locale = search.get("locale");
 
-  const { value, loading } = useAsync(async () => {
+  const { loading } = useAsync(async () => {
     const defaultLocale =
       locale ?? locales.find(R.whereEq({ isDefault: true }))?.code;
 
@@ -56,7 +56,7 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
         hook.action(apiID, data, { getSecret });
       }
 
-      return data;
+      setDocument(data);
     } catch (e: any) {
       if (e.response.status === 404) {
         if (isSingleType) {
@@ -69,44 +69,40 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
 
   return (
     <div className="px-4 md:px-12">
-      {contentTypeConfig && contentType && value && !loading ? (
+      {contentTypeConfig && contentType && document && !loading ? (
         <Formik
-          initialValues={value}
-          onSubmit={async (values, { resetForm }) => {
-            try {
-              const data = await sdk.save(apiID, values, {
-                params: { "plugins[i18n][locale]": values.locale },
-              });
-              const hooks =
-                config.hooks?.filter(R.whereEq({ trigger: "save" })) ?? [];
-              // Only reset values that are not changed by the user
-              resetForm({
-                values: R.mergeRight(
+          initialValues={document}
+          onSubmit={(values, { resetForm, setSubmitting }) => {
+            // Running an async inside a sync function avoids Formik automatically
+            // setting the isSubmitting state.
+            (async () => {
+              try {
+                // We have to immediately reset the form to avoid loosing changes
+                // made during the save.
+                resetForm({
                   values,
-                  R.pick(
-                    [
-                      "id",
-                      "updatedAt",
-                      "createdAt",
-                      "updatedBy",
-                      "localizations",
-                      "publishedAt",
-                    ],
-                    data
-                  )
-                ),
-              });
+                });
+                setSubmitting(true);
+                const data = await sdk.save(apiID, values, {
+                  params: { "plugins[i18n][locale]": values.locale },
+                });
+                setDocument(data);
+                const hooks =
+                  config.hooks?.filter(R.whereEq({ trigger: "save" })) ?? [];
 
-              for (const hook of hooks) {
-                hook.action(apiID, data, { getSecret });
-              }
+                for (const hook of hooks) {
+                  hook.action(apiID, data, { getSecret });
+                }
 
-              if (params.id === "create") {
-                navigate(`/content-manager/${apiID}/${data.id}`);
+                if (params.id === "create") {
+                  navigate(`/content-manager/${apiID}/${data.id}`);
+                }
+              } catch (e) {
+                notification.error({ message: "Oops" });
+              } finally {
+                setSubmitting(false);
               }
-            } catch (e) {
-              notification.error({ message: "Oops" });
-            }
+            })();
           }}
         >
           {({ values }) => {
@@ -117,6 +113,7 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
                   contentTypeConfig={contentTypeConfig}
                   contentType={contentType}
                   pluginOptions={pluginOptions}
+                  document={document}
                 />
                 <div
                   className={classNames(

@@ -25,9 +25,9 @@ import { ContentTypeConfig } from "~/types/contentTypeConfig";
 import useStrapi from "~/hooks/useStrapi";
 import useModifierKey from "~/hooks/useModifierKey";
 import usePreferences from "~/hooks/usePreferences";
+import useContentPermission from "~/hooks/useContentPermission";
 
 import { PluginOptions } from "../../types";
-import useContentPermission from "~/hooks/useContentPermission";
 
 const Actions: React.FC<{
   options: Required<Required<PluginOptions>["edit"]>[""]["header"];
@@ -47,9 +47,7 @@ const Actions: React.FC<{
   const isSingleType = contentType?.kind === "singleType";
   const [modal, contextHolder] = Modal.useModal();
   const { preferences, setPreference } = usePreferences();
-  const { state, proceed, location } = unstable_useBlocker(
-    !R.isNil(values.id) && dirty
-  );
+  const blocker = unstable_useBlocker(!R.isNil(values.id) && dirty);
   const modifierKey = useModifierKey();
 
   // CRUD permissions
@@ -85,10 +83,10 @@ const Actions: React.FC<{
   useEffect(() => {
     if (
       location &&
-      state === "blocked" &&
+      blocker.state === "blocked" &&
       confirm(t("content_manager.unsaved_changes"))
     ) {
-      proceed();
+      blocker.proceed();
     }
   }, [location]);
 
