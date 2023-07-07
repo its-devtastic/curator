@@ -79,7 +79,23 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
               });
               const hooks =
                 config.hooks?.filter(R.whereEq({ trigger: "save" })) ?? [];
-              resetForm({ values: data });
+              // Only reset values that are not changed by the user
+              resetForm({
+                values: R.mergeRight(
+                  values,
+                  R.pick(
+                    [
+                      "id",
+                      "updatedAt",
+                      "createdAt",
+                      "updatedBy",
+                      "localizations",
+                      "publishedAt",
+                    ],
+                    data
+                  )
+                ),
+              });
 
               for (const hook of hooks) {
                 hook.action(apiID, data, { getSecret });
