@@ -85,7 +85,7 @@ const Actions: React.FC<{
     ) {
       blocker.proceed();
     }
-  }, [location]);
+  }, [location, blocker.state]);
 
   // Catch native save shortcut
   useKey(

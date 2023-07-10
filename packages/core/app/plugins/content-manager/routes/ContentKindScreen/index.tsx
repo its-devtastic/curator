@@ -4,13 +4,10 @@ import * as R from "ramda";
 
 import useStrapi from "~/hooks/useStrapi";
 
-import { PluginOptions } from "../../types";
 import ListScreen from "../ListScreen";
 import DetailScreen from "../DetailScreen";
 
-const ContentKindScreen: React.FC<ContentKindScreenProps> = ({
-  pluginOptions,
-}) => {
+const ContentKindScreen: React.FC = () => {
   const { contentTypes } = useStrapi();
   const { apiID } = useParams();
   const contentType = contentTypes.find(R.whereEq({ apiID }));
@@ -18,16 +15,8 @@ const ContentKindScreen: React.FC<ContentKindScreenProps> = ({
   return (
     contentType &&
     apiID &&
-    (contentType.kind === "singleType" ? (
-      <DetailScreen pluginOptions={pluginOptions} />
-    ) : (
-      <ListScreen pluginOptions={pluginOptions} />
-    ))
+    (contentType.kind === "singleType" ? <DetailScreen /> : <ListScreen />)
   );
 };
 
 export default ContentKindScreen;
-
-interface ContentKindScreenProps {
-  pluginOptions: NonNullable<PluginOptions["contentTypes"]>;
-}

@@ -22,7 +22,8 @@ const DynamicItem: React.FC<{
   value: DynamicZoneEntry;
   onRemove: VoidFunction;
   path: string;
-}> = ({ value: { __component, id, ...attrs }, path, onRemove }) => {
+  apiID: string;
+}> = ({ value: { __component, id, ...attrs }, path, onRemove, apiID }) => {
   const { t } = useTranslation();
   const { components } = useStrapi();
   const curatorConfig = useCurator();
@@ -115,6 +116,7 @@ const DynamicItem: React.FC<{
               component && (
                 <FieldRenderer
                   key={field.path}
+                  apiID={apiID}
                   field={R.evolve({ path: (p) => `${path}.${p}` })(field)}
                   attribute={component.attributes[field.path]}
                 />
