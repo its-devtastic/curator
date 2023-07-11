@@ -12,12 +12,10 @@ import useStrapi from "~/hooks/useStrapi";
 import useCurator from "~/hooks/useCurator";
 import Spinner from "~/ui/Spinner";
 
-import { PluginOptions } from "../../types";
-
 import Header from "./Header";
 import Main from "./Main";
 
-const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
+const DetailScreen: React.FC = () => {
   const params = useParams();
   const apiID = params.apiID as string;
   const [search] = useSearchParams();
@@ -88,7 +86,11 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
                 });
                 setDocument(data);
                 const hooks =
-                  config.hooks?.filter(R.whereEq({ trigger: "save" })) ?? [];
+                  config.hooks?.filter(
+                    R.whereEq({
+                      trigger: params.id === "create" ? "create" : "save",
+                    })
+                  ) ?? [];
 
                 for (const hook of hooks) {
                   hook.action(apiID, data, { getSecret });
@@ -112,7 +114,6 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
                   apiID={apiID}
                   contentTypeConfig={contentTypeConfig}
                   contentType={contentType}
-                  pluginOptions={pluginOptions}
                   document={document}
                 />
                 <div
@@ -126,8 +127,6 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
                   <Main
                     contentType={contentType}
                     contentTypeConfig={contentTypeConfig}
-                    apiID={apiID}
-                    pluginOptions={pluginOptions}
                   />
                 </div>
               </div>
@@ -144,7 +143,3 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ pluginOptions }) => {
 };
 
 export default DetailScreen;
-
-interface DetailScreenProps {
-  pluginOptions?: PluginOptions["edit"];
-}

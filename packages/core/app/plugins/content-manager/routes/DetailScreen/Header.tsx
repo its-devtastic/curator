@@ -9,14 +9,12 @@ import { StrapiContentType } from "~/types/contentType";
 import { ContentTypeConfig } from "~/types/contentTypeConfig";
 import CalendarTime from "~/ui/CalendarTime";
 
-import { PluginOptions } from "../../types";
 import Actions from "./Actions";
 
 const Header: React.FC<HeaderProps> = ({
   apiID,
   contentType,
   contentTypeConfig,
-  pluginOptions,
   document,
 }) => {
   const { t } = useTranslation();
@@ -70,10 +68,7 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
       <div className="flex-1 flex items-center justify-center lg:justify-end">
-        <Actions
-          options={pluginOptions}
-          contentTypeConfig={contentTypeConfig}
-        />
+        <Actions contentTypeConfig={contentTypeConfig} />
       </div>
     </div>
   );
@@ -85,6 +80,5 @@ interface HeaderProps {
   apiID: string;
   contentType: StrapiContentType;
   contentTypeConfig: ContentTypeConfig;
-  pluginOptions: PluginOptions["edit"];
   document: Entity;
 }

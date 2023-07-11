@@ -4,7 +4,6 @@ import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 import { Tooltip } from "antd";
 import { useTranslation } from "react-i18next";
 import * as R from "ramda";
-import { useParams } from "react-router-dom";
 import { useFormikContext } from "formik";
 
 import { FieldDefinition } from "~/types/contentTypeConfig";
@@ -20,9 +19,9 @@ import { FIELD_TYPES } from "../utils/constants";
 const FieldRenderer: React.FC<{
   field?: FieldDefinition;
   attribute?: Attribute;
-}> = ({ field = {}, attribute }) => {
+  apiID: string;
+}> = ({ field = {}, attribute, apiID }) => {
   const { t } = useTranslation();
-  const { apiID } = useParams();
   const hasPermission = useContentPermission();
   const {
     values: { id },
@@ -66,6 +65,7 @@ const FieldRenderer: React.FC<{
         {React.createElement(InputComponent, {
           attribute,
           field,
+          apiID,
           disabled: !hasSavePermission,
           ...field.inputProps,
         })}

@@ -47,7 +47,7 @@ export interface ComponentConfig {
 }
 
 export interface Hook {
-  trigger: "view" | "save";
+  trigger: "view" | "save" | "create";
   action(
     apiID: string,
     entity: any,

@@ -29,14 +29,18 @@ import Table from "~/ui/Table";
 import Pagination from "~/ui/Pagination";
 
 import { SORTABLE_FIELD_TYPES } from "../../utils/constants";
-import { PluginOptions } from "../../types";
+import { usePluginOptions } from "../../hooks";
+import CreateContentDialog from "../../dialogs/CreateContentDialog";
 import FilterToolbar from "./FilterToolbar";
 
-const ListScreen: React.FC<ListScreenProps> = ({ pluginOptions }) => {
+const ListScreen: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const params = useParams();
   const apiID = params.apiID ?? "";
+  const pluginOptions = usePluginOptions(
+    (state) => state.options.contentTypes?.[apiID]
+  );
   const { contentTypes, sdk } = useStrapi();
   const hasPermission = useContentPermission();
   const contentType = contentTypes.find(R.whereEq({ apiID }));
@@ -44,7 +48,7 @@ const ListScreen: React.FC<ListScreenProps> = ({ pluginOptions }) => {
   const contentTypeConfig = config.contentTypes?.find(R.whereEq({ apiID }));
   const hasDraftState = contentType?.options.draftAndPublish;
   const name = contentTypeConfig?.name ?? contentType?.info.displayName ?? "";
-  const { columns } = pluginOptions?.[apiID] ?? {};
+  const [create, setCreate] = useState<string | null>(null);
   const [collection, setCollection] = useState<{
     pagination: IPagination | null;
     results: any[];
@@ -66,6 +70,13 @@ const ListScreen: React.FC<ListScreenProps> = ({ pluginOptions }) => {
 
   return hasReadPermission || hasCreatePermission ? (
     <div className="px-4 md:px-12 py-6">
+      {create && (
+        <CreateContentDialog
+          apiID={apiID}
+          onCancel={() => setCreate(null)}
+          onCreate={({ id }) => navigate(`/content-manager/${apiID}/${id}`)}
+        />
+      )}
       {contentTypeConfig && contentType && !loading ? (
         <Formik<GetManyParams>
           initialValues={{
@@ -88,7 +99,15 @@ const ListScreen: React.FC<ListScreenProps> = ({ pluginOptions }) => {
                 {hasCreatePermission && (
                   <Button
                     type="primary"
-                    onClick={() => navigate(`/content-manager/${apiID}/create`)}
+                    onClick={() => {
+                      if (
+                        pluginOptions?.create &&
+                        pluginOptions.create?.when !== "relation"
+                      ) {
+                        return setCreate(apiID);
+                      }
+                      navigate(`/content-manager/${apiID}/create`);
+                    }}
                   >
                     {`${t("phrases.create_new")} ${t(name, {
                       ns: "custom",
@@ -196,69 +215,72 @@ const ListScreen: React.FC<ListScreenProps> = ({ pluginOptions }) => {
                           );
                         },
                       },
-                      ...(columns?.map(({ title, ...column }: any) => {
-                        const config =
-                          column.dataIndex &&
-                          contentType.attributes[String(column.dataIndex)];
-                        const sortable = SORTABLE_FIELD_TYPES.includes(
-                          config?.type
-                        );
-                        const isSorted =
-                          values.sort?.split(":")[0] === column.dataIndex;
+                      ...(R.pathOr([], ["list", "columns"], pluginOptions).map(
+                        ({ title, ...column }: any) => {
+                          const config =
+                            column.dataIndex &&
+                            contentType.attributes[String(column.dataIndex)];
+                          const sortable = SORTABLE_FIELD_TYPES.includes(
+                            config?.type
+                          );
+                          const isSorted =
+                            values.sort?.split(":")[0] === column.dataIndex;
 
-                        return {
-                          title: t(title, { ns: "custom" }),
-                          width: config?.type === "media" ? 72 : undefined,
-                          onHeaderCell: (column: any) => ({
-                            onClick: () => {
-                              if (sortable) {
-                                setFieldValue(
-                                  "sort",
-                                  `${column.dataIndex}:${
-                                    isSorted
-                                      ? values.sort?.split(":")[1] === "DESC"
-                                        ? "ASC"
-                                        : "DESC"
-                                      : "ASC"
-                                  }`
-                                );
-                                submitForm();
+                          return {
+                            title: t(title, { ns: "custom" }),
+                            width: config?.type === "media" ? 72 : undefined,
+                            onHeaderCell: (column: any) => ({
+                              onClick: () => {
+                                if (sortable) {
+                                  setFieldValue(
+                                    "sort",
+                                    `${column.dataIndex}:${
+                                      isSorted
+                                        ? values.sort?.split(":")[1] === "DESC"
+                                          ? "ASC"
+                                          : "DESC"
+                                        : "ASC"
+                                    }`
+                                  );
+                                  submitForm();
+                                }
+                              },
+                            }),
+                            sorter: sortable,
+                            sortOrder: isSorted
+                              ? values.sort?.split(":")[1] === "ASC"
+                                ? "ascend"
+                                : "descend"
+                              : null,
+                            render(value: any) {
+                              switch (config?.type) {
+                                case "datetime":
+                                  return <CalendarTime>{value}</CalendarTime>;
+                                case "media":
+                                  return value?.mime?.startsWith("image/") ? (
+                                    <Image
+                                      src={
+                                        value.formats?.thumbnail.url ||
+                                        value.url
+                                      }
+                                      alt=""
+                                      width={64}
+                                      height={64}
+                                      preview={false}
+                                      fallback="/image_fallback.png"
+                                      className="rounded-md object-cover"
+                                    />
+                                  ) : (
+                                    value
+                                  );
+                                default:
+                                  return value;
                               }
                             },
-                          }),
-                          sorter: sortable,
-                          sortOrder: isSorted
-                            ? values.sort?.split(":")[1] === "ASC"
-                              ? "ascend"
-                              : "descend"
-                            : null,
-                          render(value: any) {
-                            switch (config?.type) {
-                              case "datetime":
-                                return <CalendarTime>{value}</CalendarTime>;
-                              case "media":
-                                return value?.mime?.startsWith("image/") ? (
-                                  <Image
-                                    src={
-                                      value.formats?.thumbnail.url || value.url
-                                    }
-                                    alt=""
-                                    width={64}
-                                    height={64}
-                                    preview={false}
-                                    fallback="/image_fallback.png"
-                                    className="rounded-md object-cover"
-                                  />
-                                ) : (
-                                  value
-                                );
-                              default:
-                                return value;
-                            }
-                          },
-                          ...column,
-                        };
-                      }) ?? []),
+                            ...column,
+                          };
+                        }
+                      ) ?? []),
                       contentType?.pluginOptions.i18n?.localized && {
                         title: (
                           <Tooltip title={t("common.translation_plural")}>
@@ -317,7 +339,3 @@ const ListScreen: React.FC<ListScreenProps> = ({ pluginOptions }) => {
 };
 
 export default ListScreen;
-
-interface ListScreenProps {
-  pluginOptions: PluginOptions["list"];
-}

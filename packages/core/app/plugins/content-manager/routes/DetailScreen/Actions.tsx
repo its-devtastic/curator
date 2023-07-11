@@ -27,12 +27,9 @@ import useModifierKey from "~/hooks/useModifierKey";
 import usePreferences from "~/hooks/usePreferences";
 import useContentPermission from "~/hooks/useContentPermission";
 
-import { PluginOptions } from "../../types";
-
 const Actions: React.FC<{
-  options: Required<Required<PluginOptions>["edit"]>[""]["header"];
   contentTypeConfig: ContentTypeConfig;
-}> = ({ options, contentTypeConfig }) => {
+}> = ({ contentTypeConfig }) => {
   const { t } = useTranslation();
   const params = useParams();
   const hasPermission = useContentPermission();
@@ -88,7 +85,7 @@ const Actions: React.FC<{
     ) {
       blocker.proceed();
     }
-  }, [location]);
+  }, [location, blocker.state]);
 
   // Catch native save shortcut
   useKey(

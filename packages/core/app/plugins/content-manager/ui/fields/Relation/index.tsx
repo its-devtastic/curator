@@ -15,7 +15,7 @@ const Relation: React.FC<{
   attribute: {
     mappedBy: string;
     inversedBy: string;
-    relationType: "oneToOne" | "oneToMany";
+    relationType: "oneToOne" | "oneToMany" | "manyToOne";
     targetModel: string;
   };
   onChange(mutation: {
@@ -35,8 +35,10 @@ const Relation: React.FC<{
     console.error(`No content type with apiID ${targetModelApiID}`);
   }
 
-  return !targetModelApiID || !apiID ? null : attribute.relationType ===
-    "oneToOne" ? (
+  return !targetModelApiID || !apiID ? null : [
+      "oneToOne",
+      "manyToOne",
+    ].includes(attribute.relationType) ? (
     <ToOne
       targetModelApiID={targetModelApiID}
       renderItem={field.renderItem}

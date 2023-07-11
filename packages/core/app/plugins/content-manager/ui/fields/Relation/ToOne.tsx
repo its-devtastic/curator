@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { Button, Select } from "antd";
 import * as R from "ramda";
-import { useAsync } from "react-use";
+import { useAsync, useAsyncRetry } from "react-use";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import { useFormikContext } from "formik";
 
 import { Entity } from "~/types/content";
 import { FieldDefinition } from "~/types/contentTypeConfig";
 import useStrapi from "~/hooks/useStrapi";
+
+import { usePluginOptions } from "../../../hooks";
+import CreateContentDialog from "../../../dialogs/CreateContentDialog";
 
 const ToOne: React.FC<{
   apiID: string;
@@ -25,8 +28,16 @@ const ToOne: React.FC<{
   const { values } = useFormikContext<{ locale: string; id: number }>();
   const [search, setSearch] = useState("");
   const [edit, setEdit] = useState(false);
+  const [create, setCreate] = useState(false);
+  const allowCreate = usePluginOptions(
+    (state) => !R.isNil(state.options.contentTypes?.[targetModelApiID]?.create)
+  );
 
-  const { value: items = [], loading } = useAsync(async () => {
+  const {
+    value: items = [],
+    loading,
+    retry,
+  } = useAsyncRetry(async () => {
     try {
       const { results } = await sdk.getMany(targetModelApiID, {
         _q: search,
@@ -65,24 +76,49 @@ const ToOne: React.FC<{
       </div>
     </div>
   ) : (
-    <Select
-      className="w-full"
-      showSearch
-      onSelect={(id) => {
-        setModel(items.find(R.whereEq({ id })));
-        onChange?.({ set: [id] });
-        setEdit(false);
-      }}
-      loading={loading}
-      options={items?.map((item: any) => ({
-        value: item.id,
-        label: renderItem?.(item, {
-          t: (s: string, options: any) => t(s, { ns: "custom", ...options }),
-        }),
-      }))}
-      filterOption={false}
-      onSearch={setSearch}
-    />
+    <>
+      {create && (
+        <CreateContentDialog
+          apiID={targetModelApiID}
+          onCancel={() => setCreate(false)}
+          onCreate={(model) => {
+            setModel(model);
+            onChange?.({ set: [Number(model.id)] });
+            retry();
+            setEdit(false);
+            setCreate(false);
+          }}
+        />
+      )}
+      <div className="flex gap-2 items-center">
+        <Select
+          className="w-full"
+          showSearch
+          onSelect={(id) => {
+            setModel(items.find(R.whereEq({ id })));
+            onChange?.({ set: [id] });
+            setEdit(false);
+          }}
+          loading={loading}
+          options={items?.map((item: any) => ({
+            value: item.id,
+            label: renderItem?.(item, {
+              t: (s: string, options: any) =>
+                t(s, { ns: "custom", ...options }),
+            }),
+          }))}
+          filterOption={false}
+          onSearch={setSearch}
+        />
+        {allowCreate && (
+          <div className="flex-none">
+            <Button type="dashed" onClick={() => setCreate(true)}>
+              <FontAwesomeIcon icon={faPlus} />
+            </Button>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

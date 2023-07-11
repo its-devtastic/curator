@@ -23,6 +23,7 @@ const RepeatableComponentItem: React.FC<RepeatableComponentItemProps> = ({
   config,
   component,
   path,
+  apiID,
 }) => {
   const { t } = useTranslation();
   const collapsible = config.collapsible ?? true;
@@ -114,6 +115,7 @@ const RepeatableComponentItem: React.FC<RepeatableComponentItemProps> = ({
               key={field.path}
               field={R.evolve({ path: (p) => `${path}.${p}` })(field)}
               attribute={component.attributes[field.path]}
+              apiID={apiID}
             />
           ))}
         </div>
@@ -128,6 +130,7 @@ interface RepeatableComponentItemProps {
   config: ComponentConfig;
   component: StrapiComponent;
   path: string;
+  apiID: string;
 }
 
 export default RepeatableComponentItem;

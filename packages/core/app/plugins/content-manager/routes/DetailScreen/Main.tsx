@@ -1,21 +1,20 @@
 import React from "react";
 import { Card } from "antd";
 import * as R from "ramda";
+import { useParams } from "react-router-dom";
 
 import { StrapiContentType } from "~/types/contentType";
 import { ContentTypeConfig } from "~/types/contentTypeConfig";
 
 import FieldRenderer from "../../ui/FieldRenderer";
-import { PluginOptions } from "../../types";
+import { usePluginOptions } from "../../hooks";
 import Top from "./Top";
 
-const Main: React.FC<MainProps> = ({
-  pluginOptions,
-  contentType,
-  contentTypeConfig,
-  apiID,
-}) => {
-  const { side, main } = pluginOptions?.[apiID] ?? {};
+const Main: React.FC<MainProps> = ({ contentType, contentTypeConfig }) => {
+  const { apiID = "" } = useParams();
+  const { side, main } = usePluginOptions(
+    (state) => (apiID && state.options.contentTypes?.[apiID]?.edit) || {}
+  );
 
   return (
     <div className="space-y-6">
@@ -28,6 +27,7 @@ const Main: React.FC<MainProps> = ({
               {side.map((field) => (
                 <FieldRenderer
                   key={field.path}
+                  apiID={apiID}
                   field={
                     contentTypeConfig.fields.find(
                       R.whereEq({ path: field.path })
@@ -45,6 +45,7 @@ const Main: React.FC<MainProps> = ({
               {main.map((field) => (
                 <FieldRenderer
                   key={field.path}
+                  apiID={apiID}
                   field={
                     contentTypeConfig.fields.find(
                       R.whereEq({ path: field.path })
@@ -64,8 +65,6 @@ const Main: React.FC<MainProps> = ({
 export default Main;
 
 interface MainProps {
-  pluginOptions: PluginOptions["edit"];
   contentType: StrapiContentType;
   contentTypeConfig: ContentTypeConfig;
-  apiID: string;
 }
