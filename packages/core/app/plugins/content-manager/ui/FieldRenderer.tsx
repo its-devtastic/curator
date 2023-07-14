@@ -29,8 +29,13 @@ const FieldRenderer: React.FC<{
 
   const inputName = R.when(R.equals("component"), () =>
     attribute?.repeatable ? "repeatableComponent" : "component"
-  )(field.input || attribute?.type || "");
-  const InputComponent = inputName ? FIELD_TYPES[inputName] : null;
+  )(String(field.input) || attribute?.type || "");
+  const InputComponent =
+    typeof field.input !== "string" && !R.isNil(field.input)
+      ? field.input
+      : inputName
+      ? FIELD_TYPES[inputName]
+      : null;
 
   // Don't check for field permissions if it's a field inside a component
   const fieldPermission = !field.path?.includes(".") ? field.path : null;

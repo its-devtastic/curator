@@ -33,6 +33,7 @@ const RepeatableComponent: React.FC<RepeatableComponentProps> = ({
   onChange,
   attribute,
   disabled,
+  apiID,
 }) => {
   const { t } = useTranslation();
   const curatorConfig = useCurator();
@@ -74,6 +75,7 @@ const RepeatableComponent: React.FC<RepeatableComponentProps> = ({
               component={component}
               config={config}
               value={item}
+              apiID={apiID}
               path={`${field.path}.${idx}`}
               onRemove={() => {
                 const idx = value.findIndex(R.whereEq({ id: item.id }));
@@ -117,4 +119,5 @@ interface RepeatableComponentProps {
   field: FieldDefinition;
   attribute: Attribute;
   disabled?: boolean;
+  apiID: string;
 }

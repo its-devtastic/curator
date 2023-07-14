@@ -32,7 +32,8 @@ const DynamicZone: React.FC<{
   onChange(value: any): void;
   attribute: Attribute;
   field: FieldDefinition;
-}> = ({ value = [], onChange, attribute, field }) => {
+  apiID: string;
+}> = ({ value = [], onChange, attribute, field, apiID }) => {
   const { components, sdk } = useStrapi();
   const { t } = useTranslation();
   const curatorConfig = useCurator();
@@ -81,6 +82,7 @@ const DynamicZone: React.FC<{
             <DynamicItem
               key={`${item.id}+${item.__component}`}
               value={item}
+              apiID={apiID}
               path={`${field.path}.${idx}`}
               onRemove={() =>
                 onChange(
