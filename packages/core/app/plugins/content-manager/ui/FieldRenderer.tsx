@@ -29,7 +29,7 @@ const FieldRenderer: React.FC<{
 
   const inputName = R.when(R.equals("component"), () =>
     attribute?.repeatable ? "repeatableComponent" : "component"
-  )(String(field.input) || attribute?.type || "");
+  )((typeof field.input === "string" && field.input) || attribute?.type || "");
   const InputComponent =
     typeof field.input !== "string" && !R.isNil(field.input)
       ? field.input

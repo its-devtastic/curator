@@ -60,6 +60,7 @@
   "team.update_error": "Er heeft zich een fout voorgedaan bij het updaten van de gebruiker.",
 
   "content_manager.autosave": "Auto-opslaan",
+  "content_manager.open_content_manager_menu": "Open contentbeheer-menu",
   "content_manager.unsaved_changes": "Je hebt niet-opgeslagen wijzigingen. Weet je het zeker?",
 
   "media_library.upload": "Upload",
@@ -104,6 +105,7 @@
   "phrases.are_you_sure": "Weet je het zeker?",
   "phrases.type_delete": "Typ DELETE om te bevestigen",
   "phrases.add_item": "Voeg {{item}} toe",
+  "phrases.open_this_menu": "Open dit menu",
 
   "common.edit": "Bewerk",
   "common.create": "Aanmaken",
@@ -139,5 +141,6 @@
   "common.folder": "Map",
   "common.location": "Locatie",
   "common.caption": "Bijschrift",
-  "common.alternative_text": "Alternatieve tekst"
+  "common.alternative_text": "Alternatieve tekst",
+  "common.search": "Zoeken"
 }

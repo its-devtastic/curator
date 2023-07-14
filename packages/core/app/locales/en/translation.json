@@ -60,6 +60,7 @@
   "team.update_error": "There was an error when trying to update the user.",
 
   "content_manager.autosave": "Autosave",
+  "content_manager.open_content_manager_menu": "Open content manager menu",
   "content_manager.unsaved_changes": "You have unsaved changes. Are you sure?",
 
   "media_library.upload": "Upload",
@@ -104,6 +105,7 @@
   "phrases.are_you_sure": "Are you sure?",
   "phrases.type_delete": "Type DELETE to confirm",
   "phrases.add_item": "Add {{item}}",
+  "phrases.open_this_menu": "Open this menu",
 
   "common.edit": "Edit",
   "common.create": "Create",
@@ -139,5 +141,6 @@
   "common.folder": "Folder",
   "common.location": "Location",
   "common.caption": "Caption",
-  "common.alternative_text": "Alternative text"
+  "common.alternative_text": "Alternative text",
+  "common.search": "Search"
 }

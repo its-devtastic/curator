@@ -14,8 +14,9 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*"]
+      "~/*": ["./packages/core/app/*"]
     }
   },
   "exclude": ["node_modules"]
