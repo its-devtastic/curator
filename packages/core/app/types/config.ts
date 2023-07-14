@@ -21,9 +21,11 @@ export interface CuratorConfig {
 
 export interface InjectionZoneEntry {
   zone: InjectionZone;
-  // Determines the order in case of multiple components.
-  weight: number;
   render(): React.ReactNode;
+  /**
+   * Determines the order in case of multiple components.
+   */
+  weight: number;
 }
 
 export enum InjectionZone {

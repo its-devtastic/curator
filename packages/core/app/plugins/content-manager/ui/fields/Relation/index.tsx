@@ -24,7 +24,8 @@ const Relation: React.FC<{
       | { id: number | string; position: { before: number | string } }[];
   }): void;
   value: Entity | null;
-}> = ({ attribute, field, ...props }) => {
+  renderItem?(item: any, utils: { t: any }): React.ReactNode;
+}> = ({ attribute, field, renderItem, ...props }) => {
   const { contentTypes } = useStrapi();
   const targetModelApiID = contentTypes.find(
     R.whereEq({ uid: attribute.targetModel })
@@ -41,7 +42,7 @@ const Relation: React.FC<{
     ].includes(attribute.relationType) ? (
     <ToOne
       targetModelApiID={targetModelApiID}
-      renderItem={field.renderItem}
+      renderItem={renderItem}
       field={field}
       apiID={apiID}
       {...props}
@@ -50,7 +51,7 @@ const Relation: React.FC<{
     <ToMany
       apiID={apiID}
       targetModelApiID={targetModelApiID}
-      renderItem={field.renderItem}
+      renderItem={renderItem}
       field={field}
       {...props}
     />

@@ -2,6 +2,7 @@ import type React from "react";
 import { TFunction } from "i18next";
 
 import { Entity } from "./content";
+import { Attribute } from "~/types/contentType";
 
 export interface ContentTypeConfig {
   apiID: string;
@@ -10,6 +11,10 @@ export interface ContentTypeConfig {
   icon?: React.ReactNode;
   fields: FieldDefinition[];
   getEntityUrl?(entity: Entity): string;
+  /**
+   * Renders the content entity, for example in relational fields.
+   */
+  render?(entity: Entity, utils: { t: TFunction }): React.ReactNode;
 }
 
 export interface FieldDefinition {
@@ -17,8 +22,27 @@ export interface FieldDefinition {
   label?: string;
   description?: string;
   hint?: string;
-  input?: string;
+  input?:
+    | InputType
+    | React.FC<{
+        onChange(value: any): void;
+        value: any;
+        attribute: Attribute;
+        field: { path: string };
+        apiID: string;
+        disabled: boolean;
+      }>;
   inputProps?: Record<string, any>;
-  /** Config for relation and enum fields */
-  renderItem?(item: any, utils: { t: TFunction }): React.ReactNode;
 }
+
+export type InputType =
+  | "string"
+  | "text"
+  | "boolean"
+  | "slug"
+  | "richtext"
+  | "media"
+  | "coverImage"
+  | "uid"
+  | "date"
+  | "email";

@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import * as R from "ramda";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Input, Typography } from "antd";
 
 import useCurator from "~/hooks/useCurator";
 import useStrapi from "~/hooks/useStrapi";
+import useModifierKey from "~/hooks/useModifierKey";
 
 const ContentManagerMenu: React.FC<{
   groups: { label: string; items: string[] }[];
@@ -13,10 +15,21 @@ const ContentManagerMenu: React.FC<{
   const { t } = useTranslation();
   const { contentTypes } = useStrapi();
   const config = useCurator();
+  const modifierKey = useModifierKey();
+  const [search, setSearch] = useState("");
 
   return (
     <div className="w-[600px] max-w-full">
-      <div className="space-y-8 py-3">
+      <div className="p-4 bg-gray-50 border-0 border-solid border-b border-gray-200 rounded-t-md">
+        <Input.Search
+          ref={(ref) => setTimeout(() => ref?.focus(), 0)}
+          onSearch={setSearch}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder={t("common.search")}
+        />
+      </div>
+      <div className="space-y-8 p-4">
         {groups.map(({ label, items }, idx) => (
           <div key={idx}>
             {label && (
@@ -32,8 +45,17 @@ const ContentManagerMenu: React.FC<{
                   const custom = config.contentTypes?.find(
                     R.whereEq({ apiID })
                   );
+                  const show = [
+                    custom?.name,
+                    info.displayName,
+                    custom?.description,
+                  ]
+                    .filter(Boolean)
+                    .join("")
+                    .toLowerCase()
+                    .includes(search.toLowerCase());
 
-                  return (
+                  return show ? (
                     <Link
                       key={apiID}
                       onClick={() => onSelect?.()}
@@ -58,11 +80,17 @@ const ContentManagerMenu: React.FC<{
                         </div>
                       )}
                     </Link>
-                  );
+                  ) : null;
                 })}
             </div>
           </div>
         ))}
+      </div>
+      <div className="border-solid border-0 border-t border-gray-200 bg-gray-50 px-4 py-2 flex items-center justify-end gap-2 select-none rounded-b-md">
+        <span className="text-xs text-gray-600">
+          {t("phrases.open_this_menu")}
+        </span>
+        <Typography.Text keyboard>{`${modifierKey.label}+L`}</Typography.Text>
       </div>
     </div>
   );
