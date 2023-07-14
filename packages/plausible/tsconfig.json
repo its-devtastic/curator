@@ -13,10 +13,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true,
-    "paths": {
-      "~/*": ["./app/*"]
-    }
+    "incremental": true
   },
-  "exclude": ["node_modules", "docs"]
+  "exclude": ["node_modules"]
 }
