@@ -23,7 +23,7 @@ const DetailScreen: React.FC = () => {
   const config = useCurator();
   const { contentTypes, sdk, locales } = useStrapi();
   const { getSecret } = useSecrets();
-  const [document, setDocument] = useState<Entity | null>(null);
+  const [document, setDocument] = useState<Omit<Entity, "id"> | null>(null);
 
   const contentType = contentTypes.find(R.whereEq({ apiID }));
   const contentTypeConfig = config.contentTypes?.find(R.whereEq({ apiID }));
@@ -37,9 +37,8 @@ const DetailScreen: React.FC = () => {
 
     if (params.id === "create") {
       await new Promise((resolve) => setTimeout(resolve, 0));
-      return {
-        locale: defaultLocale,
-      };
+      setDocument({ locale: defaultLocale });
+      return;
     }
 
     try {

@@ -80,5 +80,5 @@ interface HeaderProps {
   apiID: string;
   contentType: StrapiContentType;
   contentTypeConfig: ContentTypeConfig;
-  document: Entity;
+  document: Omit<Entity, "id">;
 }

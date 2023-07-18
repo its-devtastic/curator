@@ -1,6 +1,6 @@
 {
   "name": "@curatorjs/core",
-  "version": "0.13.0",
+  "version": "0.13.1",
   "description": "An alternative admin for Strapi.",
   "author": "Devtastic <hi@devtastic.build>",
   "module": "index.ts",
@@ -35,8 +35,8 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@types/node": "18.16.19",
     "@types/ramda": "0.28.25",
-    "@types/react": "18.2.13",
-    "@types/react-dom": "18.2.5",
+    "@types/react": "18.2.15",
+    "@types/react-dom": "18.2.7",
     "@vitejs/plugin-react": "^4.0.3",
     "antd": "^5.7.0",
     "autoprefixer": "^10.4.14",
