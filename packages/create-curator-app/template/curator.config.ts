@@ -40,8 +40,13 @@ const curatorConfig: CuratorConfig = {
           { label: "content_groups.pages", items: ["homepage"] },
         ],
       },
-      list: {},
-      edit: {},
+      contentTypes: {
+        page: {
+          list: {},
+          edit: {},
+          create: {},
+        },
+      },
     }),
   ],
 };
