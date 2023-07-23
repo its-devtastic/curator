@@ -28,6 +28,7 @@ import CalendarTime from "~/ui/CalendarTime";
 import Table from "~/ui/Table";
 import Pagination from "~/ui/Pagination";
 
+import { ColumnConfig } from "../../types";
 import { SORTABLE_FIELD_TYPES } from "../../utils/constants";
 import { usePluginOptions } from "../../hooks";
 import CreateContentDialog from "../../dialogs/CreateContentDialog";
@@ -135,181 +136,195 @@ const ListScreen: React.FC = () => {
                         navigate(`/content-manager/${apiID}/${record.id}`),
                     })}
                     rowClassName="cursor-pointer"
-                    columns={[
-                      hasDraftState && {
-                        key: "draftStatus",
-                        dataIndex: "publishedAt",
-                        width: 40,
-                        render(value: any, record: any) {
-                          return (
-                            <Tooltip
-                              placement="top"
-                              title={
-                                value
-                                  ? t("common.published")
-                                  : t("common.draft")
-                              }
-                            >
-                              <div
-                                className="flex"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                }}
+                    columns={
+                      [
+                        hasDraftState && {
+                          key: "draftStatus",
+                          dataIndex: "publishedAt",
+                          width: 40,
+                          render(value: any, record: any) {
+                            return (
+                              <Tooltip
+                                placement="top"
+                                title={
+                                  value
+                                    ? t("common.published")
+                                    : t("common.draft")
+                                }
                               >
-                                <Dropdown
-                                  menu={{
-                                    items: [
-                                      {
-                                        key: 1,
-                                        label: value
-                                          ? t("common.unpublish")
-                                          : t("common.publish"),
-                                        async onClick() {
-                                          const isDraft = !record.publishedAt;
-                                          try {
-                                            const data = isDraft
-                                              ? await sdk.publish(
-                                                  apiID,
-                                                  record.id
-                                                )
-                                              : await sdk.unpublish(
-                                                  apiID,
-                                                  record.id
-                                                );
-                                            setCollection(
-                                              R.evolve({
-                                                results: R.map((item: any) =>
-                                                  item.id === record.id
-                                                    ? data
-                                                    : item
-                                                ),
-                                              })
-                                            );
-                                            notification.success({
-                                              message: t(
-                                                "phrases.document_status_changed"
-                                              ),
-                                              description: t(
-                                                isDraft
-                                                  ? "phrases.document_published"
-                                                  : "phrases.document_unpublished"
-                                              ),
-                                            });
-                                          } catch (e) {
-                                            notification.error({
-                                              message: "Oops",
-                                            });
-                                          }
-                                        },
-                                      },
-                                    ],
+                                <div
+                                  className="flex"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
                                   }}
-                                  trigger={["click"]}
                                 >
-                                  <Button type="text">
-                                    <Badge color={value ? "green" : "yellow"} />
-                                  </Button>
-                                </Dropdown>
-                              </div>
-                            </Tooltip>
-                          );
+                                  <Dropdown
+                                    menu={{
+                                      items: [
+                                        {
+                                          key: 1,
+                                          label: value
+                                            ? t("common.unpublish")
+                                            : t("common.publish"),
+                                          async onClick() {
+                                            const isDraft = !record.publishedAt;
+                                            try {
+                                              const data = isDraft
+                                                ? await sdk.publish(
+                                                    apiID,
+                                                    record.id
+                                                  )
+                                                : await sdk.unpublish(
+                                                    apiID,
+                                                    record.id
+                                                  );
+                                              setCollection(
+                                                R.evolve({
+                                                  results: R.map((item: any) =>
+                                                    item.id === record.id
+                                                      ? data
+                                                      : item
+                                                  ),
+                                                })
+                                              );
+                                              notification.success({
+                                                message: t(
+                                                  "phrases.document_status_changed"
+                                                ),
+                                                description: t(
+                                                  isDraft
+                                                    ? "phrases.document_published"
+                                                    : "phrases.document_unpublished"
+                                                ),
+                                              });
+                                            } catch (e) {
+                                              notification.error({
+                                                message: "Oops",
+                                              });
+                                            }
+                                          },
+                                        },
+                                      ],
+                                    }}
+                                    trigger={["click"]}
+                                  >
+                                    <Button type="text">
+                                      <Badge
+                                        color={value ? "green" : "yellow"}
+                                      />
+                                    </Button>
+                                  </Dropdown>
+                                </div>
+                              </Tooltip>
+                            );
+                          },
                         },
-                      },
-                      ...(R.pathOr([], ["list", "columns"], pluginOptions).map(
-                        ({ title, ...column }: any) => {
-                          const config =
-                            column.dataIndex &&
-                            contentType.attributes[String(column.dataIndex)];
-                          const sortable = SORTABLE_FIELD_TYPES.includes(
-                            config?.type
-                          );
-                          const isSorted =
-                            values.sort?.split(":")[0] === column.dataIndex;
+                        ...R.pathOr([], ["list", "columns"], pluginOptions).map(
+                          ({ title = "", ...column }: ColumnConfig) => {
+                            const config =
+                              column.path &&
+                              contentType.attributes[String(column.path)];
 
-                          return {
-                            title: t(title, { ns: "custom" }),
-                            width: config?.type === "media" ? 72 : undefined,
-                            onHeaderCell: (column: any) => ({
-                              onClick: () => {
-                                if (sortable) {
-                                  setFieldValue(
-                                    "sort",
-                                    `${column.dataIndex}:${
-                                      isSorted
-                                        ? values.sort?.split(":")[1] === "DESC"
-                                          ? "ASC"
-                                          : "DESC"
-                                        : "ASC"
-                                    }`
-                                  );
-                                  submitForm();
+                            if (!config) {
+                              console.warn(
+                                `Could not find config for path ${column.path}`
+                              );
+                              return;
+                            }
+
+                            const sortable = SORTABLE_FIELD_TYPES.includes(
+                              config?.type
+                            );
+                            const isSorted =
+                              values.sort?.split(":")[0] === column.path;
+
+                            return {
+                              dataIndex: column.path,
+                              key: column.path,
+                              title: t(title, { ns: "custom" }),
+                              width: config?.type === "media" ? 72 : undefined,
+                              onHeaderCell: (column: any) => ({
+                                onClick: () => {
+                                  if (sortable) {
+                                    setFieldValue(
+                                      "sort",
+                                      `${column.dataIndex}:${
+                                        isSorted
+                                          ? values.sort?.split(":")[1] ===
+                                            "DESC"
+                                            ? "ASC"
+                                            : "DESC"
+                                          : "ASC"
+                                      }`
+                                    );
+                                    submitForm();
+                                  }
+                                },
+                              }),
+                              sorter: sortable,
+                              sortOrder: isSorted
+                                ? values.sort?.split(":")[1] === "ASC"
+                                  ? "ascend"
+                                  : "descend"
+                                : null,
+                              render(value: any) {
+                                switch (config?.type) {
+                                  case "datetime":
+                                    return <CalendarTime>{value}</CalendarTime>;
+                                  case "media":
+                                    return value?.mime?.startsWith("image/") ? (
+                                      <Image
+                                        src={
+                                          value.formats?.thumbnail.url ||
+                                          value.url
+                                        }
+                                        alt=""
+                                        width={64}
+                                        height={64}
+                                        preview={false}
+                                        fallback="/image_fallback.png"
+                                        className="rounded-md object-cover"
+                                      />
+                                    ) : (
+                                      value
+                                    );
+                                  default:
+                                    return value;
                                 }
                               },
-                            }),
-                            sorter: sortable,
-                            sortOrder: isSorted
-                              ? values.sort?.split(":")[1] === "ASC"
-                                ? "ascend"
-                                : "descend"
-                              : null,
-                            render(value: any) {
-                              switch (config?.type) {
-                                case "datetime":
-                                  return <CalendarTime>{value}</CalendarTime>;
-                                case "media":
-                                  return value?.mime?.startsWith("image/") ? (
-                                    <Image
-                                      src={
-                                        value.formats?.thumbnail.url ||
-                                        value.url
-                                      }
-                                      alt=""
-                                      width={64}
-                                      height={64}
-                                      preview={false}
-                                      fallback="/image_fallback.png"
-                                      className="rounded-md object-cover"
-                                    />
-                                  ) : (
-                                    value
-                                  );
-                                default:
-                                  return value;
-                              }
-                            },
-                            ...column,
-                          };
-                        }
-                      ) ?? []),
-                      contentType?.pluginOptions.i18n?.localized && {
-                        title: (
-                          <Tooltip title={t("common.translation_plural")}>
-                            <FontAwesomeIcon icon={faLanguage} />
-                          </Tooltip>
+                            };
+                          }
                         ),
-                        dataIndex: "localizations",
-                        render(localizations: any[], record: any) {
-                          return (
-                            <div className="space-x-1">
-                              {R.sortBy(R.prop("locale"))([
-                                record,
-                                ...localizations,
-                              ]).map(({ locale }) => (
-                                <Tooltip title={t(`locales.${locale}`)}>
-                                  <span
-                                    className={`rounded-sm fi fi-${
-                                      locale.startsWith("en")
-                                        ? "us"
-                                        : locale.split("-")[0]
-                                    }`}
-                                  />
-                                </Tooltip>
-                              ))}
-                            </div>
-                          );
+                        contentType?.pluginOptions.i18n?.localized && {
+                          title: (
+                            <Tooltip title={t("common.translation_plural")}>
+                              <FontAwesomeIcon icon={faLanguage} />
+                            </Tooltip>
+                          ),
+                          dataIndex: "localizations",
+                          render(localizations: any[], record: any) {
+                            return (
+                              <div className="space-x-1">
+                                {R.sortBy(R.prop("locale"))([
+                                  record,
+                                  ...localizations,
+                                ]).map(({ locale }) => (
+                                  <Tooltip title={t(`locales.${locale}`)}>
+                                    <span
+                                      className={`rounded-sm fi fi-${
+                                        locale.startsWith("en")
+                                          ? "us"
+                                          : locale.split("-")[0]
+                                      }`}
+                                    />
+                                  </Tooltip>
+                                ))}
+                              </div>
+                            );
+                          },
                         },
-                      },
-                    ].filter(Boolean)}
+                      ].filter(Boolean) as any
+                    }
                   />
                   <Pagination
                     current={values.page}

@@ -1,7 +1,13 @@
-import { ColumnType } from "antd/es/table";
+import { TFunction } from "i18next";
 
 export interface FieldConfig {
   path: string;
+}
+
+export interface ColumnConfig {
+  path: string;
+  title?: string;
+  render?(value: any, record: any, opts: { t: TFunction }): React.ReactNode;
 }
 
 export interface PluginOptions {
@@ -40,7 +46,7 @@ export interface PluginOptions {
        * Configure the columns in the list screen.
        */
       list?: {
-        columns?: ColumnType<any>[];
+        columns?: ColumnConfig[];
       };
     }
   >;
