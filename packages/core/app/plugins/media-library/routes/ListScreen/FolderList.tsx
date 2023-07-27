@@ -14,9 +14,10 @@ import { useSearchParams } from "react-router-dom";
 import { useFormikContext } from "formik";
 import * as R from "ramda";
 
-import { MediaFolder } from "~/types/media";
 import useStrapi from "~/hooks/useStrapi";
-import EditFolderModal from "~/plugins/media-library/routes/ListScreen/EditFolderModal";
+import { MediaFolder } from "~/types/media";
+
+import EditFolderModal from "./EditFolderModal";
 
 const FolderList: React.FC = () => {
   const { t } = useTranslation();
@@ -25,6 +26,13 @@ const FolderList: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [create, setCreate] = useState(false);
   const [edit, setEdit] = useState<MediaFolder | null>(null);
+  const { permissions } = useStrapi();
+  const canCreate = permissions.some(
+    R.whereEq({ action: "plugin::upload.assets.create" })
+  );
+  const canEdit = permissions.some(
+    R.whereEq({ action: "plugin::upload.assets.update" })
+  );
   const parent = searchParams.get("folder");
 
   const { value: folders = [], retry } = useAsyncRetry(async () => {
@@ -62,7 +70,7 @@ const FolderList: React.FC = () => {
 
   return (
     <>
-      {edit && (
+      {edit && canEdit && (
         <EditFolderModal
           folder={edit}
           onCancel={() => setEdit(null)}
@@ -93,35 +101,36 @@ const FolderList: React.FC = () => {
               </div>
             </li>
             {folder && <ParentFolder folder={folder} />}
-            <FontAwesomeIcon icon={faAngleRight} />
+            {canCreate && <FontAwesomeIcon icon={faAngleRight} />}
             <li>
-              {create ? (
-                <Input
-                  autoFocus
-                  onKeyDown={(e) => {
-                    if (e.code === "Escape") {
-                      setCreate(false);
-                    }
-                  }}
-                  onBlur={(e) => {
-                    !e.currentTarget.value
-                      ? setCreate(false)
-                      : createFolder(e.currentTarget.value);
-                  }}
-                  onPressEnter={(e) => {
-                    createFolder(e.currentTarget.value);
-                  }}
-                />
-              ) : (
-                <Button
-                  size="small"
-                  type="dashed"
-                  icon={<FontAwesomeIcon icon={faPlus} />}
-                  onClick={() => setCreate(true)}
-                >
-                  {t("media_library.new_folder")}
-                </Button>
-              )}
+              {canCreate &&
+                (create ? (
+                  <Input
+                    autoFocus
+                    onKeyDown={(e) => {
+                      if (e.code === "Escape") {
+                        setCreate(false);
+                      }
+                    }}
+                    onBlur={(e) => {
+                      !e.currentTarget.value
+                        ? setCreate(false)
+                        : createFolder(e.currentTarget.value);
+                    }}
+                    onPressEnter={(e) => {
+                      createFolder(e.currentTarget.value);
+                    }}
+                  />
+                ) : (
+                  <Button
+                    size="small"
+                    type="dashed"
+                    icon={<FontAwesomeIcon icon={faPlus} />}
+                    onClick={() => setCreate(true)}
+                  >
+                    {t("media_library.new_folder")}
+                  </Button>
+                ))}
             </li>
           </ul>
         </div>
@@ -140,17 +149,19 @@ const FolderList: React.FC = () => {
                   })
                 }
                 actions={[
-                  <Button
-                    className="group-hover:block hidden"
-                    key="edit"
-                    icon={<FontAwesomeIcon icon={faPen} />}
-                    type="text"
-                    size="small"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setEdit(item);
-                    }}
-                  />,
+                  canEdit && (
+                    <Button
+                      className="group-hover:block hidden"
+                      key="edit"
+                      icon={<FontAwesomeIcon icon={faPen} />}
+                      type="text"
+                      size="small"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setEdit(item);
+                      }}
+                    />
+                  ),
                 ]}
               >
                 <List.Item.Meta

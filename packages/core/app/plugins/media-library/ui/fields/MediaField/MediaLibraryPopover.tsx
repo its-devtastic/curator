@@ -23,6 +23,10 @@ const MediaLibraryPopover: React.FC<{
   const { sdk } = useStrapi();
   const { t } = useTranslation();
   const [search, setSearch] = useState("");
+  const { permissions } = useStrapi();
+  const canCreate = permissions.some(
+    R.whereEq({ action: "plugin::upload.assets.create" })
+  );
   const { preferences, setPreference } = usePreferences();
   const view = preferences.mediaLibrary?.popoverView ?? "grid";
 
@@ -38,17 +42,19 @@ const MediaLibraryPopover: React.FC<{
   return (
     <div>
       <div className="p-2 border-b border-0 border-solid border-gray-200 flex items-center gap-2">
-        <UploadButton
-          onUploadComplete={(item) => {
-            retry();
-            item?.[0] && onChange(item[0]);
-          }}
-          button={
-            <Button size="small" type="primary">
-              {t("media_library.upload")}
-            </Button>
-          }
-        />
+        {canCreate && (
+          <UploadButton
+            onUploadComplete={(item) => {
+              retry();
+              item?.[0] && onChange(item[0]);
+            }}
+            button={
+              <Button size="small" type="primary">
+                {t("media_library.upload")}
+              </Button>
+            }
+          />
+        )}
         <Input.Search
           size="small"
           onSearch={(value) => setSearch(value)}

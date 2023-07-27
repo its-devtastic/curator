@@ -1,10 +1,11 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Alert } from "antd";
+import * as R from "ramda";
 
 import useStrapi from "~/hooks/useStrapi";
-import * as R from "ramda";
-import TeamList from "~/plugins/team-manager/routes/TeamList/TeamList";
+
+import TeamList from "./TeamList";
 
 export default function TeamScreen() {
   const { t } = useTranslation();
