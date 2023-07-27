@@ -17,7 +17,7 @@ const MainMenuItem: React.FC<{
   const [open, setOpen] = useState(false);
   const modifierKey = useModifierKey();
   useKey(
-    "l",
+    "k",
     (e) => {
       if (e[modifierKey.value]) {
         e.preventDefault();

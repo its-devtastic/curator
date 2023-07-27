@@ -90,7 +90,7 @@ const ContentManagerMenu: React.FC<{
         <span className="text-xs text-gray-600">
           {t("phrases.open_this_menu")}
         </span>
-        <Typography.Text keyboard>{`${modifierKey.label}+L`}</Typography.Text>
+        <Typography.Text keyboard>{`${modifierKey.label}+K`}</Typography.Text>
       </div>
     </div>
   );

@@ -72,7 +72,7 @@ const HelpMenu: React.FC = () => {
                           <td>
                             <Typography.Text
                               keyboard
-                            >{`${modifierKey.label}+L`}</Typography.Text>
+                            >{`${modifierKey.label}+K`}</Typography.Text>
                           </td>
                         </tr>
                       </tbody>
