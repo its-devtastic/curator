@@ -7,7 +7,7 @@ const MainMenuItem: React.FC<{
   icon?: React.ReactNode;
   to: string;
 }> = ({ label, icon, to }) => {
-  const isActive = useMatch(to);
+  const isActive = useMatch(`${to}/*`);
 
   return (
     <Link

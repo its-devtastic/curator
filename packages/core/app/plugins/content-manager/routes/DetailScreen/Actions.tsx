@@ -1,13 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Badge,
-  Button,
-  Dropdown,
-  notification,
-  Modal,
-  Tooltip,
-  Switch,
-} from "antd";
+import { Button, Dropdown, notification, Modal, Tooltip, Switch } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEllipsisV,
@@ -105,14 +97,68 @@ const Actions: React.FC<{
       {contextHolder}
 
       <div className="flex items-top gap-2">
-        {hasDraftState && hasPublishPermission && (
-          <div>
-            <Dropdown
-              disabled={!values.id}
-              menu={{
-                items: [
-                  {
-                    key: 1,
+        <div className="flex flex-col items-end">
+          {hasSavePermission && (
+            <Button
+              type="primary"
+              ghost
+              loading={isSubmitting}
+              onClick={async () => {
+                await submitForm();
+                notification.success({ message: t("phrases.document_saved") });
+              }}
+            >
+              {t("common.save")}
+            </Button>
+          )}
+        </div>
+
+        {values.id && contentTypeConfig?.getEntityUrl && (
+          <Tooltip title={t("phrases.view_page")}>
+            <Button
+              type="text"
+              onClick={() => {
+                window.open(contentTypeConfig.getEntityUrl?.(values));
+              }}
+              icon={<FontAwesomeIcon icon={faExternalLink} />}
+            />
+          </Tooltip>
+        )}
+
+        {values.id && !isSingleType && hasDeletePermission && (
+          <Dropdown
+            trigger={["click"]}
+            placement="bottomRight"
+            menu={{
+              items: [
+                isDraft &&
+                  !R.isNil(values.id) &&
+                  hasSavePermission && {
+                    key: "autosave",
+                    label: (
+                      <div
+                        className="space-x-2 cursor-pointer"
+                        onClick={() =>
+                          setPreference("autosave", !preferences.autosave)
+                        }
+                      >
+                        <Switch
+                          loading={isSubmitting}
+                          size="small"
+                          checked={Boolean(preferences.autosave)}
+                        />
+                        <span className="text-xs select-none">
+                          {t("content_manager.autosave")}
+                        </span>
+                      </div>
+                    ),
+                    onClick: (e: any) => {
+                      e.stopPropagation();
+                    },
+                  },
+                hasDraftState &&
+                  hasPublishPermission && {
+                    key: "publish",
                     label: isDraft
                       ? t("common.publish")
                       : t("common.unpublish"),
@@ -135,68 +181,7 @@ const Actions: React.FC<{
                       }
                     },
                   },
-                ],
-              }}
-              trigger={["click"]}
-            >
-              <Button type="text">
-                <Badge
-                  color={isDraft ? "yellow" : "green"}
-                  text={isDraft ? t("common.draft") : t("common.published")}
-                />
-              </Button>
-            </Dropdown>
-          </div>
-        )}
-
-        <div className="flex flex-col items-end">
-          {hasSavePermission && (
-            <Button
-              type="primary"
-              loading={isSubmitting}
-              onClick={async () => {
-                await submitForm();
-                notification.success({ message: t("phrases.document_saved") });
-              }}
-            >
-              {t("common.save")}
-            </Button>
-          )}
-          {isDraft && !R.isNil(values.id) && hasSavePermission && (
-            <div
-              className="space-x-2 cursor-pointer"
-              onClick={() => setPreference("autosave", !preferences.autosave)}
-            >
-              <Switch
-                loading={isSubmitting}
-                size="small"
-                checked={Boolean(preferences.autosave)}
-              />
-              <span className="text-xs select-none">
-                {t("content_manager.autosave")}
-              </span>
-            </div>
-          )}
-        </div>
-
-        {values.id && contentTypeConfig?.getEntityUrl && (
-          <Tooltip title={t("phrases.view_page")}>
-            <Button
-              type="text"
-              onClick={() => {
-                window.open(contentTypeConfig.getEntityUrl?.(values));
-              }}
-              icon={<FontAwesomeIcon icon={faExternalLink} />}
-            />
-          </Tooltip>
-        )}
-
-        {values.id && !isSingleType && hasDeletePermission && (
-          <Dropdown
-            trigger={["click"]}
-            placement="bottomRight"
-            menu={{
-              items: [
+                { type: "divider" },
                 {
                   label: t("common.delete"),
                   key: "delete",
@@ -219,7 +204,7 @@ const Actions: React.FC<{
                     });
                   },
                 },
-              ],
+              ].filter(Boolean) as any,
             }}
           >
             <Button type="text" icon={<FontAwesomeIcon icon={faEllipsisV} />} />

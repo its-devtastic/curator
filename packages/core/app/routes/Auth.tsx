@@ -10,10 +10,8 @@ const Auth: React.FC = () => (
     <div className="flex h-screen">
       <MainMenu />
       <div className="flex-1 flex flex-col items-center overflow-y-auto bg-white">
-        <div className="flex-1 flex flex-col items-center w-full max-w-screen-xl">
-          <div className="flex-1 flex flex-col w-full">
-            <Outlet />
-          </div>
+        <div className="flex-1 flex flex-col w-full">
+          <Outlet />
         </div>
       </div>
     </div>

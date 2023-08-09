@@ -147,7 +147,9 @@ const MediaList: React.FC = () => {
               <FilterToolbar />
             </div>
             <div className="border-solid border border-gray-200 rounded-md">
-              <FolderList />
+              <div className={classNames({ "pb-6": view === "grid" })}>
+                <FolderList />
+              </div>
 
               <List
                 grid={

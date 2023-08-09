@@ -4,7 +4,6 @@ import * as R from "ramda";
 import { useAsync } from "react-use";
 import { Formik } from "formik";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
-import classNames from "classnames";
 
 import { Entity } from "~/types/content";
 import useSecrets from "~/hooks/useSecrets";
@@ -14,6 +13,7 @@ import Spinner from "~/ui/Spinner";
 
 import Header from "./Header";
 import Main from "./Main";
+import DraftBanner from "./DraftBanner";
 
 const DetailScreen: React.FC = () => {
   const params = useParams();
@@ -64,79 +64,67 @@ const DetailScreen: React.FC = () => {
     }
   }, [sdk, apiID, params.id, locale]);
 
-  return (
-    <div className="px-4 md:px-12">
-      {contentTypeConfig && contentType && document && !loading ? (
-        <Formik
-          initialValues={document}
-          onSubmit={(values, { resetForm, setSubmitting }) => {
-            // Running an async inside a sync function avoids Formik automatically
-            // setting the isSubmitting state.
-            (async () => {
-              try {
-                // We have to immediately reset the form to avoid loosing changes
-                // made during the save.
-                resetForm({
-                  values,
-                });
-                setSubmitting(true);
-                const data = await sdk.save(apiID, values, {
-                  params: { "plugins[i18n][locale]": values.locale },
-                });
-                setDocument(data);
-                const hooks =
-                  config.hooks?.filter(
-                    R.whereEq({
-                      trigger: params.id === "create" ? "create" : "save",
-                    })
-                  ) ?? [];
+  return contentTypeConfig && contentType && document && !loading ? (
+    <Formik
+      initialValues={document}
+      onSubmit={(values, { resetForm, setSubmitting }) => {
+        // Running an async inside a sync function avoids Formik automatically
+        // setting the isSubmitting state.
+        (async () => {
+          try {
+            // We have to immediately reset the form to avoid loosing changes
+            // made during the save.
+            resetForm({
+              values,
+            });
+            setSubmitting(true);
+            const data = await sdk.save(apiID, values, {
+              params: { "plugins[i18n][locale]": values.locale },
+            });
+            setDocument(data);
+            const hooks =
+              config.hooks?.filter(
+                R.whereEq({
+                  trigger: params.id === "create" ? "create" : "save",
+                })
+              ) ?? [];
 
-                for (const hook of hooks) {
-                  hook.action(apiID, data, { getSecret });
-                }
+            for (const hook of hooks) {
+              hook.action(apiID, data, { getSecret });
+            }
 
-                if (params.id === "create") {
-                  navigate(`/content-manager/${apiID}/${data.id}`);
-                }
-              } catch (e) {
-                notification.error({ message: "Oops" });
-              } finally {
-                setSubmitting(false);
-              }
-            })();
-          }}
-        >
-          {({ values }) => {
-            return (
-              <div>
-                <Header
-                  apiID={apiID}
-                  contentTypeConfig={contentTypeConfig}
-                  contentType={contentType}
-                  document={document}
-                />
-                <div
-                  className={classNames(
-                    "my-6 p-4 mx-auto rounded-xl",
-                    hasDraftState && !values.publishedAt
-                      ? "bg-amber-50 border-2 border-dashed border-amber-100"
-                      : "bg-gray-50"
-                  )}
-                >
-                  <Main
-                    contentType={contentType}
-                    contentTypeConfig={contentTypeConfig}
-                  />
-                </div>
-              </div>
-            );
-          }}
-        </Formik>
-      ) : (
-        <div className="flex items-center justify-center p-12">
-          <Spinner />
-        </div>
-      )}
+            if (params.id === "create") {
+              navigate(`/content-manager/${apiID}/${data.id}`);
+            }
+          } catch (e) {
+            notification.error({ message: "Oops" });
+          } finally {
+            setSubmitting(false);
+          }
+        })();
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div>
+            <DraftBanner />
+            <div className="p-4 mx-auto max-w-screen-xl space-y-12">
+              <Header
+                contentTypeConfig={contentTypeConfig}
+                document={document}
+              />
+              <Main
+                contentType={contentType}
+                contentTypeConfig={contentTypeConfig}
+              />
+            </div>
+          </div>
+        );
+      }}
+    </Formik>
+  ) : (
+    <div className="flex items-center justify-center p-12">
+      <Spinner />
     </div>
   );
 };

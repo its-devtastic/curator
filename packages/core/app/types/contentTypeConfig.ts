@@ -10,6 +10,10 @@ export interface ContentTypeConfig {
   description?: string;
   icon?: React.ReactNode;
   fields: FieldDefinition[];
+  /**
+   * The field that names the entity. Usually called something like `title` or `name`.
+   */
+  titleField?: string;
   getEntityUrl?(entity: Entity): string;
   /**
    * Renders the content entity, for example in relational fields.
