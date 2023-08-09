@@ -15,7 +15,7 @@ export default function teamManagerPlugin({
   return (config: CuratorConfig): CuratorConfig => {
     return R.evolve({
       zones: R.append<InjectionZoneEntry>({
-        zone: InjectionZone.MainMenu,
+        zone: InjectionZone.MainMenuBottom,
         weight: weight ?? 40,
         render() {
           return <MainMenuItem />;

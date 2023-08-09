@@ -15,8 +15,11 @@ export interface CuratorConfig {
   components?: ComponentConfig[];
   interfaceLanguages?: string[];
   theme?: Partial<ThemeConfig>;
-  icon?: string | { auth: string; header: string };
-  title?: string;
+  about?: {
+    icon?: string | { auth: string; header: string };
+    title?: string;
+    website?: string;
+  };
 }
 
 export interface InjectionZoneEntry {
@@ -29,10 +32,9 @@ export interface InjectionZoneEntry {
 }
 
 export enum InjectionZone {
-  MainMenu = "mainMenu::left",
-  AppHeaderLeft = "appHeader::left",
-  AppHeaderRight = "appHeader::center",
-  AppHeaderCenter = "appHeader::right",
+  MainMenuTop = "mainMenu::top",
+  MainMenuMiddle = "mainMenu::middle",
+  MainMenuBottom = "mainMenu::bottom",
 }
 
 export interface ComponentConfig {

@@ -20,7 +20,7 @@ export default function dashboardPlugin(
         },
       ]),
       zones: R.append<InjectionZoneEntry>({
-        zone: InjectionZone.MainMenu,
+        zone: InjectionZone.MainMenuTop,
         weight: pluginOptions.weight ?? 0,
         render() {
           return <MainMenuItem />;
