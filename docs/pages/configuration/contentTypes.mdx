@@ -18,16 +18,33 @@ interface ContentTypeConfig {
   getEntityUrl?(entity: Entity): string;
 }
 
-export interface FieldDefinition {
-  /** The path to the key of the field (e.g. "username") */
+interface FieldDefinition {
   path: string;
-  /** Label, description and hint can be translation keys or literal strings */
   label?: string;
   description?: string;
   hint?: string;
-  input?: string;
+  input?:
+    | InputType
+    | React.FC<{
+        onChange(value: any): void;
+        value: any;
+        attribute: Attribute;
+        field: { path: string };
+        apiID: string;
+        disabled: boolean;
+      }>;
   inputProps?: Record<string, any>;
-  /** Only for relation and enum fields */
-  renderItem?(item: any, utils: { t: TFunction }): React.ReactNode;
 }
+
+export type InputType =
+  | "string"
+  | "text"
+  | "boolean"
+  | "slug"
+  | "richtext"
+  | "media"
+  | "coverImage"
+  | "uid"
+  | "date"
+  | "email";
 ```

@@ -1,3 +1,10 @@
 # Translating
 
-Curator can be fully translated. It uses [i18next](https://www.i18next.com/) under the hood.
+Curator can be fully translated. It uses [i18next](https://www.i18next.com/) under the hood. Start by creating a `custom.json` file inside
+`/public/locales/{lang}` where `{lang}` is a valid language code. In your configuration you can now use a translation key
+for string type fields that are meant to be displayed: for example `{path: "title", label: "labels.title"}` where `"labels.title"`
+is a key in your `custom.json` file.
+
+Most functions that allow you to customize how a component is rendered provide the `t` function inside a utils parameter.
+For example, the content type definition has an optional render function with the following signature:
+`render?(entity: Entity, utils: { t: TFunction }): React.ReactNode`.

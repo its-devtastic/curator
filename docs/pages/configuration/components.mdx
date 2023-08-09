@@ -1,0 +1,29 @@
+# components
+
+`ComponentConfig[]`
+
+A list of component definitions.
+
+### Types
+
+```ts
+interface ComponentConfig {
+  apiID: string;
+  /* Name and description can be translation keys or string literals. */
+  name?: string;
+  description?: string;
+  /* Icon will show in the component card. */
+  icon?: React.ReactNode;
+  /* Fields are the same as for content types. */
+  fields?: FieldDefinition[];
+  /* Whether the component card can be collapsed. Only available for repeatable components. */
+  collapsible?: boolean;
+  /* Render the label in the card's header */
+  renderLabel?(
+    entity: Record<string, unknown>,
+    utils: { t: (s: string) => string }
+  ): React.ReactNode;
+}
+```
+
+For the `FieldDefinition` type see [contentTypes](contentTypes.mdx).
