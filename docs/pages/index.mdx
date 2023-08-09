@@ -1,21 +1,33 @@
 import logo from "../public/logo.svg";
+import preview from "../public/preview.png";
+
+<img
+  src={preview.src}
+  alt=""
+  style={{
+    height: "auto",
+    width: "100%",
+    marginTop: 48,
+    marginBottom: 12,
+    borderRadius: 4,
+    boxShadow: "0 10px 15px rgba(0,0,0,.02)",
+  }}
+/>
 
 <img
   src={logo.src}
   alt=""
-  style={{ height: 120, marginTop: 24, marginBottom: 48 }}
+  style={{ height: "auto", width: "260px", marginTop: 48, marginBottom: 12 }}
 />
 
-# Curator
-
-**Curator** is an alternative admin for [Strapi](https://www.strapi.io). It is customizable, translatable and mobile-friendly.
+Curator is an **alternative admin** for [Strapi](https://www.strapi.io). It is customizable, translatable and mobile-friendly.
 
 ## Features
 
 - 🌐 Multilingual (i18next)
-- 🎨 Customizable theme (antd and Tailwind CSS)
+- 🎨 Customizable theme (antd and Tailwind)
 - 🧩 Injection zones
-- 🧱 Swappable components
+- 🧱 Custom components
 - 📜 Custom pages
 - 📱 Responsive
 - 🔌 Plugins
@@ -51,19 +63,19 @@ There are some limitations on what you can do with Curator, compared to the Stra
 - 🚧 = Partial
 - ❌ = Unsupported
 
-| Feature              | Status |
-| -------------------- | ------ |
-| Collection types     | ✅     |
-| Single types         | ✅     |
-| Internationalization | ✅     |
-| Draft / publish      | ✅     |
-| Dynamic zones        | ✅     |
-| User management      | ✅     |
-| User profile         | ✅     |
-| Permissions          | 🚧️    |
-| Media library        | 🚧️    |
-| Role management      | ❌     |
-| API keys             | ❌     |
-| Webhooks             | ❌     |
-| Dark mode            | ❌     |
-| Content creation     | ❌     |
+| Feature              | Status                                    |
+| -------------------- | ----------------------------------------- |
+| Collection types     | ✅                                        |
+| Single types         | ✅                                        |
+| Internationalization | ✅                                        |
+| Draft / publish      | ✅                                        |
+| Dynamic zones        | ✅                                        |
+| User management      | ✅                                        |
+| User profile         | ✅                                        |
+| Permissions          | ✅️                                       |
+| Media library        | 🚧️ (cropping is currently not supported) |
+| Role management      | ❌                                        |
+| API keys             | ❌                                        |
+| Webhooks             | ❌                                        |
+| Dark mode            | ❌                                        |
+| Content-type builder | ❌ (not planned)                          |
