@@ -1,10 +1,9 @@
 {
   "strapiUrl": "strapiUrl (required)",
+  "about": "about",
   "contentTypes": "contentTypes",
   "components": "components",
-  "icon": "icon",
   "interfaceLanguages": "interfaceLanguages",
   "plugins": "plugins",
-  "theme": "theme",
-  "title": "title"
+  "theme": "theme"
 }
