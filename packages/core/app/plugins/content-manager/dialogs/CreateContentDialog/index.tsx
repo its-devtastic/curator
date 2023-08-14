@@ -5,6 +5,7 @@ import * as R from "ramda";
 import { Formik, Form } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
+import classNames from "classnames";
 
 import { Entity } from "~/types/content";
 import useCurator from "~/hooks/useCurator";
@@ -68,18 +69,24 @@ export default function CreateContentDialog({
           ).toLowerCase()}`}
         >
           <Form>
-            <div className="space-y-6 py-12">
+            <div className="py-12 grid grid-cols-12 gap-6">
               {pluginOptions?.create?.main?.map((field) => (
-                <FieldRenderer
+                <div
                   key={field.path}
-                  apiID={apiID}
-                  field={
-                    contentTypeConfig.fields.find(
-                      R.whereEq({ path: field.path })
-                    )!
-                  }
-                  attribute={contentType.attributes[field.path]}
-                />
+                  className={classNames(
+                    `col-span-12 lg:col-span-${field.span ?? 12}`
+                  )}
+                >
+                  <FieldRenderer
+                    apiID={apiID}
+                    field={
+                      contentTypeConfig.fields.find(
+                        R.whereEq({ path: field.path })
+                      )!
+                    }
+                    attribute={contentType.attributes[field.path]}
+                  />
+                </div>
               ))}
             </div>
           </Form>

@@ -1,3 +1,144 @@
 # Content Manager
 
 The content manager plugin adds the ability to create, update and delete content.
+
+## Installation
+
+```ts
+import { contentManagerPlugin } from "@curatorjs/core";
+
+const curatorConfig = {
+  // ...
+  plugins: [
+    //...
+    contentManagerPlugin(/* options */),
+  ],
+};
+```
+
+## Example config
+
+```ts
+contentManagerPlugin({
+  menu: {
+    groups: [
+      { label: "content_groups.collections", items: ["page", "category"] },
+      { label: "content_groups.pages", items: ["homepage"] },
+    ],
+  },
+  contentTypes: {
+    page: {
+      list: {
+        columns: [{ path: "title", title: "Title" }],
+      },
+      edit: [
+        { fields: [{ path: "avatar" }, { path: "categories" }], span: 5 },
+        {
+          fields: [{ path: "title", span: 6 }, { path: "content" }],
+          span: 7,
+        },
+      ],
+    },
+    category: {
+      create: {
+        when: "relation",
+        main: [{ path: "name" }],
+      },
+    },
+  },
+});
+```
+
+## Types
+
+```ts
+export interface FieldConfig {
+  /**
+   * Path to field as defined in contentTypes.
+   */
+  path: string;
+  /**
+   * Adjust the space this input should take. Inputs are lay out on a 12 column grid.
+   * Defaults to 12.
+   */
+  span?: number;
+}
+
+export interface ColumnConfig {
+  /**
+   * Path to field as defined in contentTypes.
+   */
+  path: string;
+  /**
+   * Column header. Can be a translation string.
+   */
+  title?: string;
+  /**
+   * Custom render function.
+   */
+  render?(value: any, record: any, opts: { t: TFunction }): React.ReactNode;
+}
+
+export interface PluginOptions {
+  /**
+   * Configure the content manager menu. Contrary to the Strapi admin, items do
+   * not automatically show up in the menu.
+   */
+  menu?: {
+    groups?: {
+      /**
+       * Group name. Can be a translation string.
+       */
+      label: string;
+      /**
+       * Array of API IDs that should be included in this group.
+       */
+      items: string[];
+    }[];
+  };
+  /**
+   * Object key should be an apiID.
+   */
+  contentTypes?: Record<
+    string,
+    {
+      /**
+       * Configure the fields in the edit screen. Field groups are displayed inside a card and lay out on a 12 column
+       * grid.
+       */
+      edit?: {
+        /**
+         * Fields to include in the field group.
+         */
+        fields: FieldConfig[];
+        /**
+         * Defaults to 12. For small screens always takes up the full width.
+         */
+        span?: number;
+      }[];
+      /**
+       * Configure the fields in the create dialog.
+       * If omitted, content will be created through the edit screen.
+       */
+      create?: {
+        /**
+         * You can use the create dialog for all content creation or only for
+         * creating related items.
+         */
+        when?: "always" | "relation";
+        main?: FieldConfig[];
+      };
+      /**
+       * Configure the columns in the list screen.
+       */
+      list?: {
+        columns?: ColumnConfig[];
+      };
+    }
+  >;
+  /**
+   * A higher weight results in the main menu items moving more to the bottom.
+   */
+  weight?: number;
+}
+```
