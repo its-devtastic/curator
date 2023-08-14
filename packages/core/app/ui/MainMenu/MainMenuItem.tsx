@@ -1,28 +1,34 @@
 import React from "react";
-import { useMatch } from "react-router-dom";
+import { Link, useMatch } from "react-router-dom";
 import classNames from "classnames";
 
 const MainMenuItem: React.FC<{
-  as?: React.FC<any> | string;
-  label: React.ReactNode;
-  isActive?: boolean;
-  [p: string]: any;
-}> = ({ as = "div", label, to, isActive, ...props }) => {
-  const match = useMatch(to ?? "");
+  label: string;
+  icon?: React.ReactNode;
+  to: string;
+}> = ({ label, icon, to }) => {
+  const isActive = useMatch(`${to}/*`);
 
-  return React.createElement(
-    as,
-    {
-      ...props,
-      to,
-      className: classNames(
-        "flex items-center select-none justify-center gap-2 py-1 px-4 rounded-full text-lg font-semibold hover:cursor-pointer no-underline text-sm whitespace-nowrap",
-        isActive || (to && match)
-          ? "bg-indigo-50 text-indigo-500 hover:bg-indigo-50"
-          : "hover:bg-gray-100 text-gray-600"
-      ),
-    },
-    label
+  return (
+    <Link
+      to={to}
+      className={classNames(
+        "flex items-center gap-2 text-sm rounded-md hover:bg-black/5 hover:cursor-pointer no-underline px-4 py-2",
+        { "bg-black/5": isActive }
+      )}
+    >
+      {icon && (
+        <div className="w-6 flex-none text-center text-gray-500">{icon}</div>
+      )}
+      <div
+        className={classNames(
+          "font-semibold",
+          isActive ? "text-gray-700" : "text-gray-500"
+        )}
+      >
+        {label}
+      </div>
+    </Link>
   );
 };
 

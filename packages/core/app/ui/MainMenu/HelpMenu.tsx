@@ -65,16 +65,6 @@ const HelpMenu: React.FC = () => {
                             >{`${modifierKey.label}+S`}</Typography.Text>
                           </td>
                         </tr>
-                        <tr>
-                          <td className="text-sm">
-                            {t("content_manager.open_content_manager_menu")}
-                          </td>
-                          <td>
-                            <Typography.Text
-                              keyboard
-                            >{`${modifierKey.label}+K`}</Typography.Text>
-                          </td>
-                        </tr>
                       </tbody>
                     </table>
                   ),

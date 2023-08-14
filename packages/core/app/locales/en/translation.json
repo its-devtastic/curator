@@ -62,6 +62,8 @@
   "content_manager.autosave": "Autosave",
   "content_manager.open_content_manager_menu": "Open content manager menu",
   "content_manager.unsaved_changes": "You have unsaved changes. Are you sure?",
+  "content_manager.you_are_editing_a_draft": "You are editing a draft",
+  "content_manager.publish_now": "Publish now",
 
   "media_library.upload": "Upload",
   "media_library.new_folder": "New folder",

@@ -4,12 +4,11 @@ import * as R from "ramda";
 import type { InjectionZoneEntry, CuratorConfig } from "~/types/config";
 import { InjectionZone } from "~/types/config";
 
-import MainMenuItem from "./ui/MainMenuItem";
-
 import DetailScreen from "./routes/DetailScreen";
 import ContentKindScreen from "./routes/ContentKindScreen";
 import { PluginOptions } from "./types";
 import { usePluginOptions } from "./hooks";
+import ContentManagerMenu from "./ui/ContentManagerMenu";
 
 export default function contentManagerPlugin(options: PluginOptions) {
   return (config: CuratorConfig): CuratorConfig => {
@@ -29,10 +28,10 @@ export default function contentManagerPlugin(options: PluginOptions) {
         },
       ]),
       zones: R.append<InjectionZoneEntry>({
-        zone: InjectionZone.MainMenu,
+        zone: InjectionZone.MainMenuMiddle,
         weight: options.weight ?? 10,
         render() {
-          return <MainMenuItem groups={options.menu?.groups ?? []} />;
+          return <ContentManagerMenu groups={options.menu?.groups ?? []} />;
         },
       }),
     })(config);

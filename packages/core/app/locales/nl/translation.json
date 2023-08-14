@@ -62,6 +62,8 @@
   "content_manager.autosave": "Auto-opslaan",
   "content_manager.open_content_manager_menu": "Open contentbeheer-menu",
   "content_manager.unsaved_changes": "Je hebt niet-opgeslagen wijzigingen. Weet je het zeker?",
+  "content_manager.you_are_editing_a_draft": "Je werkt aan een concept.",
+  "content_manager.publish_now": "Publiceer nu",
 
   "media_library.upload": "Upload",
   "media_library.new_folder": "Nieuwe map",

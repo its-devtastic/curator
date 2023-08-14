@@ -1,6 +1,6 @@
 import React from "react";
 import * as R from "ramda";
-import { Link, RouteObject } from "react-router-dom";
+import { RouteObject } from "react-router-dom";
 import {
   InjectionZoneEntry,
   InjectionZone,
@@ -9,15 +9,30 @@ import {
 } from "@curatorjs/core";
 
 import PlausibleDashboard from "./routes/PlausibleDashboard";
+import icon from "./assets/icon.png";
 
 export default function plausiblePlugin({ sharedLink }: PluginOptions) {
   return (config: CuratorConfig): CuratorConfig => {
     return R.evolve({
       zones: R.append<InjectionZoneEntry>({
-        zone: InjectionZone.MainMenu,
+        zone: InjectionZone.MainMenuBottom,
         weight: 20,
         render() {
-          return <MainMenuItem as={Link} to="/analytics" label="Analytics" />;
+          return (
+            <MainMenuItem
+              to="/analytics"
+              label="Analytics"
+              icon={
+                <span>
+                  <img
+                    src={icon.src}
+                    className="w-6 h-6 object-contain"
+                    alt=""
+                  />
+                </span>
+              }
+            />
+          );
         },
       }),
       routes: R.append<RouteObject>({

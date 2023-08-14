@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 import { Entity } from "~/types/content";
 import { StrapiContentType } from "~/types/contentType";
@@ -11,35 +9,20 @@ import CalendarTime from "~/ui/CalendarTime";
 
 import Actions from "./Actions";
 
-const Header: React.FC<HeaderProps> = ({
-  apiID,
-  contentType,
-  contentTypeConfig,
-  document,
-}) => {
+const Header: React.FC<HeaderProps> = ({ contentTypeConfig, document }) => {
   const { t } = useTranslation();
-  const isSingleType = contentType?.kind === "singleType";
 
   return (
-    <div className="pt-12 pb-4 flex flex-col gap-6 md:flex-row justify-between items-center">
-      <div className="flex-1">
-        {!isSingleType && (
-          <Link
-            to={`/content-manager/${apiID}`}
-            className="link hover:no-underline text-sm space-x-2"
-          >
-            <FontAwesomeIcon icon={faArrowLeft} />
-            <span>{t("common.back")}</span>
-          </Link>
-        )}
-      </div>
+    <div className="pt-8 pb-4 flex flex-col gap-6 md:flex-row justify-between items-center">
       <div>
-        <h1 className="m-0 text-center flex-1 text-lg font-semibold text-gray-700">
-          {`${t("common.edit")} ${t(contentTypeConfig?.name ?? "", {
-            ns: "custom",
-          }).toLowerCase()}`}
+        <h1 className="mt-0 mb-2 text-3xl font-semibold text-gray-700">
+          {contentTypeConfig.titleField
+            ? document[contentTypeConfig.titleField]
+            : `${t("common.edit")} ${t(contentTypeConfig?.name ?? "", {
+                ns: "custom",
+              }).toLowerCase()}`}
         </h1>
-        <div className="text-xs text-center">
+        <div className="text-xs">
           {document.updatedAt && (
             <span className="text-gray-400 space-x-1">
               <span>{t("phrases.last_updated_at")}</span>
@@ -77,8 +60,6 @@ const Header: React.FC<HeaderProps> = ({
 export default Header;
 
 interface HeaderProps {
-  apiID: string;
-  contentType: StrapiContentType;
   contentTypeConfig: ContentTypeConfig;
   document: Omit<Entity, "id">;
 }
