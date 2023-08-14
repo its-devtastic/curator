@@ -12,8 +12,11 @@ import components from "./config/components";
 const curatorConfig: CuratorConfig = {
   // @ts-ignores
   strapiUrl: (import.meta as any).env.VITE_STRAPI_URL,
-  icon: "/icon.png",
-  title: "My Curator CMS",
+  about: {
+    icon: "/icon.png",
+    title: "ACME CMS",
+    website: "acme.com",
+  },
   zones: [],
   routes: [],
   contentTypes,
@@ -43,7 +46,7 @@ const curatorConfig: CuratorConfig = {
       contentTypes: {
         page: {
           list: {},
-          edit: {},
+          edit: [{ fields: [], span: 6 }],
           create: {},
         },
       },
