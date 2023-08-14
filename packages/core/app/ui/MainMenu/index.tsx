@@ -46,7 +46,7 @@ const MainMenu: React.FC & {
       />
       <nav
         className={classNames(
-          "bg-gray-50 w-screen md:w-[240px] fixed z-10 bottom-0 top-0 left-0 md:relative transition-transform duration-300 flex flex-col",
+          "bg-gray-50 w-screen md:w-[240px] fixed z-10 bottom-0 top-0 left-0 md:relative transition-transform duration-300 flex flex-col overflow-y-auto",
           {
             "-translate-x-full md:translate-x-0": !isOpen,
           }

@@ -5,6 +5,21 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 
 const pkg = require("../package.json");
 
+const safelist = [
+  "lg:col-span-1",
+  "lg:col-span-2",
+  "lg:col-span-3",
+  "lg:col-span-4",
+  "lg:col-span-5",
+  "lg:col-span-6",
+  "lg:col-span-7",
+  "lg:col-span-8",
+  "lg:col-span-9",
+  "lg:col-span-10",
+  "lg:col-span-11",
+  "lg:col-span-12",
+];
+
 function init() {
   program.name(pkg.name).description(pkg.description).version(pkg.version);
 
@@ -29,6 +44,7 @@ function init() {
                 path.resolve(__dirname, "../app/**/*.{js,ts,jsx,tsx}"),
                 path.resolve(root, "./config/**/*.{js,ts,jsx,tsx}"),
               ],
+              safelist,
               theme: {
                 extend: {
                   fontFamily: {
@@ -71,6 +87,7 @@ function init() {
                 path.resolve(__dirname, "../app/**/*.{js,ts,jsx,tsx}"),
                 path.resolve(root, "./config/**/*.{js,ts,jsx,tsx}"),
               ],
+              safelist,
               theme: {
                 extend: {
                   fontFamily: {
