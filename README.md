@@ -2,6 +2,10 @@
 
 **Curator** is an alternative admin for [Strapi](https://www.strapi.io). It is customizable, translatable and mobile-friendly.
 
+## Documentation
+
+Documentation is available [here](https://its-devtastic.github.io/curator/).
+
 ## Features
 
 - 🌐 Multilingual (i18next)

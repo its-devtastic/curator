@@ -2,10 +2,14 @@
 
 **Curator** is an alternative admin for [Strapi](https://www.strapi.io). It is customizable, translatable and mobile-friendly.
 
+## Documentation
+
+Documentation is available [here](https://its-devtastic.github.io/curator/).
+
 ## Features
 
 - 🌐 Multilingual (i18next)
-- 🎨 Customizable theme (antd and Tailwind CSS)
+- 🎨 Customizable theme (antd and Tailwind)
 - 🧩 Injection zones
 - 🧱 Swappable components
 - 📜 Custom pages
@@ -43,19 +47,19 @@ There are some limitations on what you can do with Curator, compared to the Stra
 - 🚧 = Partial
 - ❌ = Unsupported
 
-| Feature              | Status |
-| -------------------- | ------ |
-| Collection types     | ✅     |
-| Single types         | ✅     |
-| Internationalization | ✅     |
-| Draft / publish      | ✅     |
-| Dynamic zones        | ✅     |
-| User management      | ✅     |
-| User profile         | ✅     |
-| Permissions          | 🚧️    |
-| Media library        | 🚧️    |
-| Role management      | ❌     |
-| API keys             | ❌     |
-| Webhooks             | ❌     |
-| Dark mode            | ❌     |
-| Content creation     | ❌     |
+| Feature              | Status                                    |
+| -------------------- | ----------------------------------------- |
+| Collection types     | ✅                                        |
+| Single types         | ✅                                        |
+| Internationalization | ✅                                        |
+| Draft / publish      | ✅                                        |
+| Dynamic zones        | ✅                                        |
+| User management      | ✅                                        |
+| User profile         | ✅                                        |
+| Permissions          | ✅️                                       |
+| Media library        | 🚧️ (cropping is currently not supported) |
+| Role management      | ❌                                        |
+| API keys             | ❌                                        |
+| Webhooks             | ❌                                        |
+| Dark mode            | ❌                                        |
+| Content-type builder | ❌ (not planned)                          |
