@@ -2,6 +2,7 @@ import { TFunction } from "i18next";
 
 export interface FieldConfig {
   path: string;
+  span?: number;
 }
 
 export interface ColumnConfig {
@@ -25,11 +26,7 @@ export interface PluginOptions {
       /**
        * Configure the fields in the edit screen.
        */
-      edit?: {
-        main?: FieldConfig[];
-        side?: FieldConfig[];
-        header?: {};
-      };
+      edit?: { fields: FieldConfig[]; span?: number }[];
       /**
        * Configure the fields in the create dialog.
        * If omitted, content will be created through the edit screen.
