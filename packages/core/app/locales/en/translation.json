@@ -108,6 +108,8 @@
   "phrases.type_delete": "Type DELETE to confirm",
   "phrases.add_item": "Add {{item}}",
   "phrases.open_this_menu": "Open this menu",
+  "phrases.switch_to_dark_mode": "Switch to dark mode",
+  "phrases.switch_to_light_mode": "Switch to light mode",
 
   "common.edit": "Edit",
   "common.create": "Create",

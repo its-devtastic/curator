@@ -15,6 +15,7 @@ const initialState = {
       listView: "list",
       popoverView: "grid",
     },
+    darkMode: false,
   },
 };
 

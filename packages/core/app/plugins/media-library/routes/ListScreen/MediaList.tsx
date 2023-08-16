@@ -146,7 +146,7 @@ const MediaList: React.FC = () => {
             <div className="mb-12">
               <FilterToolbar />
             </div>
-            <div className="border-solid border border-gray-200 rounded-md">
+            <div className="border-solid border border-gray-200 dark:border-gray-500 dark:bg-gray-700 rounded-md">
               <div className={classNames({ "pb-6": view === "grid" })}>
                 <FolderList />
               </div>
@@ -163,7 +163,8 @@ const MediaList: React.FC = () => {
                 renderItem={(item) => (
                   <List.Item
                     className={classNames({
-                      "hover:bg-gray-50 cursor-pointer": canEdit,
+                      "hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer":
+                        canEdit,
                     })}
                     onClick={() => setEdit(item)}
                     extra={
@@ -252,7 +253,7 @@ const MediaList: React.FC = () => {
                       }
                       description={
                         view === "grid" ? undefined : (
-                          <div className="space-y-2 select-none">
+                          <div className="space-y-2 select-none dark:text-gray-300">
                             {item.caption && (
                               <div className="font-mono truncate">
                                 {item.caption}

@@ -11,15 +11,15 @@ import FormField from "~/ui/FormField";
 const ForgotPassword: React.FC = () => {
   const { t } = useTranslation();
   const { sdk } = useStrapi();
-  const { icon } = useCurator();
+  const { about } = useCurator();
   const navigate = useNavigate();
 
   return (
     <div className="max-w-sm w-full">
-      {icon && (
+      {about?.icon && (
         <div className="text-center mb-6">
           <img
-            src={typeof icon === "string" ? icon : icon.auth}
+            src={typeof about.icon === "string" ? about.icon : about.icon.auth}
             alt=""
             className="h-16"
           />
@@ -28,7 +28,7 @@ const ForgotPassword: React.FC = () => {
       <h1 className="text-center mb-12 mt-6 select-none">
         {t("forgot_password.title")}
       </h1>
-      <Card className="shadow-[0_3px_0] shadow-gray-100">
+      <Card>
         {
           <Formik
             initialValues={{ email: "" }}

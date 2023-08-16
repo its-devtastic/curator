@@ -80,8 +80,8 @@ const FolderList: React.FC = () => {
           }}
         />
       )}
-      <div className="border-gray-100">
-        <div className="py-1 px-2 border-b border-b-gray-200 border-solid border-0 bg-gray-100 rounded-t-md shadow-sm">
+      <div className="border-gray-100 dark:border-gray-500">
+        <div className="py-1 px-2 border-b border-b-gray-200 dark:border-b-gray-500 border-solid border-0 bg-gray-100 dark:bg-gray-900 rounded-t-md shadow-sm">
           <ul
             role="menu"
             className="flex items-center gap-2 list-none text-sm font-semibold m-0 p-0 [&_li:last-of-type]:text-indigo-600"
@@ -89,7 +89,7 @@ const FolderList: React.FC = () => {
             <li>
               <div
                 role="menuitem"
-                className="rounded-full hover:bg-gray-200 w-8 h-8 flex items-center justify-center cursor-pointer"
+                className="rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 w-8 h-8 flex items-center justify-center cursor-pointer"
                 onClick={() =>
                   setSearchParams((searchParams) => {
                     searchParams.delete("folder");
@@ -136,12 +136,12 @@ const FolderList: React.FC = () => {
         </div>
         {!R.isEmpty(folders) && (
           <List
-            className="border-0 border-solid border-b border-gray-100"
+            className="border-0 border-solid border-b border-gray-100 dark:border-gray-500"
             dataSource={folders}
             size="small"
             renderItem={(item: MediaFolder) => (
               <List.Item
-                className="hover:cursor-pointer hover:bg-gray-50 rounded-md group"
+                className="hover:cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-600 rounded-md group"
                 onClick={() =>
                   setSearchParams((searchParams) => {
                     searchParams.set("folder", String(item.id));
@@ -195,7 +195,7 @@ function ParentFolder({ folder }: { folder: MediaFolder }) {
       <FontAwesomeIcon icon={faAngleRight} />
       <li
         role="menuitem"
-        className="hover:bg-gray-200 rounded-3xl py-1 px-3 cursor-pointer select-none"
+        className="hover:bg-gray-200 dark:hover:bg-gray-800 rounded-3xl py-1 px-3 cursor-pointer select-none"
         onClick={() =>
           setSearchParams((searchParams) => {
             searchParams.set("folder", String(folder.id));

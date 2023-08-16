@@ -1,7 +1,7 @@
+import { useCallback } from "react";
 import * as R from "ramda";
 
 import useStrapi from "~/hooks/useStrapi";
-import { useCallback } from "react";
 
 export default function useContentPermission() {
   const { permissions, contentTypes } = useStrapi();

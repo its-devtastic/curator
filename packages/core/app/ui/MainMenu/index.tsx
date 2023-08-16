@@ -12,6 +12,7 @@ import useCurator from "~/hooks/useCurator";
 
 import UserMenu from "./UserMenu";
 import MainMenuItem from "./MainMenuItem";
+import DarkModeToggle from "./DarkModeToggle";
 
 const MainMenu: React.FC & {
   Item: typeof MainMenuItem;
@@ -46,7 +47,7 @@ const MainMenu: React.FC & {
       />
       <nav
         className={classNames(
-          "bg-gray-50 w-screen md:w-[240px] fixed z-10 bottom-0 top-0 left-0 md:relative transition-transform duration-300 flex flex-col overflow-y-auto",
+          "bg-gray-50 dark:bg-gray-900 w-screen md:w-[240px] fixed z-10 bottom-0 top-0 left-0 md:relative transition-transform duration-300 flex flex-col overflow-y-auto",
           {
             "-translate-x-full md:translate-x-0": !isOpen,
           }
@@ -80,10 +81,10 @@ const MainMenu: React.FC & {
               </Avatar>
             )}
             <div>
-              <div className="text-gray-800 text-sm font-semibold">
+              <div className="text-gray-800 dark:text-gray-50 text-sm font-semibold">
                 {config.about?.title || "Curator"}
               </div>
-              <div className="text-gray-500 text-xs">
+              <div className="text-gray-500 dark:text-gray-300 text-xs">
                 {config.about?.website}
               </div>
             </div>
@@ -113,6 +114,9 @@ const MainMenu: React.FC & {
               ))}
             <UserMenu />
           </div>
+        </div>
+        <div className="border-0 border-t border-solid border-gray-200 dark:border-gray-600 px-6 py-2">
+          <DarkModeToggle />
         </div>
       </nav>
     </>

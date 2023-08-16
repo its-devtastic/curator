@@ -15,7 +15,7 @@ const Header: React.FC<HeaderProps> = ({ contentTypeConfig, document }) => {
   return (
     <div className="pt-8 pb-4 flex flex-col gap-6 md:flex-row justify-between items-center">
       <div>
-        <h1 className="mt-0 mb-2 text-3xl font-semibold text-gray-700">
+        <h1 className="mt-0 mb-2 text-3xl font-semibold">
           {contentTypeConfig.titleField
             ? document[contentTypeConfig.titleField]
             : `${t("common.edit")} ${t(contentTypeConfig?.name ?? "", {
