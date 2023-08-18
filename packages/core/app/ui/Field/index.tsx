@@ -6,7 +6,8 @@ const Field: React.FC<FieldProps> = ({ children, name }) => {
 
   return React.cloneElement(children, {
     ...field,
-    onChange: (value: any) => helper.setValue(value),
+    onChange: (valueOrEvent: any) =>
+      helper.setValue(valueOrEvent.target?.value ?? valueOrEvent),
     error: meta.touched && meta.error,
   });
 };

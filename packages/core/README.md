@@ -1,6 +1,20 @@
-# Curator
+![Curator Logo](https://raw.githubusercontent.com/its-devtastic/curator/main/media/banner.png)
+
+<div align="center">
+  <a aria-label="Stars" href="https://github.com/its-devtastic/curator/stargazers">
+    <img src="https://img.shields.io/github/stars/its-devtastic/curator">
+  </a>
+<a aria-label="NPM" href="https://www.npmjs.com/package/@curatorjs/core">
+    <img src="https://img.shields.io/npm/dm/%40curatorjs/core
+">
+  </a>
+</div>
+
+---
 
 **Curator** is an alternative admin for [Strapi](https://www.strapi.io). It is customizable, translatable and mobile-friendly.
+
+![Preview](https://raw.githubusercontent.com/its-devtastic/curator/main/media/preview.png)
 
 ## Documentation
 
@@ -57,9 +71,9 @@ There are some limitations on what you can do with Curator, compared to the Stra
 | User management      | ✅                                        |
 | User profile         | ✅                                        |
 | Permissions          | ✅️                                       |
+| Dark mode            | ✅                                        |
 | Media library        | 🚧️ (cropping is currently not supported) |
 | Role management      | ❌                                        |
 | API keys             | ❌                                        |
 | Webhooks             | ❌                                        |
-| Dark mode            | ❌                                        |
 | Content-type builder | ❌ (not planned)                          |

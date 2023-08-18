@@ -1,6 +1,13 @@
 {
-  "index": "Introduction",
-  "configuration": "Configuration",
-  "guides": "Guides",
-  "plugins": "Plugins"
+  "index": {
+    "title": "Home",
+    "type": "page",
+    "theme": {
+      "layout": "raw"
+    }
+  },
+  "docs": {
+    "title": "Documentation",
+    "type": "page"
+  }
 }

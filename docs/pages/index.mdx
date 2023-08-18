@@ -1,67 +1,28 @@
-import logo from "../public/logo.svg";
+import banner from "../public/banner.png";
+import preview from "../public/preview.png";
 
-<img
-  src={logo.src}
-  alt=""
-  style={{ height: "auto", width: "260px", marginTop: 48, marginBottom: 12 }}
-/>
+<div className="min-h-screen">
+  <div>
+    <img src={banner.src} alt="" className="h-64 mx-auto mt-12" />
+  </div>
 
-Curator is an **alternative admin** for [Strapi](https://www.strapi.io). It is customizable, translatable and mobile-friendly.
+<div className="text-3xl text-slate-700 text-center max-w-2xl mx-auto mt-12 [&_a]:text-indigo-500">
+  An **alternative admin** for [Strapi](https://www.strapi.io) that is
+  customizable, translatable and mobile-friendly.
+</div>
 
-## Features
+{" "}
 
-- 🌐 Multilingual (i18next)
-- 🎨 Customizable theme (antd and Tailwind)
-- 🧩 Injection zones
-- 🧱 Custom components
-- 📜 Custom pages
-- 📱 Responsive
-- 🔌 Plugins
-- 💯 100% TypeScript
+<div className="flex flex-col items-center">
+  <div className="flex flex-col items-center mt-12 font-mono font-bold text-indigo-500 bg-indigo-50 p-4 rounded-md">
+    npx create-curator-app@latest cms
+  </div>
+  <div className="mt-12 [&_a]:text-white [&_a]:bg-indigo-600 [&_a]:p-4 [&_a]:rounded-full [&_a]:shadow-lg">
+    [Get started](./docs)
+  </div>
+</div>
 
-## Quick Start
-
-Create a new Curator project with the Create Curator App tool:
-
-```shell
-npx create-curator-app@latest cms
-```
-
-Next, go into the newly created `cms` directory and install the dependencies. When that's done, run
-
-```shell
-npm run dev
-```
-
-Your Curator project will run on http://localhost:1338
-
-## Motivation
-
-Strapi is the most popular JavaScript headless CMS available but its admin is notoriously uncustomizable. Curator
-provides an alternative admin that is built with React and easy to customize and extend. It uses popular frameworks and
-libraries that should be familiar to many developers.
-
-## Limitations
-
-There are some limitations on what you can do with Curator, compared to the Strapi admin.
-
-- ✅ = Supported
-- 🚧 = Partial
-- ❌ = Unsupported
-
-| Feature              | Status                                    |
-| -------------------- | ----------------------------------------- |
-| Collection types     | ✅                                        |
-| Single types         | ✅                                        |
-| Internationalization | ✅                                        |
-| Draft / publish      | ✅                                        |
-| Dynamic zones        | ✅                                        |
-| User management      | ✅                                        |
-| User profile         | ✅                                        |
-| Permissions          | ✅️                                       |
-| Media library        | 🚧️ (cropping is currently not supported) |
-| Role management      | ❌                                        |
-| API keys             | ❌                                        |
-| Webhooks             | ❌                                        |
-| Dark mode            | ❌                                        |
-| Content-type builder | ❌ (not planned)                          |
+  <div className="mt-24 mb-12">
+    <img src={preview.src} alt="" className="w-full max-w-screen-xl mx-auto mt-12" />
+  </div>
+</div>
