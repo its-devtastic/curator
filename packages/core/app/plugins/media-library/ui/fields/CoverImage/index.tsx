@@ -10,7 +10,7 @@ const CoverImage: React.FC<{
   onChange(item: MediaItem): void;
 }> = ({ value, onChange }) => {
   return (
-    <div className="h-48 bg-gray-100 rounded-lg relative group overflow-hidden">
+    <div className="h-48 bg-gray-100 dark:bg-gray-600 rounded-lg relative group overflow-hidden">
       {value && (
         <img
           src={value.formats?.large?.url ?? value.url}

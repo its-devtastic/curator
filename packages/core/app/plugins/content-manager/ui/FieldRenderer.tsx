@@ -60,7 +60,10 @@ const FieldRenderer: React.FC<{
           <span>{field.hint}</span>
           {attribute?.pluginOptions?.i18n?.localized && (
             <Tooltip title={t("phrases.translated_field")}>
-              <FontAwesomeIcon icon={faLanguage} />
+              <FontAwesomeIcon
+                icon={faLanguage}
+                className="text-gray-500 dark:text-gray-200"
+              />
             </Tooltip>
           )}
         </div>

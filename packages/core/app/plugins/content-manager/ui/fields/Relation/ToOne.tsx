@@ -67,7 +67,7 @@ const ToOne: React.FC<{
   }, []);
 
   return model && !edit ? (
-    <div className="flex items-center p-4 border border-solid border-gray-300 rounded-lg">
+    <div className="flex items-center p-4 border border-solid border-gray-300 dark:border-gray-600 rounded-lg">
       <div className="flex-1">{renderItem?.(model, { t })}</div>
       <div className="flex-none">
         <Button shape="circle" onClick={() => setEdit(true)}>

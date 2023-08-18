@@ -36,8 +36,8 @@ const RecentlyOpened: React.FC<{
   }, [hash]);
 
   return (
-    <div className="shadow-lg shadow-gray-700/5 border border-solid border-gray-200 rounded-lg">
-      <h2 className="m-0 px-4 py-2 text-lg border-0 border-solid border-b border-gray-200">
+    <div className="shadow-lg shadow-gray-700/5 dark:shadow-gray-900/20 border border-solid border-gray-200 dark:border-gray-500 rounded-lg dark:bg-gray-700">
+      <h2 className="m-0 px-4 py-2 text-lg border-0 border-solid border-b border-gray-200 dark:border-gray-500">
         {t("dashboard.recently_opened")}
       </h2>
       <List
@@ -49,7 +49,7 @@ const RecentlyOpened: React.FC<{
           );
           return (
             <List.Item
-              className="hover:bg-gray-50 select-none cursor-pointer last-of-type:rounded-b-lg"
+              className="hover:bg-gray-50 dark:hover:bg-gray-600 select-none cursor-pointer last-of-type:rounded-b-lg"
               onClick={() =>
                 navigate(`/content-manager/${item.apiID}/${item.id}`)
               }
@@ -65,7 +65,7 @@ const RecentlyOpened: React.FC<{
             >
               <List.Item.Meta
                 title={
-                  <span className="text-gray-700">
+                  <span className="text-gray-700 dark:text-gray-300">
                     {renderTitle?.(item) ?? item.title}
                   </span>
                 }

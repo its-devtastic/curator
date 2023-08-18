@@ -1,34 +1,33 @@
 import React from "react";
-
 import { Formik, Form, Field } from "formik";
 import { Button, Card, Input, message } from "antd";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 import useStrapi from "~/hooks/useStrapi";
 import useSession from "~/hooks/useSession";
 import useCurator from "~/hooks/useCurator";
 import FormField from "~/ui/FormField";
-import { Link } from "react-router-dom";
 
 const Login: React.FC = () => {
   const { t } = useTranslation();
   const { sdk } = useStrapi();
-  const { icon } = useCurator();
+  const { about } = useCurator();
   const { setSession } = useSession();
 
   return (
     <div className="max-w-sm w-full">
-      {icon && (
+      {about?.icon && (
         <div className="text-center mb-6">
           <img
-            src={typeof icon === "string" ? icon : icon.auth}
+            src={typeof about.icon === "string" ? about.icon : about.icon.auth}
             alt=""
             className="h-16"
           />
         </div>
       )}
       <h1 className="text-center mb-12 mt-6 select-none">{t("login.title")}</h1>
-      <Card className="shadow-lg shadow-gray-200/50 border-gray-300">
+      <Card>
         {
           <Formik
             initialValues={{ email: "", password: "" }}

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply m-0 p-0 antialiased font-sans text-base text-gray-700;
+  @apply m-0 p-0 antialiased font-sans text-base text-gray-700 dark:text-gray-50;
 }
 
 .link {
@@ -12,7 +12,7 @@ body {
 
 /* Button */
 .ant-notification-notice-message {
-  @apply text-sm font-semibold text-gray-700;
+  @apply text-sm font-semibold text-gray-700 dark:text-gray-50;
 }
 
 .ant-btn {
@@ -24,7 +24,7 @@ body {
 }
 
 .ant-btn-default {
-  @apply shadow-md shadow-gray-700/5 border-gray-200 text-gray-700 disabled:bg-white disabled:text-gray-700 disabled:border-gray-200 disabled:cursor-default disabled:shadow-md disabled:shadow-gray-700/5;
+  @apply shadow-md shadow-gray-700/5 border-gray-200 text-gray-700 dark:text-gray-50 disabled:bg-white disabled:text-gray-700 disabled:border-gray-200 disabled:cursor-default disabled:shadow-md disabled:shadow-gray-700/5;
 }
 
 .ant-btn.ant-btn-sm {
@@ -33,11 +33,14 @@ body {
 
 /* Table */
 .ant-table-content {
-  @apply border-t border-gray-300 border-solid border-0;
+  @apply border-t border-gray-300 dark:border-gray-600 border-solid border-0;
+}
+.ant-table tr > td {
+  @apply bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-600;
 }
 .ant-table .ant-table-thead > tr > th {
-  @apply bg-white uppercase text-xs border-gray-100 before:hidden;
+  @apply bg-white dark:bg-gray-800 uppercase text-xs border-gray-100 dark:border-gray-600 before:hidden;
 }
 .ant-table .ant-table-thead > tr > td {
-  @apply bg-white border-gray-100 before:hidden;
+  @apply bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-600 before:hidden;
 }

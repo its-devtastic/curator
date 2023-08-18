@@ -101,7 +101,6 @@ const Actions: React.FC<{
           {hasSavePermission && (
             <Button
               type="primary"
-              ghost
               loading={isSubmitting}
               onClick={async () => {
                 await submitForm();

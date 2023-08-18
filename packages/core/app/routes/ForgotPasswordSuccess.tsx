@@ -1,20 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Card } from "antd";
 import { useTranslation } from "react-i18next";
 
 import useCurator from "~/hooks/useCurator";
 
 const ForgotPasswordSuccess: React.FC = () => {
   const { t } = useTranslation();
-  const { icon } = useCurator();
+  const { about } = useCurator();
 
   return (
     <div className="max-w-sm w-full">
-      {icon && (
+      {about?.icon && (
         <div className="text-center mb-6">
           <img
-            src={typeof icon === "string" ? icon : icon.auth}
+            src={typeof about.icon === "string" ? about.icon : about.icon.auth}
             alt=""
             className="h-16"
           />

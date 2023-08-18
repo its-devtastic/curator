@@ -45,6 +45,7 @@ function init() {
                 path.resolve(root, "./config/**/*.{js,ts,jsx,tsx}"),
               ],
               safelist,
+              darkMode: "class",
               theme: {
                 extend: {
                   fontFamily: {
@@ -88,6 +89,7 @@ function init() {
                 path.resolve(root, "./config/**/*.{js,ts,jsx,tsx}"),
               ],
               safelist,
+              darkMode: "class",
               theme: {
                 extend: {
                   fontFamily: {

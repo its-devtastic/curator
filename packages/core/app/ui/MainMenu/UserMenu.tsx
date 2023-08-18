@@ -29,12 +29,14 @@ const UserMenu: React.FC = () => {
         trigger={["click"]}
         placement="topRight"
         dropdownRender={(menu) => (
-          <div className="shadow-xl shadow-gray-700/5 bg-white rounded-lg border border-solid border-gray-200">
-            <div className="py-2 px-4 border-b border-0 border-solid border-gray-200">
-              <div className="font-semibold text-sm">
+          <div className="shadow-xl shadow-gray-700/5 bg-white dark:bg-gray-800 rounded-lg border border-solid border-gray-200 dark:border-gray-600">
+            <div className="py-2 px-4 border-b border-0 border-solid border-gray-200 dark:border-gray-600">
+              <div className="font-semibold text-sm dark:text-gray-50">
                 {`${user?.firstname ?? ""} ${user?.lastname ?? ""}`}
               </div>
-              <div className="text-gray-500 text-xs">{user?.email}</div>
+              <div className="text-gray-500 dark:text-gray-300 text-xs">
+                {user?.email}
+              </div>
               {user.roles && !R.isEmpty(user.roles) && (
                 <div className="mt-2">
                   <Tag color="geekblue">{user.roles[0].name}</Tag>
@@ -65,7 +67,7 @@ const UserMenu: React.FC = () => {
                   title: t("help_menu.shortcuts"),
                   centered: true,
                   content: (
-                    <table className="w-full py-12">
+                    <table className="w-full py-12 dark:text-gray-50">
                       <tbody>
                         <tr>
                           <td className="text-sm">{t("common.save")}</td>
@@ -104,7 +106,7 @@ const UserMenu: React.FC = () => {
           ],
         }}
       >
-        <div className="flex items-center gap-3 cursor-pointer select-none py-2 px-4 hover:bg-black/5 rounded-md">
+        <div className="flex items-center gap-3 cursor-pointer select-none py-2 px-4 hover:bg-black/5 dark:hover:bg-white/5 rounded-md">
           <Avatar
             shape="square"
             style={{ backgroundColor: toColor(user.email) }}
@@ -116,7 +118,7 @@ const UserMenu: React.FC = () => {
             ).toUpperCase()}
           </Avatar>
           <div>
-            <div className="font-semibold text-sm">
+            <div className="font-semibold text-sm dark:text-gray-100">
               {`${user?.firstname ?? ""} ${user?.lastname ?? ""}`}
             </div>
             {user.roles && !R.isEmpty(user.roles) && (

@@ -120,7 +120,7 @@ const ToMany: React.FC<{
         }}
       >
         <SortableContext items={items} strategy={verticalListSortingStrategy}>
-          <div className="space-y-3 p-4 bg-gray-50 rounded-md">
+          <div className="space-y-3 p-4 bg-gray-50 dark:bg-gray-600 rounded-md">
             {items.map((item) => (
               <Item
                 key={item.id}

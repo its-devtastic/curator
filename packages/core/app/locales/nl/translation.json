@@ -108,6 +108,8 @@
   "phrases.type_delete": "Typ DELETE om te bevestigen",
   "phrases.add_item": "Voeg {{item}} toe",
   "phrases.open_this_menu": "Open dit menu",
+  "phrases.switch_to_dark_mode": "Schakel over naar donkere modus",
+  "phrases.switch_to_light_mode": "Schakel over naar lichte modus",
 
   "common.edit": "Bewerk",
   "common.create": "Aanmaken",

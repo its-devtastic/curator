@@ -108,7 +108,7 @@ const DetailScreen: React.FC = () => {
         return (
           <div>
             <DraftBanner />
-            <div className="p-4 mx-auto max-w-screen-xl space-y-12">
+            <div className="px-4 pb-4 lg:px-12 mx-auto max-w-screen-xl space-y-12">
               <Header
                 contentTypeConfig={contentTypeConfig}
                 document={document}

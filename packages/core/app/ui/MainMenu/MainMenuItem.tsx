@@ -13,17 +13,21 @@ const MainMenuItem: React.FC<{
     <Link
       to={to}
       className={classNames(
-        "flex items-center gap-2 text-sm rounded-md hover:bg-black/5 hover:cursor-pointer no-underline px-4 py-2",
-        { "bg-black/5": isActive }
+        "flex items-center gap-2 text-sm rounded-md hover:bg-black/5 dark:hover:bg-white/5 hover:cursor-pointer no-underline px-4 py-2",
+        { "bg-black/5 dark:bg-white/5": isActive }
       )}
     >
       {icon && (
-        <div className="w-6 flex-none text-center text-gray-500">{icon}</div>
+        <div className="w-6 flex-none text-center text-gray-500 dark:text-gray-200">
+          {icon}
+        </div>
       )}
       <div
         className={classNames(
           "font-semibold",
-          isActive ? "text-gray-700" : "text-gray-500"
+          isActive
+            ? "text-gray-700 dark:text-gray-100"
+            : "text-gray-500 dark:text-gray-200"
         )}
       >
         {label}
