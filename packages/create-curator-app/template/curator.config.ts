@@ -4,7 +4,7 @@ import {
   contentManagerPlugin,
   mediaLibraryPlugin,
   teamManagerPlugin,
-} from "@curatorjs/core";
+} from "@curatorjs/studio";
 
 import contentTypes from "./config/contentTypes";
 import components from "./config/components";

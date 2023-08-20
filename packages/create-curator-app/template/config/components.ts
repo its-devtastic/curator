@@ -1,4 +1,4 @@
-import type { ComponentConfig } from "@curatorjs/core";
+import type { ComponentConfig } from "@curatorjs/studio";
 
 // Define your components here
 const components: ComponentConfig[] = [];

@@ -1,4 +1,4 @@
-import createCuratorApp from "@curatorjs/core";
+import createCuratorApp from "@curatorjs/studio";
 
 import config from "./curator.config";
 

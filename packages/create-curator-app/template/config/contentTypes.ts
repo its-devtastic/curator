@@ -1,4 +1,4 @@
-import type { ContentTypeConfig } from "@curatorjs/core";
+import type { ContentTypeConfig } from "@curatorjs/studio";
 
 // Define your content types here
 const contentTypes: ContentTypeConfig[] = [];
