@@ -1,0 +1,8 @@
+{
+  "name": "@curatorjs/bridge",
+  "version": "0.1.0",
+  "main": "index.tsx",
+  "dependencies": {
+    "@curatorjs/studio": "latest"
+  }
+}
