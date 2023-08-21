@@ -1,0 +1,28 @@
+# Preview mode
+
+By default Strapi only returns published content. For content editors, however, it's important to be able to preview
+drafts before they go live. Luckily this is quite easy with Curator Bridge!
+
+### isAdminUser
+
+Bridge provides a simple utility function to check if a user is logged in with Studio and is an **active user** on Strapi.
+
+```ts
+const showDrafts: boolean = await isAdminUser(headers: Headers, {
+  strapiUrl?: string,
+} = {});
+```
+
+Alternatively, you can provide the URL to your Strapi instance by setting an environment variable.
+Either `STRAPI_URL` or `CURATOR_STRAPI_URL` can be used.
+
+#### Example
+
+```ts filename="page.tsx"
+const showDrafts = await isAdminUser(headers(), {
+  strapiUrl: "https://api.example.com",
+});
+const response = await fetch(
+  `/api/pages?publicationState=${showDrafts ? "preview" : "live"}`
+);
+```
