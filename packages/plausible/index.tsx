@@ -23,13 +23,7 @@ export default function plausiblePlugin({ sharedLink }: PluginOptions) {
               to="/analytics"
               label="Analytics"
               icon={
-                <span>
-                  <img
-                    src={icon.src}
-                    className="w-6 h-6 object-contain"
-                    alt=""
-                  />
-                </span>
+                <img src={icon} className="w-5 h-5 object-contain" alt="" />
               }
             />
           );

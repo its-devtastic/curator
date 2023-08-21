@@ -18,7 +18,7 @@ const MainMenuItem: React.FC<{
       )}
     >
       {icon && (
-        <div className="w-6 flex-none text-center text-gray-500 dark:text-gray-200">
+        <div className="w-6 flex-none text-center text-gray-500 dark:text-gray-200 flex">
           {icon}
         </div>
       )}
