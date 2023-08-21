@@ -1,11 +1,30 @@
-# Curator
+![Curator Logo](https://raw.githubusercontent.com/its-devtastic/curator/main/media/banner.png)
+
+<div align="center">
+  <a aria-label="Stars" href="https://github.com/its-devtastic/curator/stargazers">
+    <img src="https://img.shields.io/github/stars/its-devtastic/curator">
+  </a>
+<a aria-label="NPM" href="https://www.npmjs.com/package/create-curator-app">
+    <img src="https://img.shields.io/npm/dm/create-curator-app">
+  </a>
+</div>
+
+---
 
 **Curator** is an alternative admin for [Strapi](https://www.strapi.io). It is customizable, translatable and mobile-friendly.
+
+---
+
+![Preview](https://raw.githubusercontent.com/its-devtastic/curator/main/media/preview.png)
+
+## Documentation
+
+Documentation is available [here](https://its-devtastic.github.io/curator/).
 
 ## Features
 
 - 🌐 Multilingual (i18next)
-- 🎨 Customizable theme (antd and Tailwind CSS)
+- 🎨 Customizable theme (antd and Tailwind)
 - 🧩 Injection zones
 - 🧱 Swappable components
 - 📜 Custom pages
@@ -19,12 +38,6 @@ Create a new Curator project with the Create Curator App tool:
 
 ```shell
 npx create-curator-app@latest cms
-```
-
-Next, go into the newly created `cms` directory and install the dependencies. When that's done, run
-
-```shell
-npm run dev
 ```
 
 Your Curator project will run on http://localhost:1338
@@ -43,19 +56,20 @@ There are some limitations on what you can do with Curator, compared to the Stra
 - 🚧 = Partial
 - ❌ = Unsupported
 
-| Feature              | Status |
-| -------------------- | ------ |
-| Collection types     | ✅     |
-| Single types         | ✅     |
-| Internationalization | ✅     |
-| Draft / publish      | ✅     |
-| Dynamic zones        | ✅     |
-| User management      | ✅     |
-| User profile         | ✅     |
-| Permissions          | 🚧️    |
-| Media library        | 🚧️    |
-| Role management      | ❌     |
-| API keys             | ❌     |
-| Webhooks             | ❌     |
-| Dark mode            | ❌     |
-| Content creation     | ❌     |
+| Feature              | Status                                    |
+| -------------------- | ----------------------------------------- |
+| Collection types     | ✅                                        |
+| Single types         | ✅                                        |
+| Internationalization | ✅                                        |
+| Draft / publish      | ✅                                        |
+| Dynamic zones        | ✅                                        |
+| User management      | ✅                                        |
+| User profile         | ✅                                        |
+| Permissions          | ✅️                                       |
+| Dark mode            | ✅                                        |
+| Media library        | 🚧️ (Cropping is currently not supported) |
+| Filters              | 🚧️ (Only text search at the moment)      |
+| Role management      | ❌                                        |
+| API keys             | ❌                                        |
+| Webhooks             | ❌                                        |
+| Content-type builder | ❌ (not planned)                          |
