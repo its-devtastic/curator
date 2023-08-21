@@ -1,0 +1,107 @@
+import { Callout } from "nextra/components";
+
+# Getting Started
+
+## Configure Studio
+
+Add the Bridge package to your Curator Studio project:
+
+```shell
+npm install @curatorjs/bridge
+```
+
+Add the plugin to the list of Curator plugins:
+
+```ts
+// curator.config.ts
+import { bridgePlugin } from "@curatorjs/bridge";
+
+const config = {
+  // Other config...
+  plugins: [
+    // Other plugins...
+    bridgePlugin({
+      /*
+       * Domain of your website.
+       */
+      domain: "www.example.com",
+    }),
+  ],
+};
+```
+
+## Configure your website
+
+<Callout>
+  Only React-based frameworks (e.g. Next.js and Gatsby) are currently supported.
+</Callout>
+
+Add the Bridge package to your project:
+
+```shell
+npm install @curatorjs/bridge
+```
+
+Include the Bridge component somewhere in your app, for example in `_app.tsx` or `layout.tsx`.
+Also make sure to import the CSS styles.
+
+```tsx filename="layout.tsx"
+import "@curatorjs/bridge/styles.min.css";
+
+// ...
+
+<html lang="en">
+  <body>
+    <Bridge
+      strapiUrl="https://api.example.com"
+      studioUrl="https://cms.example.com"
+      refreshAfterChanges
+    />
+    {children}
+  </body>
+</html>;
+```
+
+Make sure the `@curatorjs/bridge` package is transpiled. This requirement **will probably be removed** in a future update.
+In Next.js this is quite easy:
+
+```ts filename="next.config.js"
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // Other config...
+  transpilePackages: ["@curatorjs/bridge"],
+};
+
+module.exports = nextConfig;
+```
+
+### Add connectors
+
+Bridge connects to your website's content by looking for `data-bridge-connect` attributes. For each item provide the
+API ID and content ID by setting `data-bridge-api-id` and `data-bridge-id`.
+
+```tsx filename="page.tsx"
+// ...
+return (
+  <div>
+    {pages.map(({ id, attributes }) => (
+      <div
+        key={id}
+        data-bridge-connect=""
+        data-bridge-api-id="page"
+        data-bridge-id={id}
+      >
+        {attributes.title}
+      </div>
+    ))}
+  </div>
+);
+// ...
+```
+
+### 🙌 That's it!
+
+Next, log into your Curator Studio instance and refresh your website. A green
+bar should appear at the top of the website displaying the user's name and a
+link to your Studio instance. Hover over connected content to see a tooltip
+with a link to the content editing page in Studio.

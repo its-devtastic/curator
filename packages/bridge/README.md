@@ -44,7 +44,12 @@ const config = {
   // Other config...
   plugins: [
     // Other plugins...
-    bridgePlug(/* options */),
+    bridgePlugin({
+      /*
+       * Domain of your website.
+       */
+      domain: "www.example.com",
+    }),
   ],
 };
 ```
