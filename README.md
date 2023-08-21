@@ -4,8 +4,8 @@
   <a aria-label="Stars" href="https://github.com/its-devtastic/curator/stargazers">
     <img src="https://img.shields.io/github/stars/its-devtastic/curator">
   </a>
-<a aria-label="NPM" href="https://www.npmjs.com/package/@curatorjs/core">
-    <img src="https://img.shields.io/npm/dm/%40curatorjs/core">
+<a aria-label="NPM" href="https://www.npmjs.com/package/@curatorjs/studio">
+    <img src="https://img.shields.io/npm/dm/%40curatorjs/studio">
   </a>
 </div>
 
@@ -38,12 +38,6 @@ Create a new Curator project with the Create Curator App tool:
 
 ```shell
 npx create-curator-app@latest cms
-```
-
-Next, go into the newly created `cms` directory and install the dependencies. When that's done, run
-
-```shell
-npm run dev
 ```
 
 Your Curator project will run on http://localhost:1338

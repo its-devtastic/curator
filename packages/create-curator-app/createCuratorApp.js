@@ -1,29 +1,42 @@
-const path = require("path");
-const { program } = require("commander");
-const chalk = require("chalk");
-const fs = require("fs-extra");
+import { resolve, dirname } from "node:path";
+import { fileURLToPath } from "url";
+import { program } from "commander";
+import chalk from "chalk";
+import fs from "fs-extra";
+import inquirer from "inquirer";
+import shell from "shelljs";
+import ora from "ora";
 
-const pkg = require("./package.json");
+export async function init() {
+  const { name, description, version } = JSON.parse(
+    await fs.readFile("./package.json")
+  );
 
-function init() {
   program
-    .name(pkg.name)
-    .description(pkg.description)
-    .version(pkg.version)
+    .name(name)
+    .description(description)
+    .version(version)
     .arguments("<project-directory>")
-    .usage(`${chalk.green("<project-directory>")} [options]`)
+    .usage(`${chalk.greenBright("<project-directory>")} [options]`)
+    .showHelpAfterError(
+      "You forgot to provide a " +
+        chalk.bold("name") +
+        " for the project directory."
+    )
     .action(async (dir) => {
       const root = process.cwd();
       const fullPath = getFullPath(root, dir);
 
       console.log(
-        `☝️ A new Curator project will be created at ${chalk.blue(fullPath)}`
+        `🏗️A new Curator Studio project will be created at ${chalk.blue(
+          fullPath
+        )}`
       );
 
       if (await pathIsNotEmpty(fullPath)) {
         console.error(
           chalk.red(
-            "❌ The chosen directory already exists and contains files."
+            "❌  The chosen directory already exists and contains files."
           )
         );
         process.exit(1);
@@ -31,10 +44,48 @@ function init() {
 
       await createProject(root, dir);
 
-      console.log(chalk.green("✅ Curator project has been created."));
-      console.log(
-        chalk.blue("👉 Go into the new directory and install dependencies.")
-      );
+      console.log(chalk.green("✅  Curator project has been created."));
+
+      /*
+       * Ask for the preferred package manager and install packages.
+       */
+      inquirer
+        .prompt([
+          {
+            type: "list",
+            name: "pkgManager",
+            message:
+              "What package manager do you want to use to install dependencies?",
+            choices: [
+              "npm",
+              "yarn",
+              { name: "Skip installing dependencies", value: "skip" },
+            ],
+          },
+        ])
+        .then(({ pkgManager }) => {
+          if (pkgManager === "skip") {
+            console.log(
+              "☝️ Don't forget to manually install the dependencies."
+            );
+          } else {
+            const spinner = ora(
+              chalk.blueBright(
+                "Installing dependencies with " + chalk.bold(pkgManager) + "..."
+              )
+            ).start();
+            shell.cd(dir);
+            shell.exec(`${pkgManager} install`, (code) => {
+              spinner.stop();
+              console.log(
+                chalk.greenBright("Running Curator development server...")
+              );
+              shell.exec(
+                `${pkgManager}${pkgManager === "npm" ? " run" : ""} dev`
+              );
+            });
+          }
+        });
     });
 
   program.parse(process.argv);
@@ -52,20 +103,19 @@ async function pathIsNotEmpty(path) {
 }
 
 function getFullPath(root, dir) {
-  return path.resolve(root, dir);
+  return resolve(root, dir);
 }
 
 async function createProject(root, dir) {
   const dest = getFullPath(root, dir);
   await fs.ensureDir(dest);
+  const __dirname = dirname(fileURLToPath(import.meta.url));
 
   // Copy template directory to destination
-  await fs.copy(path.resolve(__dirname, "template"), dest);
+  await fs.copy(resolve(__dirname, "template"), dest);
 
   // Update package name to project name
-  const pkg = await fs.readJson(path.resolve(dest, "./package.json"));
+  const pkg = await fs.readJson(resolve(dest, "./package.json"));
   pkg.name = dir;
-  fs.writeJson(path.resolve(dest, "package.json"), pkg, { spaces: 2 });
+  fs.writeJson(resolve(dest, "package.json"), pkg, { spaces: 2 });
 }
-
-module.exports = { init };

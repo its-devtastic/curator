@@ -5,13 +5,12 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-
-"use strict";
+import { init } from "./createCuratorApp.js";
 
 const currentNodeVersion = process.versions.node;
 const semver = currentNodeVersion.split(".");
 const major = semver[0];
-const REQUIRED_VERSION = 16;
+const REQUIRED_VERSION = 18;
 
 if (major < REQUIRED_VERSION) {
   console.error(
@@ -24,7 +23,5 @@ if (major < REQUIRED_VERSION) {
   );
   process.exit(1);
 }
-
-const { init } = require("./createCuratorApp");
 
 init();
