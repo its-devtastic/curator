@@ -1,42 +1,4 @@
-import * as R from "ramda";
-import Cookies from "js-cookie";
-import { CuratorConfig } from "@curatorjs/studio";
+export { default as bridgePlugin } from "./plugin";
 
-const COOKIE_NAME = "CURATOR_BRIDGE_USER_TOKEN";
-
-export function bridgePlugin(options: PluginOptions) {
-  return (config: CuratorConfig): CuratorConfig => {
-    return R.evolve({
-      hooks: R.concat([
-        {
-          trigger: "login",
-          action({ entity: { token } }: any) {
-            if (!options.domain) {
-              return console.error(
-                "[Curator Bridge] You did not include a domain in the bridge plugin settings."
-              );
-            }
-            Cookies.set(COOKIE_NAME, token, {
-              domain: options.domain,
-            });
-          },
-        },
-        {
-          trigger: "logout",
-          action() {
-            Cookies.remove(COOKIE_NAME, {
-              domain: options.domain,
-            });
-          },
-        },
-      ]),
-    })(config);
-  };
-}
-
-interface PluginOptions {
-  /*
-   * Domain of your website.
-   */
-  domain: string;
-}
+// Components
+export { default as Bridge } from "./components/Bridge";

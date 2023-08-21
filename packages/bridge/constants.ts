@@ -1,0 +1,1 @@
+export const COOKIE_NAME = "CURATOR_BRIDGE_USER_TOKEN";
