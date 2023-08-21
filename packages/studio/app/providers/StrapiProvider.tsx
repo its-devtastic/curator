@@ -8,6 +8,7 @@ import { StrapiLocale } from "@/types/locales";
 import { Permission, UserRole } from "@/types/permission";
 
 import useSession from "@/hooks/useSession";
+import useCurator from "@/hooks/useCurator";
 
 import { StrapiSdk } from "@/utils/sdk";
 
@@ -32,6 +33,7 @@ export const StrapiProvider: React.FC<{
   const [roles, setRoles] = useState<UserRole[]>([]);
   const [locales, setLocales] = useState<StrapiLocale[]>([]);
   const sdk = useMemo(() => new StrapiSdk(apiUrl), []);
+  const { hooks = [] } = useCurator();
 
   useEffect(() => {
     sdk.http.interceptors.response.use(R.identity, (error) => {
@@ -60,6 +62,20 @@ export const StrapiProvider: React.FC<{
       setComponents(components);
       setLocales(locales);
       setSession({ user });
+
+      // Call login hooks
+      for (const hook of hooks) {
+        if (hook.trigger === "login") {
+          hook.action({ entity: { user, token } });
+        }
+      }
+    } else {
+      // Call logout hooks
+      for (const hook of hooks) {
+        if (hook.trigger === "logout") {
+          hook.action({ entity: null });
+        }
+      }
     }
 
     setInit(true);

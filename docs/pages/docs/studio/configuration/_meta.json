@@ -3,6 +3,7 @@
   "about": "about",
   "contentTypes": "contentTypes",
   "components": "components",
+  "hooks": "hooks",
   "interfaceLanguages": "interfaceLanguages",
   "plugins": "plugins",
   "theme": "theme"
