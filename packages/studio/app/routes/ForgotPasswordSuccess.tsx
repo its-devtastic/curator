@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import useCurator from "~/hooks/useCurator";
+import useCurator from "@/hooks/useCurator";
 
 const ForgotPasswordSuccess: React.FC = () => {
   const { t } = useTranslation();

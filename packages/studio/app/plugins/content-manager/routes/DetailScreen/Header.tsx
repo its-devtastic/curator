@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import { Entity } from "~/types/content";
-import { StrapiContentType } from "~/types/contentType";
-import { ContentTypeConfig } from "~/types/contentTypeConfig";
-import CalendarTime from "~/ui/CalendarTime";
+import { Entity } from "@/types/content";
+import { StrapiContentType } from "@/types/contentType";
+import { ContentTypeConfig } from "@/types/contentTypeConfig";
+import CalendarTime from "@/ui/CalendarTime";
 
 import Actions from "./Actions";
 

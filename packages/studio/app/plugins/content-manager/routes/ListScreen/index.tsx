@@ -16,17 +16,17 @@ import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 
-import { Pagination as IPagination } from "~/types/response";
-import { GetManyParams } from "~/types/request";
+import { Pagination as IPagination } from "@/types/response";
+import { GetManyParams } from "@/types/request";
 
-import useCurator from "~/hooks/useCurator";
-import useStrapi from "~/hooks/useStrapi";
-import useContentPermission from "~/hooks/useContentPermission";
+import useCurator from "@/hooks/useCurator";
+import useStrapi from "@/hooks/useStrapi";
+import useContentPermission from "@/hooks/useContentPermission";
 
-import Spinner from "~/ui/Spinner";
-import CalendarTime from "~/ui/CalendarTime";
-import Table from "~/ui/Table";
-import Pagination from "~/ui/Pagination";
+import Spinner from "@/ui/Spinner";
+import CalendarTime from "@/ui/CalendarTime";
+import Table from "@/ui/Table";
+import Pagination from "@/ui/Pagination";
 
 import { ColumnConfig } from "../../types";
 import { SORTABLE_FIELD_TYPES } from "../../utils/constants";

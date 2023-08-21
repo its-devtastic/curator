@@ -5,8 +5,8 @@ import { faRefresh } from "@fortawesome/free-solid-svg-icons";
 import { useFormikContext } from "formik";
 import { useTranslation } from "react-i18next";
 
-import LanguageSelect from "~/ui/LanguageSelect";
-import { StrapiContentType } from "~/types/contentType";
+import LanguageSelect from "@/ui/LanguageSelect";
+import { StrapiContentType } from "@/types/contentType";
 
 const FilterToolbar: React.FC<{ contentType: StrapiContentType }> = ({
   contentType,

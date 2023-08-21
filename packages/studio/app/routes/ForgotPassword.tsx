@@ -4,9 +4,9 @@ import { Formik, Form, Field } from "formik";
 import { Button, Card, Input, message } from "antd";
 import { useTranslation } from "react-i18next";
 
-import useStrapi from "~/hooks/useStrapi";
-import useCurator from "~/hooks/useCurator";
-import FormField from "~/ui/FormField";
+import useStrapi from "@/hooks/useStrapi";
+import useCurator from "@/hooks/useCurator";
+import FormField from "@/ui/FormField";
 
 const ForgotPassword: React.FC = () => {
   const { t } = useTranslation();

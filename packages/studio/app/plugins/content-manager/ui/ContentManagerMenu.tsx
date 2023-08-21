@@ -2,9 +2,9 @@ import React from "react";
 import * as R from "ramda";
 import { useTranslation } from "react-i18next";
 
-import useCurator from "~/hooks/useCurator";
-import useStrapi from "~/hooks/useStrapi";
-import MainMenu from "~/ui/MainMenu";
+import useCurator from "@/hooks/useCurator";
+import useStrapi from "@/hooks/useStrapi";
+import MainMenu from "@/ui/MainMenu";
 
 const ContentManagerMenu: React.FC<{
   groups: { label: string; items: string[] }[];

@@ -7,9 +7,9 @@ import { faEdit, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import { useFormikContext } from "formik";
 
-import { Entity } from "~/types/content";
-import { FieldDefinition } from "~/types/contentTypeConfig";
-import useStrapi from "~/hooks/useStrapi";
+import { Entity } from "@/types/content";
+import { FieldDefinition } from "@/types/contentTypeConfig";
+import useStrapi from "@/hooks/useStrapi";
 
 import { usePluginOptions } from "../../../hooks";
 import CreateContentDialog from "../../../dialogs/CreateContentDialog";

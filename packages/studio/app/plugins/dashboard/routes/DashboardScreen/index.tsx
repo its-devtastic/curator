@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import RecentlyOpened from "~/plugins/dashboard/routes/DashboardScreen/RecentlyOpened";
+import RecentlyOpened from "@/plugins/dashboard/routes/DashboardScreen/RecentlyOpened";
 
 import { DashboardPluginOptions } from "../../index";
 

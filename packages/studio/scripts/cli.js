@@ -30,7 +30,7 @@ function init() {
       root,
       resolve: {
         alias: {
-          "~": path.resolve(__dirname, "../app"),
+          "@": path.resolve(__dirname, "../app"),
           react: path.resolve(root, "node_modules/react"),
         },
       },
@@ -74,7 +74,7 @@ function init() {
       root,
       resolve: {
         alias: {
-          "~": path.resolve(__dirname, "../app"),
+          "@": path.resolve(__dirname, "../app"),
           react: path.resolve(root, "node_modules/react"),
         },
       },

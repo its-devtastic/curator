@@ -2,10 +2,10 @@ import React from "react";
 import * as R from "ramda";
 import { useParams } from "react-router-dom";
 
-import { Entity } from "~/types/content";
-import { FieldDefinition } from "~/types/contentTypeConfig";
+import { Entity } from "@/types/content";
+import { FieldDefinition } from "@/types/contentTypeConfig";
 
-import useStrapi from "~/hooks/useStrapi";
+import useStrapi from "@/hooks/useStrapi";
 
 import ToOne from "./ToOne";
 import ToMany from "./ToMany";

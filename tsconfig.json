@@ -16,7 +16,7 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./packages/core/app/*"]
+      "@/*": ["./packages/studio/app/*"]
     }
   },
   "exclude": ["node_modules"]

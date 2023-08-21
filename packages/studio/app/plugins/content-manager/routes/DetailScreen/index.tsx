@@ -5,11 +5,11 @@ import { useAsync } from "react-use";
 import { Formik } from "formik";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 
-import { Entity } from "~/types/content";
-import useSecrets from "~/hooks/useSecrets";
-import useStrapi from "~/hooks/useStrapi";
-import useCurator from "~/hooks/useCurator";
-import Spinner from "~/ui/Spinner";
+import { Entity } from "@/types/content";
+import useSecrets from "@/hooks/useSecrets";
+import useStrapi from "@/hooks/useStrapi";
+import useCurator from "@/hooks/useCurator";
+import Spinner from "@/ui/Spinner";
 
 import Header from "./Header";
 import Main from "./Main";

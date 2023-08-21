@@ -4,8 +4,8 @@ import * as R from "ramda";
 import { useParams } from "react-router-dom";
 import classNames from "classnames";
 
-import { StrapiContentType } from "~/types/contentType";
-import { ContentTypeConfig } from "~/types/contentTypeConfig";
+import { StrapiContentType } from "@/types/contentType";
+import { ContentTypeConfig } from "@/types/contentTypeConfig";
 
 import FieldRenderer from "../../ui/FieldRenderer";
 import { usePluginOptions } from "../../hooks";

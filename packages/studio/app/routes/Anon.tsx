@@ -1,9 +1,9 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
-import usePreferences from "~/hooks/usePreferences";
-import logo from "~/assets/logo.svg";
-import logoDarkMode from "~/assets/logo_dm.svg";
+import usePreferences from "@/hooks/usePreferences";
+import logo from "@/assets/logo.svg";
+import logoDarkMode from "@/assets/logo_dm.svg";
 
 const Anon: React.FC = () => {
   const darkMode = usePreferences((state) => state.preferences.darkMode);

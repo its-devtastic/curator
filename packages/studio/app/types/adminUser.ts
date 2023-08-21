@@ -1,4 +1,4 @@
-import { UserRole } from "~/types/permission";
+import { UserRole } from "@/types/permission";
 
 export interface AdminUser {
   blocked: boolean;

@@ -1,10 +1,10 @@
 import React from "react";
 import * as R from "ramda";
 
-import { Attribute } from "~/types/contentType";
-import { FieldDefinition } from "~/types/contentTypeConfig";
-import useCurator from "~/hooks/useCurator";
-import useStrapi from "~/hooks/useStrapi";
+import { Attribute } from "@/types/contentType";
+import { FieldDefinition } from "@/types/contentTypeConfig";
+import useCurator from "@/hooks/useCurator";
+import useStrapi from "@/hooks/useStrapi";
 
 import FieldRenderer from "../../FieldRenderer";
 

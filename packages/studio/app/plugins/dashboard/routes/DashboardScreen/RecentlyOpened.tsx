@@ -5,10 +5,10 @@ import { List } from "antd";
 import { useNavigate } from "react-router-dom";
 import * as R from "ramda";
 
-import useDashboard from "~/plugins/dashboard/useDashboard";
-import useStrapi from "~/hooks/useStrapi";
-import CalendarTime from "~/ui/CalendarTime";
-import useCurator from "~/hooks/useCurator";
+import useDashboard from "@/plugins/dashboard/useDashboard";
+import useStrapi from "@/hooks/useStrapi";
+import CalendarTime from "@/ui/CalendarTime";
+import useCurator from "@/hooks/useCurator";
 
 const RecentlyOpened: React.FC<{
   renderTitle?(item: any): React.ReactNode;

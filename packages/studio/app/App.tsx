@@ -11,19 +11,19 @@ import { useEffectOnce } from "react-use";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 
-import useSession from "~/hooks/useSession";
-import useCurator from "~/hooks/useCurator";
+import useSession from "@/hooks/useSession";
+import useCurator from "@/hooks/useCurator";
 
-import "~/utils/i18n";
+import "@/utils/i18n";
 
-import Auth from "~/routes/Auth";
-import Anon from "~/routes/Anon";
-import Login from "~/routes/Login";
-import ForgotPassword from "~/routes/ForgotPassword";
-import ForgotPasswordSuccess from "~/routes/ForgotPasswordSuccess";
-import ResetPassword from "~/routes/ResetPassword";
-import Profile from "~/routes/Profile";
-import Register from "~/routes/Register";
+import Auth from "@/routes/Auth";
+import Anon from "@/routes/Anon";
+import Login from "@/routes/Login";
+import ForgotPassword from "@/routes/ForgotPassword";
+import ForgotPasswordSuccess from "@/routes/ForgotPasswordSuccess";
+import ResetPassword from "@/routes/ResetPassword";
+import Profile from "@/routes/Profile";
+import Register from "@/routes/Register";
 
 const App: React.FC = () => {
   const { i18n } = useTranslation();

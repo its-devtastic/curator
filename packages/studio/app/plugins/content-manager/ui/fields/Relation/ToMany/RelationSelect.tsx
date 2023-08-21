@@ -8,9 +8,9 @@ import * as R from "ramda";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import useStrapi from "~/hooks/useStrapi";
-import { Entity } from "~/types/content";
-import { FieldDefinition } from "~/types/contentTypeConfig";
+import useStrapi from "@/hooks/useStrapi";
+import { Entity } from "@/types/content";
+import { FieldDefinition } from "@/types/contentTypeConfig";
 
 import { usePluginOptions } from "../../../../hooks";
 import CreateContentDialog from "../../../../dialogs/CreateContentDialog";

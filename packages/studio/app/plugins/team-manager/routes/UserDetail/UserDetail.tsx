@@ -7,9 +7,9 @@ import { faArrowLeft, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Tag } from "antd";
 
-import useStrapi from "~/hooks/useStrapi";
-import useSession from "~/hooks/useSession";
-import Spinner from "~/ui/Spinner";
+import useStrapi from "@/hooks/useStrapi";
+import useSession from "@/hooks/useSession";
+import Spinner from "@/ui/Spinner";
 
 import DeleteUserModal from "./DeleteUserModal";
 import UpdateUserModal from "./UpdateUserModal";

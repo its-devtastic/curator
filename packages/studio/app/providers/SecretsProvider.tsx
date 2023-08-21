@@ -1,8 +1,8 @@
 import React, { createContext, useCallback, useState } from "react";
 import { useAsync } from "react-use";
 
-import useStrapi from "~/hooks/useStrapi";
-import useSession from "~/hooks/useSession";
+import useStrapi from "@/hooks/useStrapi";
+import useSession from "@/hooks/useSession";
 
 export const Context = createContext({} as any);
 
@@ -10,7 +10,7 @@ const SecretsProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const { sdk } = useStrapi();
-  const {token} = useSession()
+  const { token } = useSession();
 
   const { value: secrets = {} } = useAsync(async () => {
     try {

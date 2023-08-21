@@ -3,8 +3,8 @@ import { Select, SelectProps } from "antd";
 import { useTranslation } from "react-i18next";
 import * as R from "ramda";
 
-import useStrapi from "~/hooks/useStrapi";
-import { StrapiLocale } from "~/types/locales";
+import useStrapi from "@/hooks/useStrapi";
+import { StrapiLocale } from "@/types/locales";
 
 const LanguageSelect: React.FC<SelectProps & { locales?: StrapiLocale[] }> = ({
   value,

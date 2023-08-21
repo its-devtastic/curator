@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { Context } from "~/providers/SecretsProvider";
+import { Context } from "@/providers/SecretsProvider";
 
 export default function useSecrets() {
   return useContext<{

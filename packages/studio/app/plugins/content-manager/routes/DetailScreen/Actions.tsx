@@ -12,12 +12,12 @@ import { useParams, useNavigate, unstable_useBlocker } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useDebounce, useBeforeUnload, useKey } from "react-use";
 
-import { ContentTypeConfig } from "~/types/contentTypeConfig";
+import { ContentTypeConfig } from "@/types/contentTypeConfig";
 
-import useStrapi from "~/hooks/useStrapi";
-import useModifierKey from "~/hooks/useModifierKey";
-import usePreferences from "~/hooks/usePreferences";
-import useContentPermission from "~/hooks/useContentPermission";
+import useStrapi from "@/hooks/useStrapi";
+import useModifierKey from "@/hooks/useModifierKey";
+import usePreferences from "@/hooks/usePreferences";
+import useContentPermission from "@/hooks/useContentPermission";
 
 const Actions: React.FC<{
   contentTypeConfig: ContentTypeConfig;

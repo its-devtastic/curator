@@ -5,10 +5,10 @@ import { Button, Card, Input, message } from "antd";
 import { useTranslation } from "react-i18next";
 import * as Schema from "yup";
 
-import useStrapi from "~/hooks/useStrapi";
-import useCurator from "~/hooks/useCurator";
-import FormField from "~/ui/FormField";
-import useSession from "~/hooks/useSession";
+import useStrapi from "@/hooks/useStrapi";
+import useCurator from "@/hooks/useCurator";
+import FormField from "@/ui/FormField";
+import useSession from "@/hooks/useSession";
 
 const ResetPassword: React.FC = () => {
   const { t } = useTranslation();
