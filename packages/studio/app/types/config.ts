@@ -51,10 +51,13 @@ export interface ComponentConfig {
 }
 
 export interface Hook {
-  trigger: "view" | "save" | "create";
-  action(
-    apiID: string,
-    entity: any,
-    utils: { getSecret(key: string): string }
-  ): void;
+  trigger: "view" | "save" | "create" | "login" | "logout";
+  /*
+   * Callback function. Not all arguments are available for all actions.
+   */
+  action(args: {
+    apiID?: string;
+    entity?: any;
+    getSecret?(key: string): string;
+  }): void;
 }

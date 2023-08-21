@@ -15,6 +15,7 @@ export type {
   InjectionZoneEntry,
 } from "./app/types/config";
 export type { ContentTypeConfig } from "./app/types/contentTypeConfig";
+export type { SessionUser } from "./app/types/session";
 
 // Enum types
 export { InjectionZone } from "./app/types/config";

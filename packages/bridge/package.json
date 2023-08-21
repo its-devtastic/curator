@@ -1,0 +1,25 @@
+{
+  "name": "@curatorjs/bridge",
+  "version": "0.2.0",
+  "main": "index.tsx",
+  "scripts": {
+    "prepublishOnly": "npm run styles",
+    "styles": "tailwindcss -i ./styles.css -o ./styles.min.css --minify",
+    "styles:watch": "tailwindcss -i ./styles.css -o ./styles.min.css --watch"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "js-cookie": "^3.0.5",
+    "zustand": "^4.4.1"
+  },
+  "peerDependencies": {
+    "@curatorjs/studio": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.3"
+  }
+}

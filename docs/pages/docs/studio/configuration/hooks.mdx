@@ -1,0 +1,31 @@
+# hooks
+
+`Hook[]`
+
+A hook for intercepting certain events.
+
+### Types
+
+```ts
+interface Hook {
+  trigger: "view" | "save" | "create" | "login" | "logout";
+  /*
+   * Callback function. Not all arguments are available for all actions.
+   */
+  action(args: {
+    /*
+     * API ID of content type. Only available for view, save and create triggers.
+     */
+    apiID?: string;
+    /*
+     * Content document for view, save and create triggers. Object with
+     * user and token for login trigger. Null for logout trigger.
+     */
+    entity?: any;
+    /*
+     * Not available for login and logout triggers.
+     */
+    getSecret?(key: string): string;
+  }): void;
+}
+```
