@@ -15,7 +15,9 @@
     "zustand": "^4.4.1"
   },
   "peerDependencies": {
-    "@curatorjs/studio": "latest"
+    "@curatorjs/studio": "latest",
+    "react": "latest",
+    "react-dom": "latest"
   },
   "devDependencies": {
     "tailwindcss": "^3.3.3"
