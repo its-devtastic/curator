@@ -17,13 +17,13 @@ import classNames from "classnames";
 import { useSearchParams } from "react-router-dom";
 import * as R from "ramda";
 
-import { Pagination as IPagination } from "~/types/response";
-import { Sort } from "~/types/request";
-import { MediaItem } from "~/types/media";
-import usePreferences from "~/hooks/usePreferences";
-import useStrapi from "~/hooks/useStrapi";
-import CalendarTime from "~/ui/CalendarTime";
-import Pagination from "~/ui/Pagination";
+import { Pagination as IPagination } from "@/types/response";
+import { Sort } from "@/types/request";
+import { MediaItem } from "@/types/media";
+import usePreferences from "@/hooks/usePreferences";
+import useStrapi from "@/hooks/useStrapi";
+import CalendarTime from "@/ui/CalendarTime";
+import Pagination from "@/ui/Pagination";
 
 import UploadButton from "../../ui/UploadButton";
 import FilterToolbar from "./FilterToolbar";

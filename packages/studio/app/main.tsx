@@ -16,10 +16,10 @@ import "dayjs/locale/nl";
 import App from "./App";
 import "./index.css";
 
-import usePreferences from "~/hooks/usePreferences";
-import CuratorProvider from "~/providers/CuratorProvider";
-import StrapiProvider from "~/providers/StrapiProvider";
-import { CuratorConfig } from "~/types/config";
+import usePreferences from "@/hooks/usePreferences";
+import CuratorProvider from "@/providers/CuratorProvider";
+import StrapiProvider from "@/providers/StrapiProvider";
+import { CuratorConfig } from "@/types/config";
 
 dayjs.extend(relativeTime);
 dayjs.extend(localeData);

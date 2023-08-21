@@ -6,13 +6,13 @@ import { useTranslation } from "react-i18next";
 import * as R from "ramda";
 import { useFormikContext } from "formik";
 
-import { FieldDefinition } from "~/types/contentTypeConfig";
-import { Attribute } from "~/types/contentType";
+import { FieldDefinition } from "@/types/contentTypeConfig";
+import { Attribute } from "@/types/contentType";
 
-import useContentPermission from "~/hooks/useContentPermission";
+import useContentPermission from "@/hooks/useContentPermission";
 
-import Field from "~/ui/Field";
-import FormField from "~/ui/FormField";
+import Field from "@/ui/Field";
+import FormField from "@/ui/FormField";
 
 import { FIELD_TYPES } from "../utils/constants";
 

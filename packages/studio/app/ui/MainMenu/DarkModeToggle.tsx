@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleHalfStroke } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 
-import usePreferences from "~/hooks/usePreferences";
+import usePreferences from "@/hooks/usePreferences";
 
 const DarkModeToggle: React.FC = () => {
   const { t } = useTranslation();

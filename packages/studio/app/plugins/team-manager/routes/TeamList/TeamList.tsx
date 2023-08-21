@@ -5,10 +5,10 @@ import { useAsyncRetry } from "react-use";
 import * as R from "ramda";
 import { useNavigate } from "react-router-dom";
 
-import { Pagination as IPagination } from "~/types/response";
-import { AdminUser } from "~/types/adminUser";
-import useStrapi from "~/hooks/useStrapi";
-import Table from "~/ui/Table";
+import { Pagination as IPagination } from "@/types/response";
+import { AdminUser } from "@/types/adminUser";
+import useStrapi from "@/hooks/useStrapi";
+import Table from "@/ui/Table";
 
 import InviteUserModal from "./InviteUserModal";
 

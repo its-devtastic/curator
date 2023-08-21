@@ -3,13 +3,13 @@ import { useAsync } from "react-use";
 import * as R from "ramda";
 import { Alert } from "antd";
 
-import { StrapiContentType, StrapiComponent } from "~/types/contentType";
-import { StrapiLocale } from "~/types/locales";
-import { Permission, UserRole } from "~/types/permission";
+import { StrapiContentType, StrapiComponent } from "@/types/contentType";
+import { StrapiLocale } from "@/types/locales";
+import { Permission, UserRole } from "@/types/permission";
 
-import useSession from "~/hooks/useSession";
+import useSession from "@/hooks/useSession";
 
-import { StrapiSdk } from "~/utils/sdk";
+import { StrapiSdk } from "@/utils/sdk";
 
 export const Context = createContext<{
   sdk: StrapiSdk;

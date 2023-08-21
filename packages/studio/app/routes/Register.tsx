@@ -5,10 +5,10 @@ import { useTranslation } from "react-i18next";
 import { useAsync } from "react-use";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
-import useStrapi from "~/hooks/useStrapi";
-import useSession from "~/hooks/useSession";
-import useCurator from "~/hooks/useCurator";
-import FormField from "~/ui/FormField";
+import useStrapi from "@/hooks/useStrapi";
+import useSession from "@/hooks/useSession";
+import useCurator from "@/hooks/useCurator";
+import FormField from "@/ui/FormField";
 
 const Register: React.FC = () => {
   const { t } = useTranslation();

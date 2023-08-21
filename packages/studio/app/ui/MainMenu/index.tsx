@@ -7,8 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faClose } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
 
-import { InjectionZone } from "~/types/config";
-import useCurator from "~/hooks/useCurator";
+import { InjectionZone } from "@/types/config";
+import useCurator from "@/hooks/useCurator";
 
 import UserMenu from "./UserMenu";
 import MainMenuItem from "./MainMenuItem";

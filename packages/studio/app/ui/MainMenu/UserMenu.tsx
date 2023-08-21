@@ -12,8 +12,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
-import useSession from "~/hooks/useSession";
-import useModifierKey from "~/hooks/useModifierKey";
+import useSession from "@/hooks/useSession";
+import useModifierKey from "@/hooks/useModifierKey";
 
 const UserMenu: React.FC = () => {
   const { t } = useTranslation();

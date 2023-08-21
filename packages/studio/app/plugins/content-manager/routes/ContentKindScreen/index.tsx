@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import * as R from "ramda";
 
-import useStrapi from "~/hooks/useStrapi";
+import useStrapi from "@/hooks/useStrapi";
 
 import ListScreen from "../ListScreen";
 import DetailScreen from "../DetailScreen";

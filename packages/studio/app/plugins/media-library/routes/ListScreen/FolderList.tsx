@@ -14,8 +14,8 @@ import { useSearchParams } from "react-router-dom";
 import { useFormikContext } from "formik";
 import * as R from "ramda";
 
-import useStrapi from "~/hooks/useStrapi";
-import { MediaFolder } from "~/types/media";
+import useStrapi from "@/hooks/useStrapi";
+import { MediaFolder } from "@/types/media";
 
 import EditFolderModal from "./EditFolderModal";
 

@@ -4,10 +4,10 @@ import { Button, Card, Input, message } from "antd";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import useStrapi from "~/hooks/useStrapi";
-import useSession from "~/hooks/useSession";
-import useCurator from "~/hooks/useCurator";
-import FormField from "~/ui/FormField";
+import useStrapi from "@/hooks/useStrapi";
+import useSession from "@/hooks/useSession";
+import useCurator from "@/hooks/useCurator";
+import FormField from "@/ui/FormField";
 
 const Login: React.FC = () => {
   const { t } = useTranslation();

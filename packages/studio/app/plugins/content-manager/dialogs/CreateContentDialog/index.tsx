@@ -7,10 +7,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
 
-import { Entity } from "~/types/content";
-import useCurator from "~/hooks/useCurator";
-import useStrapi from "~/hooks/useStrapi";
-import useSecrets from "~/hooks/useSecrets";
+import { Entity } from "@/types/content";
+import useCurator from "@/hooks/useCurator";
+import useStrapi from "@/hooks/useStrapi";
+import useSecrets from "@/hooks/useSecrets";
 
 import { usePluginOptions } from "../../hooks";
 import FieldRenderer from "../../ui/FieldRenderer";

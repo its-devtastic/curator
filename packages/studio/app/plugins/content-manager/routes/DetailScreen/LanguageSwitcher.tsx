@@ -8,8 +8,8 @@ import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import LanguageSelect from "~/ui/LanguageSelect";
-import useStrapi from "~/hooks/useStrapi";
+import LanguageSelect from "@/ui/LanguageSelect";
+import useStrapi from "@/hooks/useStrapi";
 
 const LanguageSwitcher: React.FC = () => {
   const params = useParams();

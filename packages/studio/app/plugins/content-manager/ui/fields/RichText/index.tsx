@@ -2,8 +2,8 @@ import React from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-import { FieldDefinition } from "~/types/contentTypeConfig";
-import { Attribute } from "~/types/contentType";
+import { FieldDefinition } from "@/types/contentTypeConfig";
+import { Attribute } from "@/types/contentType";
 
 import "./RichtText.css";
 

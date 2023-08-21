@@ -12,10 +12,10 @@ import {
 import { Formik, Field as FormikField } from "formik";
 import * as Schema from "yup";
 
-import useStrapi from "~/hooks/useStrapi";
-import FormField from "~/ui/FormField";
-import Field from "~/ui/Field";
-import { AdminUser } from "~/types/adminUser";
+import useStrapi from "@/hooks/useStrapi";
+import FormField from "@/ui/FormField";
+import Field from "@/ui/Field";
+import { AdminUser } from "@/types/adminUser";
 
 export default function InviteUserModal({
   onClose,

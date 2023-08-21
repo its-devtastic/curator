@@ -1,6 +1,6 @@
 import React, { createContext } from "react";
 
-import { CuratorConfig } from "~/types/config";
+import { CuratorConfig } from "@/types/config";
 
 export const Context = createContext<CuratorConfig>({} as CuratorConfig);
 

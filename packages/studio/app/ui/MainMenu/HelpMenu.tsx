@@ -8,9 +8,9 @@ import {
   faKeyboard,
 } from "@fortawesome/free-solid-svg-icons";
 
-import AppHeaderItem from "~/ui/AppHeader/AppHeaderItem";
-import useModifierKey from "~/hooks/useModifierKey";
-import logo from "~/assets/logo.svg";
+import AppHeaderItem from "@/ui/AppHeader/AppHeaderItem";
+import useModifierKey from "@/hooks/useModifierKey";
+import logo from "@/assets/logo.svg";
 import pkg from "../../../package.json";
 
 const HelpMenu: React.FC = () => {

@@ -2,7 +2,7 @@ import type React from "react";
 import { TFunction } from "i18next";
 
 import { Entity } from "./content";
-import { Attribute } from "~/types/contentType";
+import { Attribute } from "@/types/contentType";
 
 export interface ContentTypeConfig {
   apiID: string;

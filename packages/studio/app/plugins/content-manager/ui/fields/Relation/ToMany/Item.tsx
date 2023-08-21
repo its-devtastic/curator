@@ -7,7 +7,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import classNames from "classnames";
 
-import { Entity } from "~/types/content";
+import { Entity } from "@/types/content";
 
 const Item: React.FC<{
   item: Entity;

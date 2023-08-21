@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Alert } from "antd";
 import * as R from "ramda";
 
-import useStrapi from "~/hooks/useStrapi";
+import useStrapi from "@/hooks/useStrapi";
 
 import MediaList from "./MediaList";
 

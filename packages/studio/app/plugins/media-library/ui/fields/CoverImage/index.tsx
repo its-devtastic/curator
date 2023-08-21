@@ -1,6 +1,6 @@
 import React from "react";
 
-import { MediaItem } from "~/types/media";
+import { MediaItem } from "@/types/media";
 
 import MediaField from "../MediaField";
 import classNames from "classnames";

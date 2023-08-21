@@ -12,8 +12,8 @@ import { Button } from "antd";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-import useStrapi from "~/hooks/useStrapi";
-import useCurator from "~/hooks/useCurator";
+import useStrapi from "@/hooks/useStrapi";
+import useCurator from "@/hooks/useCurator";
 
 import FieldRenderer from "../../FieldRenderer";
 import { DynamicZoneEntry } from "./index";

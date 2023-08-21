@@ -19,11 +19,11 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Button, Tooltip } from "antd";
 import { useTranslation } from "react-i18next";
 
-import { Attribute } from "~/types/contentType";
-import { FieldDefinition } from "~/types/contentTypeConfig";
-import useStrapi from "~/hooks/useStrapi";
-import useCurator from "~/hooks/useCurator";
-import Popover from "~/ui/Popover";
+import { Attribute } from "@/types/contentType";
+import { FieldDefinition } from "@/types/contentTypeConfig";
+import useStrapi from "@/hooks/useStrapi";
+import useCurator from "@/hooks/useCurator";
+import Popover from "@/ui/Popover";
 
 import DynamicItem from "./DynamicItem";
 

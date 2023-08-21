@@ -1,12 +1,12 @@
 import React from "react";
-import { MediaFolder } from "~/types/media";
+import { MediaFolder } from "@/types/media";
 import { Input, Modal, TreeSelect } from "antd";
 import { Field, Formik } from "formik";
 import { useTranslation } from "react-i18next";
 import { useAsync } from "react-use";
 
-import FormField from "~/ui/FormField";
-import useStrapi from "~/hooks/useStrapi";
+import FormField from "@/ui/FormField";
+import useStrapi from "@/hooks/useStrapi";
 
 export default function EditFolderModal({
   folder,

@@ -2,14 +2,14 @@ import axios, { AxiosInstance } from "axios";
 import * as R from "ramda";
 import { nanoid } from "nanoid";
 
-import { StrapiContentType, StrapiComponent } from "~/types/contentType";
-import { StrapiLocale } from "~/types/locales";
-import { SessionUser } from "~/types/session";
-import { MediaFolder, MediaFolderStructure, MediaItem } from "~/types/media";
-import { PaginatedResponse } from "~/types/response";
-import { GetManyParams, GetMediaParams } from "~/types/request";
-import { Permission, UserRole } from "~/types/permission";
-import { AdminUser } from "~/types/adminUser";
+import { StrapiContentType, StrapiComponent } from "@/types/contentType";
+import { StrapiLocale } from "@/types/locales";
+import { SessionUser } from "@/types/session";
+import { MediaFolder, MediaFolderStructure, MediaItem } from "@/types/media";
+import { PaginatedResponse } from "@/types/response";
+import { GetManyParams, GetMediaParams } from "@/types/request";
+import { Permission, UserRole } from "@/types/permission";
+import { AdminUser } from "@/types/adminUser";
 
 export class StrapiSdk {
   public apiUrl: string;

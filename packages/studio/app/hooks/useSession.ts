@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { SessionUser } from "~/types/session";
+import { SessionUser } from "@/types/session";
 
 interface SessionState {
   token: string | null;

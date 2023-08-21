@@ -3,7 +3,7 @@ import { Select, SelectProps } from "antd";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 
-import useCurator from "~/hooks/useCurator";
+import useCurator from "@/hooks/useCurator";
 
 const LocaleSelect: React.FC<SelectProps> = ({ className, ...props }) => {
   const { interfaceLanguages = [] } = useCurator();

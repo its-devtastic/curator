@@ -19,11 +19,11 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "antd";
 import { useTranslation } from "react-i18next";
 
-import { Entity } from "~/types/content";
-import { Attribute } from "~/types/contentType";
-import { FieldDefinition } from "~/types/contentTypeConfig";
-import useStrapi from "~/hooks/useStrapi";
-import useCurator from "~/hooks/useCurator";
+import { Entity } from "@/types/content";
+import { Attribute } from "@/types/contentType";
+import { FieldDefinition } from "@/types/contentTypeConfig";
+import useStrapi from "@/hooks/useStrapi";
+import useCurator from "@/hooks/useCurator";
 
 import RepeatableComponentItem from "./RepeatableComponentItem";
 

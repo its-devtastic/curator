@@ -1,9 +1,9 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
-import SecretsProvider from "~/providers/SecretsProvider";
+import SecretsProvider from "@/providers/SecretsProvider";
 
-import MainMenu from "~/ui/MainMenu";
+import MainMenu from "@/ui/MainMenu";
 
 const Auth: React.FC = () => (
   <SecretsProvider>

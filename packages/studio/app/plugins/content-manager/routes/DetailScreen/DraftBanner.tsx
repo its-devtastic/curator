@@ -5,8 +5,8 @@ import { useFormikContext } from "formik";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import useStrapi from "~/hooks/useStrapi";
-import useContentPermission from "~/hooks/useContentPermission";
+import useStrapi from "@/hooks/useStrapi";
+import useContentPermission from "@/hooks/useContentPermission";
 
 const DraftBanner: React.FC = () => {
   const { t } = useTranslation();

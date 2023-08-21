@@ -3,13 +3,13 @@ import { Form, Formik } from "formik";
 import { useTranslation } from "react-i18next";
 import { Button, Card, Input } from "antd";
 
-import useSession from "~/hooks/useSession";
-import useStrapi from "~/hooks/useStrapi";
+import useSession from "@/hooks/useSession";
+import useStrapi from "@/hooks/useStrapi";
 
-import Spinner from "~/ui/Spinner";
-import Field from "~/ui/Field";
-import FormField from "~/ui/FormField";
-import LocaleSelect from "~/ui/LocaleSelect";
+import Spinner from "@/ui/Spinner";
+import Field from "@/ui/Field";
+import FormField from "@/ui/FormField";
+import LocaleSelect from "@/ui/LocaleSelect";
 
 export default function Profile() {
   const { user, setSession } = useSession();
