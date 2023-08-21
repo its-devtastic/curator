@@ -6,5 +6,4 @@ const withNextra = require("nextra")({
 module.exports = withNextra({
   output: "export",
   images: { unoptimized: true },
-  basePath: process.env.NODE_ENV === "production" ? "/curator" : "",
 });
