@@ -6,7 +6,7 @@ import {
   InjectionZone,
   CuratorConfig,
   MainMenuItem,
-} from "@curatorjs/core";
+} from "@curatorjs/studio";
 
 import PlausibleDashboard from "./routes/PlausibleDashboard";
 import icon from "./assets/icon.png";
