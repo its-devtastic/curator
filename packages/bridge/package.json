@@ -1,10 +1,10 @@
 {
   "name": "@curatorjs/bridge",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "index.tsx",
   "scripts": {
     "prepublishOnly": "npm run styles",
-    "styles": "tailwindcss -i ./styles.css -o ./styles.min.css",
+    "styles": "tailwindcss -i ./styles.css -o ./styles.min.css --minify",
     "styles:watch": "tailwindcss -i ./styles.css -o ./styles.min.css --watch"
   },
   "dependencies": {
