@@ -27,7 +27,6 @@ const DetailScreen: React.FC = () => {
 
   const contentType = contentTypes.find(R.whereEq({ apiID }));
   const contentTypeConfig = config.contentTypes?.find(R.whereEq({ apiID }));
-  const hasDraftState = contentType?.options.draftAndPublish;
   const isSingleType = contentType?.kind === "singleType";
   const locale = search.get("locale");
 

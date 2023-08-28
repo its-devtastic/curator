@@ -13,38 +13,43 @@ import FieldFilters from "./FieldFilters";
 const FilterToolbar: React.FC<{
   contentType: StrapiContentType;
   onRefresh: VoidFunction;
-}> = ({ contentType, onRefresh }) => {
+  loading: boolean;
+}> = ({ contentType, onRefresh, loading }) => {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-      <div className="flex gap-4 items-center">
-        <Input.Search
-          onSearch={async (_q) => {
-            setSearchParams({ _q });
+      <Input.Search
+        onSearch={async (_q) => {
+          setSearchParams((params) => {
+            params.set("_q", _q);
+            return params;
+          });
+        }}
+        defaultValue={searchParams.get("_q") ?? ""}
+        allowClear
+        placeholder={t("filters.search")}
+      />
+      <FieldFilters />
+      {contentType.pluginOptions.i18n?.localized && (
+        <LanguageSelect
+          className="w-48"
+          value={searchParams.get("locale")}
+          onChange={async (locale) => {
+            setSearchParams((params) => {
+              params.set("locale", locale);
+              return params;
+            });
           }}
-          defaultValue={searchParams.get("_q") ?? ""}
-          placeholder={t("filters.search")}
         />
-        <FieldFilters />
-      </div>
-      <div className="flex items-center gap-2">
-        {contentType.pluginOptions.i18n?.localized && (
-          <LanguageSelect
-            className="w-48"
-            value={searchParams.get("locale")}
-            onChange={async (locale) => {
-              setSearchParams({ locale });
-            }}
-          />
-        )}
-        <Button
-          type="text"
-          icon={<FontAwesomeIcon icon={faRefresh} />}
-          onClick={onRefresh}
-        />
-      </div>
+      )}
+      <Button
+        loading={loading}
+        type="text"
+        icon={<FontAwesomeIcon icon={faRefresh} />}
+        onClick={onRefresh}
+      />
     </div>
   );
 };

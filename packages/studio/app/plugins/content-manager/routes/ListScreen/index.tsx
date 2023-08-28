@@ -81,7 +81,7 @@ const ListScreen: React.FC = () => {
           onCreate={({ id }) => navigate(`/content-manager/${apiID}/${id}`)}
         />
       )}
-      {contentTypeConfig && contentType && !loading ? (
+      {contentTypeConfig && contentType ? (
         <div>
           <div className="flex flex-col md:flex-row items-center justify-between my-12 md:mb-24 gap-4">
             <h1 className="m-0">{t(name, { count: 2, ns: "custom" })}</h1>
@@ -109,7 +109,11 @@ const ListScreen: React.FC = () => {
           {hasReadPermission && (
             <>
               <div className="mb-4">
-                <FilterToolbar contentType={contentType} onRefresh={retry} />
+                <FilterToolbar
+                  contentType={contentType}
+                  onRefresh={retry}
+                  loading={loading}
+                />
               </div>
 
               <Table
@@ -232,16 +236,19 @@ const ListScreen: React.FC = () => {
                           onHeaderCell: (column: any) => ({
                             onClick: () => {
                               if (sortable) {
-                                setSearchParams({
-                                  sort: `${column.dataIndex}:${
-                                    isSorted
-                                      ? searchParams
-                                          .get("sort")
-                                          ?.split(":")[1] === "DESC"
-                                        ? "ASC"
-                                        : "DESC"
-                                      : "ASC"
-                                  }`,
+                                setSearchParams((params) => {
+                                  params.set(
+                                    "sort",
+                                    `${column.dataIndex}:${
+                                      isSorted
+                                        ? params.get("sort")?.split(":")[1] ===
+                                          "DESC"
+                                          ? "ASC"
+                                          : "DESC"
+                                        : "ASC"
+                                    }`
+                                  );
+                                  return params;
                                 });
                               }
                             },
@@ -291,8 +298,8 @@ const ListScreen: React.FC = () => {
                           <div className="space-x-1">
                             {R.sortBy(R.prop("locale"))([
                               record,
-                              ...localizations,
-                            ]).map(({ locale }) => (
+                              ...(localizations ?? []),
+                            ]).map(({ locale = "" }) => (
                               <Tooltip title={t(`locales.${locale}`)}>
                                 <span
                                   className={`rounded-sm fi fi-${
@@ -315,7 +322,10 @@ const ListScreen: React.FC = () => {
                 pageSize={Number(searchParams.get("pageSize") ?? 10)}
                 total={collection.pagination?.total}
                 onChange={(page) => {
-                  setSearchParams({ page: String(page) });
+                  setSearchParams((params) => {
+                    params.set("page", String(page));
+                    return params;
+                  });
                 }}
               />
             </>
