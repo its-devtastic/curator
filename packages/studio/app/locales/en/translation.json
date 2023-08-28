@@ -64,6 +64,7 @@
   "content_manager.unsaved_changes": "You have unsaved changes. Are you sure?",
   "content_manager.you_are_editing_a_draft": "You are editing a draft",
   "content_manager.publish_now": "Publish now",
+  "content_manager.clear_filters": "Clear filters",
 
   "media_library.upload": "Upload",
   "media_library.new_folder": "New folder",

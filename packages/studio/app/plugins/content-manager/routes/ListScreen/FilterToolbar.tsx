@@ -1,54 +1,48 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Input } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRefresh } from "@fortawesome/free-solid-svg-icons";
-import { useFormikContext } from "formik";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router-dom";
 
 import LanguageSelect from "@/ui/LanguageSelect";
 import { StrapiContentType } from "@/types/contentType";
 
-const FilterToolbar: React.FC<{ contentType: StrapiContentType }> = ({
-  contentType,
-}) => {
+import FieldFilters from "./FieldFilters";
+
+const FilterToolbar: React.FC<{
+  contentType: StrapiContentType;
+  onRefresh: VoidFunction;
+}> = ({ contentType, onRefresh }) => {
   const { t } = useTranslation();
-  const [loading, setLoading] = useState<false | "button" | "search">(false);
-  const { setFieldValue, values, submitForm } = useFormikContext<any>();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <div className="flex flex-col md:flex-row justify-between items-center gap-4">
       <div className="flex gap-4 items-center">
         <Input.Search
-          loading={loading === "search"}
           onSearch={async (_q) => {
-            setFieldValue("_q", _q);
-            setLoading("search");
-            await submitForm();
-            setLoading(false);
+            setSearchParams({ _q });
           }}
+          defaultValue={searchParams.get("_q") ?? ""}
           placeholder={t("filters.search")}
         />
+        <FieldFilters />
       </div>
       <div className="flex items-center gap-2">
         {contentType.pluginOptions.i18n?.localized && (
           <LanguageSelect
             className="w-48"
-            value={values.locale}
+            value={searchParams.get("locale")}
             onChange={async (locale) => {
-              await setFieldValue("locale", locale);
-              await submitForm();
+              setSearchParams({ locale });
             }}
           />
         )}
         <Button
-          loading={loading === "button"}
           type="text"
           icon={<FontAwesomeIcon icon={faRefresh} />}
-          onClick={async () => {
-            setLoading("button");
-            await submitForm();
-            setLoading(false);
-          }}
+          onClick={onRefresh}
         />
       </div>
     </div>

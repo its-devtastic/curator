@@ -50,7 +50,7 @@ const DetailScreen: React.FC = () => {
       const hooks = config.hooks?.filter(R.whereEq({ trigger: "view" })) ?? [];
 
       for (const hook of hooks) {
-        hook.action(apiID, data, { getSecret });
+        hook.action({ getSecret, apiID, entity: data });
       }
 
       setDocument(data);
@@ -90,7 +90,7 @@ const DetailScreen: React.FC = () => {
               ) ?? [];
 
             for (const hook of hooks) {
-              hook.action(apiID, data, { getSecret });
+              hook.action({ getSecret, apiID, entity: data });
             }
 
             if (params.id === "create") {
