@@ -9,14 +9,21 @@ import useStrapi from "@/hooks/useStrapi";
 import Table from "@/ui/Table";
 
 import CreateButton from "./CreateButton";
+import Boolean from "@/plugins/content-manager/ui/fields/Boolean";
 
 export default function Internationalization() {
   const { t, i18n } = useTranslation();
-  const { locales, sdk, refresh } = useStrapi();
+  const { locales, sdk, permissions, refresh } = useStrapi();
   const [modal, contextHolder] = Modal.useModal();
   const languageNames = useMemo(
     () => new Intl.DisplayNames([i18n.language], { type: "language" }),
     [i18n.language]
+  );
+  const canUpdate = permissions.some(
+    R.whereEq({ action: "plugin::i18n.locale.update" })
+  );
+  const canDelete = permissions.some(
+    R.whereEq({ action: "plugin::i18n.locale.delete" })
   );
 
   return (
@@ -71,7 +78,7 @@ export default function Internationalization() {
                         trigger={["click"]}
                         menu={{
                           items: [
-                            {
+                            canUpdate && {
                               key: "default",
                               label: t("internationalization.set_as_default"),
                               async onClick() {
@@ -84,8 +91,8 @@ export default function Internationalization() {
                                 });
                               },
                             },
-                            { type: "divider" },
-                            {
+                            canUpdate && canDelete && { type: "divider" },
+                            canDelete && {
                               key: "delete",
                               danger: true,
                               label: t("common.delete"),
@@ -111,7 +118,7 @@ export default function Internationalization() {
                                 });
                               },
                             },
-                          ],
+                          ].filter(Boolean) as any[],
                         }}
                       >
                         <Button
