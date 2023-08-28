@@ -13,6 +13,7 @@ import useCurator from "@/hooks/useCurator";
 import UserMenu from "./UserMenu";
 import MainMenuItem from "./MainMenuItem";
 import DarkModeToggle from "./DarkModeToggle";
+import SettingsMenu from "./SettingsMenu";
 
 const MainMenu: React.FC & {
   Item: typeof MainMenuItem;
@@ -29,6 +30,7 @@ const MainMenu: React.FC & {
             InjectionZone.MainMenuTop,
             InjectionZone.MainMenuMiddle,
             InjectionZone.MainMenuBottom,
+            InjectionZone.MainMenuSettings,
           ].includes(zone),
       })
     ) ?? []
@@ -112,6 +114,9 @@ const MainMenu: React.FC & {
               .map(({ render }, index) => (
                 <div key={index}>{render()}</div>
               ))}
+            {items.some(
+              R.whereEq({ zone: InjectionZone.MainMenuSettings })
+            ) && <SettingsMenu />}
             <UserMenu />
           </div>
         </div>

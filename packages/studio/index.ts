@@ -7,6 +7,7 @@ export { default as contentManagerPlugin } from "./app/plugins/content-manager";
 export { default as mediaLibraryPlugin } from "./app/plugins/media-library";
 export { default as dashboardPlugin } from "./app/plugins/dashboard";
 export { default as teamManagerPlugin } from "./app/plugins/team-manager";
+export { default as internationalizationPlugin } from "./app/plugins/internationalization";
 
 // Types
 export type {

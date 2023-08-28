@@ -89,6 +89,8 @@
   "locales.en": "English",
   "locales.nl": "Dutch",
 
+  "internationalization.title": "Internationalization",
+
   "phrases.create_new": "Create new",
   "phrases.upload_image": "Upload image",
   "phrases.translated_field": "Translated field",
@@ -146,5 +148,6 @@
   "common.location": "Location",
   "common.caption": "Caption",
   "common.alternative_text": "Alternative text",
-  "common.search": "Search"
+  "common.search": "Search",
+  "common.settings": "Settings"
 }

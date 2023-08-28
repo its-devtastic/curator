@@ -89,6 +89,8 @@
   "locales.en": "Engels",
   "locales.nl": "Nederlands",
 
+  "internationalization.title": "Internationalisatie",
+
   "phrases.create_new": "Maak",
   "phrases.upload_image": "Upload afbeelding",
   "phrases.translated_field": "Vertaald veld",
@@ -146,5 +148,6 @@
   "common.location": "Locatie",
   "common.caption": "Bijschrift",
   "common.alternative_text": "Alternatieve tekst",
-  "common.search": "Zoeken"
+  "common.search": "Zoeken",
+  "common.settings": "Instellingen"
 }
