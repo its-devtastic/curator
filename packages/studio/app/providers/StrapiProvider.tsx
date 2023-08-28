@@ -1,4 +1,10 @@
-import React, { createContext, useEffect, useMemo, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useAsync } from "react-use";
 import * as R from "ramda";
 import { Alert } from "antd";
@@ -19,6 +25,7 @@ export const Context = createContext<{
   contentTypes: StrapiContentType[];
   permissions: Permission[];
   roles: UserRole[];
+  refresh: () => Promise<void>;
 }>({} as any);
 
 export const StrapiProvider: React.FC<{
@@ -81,9 +88,22 @@ export const StrapiProvider: React.FC<{
     setInit(true);
   }, [token]);
 
+  const refresh = useCallback(async () => {
+    const locales = await sdk.getLocales();
+    setLocales(locales);
+  }, []);
+
   return (
     <Context.Provider
-      value={{ sdk, locales, contentTypes, components, permissions, roles }}
+      value={{
+        sdk,
+        locales,
+        contentTypes,
+        components,
+        permissions,
+        roles,
+        refresh,
+      }}
     >
       {error && <Alert banner type="error" description={error.message} />}
       {init && children}

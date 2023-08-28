@@ -86,10 +86,9 @@
 
   "filters.search": "Search",
 
-  "locales.en": "English",
-  "locales.nl": "Dutch",
-
   "internationalization.title": "Internationalization",
+  "internationalization.description": "Configure which languages content can be translated to.",
+  "internationalization.add": "Add language",
 
   "phrases.create_new": "Create new",
   "phrases.upload_image": "Upload image",
@@ -112,6 +111,7 @@
   "phrases.open_this_menu": "Open this menu",
   "phrases.switch_to_dark_mode": "Switch to dark mode",
   "phrases.switch_to_light_mode": "Switch to light mode",
+  "phrases.is_default": "Is default",
 
   "common.edit": "Edit",
   "common.create": "Create",

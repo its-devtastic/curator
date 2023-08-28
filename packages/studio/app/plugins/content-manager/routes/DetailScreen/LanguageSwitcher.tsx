@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useMemo } from "react";
 import * as R from "ramda";
 import { useFormikContext } from "formik";
 import { useParams, useNavigate } from "react-router-dom";
@@ -16,7 +16,7 @@ const LanguageSwitcher: React.FC = () => {
   const apiID = params.apiID as string;
   const navigate = useNavigate();
   const { sdk, locales, contentTypes } = useStrapi();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { values } = useFormikContext<any>();
   const isSingleType =
     contentTypes.find(R.whereEq({ apiID }))?.kind === "singleType";
@@ -24,6 +24,10 @@ const LanguageSwitcher: React.FC = () => {
     ({ code }) =>
       code !== values.locale &&
       !values.localizations?.some(R.whereEq({ locale: code }))
+  );
+  const languageNames = useMemo(
+    () => new Intl.DisplayNames([i18n.language], { type: "language" }),
+    [i18n.language]
   );
 
   return (
@@ -65,7 +69,7 @@ const LanguageSwitcher: React.FC = () => {
                       code.startsWith("en") ? "us" : code.split("-")[0]
                     }`}
                   />
-                  <span>{t(`locales.${code}`)}</span>
+                  <span>{languageNames.of(code)}</span>
                 </div>
               ),
               key: code,

@@ -1,98 +1,65 @@
-import React, { useState } from "react";
+import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, Tag } from "antd";
-import { useAsyncRetry } from "react-use";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import * as R from "ramda";
-import { useNavigate } from "react-router-dom";
 
-import { Pagination as IPagination } from "@/types/response";
-import { AdminUser } from "@/types/adminUser";
 import useStrapi from "@/hooks/useStrapi";
 import Table from "@/ui/Table";
 
+import CreateButton from "./CreateButton";
+
 export default function Internationalization() {
-  const { t } = useTranslation();
-  const { sdk, permissions } = useStrapi();
-  const navigate = useNavigate();
-  const canCreate = permissions.some(
-    R.whereEq({ action: "admin::users.create" })
+  const { t, i18n } = useTranslation();
+  const { locales } = useStrapi();
+  const languageNames = useMemo(
+    () => new Intl.DisplayNames([i18n.language], { type: "language" }),
+    [i18n.language]
   );
-
-  const [collection, setCollection] = useState<{
-    pagination: IPagination | null;
-    results: AdminUser[];
-  }>({
-    pagination: null,
-    results: [],
-  });
-
-  const { loading, retry } = useAsyncRetry(async () => {
-    const data = await sdk.getAdminUsers({ sort: "updatedAt:DESC" });
-    setCollection(data);
-  }, [sdk]);
 
   return (
     <div className="px-4 md:px-12">
-      <div className="flex items-center justify-between my-12 pb-6 border-b border-0 border-solid border-gray-200">
-        <div>
-          <h1 className="mt-0 mb-4">{t("team.title")}</h1>
-          <div className="text-sm text-gray-600">{t("team.description")}</div>
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-6 my-12 pb-6 border-b border-0 border-solid border-gray-200">
+        <div className="text-center lg:text-left">
+          <h1 className="mt-0 mb-4">{t("internationalization.title")}</h1>
+          <div className="text-sm text-gray-600">
+            {t("internationalization.description")}
+          </div>
         </div>
-        {canCreate && (
-          <Button type="primary" htmlType="submit">
-            {t("team.invite")}
-          </Button>
-        )}
+        <CreateButton />
       </div>
       <Table
-        dataSource={collection.results}
-        loading={loading}
-        onRow={({ id }) => ({
-          onClick() {
-            navigate(`/team/${id}`);
-          },
-        })}
+        dataSource={R.sortWith([R.ascend(R.prop("name"))], locales)}
+        pagination={{
+          pageSize: 10,
+          hideOnSinglePage: true,
+        }}
         columns={[
           {
             key: "name",
+            dataIndex: "code",
             title: t("common.name"),
-            render(record) {
+            render(code) {
               return (
-                <span className="font-medium">
-                  {`${record.firstname ?? ""} ${record.lastname ?? ""}`.trim()}
-                </span>
-              );
-            },
-          },
-          {
-            title: t("common.email"),
-            key: "email",
-            dataIndex: "email",
-          },
-          {
-            key: "roles",
-            dataIndex: "roles",
-            render(roles: AdminUser["roles"]) {
-              return (
-                <div className="space-x-1">
-                  {roles.map((role) => (
-                    <Tag key={role.id} color="geekblue" bordered={false}>
-                      {role.name}
-                    </Tag>
-                  ))}
+                <div className="flex items-center gap-3">
+                  <span
+                    className={`rounded-sm fi fi-${
+                      code.startsWith("en") ? "us" : code.split("-")[0]
+                    }`}
+                  />
+                  {languageNames.of(code)}
                 </div>
               );
             },
           },
           {
-            key: "isActive",
-            dataIndex: "isActive",
-            render(isActive) {
-              return (
-                <Tag color={isActive ? "green" : "yellow"} bordered={false}>
-                  {isActive ? t("common.active") : t("common.inactive")}
-                </Tag>
-              );
+            key: "isDefault",
+            dataIndex: "isDefault",
+            title: t("phrases.is_default"),
+            render(isDefault) {
+              return isDefault ? (
+                <FontAwesomeIcon icon={faCheck} className="text-emerald-400" />
+              ) : null;
             },
           },
         ]}

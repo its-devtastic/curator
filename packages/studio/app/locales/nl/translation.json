@@ -90,6 +90,8 @@
   "locales.nl": "Nederlands",
 
   "internationalization.title": "Internationalisatie",
+  "internationalization.description": "Beheer de beschikbare talen waarnaar vertaald kan worden.",
+  "internationalization.add": "Voeg taal toe",
 
   "phrases.create_new": "Maak",
   "phrases.upload_image": "Upload afbeelding",
@@ -112,6 +114,7 @@
   "phrases.open_this_menu": "Open dit menu",
   "phrases.switch_to_dark_mode": "Schakel over naar donkere modus",
   "phrases.switch_to_light_mode": "Schakel over naar lichte modus",
+  "phrases.is_default": "Is standaard",
 
   "common.edit": "Bewerk",
   "common.create": "Aanmaken",
