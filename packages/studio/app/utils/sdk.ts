@@ -418,6 +418,19 @@ export class StrapiSdk {
     return data;
   }
 
+  public async updateLocale(id: number, payload: { isDefault?: boolean }) {
+    const { data } = await this.http.put<StrapiLocale>(
+      `/i18n/locales/${id}`,
+      payload
+    );
+
+    return data;
+  }
+
+  public async deleteLocale(id: number) {
+    await this.http.delete<StrapiLocale>(`/i18n/locales/${id}`);
+  }
+
   public async getIsoLocales() {
     const { data } = await this.http.get<{ code: string; name: string }[]>(
       "/i18n/iso-locales"

@@ -89,6 +89,11 @@
   "internationalization.title": "Internationalization",
   "internationalization.description": "Configure which languages content can be translated to.",
   "internationalization.add": "Add language",
+  "internationalization.locale_added": "{{locale}} has been added.",
+  "internationalization.delete_warning": "This will delete all content in this language.",
+  "internationalization.deleted": "Language has been deleted",
+  "internationalization.set_as_default": "Set as default",
+  "internationalization.default_updated": "Default language has been updated.",
 
   "phrases.create_new": "Create new",
   "phrases.upload_image": "Upload image",
@@ -111,7 +116,6 @@
   "phrases.open_this_menu": "Open this menu",
   "phrases.switch_to_dark_mode": "Switch to dark mode",
   "phrases.switch_to_light_mode": "Switch to light mode",
-  "phrases.is_default": "Is default",
 
   "common.edit": "Edit",
   "common.create": "Create",
@@ -149,5 +153,6 @@
   "common.caption": "Caption",
   "common.alternative_text": "Alternative text",
   "common.search": "Search",
-  "common.settings": "Settings"
+  "common.settings": "Settings",
+  "common.default": "Default"
 }

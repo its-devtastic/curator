@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Select } from "antd";
+import { notification, Select } from "antd";
 import * as R from "ramda";
 import { useAsync } from "react-use";
 
@@ -48,6 +48,9 @@ export default function CreateButton() {
       onChange={async (value: string, { text }: any) => {
         elRef.current?.blur();
         await create(value, text);
+        notification.success({
+          message: t("internationalization.locale_added", { locale: text }),
+        });
       }}
       loading={loading}
       value={null}
