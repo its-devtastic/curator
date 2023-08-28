@@ -86,8 +86,14 @@
 
   "filters.search": "Search",
 
-  "locales.en": "English",
-  "locales.nl": "Dutch",
+  "internationalization.title": "Internationalization",
+  "internationalization.description": "Configure which languages content can be translated to.",
+  "internationalization.add": "Add language",
+  "internationalization.locale_added": "{{locale}} has been added.",
+  "internationalization.delete_warning": "This will delete all content in this language.",
+  "internationalization.deleted": "Language has been deleted",
+  "internationalization.set_as_default": "Set as default",
+  "internationalization.default_updated": "Default language has been updated.",
 
   "phrases.create_new": "Create new",
   "phrases.upload_image": "Upload image",
@@ -146,5 +152,7 @@
   "common.location": "Location",
   "common.caption": "Caption",
   "common.alternative_text": "Alternative text",
-  "common.search": "Search"
+  "common.search": "Search",
+  "common.settings": "Settings",
+  "common.default": "Default"
 }

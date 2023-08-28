@@ -46,11 +46,7 @@ export class StrapiSdk {
 
     return data;
   }
-  public async getLocales() {
-    const { data } = await this.http.get<StrapiLocale[]>("/i18n/locales");
 
-    return data;
-  }
   public async getComponents() {
     const { data } = await this.http.get<{ data: StrapiComponent[] }>(
       "/content-manager/components"
@@ -401,6 +397,51 @@ export class StrapiSdk {
     return data.data;
   }
 
+  /**
+   * i18n plugin methods.
+   */
+  public async getLocales(params?: GetManyParams) {
+    const { data } = await this.http.get<StrapiLocale[]>("/i18n/locales", {
+      params,
+    });
+
+    return data;
+  }
+
+  public async createLocale(locale: string, name: string) {
+    const { data } = await this.http.post<StrapiLocale>("/i18n/locales", {
+      name,
+      code: locale,
+      isDefault: false,
+    });
+
+    return data;
+  }
+
+  public async updateLocale(id: number, payload: { isDefault?: boolean }) {
+    const { data } = await this.http.put<StrapiLocale>(
+      `/i18n/locales/${id}`,
+      payload
+    );
+
+    return data;
+  }
+
+  public async deleteLocale(id: number) {
+    await this.http.delete<StrapiLocale>(`/i18n/locales/${id}`);
+  }
+
+  public async getIsoLocales() {
+    const { data } = await this.http.get<{ code: string; name: string }[]>(
+      "/i18n/iso-locales"
+    );
+
+    return data;
+  }
+
+  /**
+   * Helper methods.
+   */
   public generateTempId() {
     return `__tmp__${nanoid()}`;
   }

@@ -89,6 +89,15 @@
   "locales.en": "Engels",
   "locales.nl": "Nederlands",
 
+  "internationalization.title": "Internationalisatie",
+  "internationalization.description": "Beheer de beschikbare talen waarnaar vertaald kan worden.",
+  "internationalization.add": "Voeg taal toe",
+  "internationalization.locale_added": "{{locale}} is toegevoegd.",
+  "internationalization.delete_warning": "Alle content in deze taal wordt verwijderd.",
+  "internationalization.deleted": "Taal is verwijderd",
+  "internationalization.set_as_default": "Maak standaard",
+  "internationalization.default_updated": "Standaardtaal is gewijzigd.",
+
   "phrases.create_new": "Maak",
   "phrases.upload_image": "Upload afbeelding",
   "phrases.translated_field": "Vertaald veld",
@@ -146,5 +155,7 @@
   "common.location": "Locatie",
   "common.caption": "Bijschrift",
   "common.alternative_text": "Alternatieve tekst",
-  "common.search": "Zoeken"
+  "common.search": "Zoeken",
+  "common.settings": "Instellingen",
+  "common.default": "Standaard"
 }

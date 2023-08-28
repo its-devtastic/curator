@@ -35,6 +35,7 @@ export enum InjectionZone {
   MainMenuTop = "mainMenu::top",
   MainMenuMiddle = "mainMenu::middle",
   MainMenuBottom = "mainMenu::bottom",
+  MainMenuSettings = "mainMenu::settings",
 }
 
 export interface ComponentConfig {
