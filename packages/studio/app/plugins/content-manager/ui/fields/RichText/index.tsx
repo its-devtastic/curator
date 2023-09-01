@@ -9,7 +9,7 @@ import { FieldDefinition } from "@/types/contentTypeConfig";
 import { Attribute } from "@/types/contentType";
 
 import "./RichtText.css";
-import FormattingMenu from "./FormattingMenu";
+import FormattingMenu from "./components/FormattingMenu";
 
 const extensions = [
   StarterKit,
