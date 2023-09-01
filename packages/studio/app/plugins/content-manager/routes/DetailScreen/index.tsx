@@ -46,17 +46,23 @@ const DetailScreen: React.FC = () => {
         isSingleType ? undefined : Number(params.id),
         { params: { locale: defaultLocale } }
       );
+
       const hooks = config.hooks?.filter(R.whereEq({ trigger: "view" })) ?? [];
 
       for (const hook of hooks) {
-        hook.action({ getSecret, apiID, entity: data });
+        try {
+          hook.action({ getSecret, apiID, entity: data });
+        } catch (e) {
+          console.warn(e);
+        }
       }
 
       setDocument(data);
     } catch (e: any) {
+      console.error(e);
       if (e.response.status === 404) {
         if (isSingleType) {
-          return { locale: defaultLocale };
+          return setDocument({ locale: defaultLocale });
         }
         navigate(`/content-manager/${apiID}`);
       }

@@ -4,6 +4,7 @@ import {
   contentManagerPlugin,
   mediaLibraryPlugin,
   teamManagerPlugin,
+  internationalizationPlugin,
 } from "@curatorjs/studio";
 
 import contentTypes from "./config/contentTypes";
@@ -26,16 +27,8 @@ const curatorConfig: CuratorConfig = {
   plugins: [
     mediaLibraryPlugin(),
     teamManagerPlugin(),
-    dashboardPlugin({
-      recentlyOpened: {
-        renderTitle(item: any) {
-          switch (item.apiID) {
-            case "page":
-              return item.title;
-          }
-        },
-      },
-    }),
+    dashboardPlugin({ widgets: ["recentlyOpened"] }),
+    internationalizationPlugin(),
     contentManagerPlugin({
       menu: {
         groups: [
