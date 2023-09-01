@@ -19,37 +19,42 @@ const FilterToolbar: React.FC<{
   const [searchParams, setSearchParams] = useSearchParams();
 
   return (
-    <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-      <Input.Search
-        onSearch={async (_q) => {
-          setSearchParams((params) => {
-            params.set("_q", _q);
-            return params;
-          });
-        }}
-        defaultValue={searchParams.get("_q") ?? ""}
-        allowClear
-        placeholder={t("filters.search")}
-      />
-      <FieldFilters />
-      {contentType.pluginOptions.i18n?.localized && (
-        <LanguageSelect
-          className="w-48"
-          value={searchParams.get("locale")}
-          onChange={async (locale) => {
+    <div className="space-y-4">
+      <div className="flex flex-row justify-between items-center gap-4 flex-1">
+        <Input.Search
+          onSearch={async (_q) => {
             setSearchParams((params) => {
-              params.set("locale", locale);
+              params.set("_q", _q);
               return params;
             });
           }}
+          defaultValue={searchParams.get("_q") ?? ""}
+          allowClear
+          placeholder={t("filters.search")}
+          className="max-w-[260px]"
         />
-      )}
-      <Button
-        loading={loading}
-        type="text"
-        icon={<FontAwesomeIcon icon={faRefresh} />}
-        onClick={onRefresh}
-      />
+        <div className="flex items-center gap-4 flex-1 justify-end">
+          {contentType.pluginOptions.i18n?.localized && (
+            <LanguageSelect
+              className="max-w-[180px] w-full"
+              value={searchParams.get("locale")}
+              onChange={async (locale) => {
+                setSearchParams((params) => {
+                  params.set("locale", locale);
+                  return params;
+                });
+              }}
+            />
+          )}
+          <Button
+            loading={loading}
+            type="text"
+            icon={<FontAwesomeIcon icon={faRefresh} />}
+            onClick={onRefresh}
+          />
+        </div>
+      </div>
+      <FieldFilters />
     </div>
   );
 };
