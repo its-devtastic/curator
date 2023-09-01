@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Select, SelectProps } from "antd";
 import { useTranslation } from "react-i18next";
 import * as R from "ramda";
@@ -12,8 +12,12 @@ const LanguageSelect: React.FC<SelectProps & { locales?: StrapiLocale[] }> = ({
   ...props
 }) => {
   const { locales: defaultLocales } = useStrapi();
-  const { t } = useTranslation();
+  const { i18n } = useTranslation();
   const options = locales ?? defaultLocales;
+  const languageNames = useMemo(
+    () => new Intl.DisplayNames([i18n.language], { type: "language" }),
+    [i18n.language]
+  );
 
   return (
     <Select
@@ -27,7 +31,7 @@ const LanguageSelect: React.FC<SelectProps & { locales?: StrapiLocale[] }> = ({
                 code.startsWith("en") ? "us" : code.split("-")[0]
               }`}
             />
-            <span>{t(`locales.${code}`)}</span>
+            <span>{languageNames.of(code)}</span>
           </div>
         ),
         value: code,
