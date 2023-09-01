@@ -101,6 +101,16 @@
   "filters.last": "Last",
   "filters.insensitive": "Case-insensitive",
 
+  "rich_text_editor.heading1": "Heading 1",
+  "rich_text_editor.heading2": "Heading 2",
+  "rich_text_editor.heading3": "Heading 3",
+  "rich_text_editor.heading4": "Heading 4",
+  "rich_text_editor.heading5": "Heading 5",
+  "rich_text_editor.heading6": "Heading 6",
+  "rich_text_editor.paragraph": "Paragraph",
+  "rich_text_editor.blockquote": "Blockquote",
+  "rich_text_editor.codeBlock": "Code block",
+
   "internationalization.title": "Internationalization",
   "internationalization.description": "Configure which languages content can be translated to.",
   "internationalization.add": "Add language",

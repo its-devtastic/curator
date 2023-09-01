@@ -6,13 +6,16 @@ const Popover: React.FC<
     PopoverProps,
     "content"
   >
-> = ({ content, children, ...props }) => {
+> = ({ content, children, onOpenChange, ...props }) => {
   const [open, setOpen] = useState(false);
 
   return (
     <BasePopover
       open={open}
-      onOpenChange={setOpen}
+      onOpenChange={(open) => {
+        setOpen(open);
+        onOpenChange?.(open);
+      }}
       content={content(() => setOpen(false))}
       arrow={false}
       {...props}
