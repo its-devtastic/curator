@@ -8,7 +8,7 @@ const Field: React.FC<FieldProps> = ({ children, name }) => {
     ...field,
     onChange: (valueOrEvent: any) =>
       helper.setValue(valueOrEvent.target?.value ?? valueOrEvent),
-    error: meta.touched && meta.error,
+    status: meta.touched && meta.error ? "error" : undefined,
   });
 };
 

@@ -17,8 +17,18 @@ export interface ContentTypeConfig {
   getEntityUrl?(entity: Entity): string;
   /**
    * Renders the content entity, for example in relational fields.
+   * Although not required it is recommended to implement this field.
+   *
+   * @example
+   * A simple implementation will just return the identifying field:
+   * ```
+   * render(entity) => entity.title
+   * ```
    */
-  render?(entity: Entity, utils: { t: TFunction }): React.ReactNode;
+  render?(
+    entity: Entity,
+    utils: { t: TFunction<"custom">; context: RenderContext }
+  ): React.ReactNode;
 }
 
 export interface FieldDefinition {
@@ -50,3 +60,14 @@ export type InputType =
   | "uid"
   | "date"
   | "email";
+
+export enum RenderContext {
+  /*
+   * Inside a selector or list view. Use limited height.
+   */
+  List = "list",
+  /*
+   * Inside a card. Used to represent the entity in relational fields.
+   */
+  Card = "card",
+}

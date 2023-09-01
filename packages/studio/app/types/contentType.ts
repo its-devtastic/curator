@@ -27,7 +27,7 @@ export interface Attribute {
     };
   };
   components?: string[];
-  [p: string]: unknown;
+  [p: string]: any;
 }
 
 export interface StrapiComponent {

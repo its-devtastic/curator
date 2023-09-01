@@ -26,3 +26,7 @@ export { Item as MainMenuItem } from "./app/ui/MainMenu";
 
 // Hooks
 export { default as useSecrets } from "./app/hooks/useSecrets";
+export { default as useFilters } from "./app/hooks/useFilters";
+
+// Utils
+export { parseFilterParams } from "./app/utils/filters";

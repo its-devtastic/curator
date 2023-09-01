@@ -14,7 +14,7 @@ import useContentPermission from "@/hooks/useContentPermission";
 import Field from "@/ui/Field";
 import FormField from "@/ui/FormField";
 
-import { FIELD_TYPES } from "../utils/constants";
+import { FIELD_TYPES } from "../constants";
 
 const FieldRenderer: React.FC<{
   field?: FieldDefinition;

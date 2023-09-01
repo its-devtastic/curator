@@ -64,6 +64,8 @@
   "content_manager.unsaved_changes": "Je hebt niet-opgeslagen wijzigingen. Weet je het zeker?",
   "content_manager.you_are_editing_a_draft": "Je werkt aan een concept.",
   "content_manager.publish_now": "Publiceer nu",
+  "content_manager.clear_filters": "Filters wissen",
+  "content_manager.filtering_on": "Filteren op {{type}}",
 
   "media_library.upload": "Upload",
   "media_library.new_folder": "Nieuwe map",
@@ -85,6 +87,11 @@
   "dashboard.recently_opened": "Onlangs geopend",
 
   "filters.search": "Zoeken",
+  "filters.last_n": "Is in de laatste",
+  "filters.eq": "Is gelijk aan",
+  "filters.days": "Dagen",
+  "filters.months": "Maanden",
+  "filters.last": "Afgelopen",
 
   "locales.en": "Engels",
   "locales.nl": "Nederlands",
@@ -157,5 +164,6 @@
   "common.alternative_text": "Alternatieve tekst",
   "common.search": "Zoeken",
   "common.settings": "Instellingen",
-  "common.default": "Standaard"
+  "common.default": "Standaard",
+  "common.apply": "Toepassen"
 }

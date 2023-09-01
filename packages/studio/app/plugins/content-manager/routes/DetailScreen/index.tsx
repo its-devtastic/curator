@@ -27,7 +27,6 @@ const DetailScreen: React.FC = () => {
 
   const contentType = contentTypes.find(R.whereEq({ apiID }));
   const contentTypeConfig = config.contentTypes?.find(R.whereEq({ apiID }));
-  const hasDraftState = contentType?.options.draftAndPublish;
   const isSingleType = contentType?.kind === "singleType";
   const locale = search.get("locale");
 
@@ -50,7 +49,7 @@ const DetailScreen: React.FC = () => {
       const hooks = config.hooks?.filter(R.whereEq({ trigger: "view" })) ?? [];
 
       for (const hook of hooks) {
-        hook.action(apiID, data, { getSecret });
+        hook.action({ getSecret, apiID, entity: data });
       }
 
       setDocument(data);
@@ -90,7 +89,7 @@ const DetailScreen: React.FC = () => {
               ) ?? [];
 
             for (const hook of hooks) {
-              hook.action(apiID, data, { getSecret });
+              hook.action({ getSecret, apiID, entity: data });
             }
 
             if (params.id === "create") {

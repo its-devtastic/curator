@@ -64,6 +64,8 @@
   "content_manager.unsaved_changes": "You have unsaved changes. Are you sure?",
   "content_manager.you_are_editing_a_draft": "You are editing a draft",
   "content_manager.publish_now": "Publish now",
+  "content_manager.clear_filters": "Clear filters",
+  "content_manager.filtering_on": "Filter on {{type}}",
 
   "media_library.upload": "Upload",
   "media_library.new_folder": "New folder",
@@ -85,6 +87,19 @@
   "dashboard.recently_opened": "Recently opened",
 
   "filters.search": "Search",
+  "filters.last_n": "Is in the last",
+  "filters.eq": "Is equal to",
+  "filters.lt": "Is less than",
+  "filters.lte": "Is less than or equal to",
+  "filters.gt": "Is greater than",
+  "filters.gte": "Is greater than or equal to",
+  "filters.contains": "Contains",
+  "filters.startsWith": "Starts with",
+  "filters.endsWith": "Ends with",
+  "filters.days": "Days",
+  "filters.months": "Months",
+  "filters.last": "Last",
+  "filters.insensitive": "Case-insensitive",
 
   "internationalization.title": "Internationalization",
   "internationalization.description": "Configure which languages content can be translated to.",
@@ -154,5 +169,6 @@
   "common.alternative_text": "Alternative text",
   "common.search": "Search",
   "common.settings": "Settings",
-  "common.default": "Default"
+  "common.default": "Default",
+  "common.apply": "Apply"
 }
