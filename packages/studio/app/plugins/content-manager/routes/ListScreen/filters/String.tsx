@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Button, InputNumber, Select } from "antd";
+import { Button, Checkbox, Input, Select } from "antd";
 import { useTranslation } from "react-i18next";
 import { Form, Formik } from "formik";
 
@@ -7,9 +7,9 @@ import { Attribute } from "@/types/contentType";
 import Field from "@/ui/Field";
 import useFilters from "@/hooks/useFilters";
 
-const OPERATORS = ["eq", "lt", "lte", "gt", "gte"];
+const OPERATORS = ["eq", "contains", "startsWith", "endsWith"];
 
-export default function Integer({
+export default function String({
   onSubmit,
   attribute,
   path,
@@ -25,18 +25,20 @@ export default function Integer({
   return (
     <Formik
       initialValues={{
-        operator: Object.keys(filter)[0]?.replace("$", "") ?? "eq",
+        operator:
+          Object.keys(filter)[0]?.replace(/(^\$|i$)/g, "") ?? "contains",
+        insensitive: Object.keys(filter)[0]?.endsWith("i") ?? true,
         value: Object.values(filter)[0] ?? "",
       }}
       onSubmit={(values) => {
         updateFilter(path, {
-          [`$${values.operator}`]: values.value,
+          [`$${values.operator}${values.insensitive ? "i" : ""}`]: values.value,
         });
 
         onSubmit();
       }}
     >
-      {({ submitForm }) => (
+      {({ values, submitForm, setFieldValue }) => (
         <Form className="space-y-2">
           <Field name="operator">
             <Select
@@ -48,13 +50,18 @@ export default function Integer({
             />
           </Field>
           <Field name="value">
-            <InputNumber
-              className="w-[200px]"
-              min={1}
-              precision={0}
-              stringMode
-            />
+            <Input />
           </Field>
+
+          <div>
+            <label className="space-x-2">
+              <Checkbox
+                checked={values.insensitive}
+                onChange={(e) => setFieldValue("insensitive", e.target.checked)}
+              />
+              <span>{t("filters.insensitive")}</span>
+            </label>
+          </div>
 
           <Button
             type="primary"
@@ -73,12 +80,12 @@ function FilterValue({ filter }: { filter: Record<string, string> }) {
   const { t } = useTranslation();
 
   const label = useMemo(() => {
-    return `${t(`filters.${Object.keys(filter)[0]?.replace("$", "")}`)} ${
-      Object.values(filter)[0]
-    }`;
+    return `${t(
+      `filters.${Object.keys(filter)[0]?.replace(/(^\$|i$)/g, "")}`
+    )} ${Object.values(filter)[0]}`;
   }, [filter]);
 
   return <span>{label}</span>;
 }
 
-Integer.FilterValue = FilterValue;
+String.FilterValue = FilterValue;

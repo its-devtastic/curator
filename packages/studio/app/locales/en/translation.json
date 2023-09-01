@@ -94,9 +94,12 @@
   "filters.gt": "Is greater than",
   "filters.gte": "Is greater than or equal to",
   "filters.contains": "Contains",
+  "filters.startsWith": "Starts with",
+  "filters.endsWith": "Ends with",
   "filters.days": "Days",
   "filters.months": "Months",
   "filters.last": "Last",
+  "filters.insensitive": "Case-insensitive",
 
   "internationalization.title": "Internationalization",
   "internationalization.description": "Configure which languages content can be translated to.",

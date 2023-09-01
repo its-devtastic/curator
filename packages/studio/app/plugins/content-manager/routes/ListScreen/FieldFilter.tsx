@@ -12,10 +12,12 @@ import Popover from "@/ui/Popover";
 
 import Date from "./filters/Date";
 import Integer from "./filters/Integer";
+import String from "./filters/String";
 
 const FILTER_FORMS: Record<string, any> = {
   datetime: Date,
   integer: Integer,
+  string: String,
 };
 
 export default function FieldFilter({
@@ -37,7 +39,7 @@ export default function FieldFilter({
   const isActive = R.has(path, filters);
   const label = t(field?.label ?? path, { ns: "custom" });
 
-  return (
+  return filterComponent ? (
     <Popover
       arrow
       trigger={["click"]}
@@ -83,5 +85,5 @@ export default function FieldFilter({
         </div>
       </Button>
     </Popover>
-  );
+  ) : null;
 }
