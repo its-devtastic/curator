@@ -6,7 +6,7 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 import { MediaItem } from "@/types/media";
 
-import MediaLibraryPopover from "./MediaLibraryPopover";
+import MediaLibraryPopover from "../../MediaLibraryPopover";
 
 const MediaField: React.FC<MediaFieldProps> = ({
   value,

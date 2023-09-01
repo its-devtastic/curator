@@ -1,3 +1,32 @@
-.ck-editor__editable {
-  min-height: 400px !important;
+.rich-text-field {
+  @apply focus:outline-none p-4 min-h-[400px];
+
+  & h1 {
+    @apply mt-0 mb-6;
+  }
+
+  & h2 {
+    @apply mt-0 mb-4;
+  }
+
+  & h3,
+  & h4,
+  & h5,
+  & h6 {
+    @apply mt-0 mb-2;
+  }
+
+  & blockquote {
+    @apply border-l-2 border-gray-200 border-solid border-0 mx-0 px-4 text-gray-600 dark:text-gray-100;
+  }
+
+  & .rich-text-image {
+    @apply bg-gray-100 rounded-md h-auto max-w-full cursor-grab h-12 w-12 active:cursor-grabbing;
+    &.ProseMirror-selectednode {
+      @apply ring-1 ring-indigo-500;
+    }
+  }
+}
+.richt-text-button {
+  @apply bg-transparent hover:bg-gray-50 dark:hover:bg-gray-700 dark:text-white border-none h-full flex items-center justify-center cursor-pointer min-w-[32px];
 }

@@ -7,6 +7,8 @@ import { InjectionZone } from "@/types/config";
 import MainMenuItem from "./ui/MainMenuItem";
 import ListScreen from "./routes/ListScreen";
 
+export { default as MediaLibraryPopover } from "./ui/MediaLibraryPopover";
+
 export default function mediaLibraryPlugin({
   weight,
 }: { weight?: number } = {}) {

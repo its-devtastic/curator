@@ -14,7 +14,7 @@ import { MediaItem } from "@/types/media";
 import useStrapi from "@/hooks/useStrapi";
 import usePreferences from "@/hooks/usePreferences";
 
-import UploadButton from "../../UploadButton";
+import UploadButton from "./UploadButton";
 
 const MediaLibraryPopover: React.FC<{
   onChange(item: MediaItem): void;
@@ -78,7 +78,7 @@ const MediaLibraryPopover: React.FC<{
               {R.times(R.identity, 12).map((idx) => (
                 <div
                   key={idx}
-                  className="w-24 h-24 rounded-sm bg-gray-100 animate-pulse"
+                  className="w-24 h-24 rounded-sm bg-gray-100 dark:bg-gray-700 animate-pulse"
                 />
               ))}
             </>
@@ -92,7 +92,7 @@ const MediaLibraryPopover: React.FC<{
               <Tooltip title={item.name}>
                 {item.mime.startsWith("image/") ? (
                   <img
-                    className="flex w-full h-full rounded-sm object-cover hover:opacity-80 bg-gray-50"
+                    className="flex w-full h-full rounded-sm object-cover hover:opacity-80 bg-gray-50 dark:bg-gray-700"
                     src={
                       item.mime === "image/svg+xml"
                         ? item.url
@@ -102,7 +102,7 @@ const MediaLibraryPopover: React.FC<{
                   />
                 ) : item.mime.startsWith("video/") ? (
                   <video
-                    className="flex w-full h-full rounded-sm object-cover hover:opacity-80 bg-gray-50"
+                    className="flex w-full h-full rounded-sm object-cover hover:opacity-80 bg-gray-50 dark:bg-gray-700"
                     src={item.url}
                   />
                 ) : item.mime.startsWith("audio/") ? (
@@ -124,7 +124,7 @@ const MediaLibraryPopover: React.FC<{
               {R.times(R.identity, 12).map((idx) => (
                 <div
                   key={idx}
-                  className="h-4 rounded-sm bg-gray-100 animate-pulse"
+                  className="h-4 rounded-sm bg-gray-100 dark:bg-gray-700 animate-pulse"
                 />
               ))}
             </>
@@ -133,7 +133,7 @@ const MediaLibraryPopover: React.FC<{
             <div
               key={item.id}
               onClick={() => onChange(item)}
-              className="hover:cursor-pointer hover:bg-gray-50 p-2 flex gap-4"
+              className="hover:cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-2 flex gap-4"
             >
               <div className="w-10 h-10">
                 {item.mime.startsWith("image/") ? (
