@@ -4,18 +4,18 @@ import { useAsync } from "react-use";
 import { List } from "antd";
 import { useNavigate } from "react-router-dom";
 import * as R from "ramda";
+import { TFunction } from "i18next";
 
+import { RenderContext } from "@/types/contentTypeConfig";
 import useDashboard from "@/plugins/dashboard/useDashboard";
 import useStrapi from "@/hooks/useStrapi";
 import CalendarTime from "@/ui/CalendarTime";
 import useCurator from "@/hooks/useCurator";
 
-const RecentlyOpened: React.FC<{
-  renderTitle?(item: any): React.ReactNode;
-}> = ({ renderTitle }) => {
+const RecentlyOpened: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { sdk, contentTypes } = useStrapi();
+  const { sdk } = useStrapi();
   const config = useCurator();
   const recentlyOpened = useDashboard((state) => state.recentlyOpened);
   const hash = recentlyOpened.reduce(
@@ -66,7 +66,11 @@ const RecentlyOpened: React.FC<{
               <List.Item.Meta
                 title={
                   <span className="text-gray-700 dark:text-gray-300">
-                    {renderTitle?.(item) ?? item.title}
+                    {contentType?.render?.(item, {
+                      context: RenderContext.List,
+                      t: ((key: string, opts: any) =>
+                        t(key, { ns: "custom", ...opts })) as TFunction,
+                    }) ?? item.title}
                   </span>
                 }
                 description={

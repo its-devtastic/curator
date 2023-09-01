@@ -8,6 +8,7 @@ const DashboardScreen: React.FC<{ pluginOptions: DashboardPluginOptions }> = ({
   pluginOptions,
 }) => {
   const { t } = useTranslation();
+  const widgets = pluginOptions.widgets ?? [];
 
   return (
     <div className="px-4 md:px-12 py-12 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-12">
@@ -15,11 +16,7 @@ const DashboardScreen: React.FC<{ pluginOptions: DashboardPluginOptions }> = ({
         <h1>{t("dashboard.welcome")}</h1>
         <div>{t("dashboard.description")}</div>
       </div>
-      <div>
-        <RecentlyOpened
-          renderTitle={pluginOptions.recentlyOpened?.renderTitle}
-        />
-      </div>
+      <div>{widgets.includes("recentlyOpened") && <RecentlyOpened />}</div>
     </div>
   );
 };

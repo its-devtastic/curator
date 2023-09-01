@@ -28,8 +28,8 @@ export default function dashboardPlugin(
       }),
       hooks: R.append<any>({
         trigger: "view",
-        action: (apiID: string, { id }: any) => {
-          useDashboard.getState().addRecentlyOpened(apiID, id);
+        action: ({ entity, apiID }: any) => {
+          useDashboard.getState().addRecentlyOpened(apiID, entity.id);
         },
       }),
     })(config);
@@ -37,8 +37,6 @@ export default function dashboardPlugin(
 }
 
 export interface DashboardPluginOptions {
-  recentlyOpened?: {
-    renderTitle?(item: any): React.ReactNode;
-  };
+  widgets?: string[];
   weight?: number;
 }
