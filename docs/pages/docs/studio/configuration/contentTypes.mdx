@@ -6,16 +6,32 @@ A list of content type definitions.
 
 ### Types
 
-```ts
+````ts
 interface ContentTypeConfig {
-  /** The apiID is how Strapi identifies the content type. */
   apiID: string;
-  fields: FieldDefinition[];
-  /** Name and description can be translation keys or literal strings */
   name?: string;
   description?: string;
   icon?: React.ReactNode;
+  fields: FieldDefinition[];
+  /**
+   * The field that names the entity. Usually called something like `title` or `name`.
+   */
+  titleField?: string;
   getEntityUrl?(entity: Entity): string;
+  /**
+   * Renders the content entity, for example in relational fields.
+   * Although not required it is recommended to implement this field.
+   *
+   * @example
+   * A simple implementation will just return the identifying field:
+   * ```
+   * render(entity) => entity.title
+   * ```
+   */
+  render?(
+    entity: Entity,
+    utils: { t: TFunction<"custom">; context: RenderContext },
+  ): React.ReactNode;
 }
 
 interface FieldDefinition {
@@ -47,4 +63,15 @@ export type InputType =
   | "uid"
   | "date"
   | "email";
-```
+
+export enum RenderContext {
+  /*
+   * Inside a selector or list view. Use limited height.
+   */
+  List = "list",
+  /*
+   * Inside a card. Used to represent the entity in relational fields.
+   */
+  Card = "card",
+}
+````

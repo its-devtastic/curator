@@ -1,5 +1,6 @@
 import banner from "../public/banner.png";
 import preview from "../public/preview.png";
+import pkgJson from "../../packages/studio/package.json";
 
 <div className="min-h-screen px-4">
   <div>
@@ -15,9 +16,10 @@ import preview from "../public/preview.png";
   <div className="flex flex-col items-center mt-12 font-mono font-bold text-indigo-500 bg-indigo-50 p-4 rounded-md">
     npx create-curator-app@latest cms
   </div>
-  <div className="mt-12 [&_a]:text-white [&_a]:bg-indigo-600 [&_a]:p-4 [&_a]:rounded-full [&_a]:shadow-lg">
+  <div className="mt-12 [&_a]:block [&_a]:text-white [&_a]:bg-indigo-600 [&_a]:px-4 [&_a]:py-3 [&_a]:rounded-full [&_a]:shadow-lg">
     [Get started](./docs)
   </div>
+  <div className="mt-4 font-mono">v{pkgJson.version}</div>
 </div>
 
   <div className="mt-24 mb-12">
