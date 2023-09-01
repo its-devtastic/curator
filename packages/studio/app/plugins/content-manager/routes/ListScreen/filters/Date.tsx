@@ -126,7 +126,7 @@ function FilterValue({ filter }: { filter: Record<string, string> }) {
       )} ${t("filters.days").toLowerCase()}`;
     }
     return "";
-  }, []);
+  }, [filter]);
 
   return <span>{label}</span>;
 }

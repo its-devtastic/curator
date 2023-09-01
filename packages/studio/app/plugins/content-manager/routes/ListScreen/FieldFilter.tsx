@@ -3,6 +3,7 @@ import * as R from "ramda";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "antd";
 
 import { Attribute } from "@/types/contentType";
 import useCurator from "@/hooks/useCurator";
@@ -10,10 +11,11 @@ import useFilters from "@/hooks/useFilters";
 import Popover from "@/ui/Popover";
 
 import Date from "./filters/Date";
-import { Button } from "antd";
+import Integer from "./filters/Integer";
 
 const FILTER_FORMS: Record<string, any> = {
   datetime: Date,
+  integer: Integer,
 };
 
 export default function FieldFilter({
@@ -44,6 +46,7 @@ export default function FieldFilter({
           <h4 className="mt-0 mb-2">
             {t("content_manager.filtering_on", { type: label })}
           </h4>
+          <div>{attribute.type}</div>
           {filterComponent &&
             React.createElement(filterComponent, {
               attribute,
