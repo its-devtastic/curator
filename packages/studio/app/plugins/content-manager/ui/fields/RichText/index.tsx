@@ -3,6 +3,7 @@ import { StarterKit } from "@tiptap/starter-kit";
 import { Underline } from "@tiptap/extension-underline";
 import { Link } from "@tiptap/extension-link";
 import { Typography } from "@tiptap/extension-typography";
+import { Image } from "@tiptap/extension-image";
 import { EditorProvider } from "@tiptap/react";
 
 import { FieldDefinition } from "@/types/contentTypeConfig";
@@ -16,6 +17,11 @@ const extensions = [
   Typography,
   Link.configure({ autolink: true, linkOnPaste: true, openOnClick: false }),
   Underline,
+  Image.configure({
+    HTMLAttributes: {
+      class: "rich-text-image",
+    },
+  }),
 ];
 
 const RichTextField: React.FC<{

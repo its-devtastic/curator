@@ -15,6 +15,7 @@ import {
 
 import HeadingMenu from "./HeadingMenu";
 import LinkMenu from "./LinkMenu";
+import ImageMenu from "./ImageMenu";
 
 const FormattingMenu: React.FC = () => {
   const { editor } = useCurrentEditor();
@@ -101,6 +102,7 @@ const FormattingMenu: React.FC = () => {
         </div>
         <div className="border-0 border-solid border-r border-gray-200 dark:border-gray-500 h-full flex items-center">
           <LinkMenu />
+          <ImageMenu />
         </div>
       </div>
     )
