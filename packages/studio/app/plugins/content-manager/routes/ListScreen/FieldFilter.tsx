@@ -13,11 +13,15 @@ import Popover from "@/ui/Popover";
 import Date from "./filters/Date";
 import Integer from "./filters/Integer";
 import String from "./filters/String";
+import Relation from "./filters/Relation";
+import AdminUser from "./filters/AdminUser";
 
 const FILTER_FORMS: Record<string, any> = {
   datetime: Date,
   integer: Integer,
   string: String,
+  relation: Relation,
+  admin: AdminUser,
 };
 
 export default function FieldFilter({
@@ -35,7 +39,8 @@ export default function FieldFilter({
     ?.find(R.whereEq({ apiID }))
     ?.fields.find(R.whereEq({ path }));
   const { filters, removeFilter } = useFilters();
-  const filterComponent = FILTER_FORMS[attribute.type];
+  const filterComponent =
+    FILTER_FORMS[attribute.target === "admin::user" ? "admin" : attribute.type];
   const isActive = R.has(path, filters);
   const label = t(field?.label ?? path, { ns: "custom" });
 
@@ -48,7 +53,6 @@ export default function FieldFilter({
           <h4 className="mt-0 mb-2">
             {t("content_manager.filtering_on", { type: label })}
           </h4>
-          <div>{attribute.type}</div>
           {filterComponent &&
             React.createElement(filterComponent, {
               attribute,
@@ -79,6 +83,7 @@ export default function FieldFilter({
               {filterComponent?.FilterValue &&
                 React.createElement(filterComponent.FilterValue, {
                   filter: filters[path],
+                  attribute,
                 })}
             </span>
           )}
