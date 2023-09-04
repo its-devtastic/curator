@@ -191,5 +191,12 @@
   "secrets.roles_help": "Select the roles that have access to this secret.",
   "secrets.n_roles_one": "{{count}} role",
   "secrets.n_roles_other": "{{count}} roles",
-  "secrets.deleted": "Secret has been deleted"
+  "secrets.deleted": "Secret has been deleted",
+
+  "audit.title": "Audit logs",
+  "audit.description": "An audit trail of actions taken by users.",
+  "audit.action": "Action",
+  "audit.subject": "User",
+  "audit.object": "Entity",
+  "audit.id": "ID"
 }

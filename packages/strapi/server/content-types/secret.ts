@@ -7,6 +7,9 @@ export default {
     displayName: "Curator Secret",
     description: "A key-value with role-based access scope.",
   },
+  options: {
+    draftAndPublished: false,
+  },
   pluginOptions: {
     "content-type-builder": {
       visible: false,
