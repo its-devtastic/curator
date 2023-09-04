@@ -20,6 +20,7 @@ export interface CuratorConfig {
     title?: string;
     website?: string;
   };
+  secrets?: boolean;
 }
 
 export interface InjectionZoneEntry {

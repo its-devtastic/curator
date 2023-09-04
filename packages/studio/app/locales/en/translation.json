@@ -180,5 +180,16 @@
   "common.search": "Search",
   "common.settings": "Settings",
   "common.default": "Default",
-  "common.apply": "Apply"
+  "common.apply": "Apply",
+  "common.update": "Update",
+
+  "secrets.title": "Secrets",
+  "secrets.description": "Key-values with role scoped access.",
+  "secrets.key": "Key",
+  "secrets.value": "Value",
+  "secrets.roles": "Roles",
+  "secrets.roles_help": "Select the roles that have access to this secret.",
+  "secrets.n_roles_one": "{{count}} role",
+  "secrets.n_roles_other": "{{count}} roles",
+  "secrets.deleted": "Secret has been deleted"
 }

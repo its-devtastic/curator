@@ -440,6 +440,20 @@ export class StrapiSdk {
   }
 
   /**
+   * Secrets service.
+   *
+   * This method is for retrieving the secrets that the current user's role
+   * has access to. It returns a single key-value object.
+   */
+  public async getSecrets() {
+    const { data } = await this.http.get<Record<string, string>>(
+      "/curator/secrets"
+    );
+
+    return data;
+  }
+
+  /**
    * Helper methods.
    */
   public generateTempId() {
