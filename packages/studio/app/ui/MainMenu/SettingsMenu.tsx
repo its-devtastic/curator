@@ -1,28 +1,22 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Dropdown, Typography } from "antd";
+import { Dropdown } from "antd";
 import * as R from "ramda";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowRightFromBracket,
-  faBook,
-  faCog,
-  faKeyboard,
-  faUserAstronaut,
-} from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { faCog, faKey } from "@fortawesome/free-solid-svg-icons";
 
 import { InjectionZone } from "@/types/config";
-import useSession from "@/hooks/useSession";
 import useCurator from "@/hooks/useCurator";
+import useStrapi from "@/hooks/useStrapi";
 
 import MainMenuItem from "./MainMenuItem";
+import { useNavigate } from "react-router-dom";
 
 const SettingsMenu: React.FC = () => {
   const { t } = useTranslation();
-  const { user, clearSession } = useSession();
   const config = useCurator();
   const navigate = useNavigate();
+  const { permissions } = useStrapi();
   const items = R.sortBy(R.prop("weight"))(
     config.zones?.filter(
       R.whereEq({
@@ -30,16 +24,37 @@ const SettingsMenu: React.FC = () => {
       })
     ) ?? []
   );
+  const canRead = permissions.some(
+    R.whereEq({
+      action: "plugin::content-manager.explorer.read",
+      subject: "plugin::curator.curator-secret",
+    })
+  );
 
-  return user ? (
+  return (
     <Dropdown
       trigger={["click"]}
       placement="topRight"
       menu={{
-        items: items.map((item, index) => ({
-          key: index,
-          label: item.render(),
-        })),
+        items: R.when(
+          () => !!config.secrets && canRead,
+          R.append({
+            key: "secrets",
+            icon: <FontAwesomeIcon icon={faKey} />,
+            label: t("secrets.title"),
+            onClick() {
+              navigate("/settings/secrets");
+            },
+          })
+        )(
+          items.map(
+            (item, index) =>
+              ({
+                key: String(index),
+                label: item.render(),
+              } as any)
+          )
+        ),
       }}
     >
       <div>
@@ -50,7 +65,7 @@ const SettingsMenu: React.FC = () => {
         />
       </div>
     </Dropdown>
-  ) : null;
+  );
 };
 
 export default SettingsMenu;

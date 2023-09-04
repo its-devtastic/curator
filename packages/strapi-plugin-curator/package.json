@@ -1,0 +1,47 @@
+{
+  "name": "@curatorjs/strapi-plugin-curator",
+  "version": "0.1.1",
+  "description": "Curator plugin for Strapi.",
+  "main": "strapi-server.js",
+  "strapi": {
+    "displayName": "Curator",
+    "name": "curator",
+    "description": "Curator is a full-stack CMS built on Strapi.",
+    "kind": "plugin"
+  },
+  "dependencies": {
+    "ramda": "^0.29.0"
+  },
+  "devDependencies": {
+    "@strapi/typescript-utils": "4.13.1",
+    "@strapi/strapi": "^4.13.1",
+    "@types/ramda": "0.29.3",
+    "typescript": "5.2.2"
+  },
+  "peerDependencies": {
+    "@strapi/strapi": "^4.13.0"
+  },
+  "author": "Devtastic <hi@devtastic.build>",
+  "maintainers": [
+    {
+      "name": "Leon van der Grient",
+      "url": "https://github.com/StructuralRealist",
+      "email": "leon@devtastic.build"
+    }
+  ],
+  "engines": {
+    "node": ">=18.0.0 <=20.x.x",
+    "npm": ">=6.0.0"
+  },
+  "scripts": {
+    "develop": "tsc -p tsconfig.server.json -w",
+    "build": "tsc -p tsconfig.server.json",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "strapi",
+    "curator",
+    "plugin"
+  ],
+  "license": "MIT"
+}

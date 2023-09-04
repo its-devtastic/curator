@@ -37,6 +37,7 @@ function init() {
       css: {
         postcss: {
           plugins: [
+            require("tailwindcss/nesting"),
             require("tailwindcss")({
               // config: path.resolve(__dirname, "../tailwind.config.js"),
               corePlugins: { preflight: false },
@@ -81,6 +82,7 @@ function init() {
       css: {
         postcss: {
           plugins: [
+            require("tailwindcss/nesting"),
             require("tailwindcss")({
               // config: path.resolve(__dirname, "../tailwind.config.js"),
               corePlugins: { preflight: false },

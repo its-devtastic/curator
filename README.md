@@ -11,65 +11,34 @@
 
 ---
 
-**Curator** is an alternative admin for [Strapi](https://www.strapi.io). It is customizable, translatable and mobile-friendly.
+**Curator** is full-stack, customizable and batteries-included CMS built on [Strapi](https://www.strapi.io).
 
 ---
 
 ![Preview](https://raw.githubusercontent.com/its-devtastic/curator/main/media/preview.png)
 
-## Documentation
+## 📜 Documentation
 
 Documentation is available [here](https://its-devtastic.github.io/curator/).
 
-## Features
+## 💫 Features
 
-- 🌐 Multilingual (i18next)
-- 🎨 Customizable theme (antd and Tailwind)
-- 🧩 Injection zones
-- 🧱 Swappable components
-- 📜 Custom pages
-- 📱 Responsive
-- 🔌 Plugins
-- 💯 100% TypeScript
+- 🎨 Extremely customizable admin
+- ✍️ Integrated authoring experience
+- 📱 Mobile-friendly
+- 💾 Content versioning
 
 ## Quick Start
 
-Create a new Curator project with the Create Curator App tool:
+Create a new Curator Studio project with the Create Curator App tool:
 
 ```shell
 npx create-curator-app@latest cms
 ```
 
-Your Curator project will run on http://localhost:1338
+Curator Studio will run on http://localhost:1338
 
 ## Motivation
 
-Strapi is the most popular JavaScript headless CMS available but its admin is notoriously uncustomizable. Curator
-provides an alternative admin that is built with React and easy to customize and extend. It uses popular frameworks and
-libraries that should be familiar to many developers.
-
-## Limitations
-
-There are some limitations on what you can do with Curator, compared to the Strapi admin.
-
-- ✅ = Supported
-- 🚧 = Partial
-- ❌ = Unsupported
-
-| Feature              | Status                                    |
-| -------------------- | ----------------------------------------- |
-| Collection types     | ✅                                        |
-| Single types         | ✅                                        |
-| Internationalization | ✅                                        |
-| Draft / publish      | ✅                                        |
-| Dynamic zones        | ✅                                        |
-| User management      | ✅                                        |
-| User profile         | ✅                                        |
-| Permissions          | ✅️                                       |
-| Dark mode            | ✅                                        |
-| Filters              | ✅                                        |
-| Media library        | 🚧️ (Cropping is currently not supported) |
-| Role management      | ❌                                        |
-| API keys             | ❌                                        |
-| Webhooks             | ❌                                        |
-| Content-type builder | ❌ (not planned)                          |
+We wanted to create a modern WordPress alternative that is easy to customize and batteries-included. Strapi provides
+the foundation, Curator takes it to the next level.

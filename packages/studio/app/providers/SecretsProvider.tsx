@@ -1,8 +1,10 @@
-import React, { createContext, useCallback, useState } from "react";
+import React, { createContext, useCallback } from "react";
 import { useAsync } from "react-use";
 
 import useStrapi from "@/hooks/useStrapi";
 import useSession from "@/hooks/useSession";
+import useCurator from "@/hooks/useCurator";
+import Spinner from "@/ui/Spinner";
 
 export const Context = createContext({} as any);
 
@@ -10,18 +12,16 @@ const SecretsProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const { sdk } = useStrapi();
+  const { secrets: enabled } = useCurator();
   const { token } = useSession();
 
-  const { value: secrets = {} } = useAsync(async () => {
+  const { value: secrets = {}, loading } = useAsync(async () => {
+    // Don't fetch anything if the secrets feature is disabled
+    if (!enabled) {
+      return;
+    }
     try {
-      const { value } = await sdk.getOne<{
-        value: { key: string; value: string }[];
-      }>("secret");
-
-      return value.reduce<Record<string, string>>(
-        (acc, { key, value }) => ({ ...acc, [key]: value }),
-        {}
-      );
+      return await sdk.getSecrets();
     } catch (e) {
       console.error(e);
     }
@@ -39,7 +39,13 @@ const SecretsProvider: React.FC<{
 
   return (
     <Context.Provider value={{ secrets, getSecret }}>
-      {children}
+      {enabled && loading ? (
+        <div className="h-screen flex items-center justify-center">
+          <Spinner size={24} />
+        </div>
+      ) : (
+        children
+      )}
     </Context.Provider>
   );
 };

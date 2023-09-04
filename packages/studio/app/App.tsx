@@ -24,6 +24,7 @@ import ForgotPasswordSuccess from "@/routes/ForgotPasswordSuccess";
 import ResetPassword from "@/routes/ResetPassword";
 import Profile from "@/routes/Profile";
 import Register from "@/routes/Register";
+import Secrets from "@/routes/Secrets";
 
 const App: React.FC = () => {
   const { i18n } = useTranslation();
@@ -51,6 +52,7 @@ const App: React.FC = () => {
       loader: () => (user ? null : redirect("/login")),
       children: [
         { path: "/profile", element: <Profile /> },
+        { path: "/settings/secrets", element: <Secrets /> },
         ...(config.routes ?? []),
       ],
     },

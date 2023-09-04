@@ -24,6 +24,7 @@ const curatorConfig: CuratorConfig = {
   components,
   hooks: [],
   interfaceLanguages: ["en"],
+  secrets: true,
   plugins: [
     mediaLibraryPlugin(),
     teamManagerPlugin(),

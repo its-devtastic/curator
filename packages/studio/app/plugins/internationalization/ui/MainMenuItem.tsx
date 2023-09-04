@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import * as R from "ramda";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
-import MainMenu from "@/ui/MainMenu";
 import useStrapi from "@/hooks/useStrapi";
 
 const MainMenuItem: React.FC = () => {
@@ -15,11 +15,10 @@ const MainMenuItem: React.FC = () => {
   );
 
   return hasPermission ? (
-    <MainMenu.Item
-      to="/settings/internationalization"
-      label={t("internationalization.title")}
-      icon={<FontAwesomeIcon icon={faLanguage} />}
-    />
+    <Link to="/settings/internationalization" className="space-x-2">
+      <FontAwesomeIcon icon={faLanguage} />
+      <span>{t("internationalization.title")}</span>
+    </Link>
   ) : null;
 };
 
