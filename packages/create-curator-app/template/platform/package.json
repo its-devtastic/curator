@@ -1,0 +1,31 @@
+{
+  "name": "platform",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A Strapi application with the Curator Content Platform plugin.",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
+  },
+  "dependencies": {
+    "@curatorjs/content-platform": "^0.1.0",
+    "@strapi/plugin-i18n": "4.13.3",
+    "@strapi/plugin-users-permissions": "4.13.3",
+    "@strapi/strapi": "4.13.3",
+    "better-sqlite3": "8.6.0",
+    "pg": "^8.11.3"
+  },
+  "author": {
+    "name": "A Strapi developer"
+  },
+  "strapi": {
+    "uuid": "7dfc3ecc-2dcf-4e0a-98b4-9fdba88bcbac"
+  },
+  "engines": {
+    "node": ">=14.19.1 <=18.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}

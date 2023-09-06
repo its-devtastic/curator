@@ -11,65 +11,17 @@
 
 ---
 
-**Curator** is an alternative admin for [Strapi](https://www.strapi.io). It is customizable, translatable and mobile-friendly.
+**Curator** is full-stack, customizable and batteries-included CMS built on [Strapi](https://www.strapi.io). With the Create Curator App
+you can quickly bootstrap a new Curator project.
 
 ---
-
-![Preview](https://raw.githubusercontent.com/its-devtastic/curator/main/media/preview.png)
-
-## Documentation
-
-Documentation is available [here](https://its-devtastic.github.io/curator/).
-
-## Features
-
-- 🌐 Multilingual (i18next)
-- 🎨 Customizable theme (antd and Tailwind)
-- 🧩 Injection zones
-- 🧱 Swappable components
-- 📜 Custom pages
-- 📱 Responsive
-- 🔌 Plugins
-- 💯 100% TypeScript
 
 ## Quick Start
 
 Create a new Curator project with the Create Curator App tool:
 
 ```shell
-npx create-curator-app@latest cms
+npx create-curator-app@latest
 ```
 
-Your Curator project will run on http://localhost:1338
-
-## Motivation
-
-Strapi is the most popular JavaScript headless CMS available but its admin is notoriously uncustomizable. Curator
-provides an alternative admin that is built with React and easy to customize and extend. It uses popular frameworks and
-libraries that should be familiar to many developers.
-
-## Limitations
-
-There are some limitations on what you can do with Curator, compared to the Strapi admin.
-
-- ✅ = Supported
-- 🚧 = Partial
-- ❌ = Unsupported
-
-| Feature              | Status                                    |
-| -------------------- | ----------------------------------------- |
-| Collection types     | ✅                                        |
-| Single types         | ✅                                        |
-| Internationalization | ✅                                        |
-| Draft / publish      | ✅                                        |
-| Dynamic zones        | ✅                                        |
-| User management      | ✅                                        |
-| User profile         | ✅                                        |
-| Permissions          | ✅️                                       |
-| Dark mode            | ✅                                        |
-| Media library        | 🚧️ (Cropping is currently not supported) |
-| Filters              | 🚧️ (Only text search at the moment)      |
-| Role management      | ❌                                        |
-| API keys             | ❌                                        |
-| Webhooks             | ❌                                        |
-| Content-type builder | ❌ (not planned)                          |
+The tool will guide you through creating your Curator project.

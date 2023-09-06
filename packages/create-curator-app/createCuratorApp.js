@@ -1,6 +1,6 @@
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "url";
-import { program } from "commander";
+import { program, Option } from "commander";
 import chalk from "chalk";
 import fs from "fs-extra";
 import inquirer from "inquirer";
@@ -16,21 +16,62 @@ export async function init() {
     .name(name)
     .description(description)
     .version(version)
-    .arguments("<project-directory>")
-    .usage(`${chalk.greenBright("<project-directory>")} [options]`)
-    .showHelpAfterError(
-      "You forgot to provide a " +
-        chalk.bold("name") +
-        " for the project directory."
+    .argument("[dir]", "Directory where Curator should be installed.", "")
+    .addOption(
+      new Option("-c, --component <components...>").choices([
+        "web",
+        "admin",
+        "platform",
+      ])
     )
-    .action(async (dir) => {
+    .addOption(
+      new Option("-p, --packageManager <name>").choices(["npm", "yarn"])
+    )
+    .action(async (dir, opts) => {
       const root = process.cwd();
-      const fullPath = getFullPath(root, dir);
+
+      const {
+        projectDir = dir,
+        components = ["admin", "web", "platform"],
+        pkgManager = "npm",
+      } = await inquirer.prompt([
+        {
+          type: "input",
+          name: "projectDir",
+          when: () => !dir,
+          message: "Please provide the directory where to set up Curator",
+        },
+        {
+          type: "checkbox",
+          name: "components",
+          when: () => !opts.component,
+          message: "Which components do you want to use?",
+          default: ["admin", "web", "platform"],
+          choices: [
+            { name: "Studio (admin)", value: "admin" },
+            { name: "Next.js with Bridge (web)", value: "web" },
+            { name: "Strapi Content Platform (platform)", value: "platform" },
+          ],
+        },
+        {
+          type: "list",
+          name: "pkgManager",
+          message:
+            "What package manager do you want to use to install dependencies?",
+          when: () => !opts.packageManager,
+          default: "npm",
+          choices: [
+            "npm",
+            "yarn",
+            { name: "Skip installing dependencies", value: "skip" },
+          ],
+        },
+      ]);
+
+      const fullPath = getFullPath(root, projectDir);
 
       console.log(
-        `🏗️A new Curator Studio project will be created at ${chalk.blue(
-          fullPath
-        )}`
+        `🏗️A new Curator project will be created at ${chalk.blue(fullPath)}`
       );
 
       if (await pathIsNotEmpty(fullPath)) {
@@ -42,50 +83,33 @@ export async function init() {
         process.exit(1);
       }
 
-      await createProject(root, dir);
+      await createProject(root, projectDir);
 
       console.log(chalk.green("✅  Curator project has been created."));
 
-      /*
-       * Ask for the preferred package manager and install packages.
-       */
-      inquirer
-        .prompt([
-          {
-            type: "list",
-            name: "pkgManager",
-            message:
-              "What package manager do you want to use to install dependencies?",
-            choices: [
-              "npm",
-              "yarn",
-              { name: "Skip installing dependencies", value: "skip" },
-            ],
-          },
-        ])
-        .then(({ pkgManager }) => {
-          if (pkgManager === "skip") {
-            console.log(
-              "☝️ Don't forget to manually install the dependencies."
-            );
-          } else {
-            const spinner = ora(
-              chalk.blueBright(
-                "Installing dependencies with " + chalk.bold(pkgManager) + "..."
-              )
-            ).start();
-            shell.cd(dir);
-            shell.exec(`${pkgManager} install`, (code) => {
-              spinner.stop();
-              console.log(
-                chalk.greenBright("Running Curator development server...")
-              );
-              shell.exec(
-                `${pkgManager}${pkgManager === "npm" ? " run" : ""} dev`
-              );
-            });
-          }
-        });
+      if (pkgManager === "skip") {
+        console.log("☝️ Don't forget to manually install the dependencies.");
+      } else {
+        const spinner = ora(
+          chalk.blueBright(
+            "Installing dependencies with " + chalk.bold(pkgManager) + "..."
+          )
+        ).start();
+        if (components.includes("admin")) {
+          shell.cd(`${dir}/admin`);
+          shell.exec(`${pkgManager} install`);
+        }
+        if (components.includes("platform")) {
+          shell.cd(`../platform`);
+          shell.exec(`${pkgManager} install`);
+        }
+        if (components.includes("web")) {
+          shell.cd(`../web`);
+          shell.exec(`${pkgManager} install`);
+        }
+        shell.cd(`..`);
+        spinner.stop();
+      }
     });
 
   program.parse(process.argv);
