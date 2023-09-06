@@ -454,6 +454,18 @@ export class StrapiSdk {
   }
 
   /**
+   * Dashboard.
+   */
+  public async getDashboard() {
+    const { data } = await this.http.get<{
+      recent: Record<string, any>[];
+      drafts: Record<string, any>[];
+    }>("/curator/dashboard");
+
+    return data;
+  }
+
+  /**
    * Helper methods.
    */
   public generateTempId() {

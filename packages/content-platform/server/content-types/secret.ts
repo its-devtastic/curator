@@ -8,7 +8,7 @@ export default {
     description: "A key-value with role-based access scope.",
   },
   options: {
-    draftAndPublished: false,
+    draftAndPublish: false,
   },
   pluginOptions: {
     "content-type-builder": {

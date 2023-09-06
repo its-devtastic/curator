@@ -10,18 +10,18 @@ export default async function ({ strapi }: { strapi: Strapi }) {
    */
   strapi.db.lifecycles.subscribe(async (event) => {
     const config = strapi.plugin("curator").config("audit");
-    const included: string[] = Array.isArray(config?.included)
-      ? config.included
+    const include: string[] = Array.isArray(config?.include)
+      ? config.include
       : [];
-    const excluded: string[] = Array.isArray(config?.excluded)
-      ? config.excluded
+    const exclude: string[] = Array.isArray(config?.exclude)
+      ? config.exclude
       : [];
     const uidMatch =
       R.anyPass([
         R.startsWith("api::"),
-        R.includes(R.__, included),
+        R.includes(R.__, include),
         R.equals("plugin::curator.curator-secret"),
-      ])(event.model?.uid ?? "") && !excluded.includes(event.model?.uid);
+      ])(event.model?.uid ?? "") && !exclude.includes(event.model?.uid);
 
     if (
       config &&

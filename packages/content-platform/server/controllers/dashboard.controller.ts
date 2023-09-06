@@ -1,7 +1,7 @@
 import { Strapi } from "@strapi/strapi";
 
 export default ({ strapi }: { strapi: Strapi }) => ({
-  find() {
-    return strapi.plugin("curator").service("secretsService").getSecrets();
+  index() {
+    return strapi.plugin("curator").service("dashboardService").getData();
   },
 });

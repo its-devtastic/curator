@@ -84,7 +84,8 @@
 
   "dashboard.welcome": "Welcome 👋",
   "dashboard.description": "What are you working on today?",
-  "dashboard.recently_opened": "Recently opened",
+  "dashboard.recent_activity": "Recent activity",
+  "dashboard.your_drafts": "Your drafts",
 
   "filters.search": "Search",
   "filters.last_n": "Is in the last",

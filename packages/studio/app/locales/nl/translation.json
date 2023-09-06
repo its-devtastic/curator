@@ -84,7 +84,8 @@
 
   "dashboard.welcome": "Welkom 👋",
   "dashboard.description": "Waar ga je vandaag aan werken?",
-  "dashboard.recently_opened": "Onlangs geopend",
+  "dashboard.recent_activity": "Onlangs bijgewerkt",
+  "dashboard.your_drafts": "Jouw concepten",
 
   "filters.search": "Zoeken",
   "filters.last_n": "Is in de laatste",
