@@ -6,7 +6,6 @@ import { InjectionZone, InjectionZoneEntry } from "@/types/config";
 
 import DashboardScreen from "./routes/DashboardScreen";
 import MainMenuItem from "./MainMenuItem";
-import useDashboard from "./useDashboard";
 
 export default function dashboardPlugin(
   pluginOptions: DashboardPluginOptions = {}
@@ -26,17 +25,11 @@ export default function dashboardPlugin(
           return <MainMenuItem />;
         },
       }),
-      hooks: R.append<any>({
-        trigger: "view",
-        action: ({ entity, apiID }: any) => {
-          useDashboard.getState().addRecentlyOpened(apiID, entity.id);
-        },
-      }),
     })(config);
   };
 }
 
 export interface DashboardPluginOptions {
-  widgets?: string[];
+  widgets?: ("recent" | "drafts")[];
   weight?: number;
 }

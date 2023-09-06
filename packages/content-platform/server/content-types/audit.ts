@@ -8,7 +8,7 @@ export default {
     description: "A log of an action of a user.",
   },
   options: {
-    draftAndPublished: false,
+    draftAndPublish: false,
   },
   pluginOptions: {
     "content-type-builder": {
