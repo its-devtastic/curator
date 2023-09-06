@@ -3,12 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "A Curator project created by create-curator-app.",
-  "scripts": {
-    "dev": "curator dev",
-    "build": "curator build"
-  },
-  "dependencies": {
-    "@curatorjs/studio": "latest",
-    "react": "18.2.0"
+  "devDependencies": {
+    "prettier": "^3.0.3"
   }
 }

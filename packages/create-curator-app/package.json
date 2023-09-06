@@ -1,7 +1,7 @@
 {
   "name": "create-curator-app",
   "version": "1.4.0",
-  "description": "",
+  "description": "Easily bootstrap a new Curator project.",
   "exports": "./index.js",
   "type": "module",
   "bin": {
