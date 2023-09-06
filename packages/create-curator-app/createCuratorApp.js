@@ -30,12 +30,15 @@ export async function init() {
     .action(async (dir, opts) => {
       const root = process.cwd();
 
-      const { projectDir, components, pkgManager } = await inquirer.prompt([
+      const {
+        projectDir = dir,
+        components = ["admin", "web", "platform"],
+        pkgManager = "npm",
+      } = await inquirer.prompt([
         {
           type: "input",
           name: "projectDir",
           when: () => !dir,
-          default: dir,
           message: "Please provide the directory where to set up Curator",
         },
         {
@@ -43,11 +46,11 @@ export async function init() {
           name: "components",
           when: () => !opts.component,
           message: "Which components do you want to use?",
-          default: opts.component || ["admin", "web", "platform"],
+          default: ["admin", "web", "platform"],
           choices: [
-            { name: "Studio", value: "admin" },
-            { name: "Next.js website with Bridge", value: "web" },
-            { name: "Content Platform", value: "platform" },
+            { name: "Studio (admin)", value: "admin" },
+            { name: "Next.js with Bridge (web)", value: "web" },
+            { name: "Strapi Content Platform (platform)", value: "platform" },
           ],
         },
         {
@@ -56,7 +59,7 @@ export async function init() {
           message:
             "What package manager do you want to use to install dependencies?",
           when: () => !opts.packageManager,
-          default: opts.packageManager || "npm",
+          default: "npm",
           choices: [
             "npm",
             "yarn",
@@ -80,7 +83,7 @@ export async function init() {
         process.exit(1);
       }
 
-      // await createProject(root, dir);
+      await createProject(root, projectDir);
 
       console.log(chalk.green("✅  Curator project has been created."));
 
