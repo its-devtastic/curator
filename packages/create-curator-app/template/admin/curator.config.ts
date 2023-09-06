@@ -28,7 +28,7 @@ const curatorConfig: CuratorConfig = {
   plugins: [
     mediaLibraryPlugin(),
     teamManagerPlugin(),
-    dashboardPlugin({ widgets: ["recentlyOpened"] }),
+    dashboardPlugin({ widgets: ["recent", "drafts"] }),
     internationalizationPlugin(),
     contentManagerPlugin({
       menu: {

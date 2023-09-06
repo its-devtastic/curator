@@ -12,6 +12,7 @@ const config: DocsThemeConfig = {
   useNextSeoProps() {
     return {
       title: "Curator",
+      description: "Modern full-stack CMS built on Strapi and Next.js",
     };
   },
   head: () => (
