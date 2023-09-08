@@ -52,7 +52,6 @@ const Main: React.FC<{ curatorConfig: CuratorConfig }> = ({
               colorBgElevated: darkMode ? "#1f2937" : "#FFFFFF", // gray-800
               colorBgSpotlight: "#111827", // gray-900
               colorBorder: darkMode ? "#6b7280" : "#e5e7eb", // gray-500 / gray-200
-              motion: false,
             },
             algorithm: darkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
           },

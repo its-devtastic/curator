@@ -9,6 +9,7 @@ export interface StrapiContentType {
     i18n?: {
       localized: boolean;
     };
+    versioning?: boolean;
   };
   info: {
     displayName: string;

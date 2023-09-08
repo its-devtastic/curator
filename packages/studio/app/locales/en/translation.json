@@ -144,6 +144,7 @@
   "phrases.switch_to_light_mode": "Switch to light mode",
 
   "common.edit": "Edit",
+  "common.edited": "Edited",
   "common.create": "Create",
   "common.save": "Save",
   "common.draft": "Draft",
@@ -183,6 +184,7 @@
   "common.default": "Default",
   "common.apply": "Apply",
   "common.update": "Update",
+  "common.versioning": "Version history",
 
   "secrets.title": "Secrets",
   "secrets.description": "Key-values with role scoped access.",
@@ -203,5 +205,12 @@
 
   "network_error.title": "Network error",
   "network_error.sub_title": "We couldn't reach the Strapi server 😭.",
-  "network_error.try_again": "Try again"
+  "network_error.try_again": "Try again",
+
+  "versioning.published": "Content was published",
+  "versioning.edit": "Content was edited",
+  "versioning.field": "Field",
+  "versioning.current": "Current",
+  "versioning.selected": "Selected",
+  "versioning.restore": "Restore this version"
 }

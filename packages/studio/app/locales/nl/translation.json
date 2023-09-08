@@ -147,6 +147,7 @@
   "phrases.switch_to_light_mode": "Schakel over naar lichte modus",
 
   "common.edit": "Bewerk",
+  "common.edited": "Bewerkt",
   "common.create": "Aanmaken",
   "common.save": "Opslaan",
   "common.draft": "Concept",
@@ -185,6 +186,7 @@
   "common.settings": "Instellingen",
   "common.default": "Standaard",
   "common.apply": "Toepassen",
+  "common.versioning": "Versiegeschiedenis",
 
   "secrets.title": "Geheimen",
   "secrets.description": "Sleutel-waarden met toegang op rolbasis.",
@@ -205,5 +207,12 @@
 
   "network_error.title": "Netwerkfout",
   "network_error.sub_title": "We kunnen de Strapiserver niet bereiken 😭.",
-  "network_error.try_again": "Probeer opnieuw"
+  "network_error.try_again": "Probeer opnieuw",
+
+  "versioning.published": "Document werd gepubliceerd",
+  "versioning.edit": "Document werd bewerkt",
+  "versioning.field": "Veld",
+  "versioning.current": "Huidig",
+  "versioning.selected": "Geselecteerd",
+  "versioning.restore": "Herstel deze versie"
 }

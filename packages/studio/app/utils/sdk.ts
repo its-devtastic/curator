@@ -10,6 +10,7 @@ import { PaginatedResponse } from "@/types/response";
 import { GetManyParams, GetMediaParams } from "@/types/request";
 import { Permission, UserRole } from "@/types/permission";
 import { AdminUser } from "@/types/adminUser";
+import { Version } from "@/types/versioning";
 
 export class StrapiSdk {
   public apiUrl: string;
@@ -461,6 +462,28 @@ export class StrapiSdk {
       recent: Record<string, any>[];
       drafts: Record<string, any>[];
     }>("/curator/dashboard");
+
+    return data;
+  }
+
+  /**
+   * Versioning.
+   */
+  public async getVersions(
+    apiID: string,
+    id: number,
+    params: { page?: number } = {}
+  ) {
+    const uid = this.contentTypes.find(R.whereEq({ apiID }))?.uid;
+
+    const { data } = await this.http.get<PaginatedResponse<Version>>(
+      `/curator/versioning/${uid}/${id}`,
+      {
+        params: {
+          page: params.page ?? 1,
+        },
+      }
+    );
 
     return data;
   }
