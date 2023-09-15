@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { Spin } from "antd";
 
-const Spinner: React.FC<{ size: number }> = ({ size = 24 }) => (
+const Spinner: React.FC<{ size?: number }> = ({ size = 24 }) => (
   <Spin
     indicator={
       <FontAwesomeIcon

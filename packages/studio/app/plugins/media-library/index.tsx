@@ -9,12 +9,15 @@ import ListScreen from "./routes/ListScreen";
 
 export { default as MediaLibraryPopover } from "./ui/MediaLibraryPopover";
 
-export default function mediaLibraryPlugin({
-  weight,
-}: { weight?: number } = {}) {
+export default function mediaLibraryPlugin({ weight }: PluginOptions = {}) {
   return (config: CuratorConfig): CuratorConfig => {
     return R.evolve({
-      routes: R.concat([{ path: "/media-library", element: <ListScreen /> }]),
+      routes: R.concat([
+        {
+          path: "/media-library",
+          element: <ListScreen />,
+        },
+      ]),
       zones: R.append<InjectionZoneEntry>({
         zone: InjectionZone.MainMenuTop,
         weight: weight ?? 20,
@@ -24,4 +27,8 @@ export default function mediaLibraryPlugin({
       }),
     })(config);
   };
+}
+
+export interface PluginOptions {
+  weight?: number;
 }

@@ -13,6 +13,7 @@ import {
 import { MediaItem } from "@/types/media";
 import useStrapi from "@/hooks/useStrapi";
 import usePreferences from "@/hooks/usePreferences";
+import useCurator from "@/hooks/useCurator";
 
 import UploadButton from "./UploadButton";
 
@@ -20,10 +21,12 @@ const MediaLibraryPopover: React.FC<{
   onChange(item: MediaItem): void;
   mime: "image" | "audio";
 }> = ({ onChange, mime }) => {
-  const { sdk } = useStrapi();
+  const { sdk, permissions } = useStrapi();
+  const {
+    images: { getImageUrl },
+  } = useCurator();
   const { t } = useTranslation();
   const [search, setSearch] = useState("");
-  const { permissions } = useStrapi();
   const canCreate = permissions.some(
     R.whereEq({ action: "plugin::upload.assets.create" })
   );
@@ -93,11 +96,7 @@ const MediaLibraryPopover: React.FC<{
                 {item.mime.startsWith("image/") ? (
                   <img
                     className="flex w-full h-full rounded-sm object-cover hover:opacity-80 bg-gray-50 dark:bg-gray-700"
-                    src={
-                      item.mime === "image/svg+xml"
-                        ? item.url
-                        : item.formats?.thumbnail?.url
-                    }
+                    src={getImageUrl(item)}
                     alt=""
                   />
                 ) : item.mime.startsWith("video/") ? (
@@ -139,11 +138,7 @@ const MediaLibraryPopover: React.FC<{
                 {item.mime.startsWith("image/") ? (
                   <img
                     className="flex w-full h-full rounded-sm object-cover hover:opacity-80 bg-gray-50"
-                    src={
-                      item.mime === "image/svg+xml"
-                        ? item.url
-                        : item.formats?.thumbnail?.url
-                    }
+                    src={getImageUrl(item)}
                     alt=""
                   />
                 ) : item.mime.startsWith("video/") ? (

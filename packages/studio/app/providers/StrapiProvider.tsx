@@ -7,7 +7,8 @@ import React, {
 } from "react";
 import { useAsync } from "react-use";
 import * as R from "ramda";
-import { Alert } from "antd";
+import { Button, Result } from "antd";
+import { useTranslation } from "react-i18next";
 
 import { StrapiContentType, StrapiComponent } from "@/types/contentType";
 import { StrapiLocale } from "@/types/locales";
@@ -32,6 +33,7 @@ export const StrapiProvider: React.FC<{
   apiUrl: string;
   children: React.ReactNode;
 }> = ({ apiUrl, children }) => {
+  const { t } = useTranslation();
   const { token, clearSession, setSession } = useSession();
   const [init, setInit] = useState(false);
   const [contentTypes, setContentTypes] = useState<StrapiContentType[]>([]);
@@ -105,7 +107,22 @@ export const StrapiProvider: React.FC<{
         refresh,
       }}
     >
-      {error && <Alert banner type="error" description={error.message} />}
+      {error && (
+        <div className="h-screen flex flex-col justify-center">
+          <div className="p-4">
+            <Result
+              status="500"
+              title={t("network_error.title")}
+              subTitle={t("network_error.sub_title")}
+              extra={
+                <Button onClick={() => window.location.reload()}>
+                  {t("network_error.try_again")}
+                </Button>
+              }
+            />
+          </div>
+        </div>
+      )}
       {init && children}
     </Context.Provider>
   );

@@ -184,5 +184,26 @@
   "common.search": "Zoeken",
   "common.settings": "Instellingen",
   "common.default": "Standaard",
-  "common.apply": "Toepassen"
+  "common.apply": "Toepassen",
+
+  "secrets.title": "Geheimen",
+  "secrets.description": "Sleutel-waarden met toegang op rolbasis.",
+  "secrets.key": "Sleutel",
+  "secrets.value": "Waarde",
+  "secrets.roles": "Rollen",
+  "secrets.roles_help": "Selecteer de rollen die toegang hebben tot dit geheim.",
+  "secrets.n_roles_one": "{{count}} rol",
+  "secrets.n_roles_other": "{{count}} rollen",
+  "secrets.deleted": "Geheim is verwijderd",
+
+  "audit.title": "Auditlogboeken",
+  "audit.description": "Een audittrail van acties door gebruikers.",
+  "audit.action": "Actie",
+  "audit.subject": "Gebruiker",
+  "audit.object": "Entiteit",
+  "audit.id": "ID",
+
+  "network_error.title": "Netwerkfout",
+  "network_error.sub_title": "We kunnen de Strapiserver niet bereiken 😭.",
+  "network_error.try_again": "Probeer opnieuw"
 }

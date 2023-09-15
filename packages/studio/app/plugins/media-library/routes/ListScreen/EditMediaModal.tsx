@@ -7,6 +7,7 @@ import { useAsync } from "react-use";
 
 import FormField from "@/ui/FormField";
 import useStrapi from "@/hooks/useStrapi";
+import useCurator from "@/hooks/useCurator";
 
 export default function EditMediaModal({
   media,
@@ -20,6 +21,9 @@ export default function EditMediaModal({
   onDelete?: VoidFunction;
 }) {
   const { t } = useTranslation();
+  const {
+    images: { getImageUrl },
+  } = useCurator();
   const { sdk } = useStrapi();
   const { id, caption, alternativeText, name, folder } = media;
 
@@ -75,7 +79,7 @@ export default function EditMediaModal({
           <div className="py-12 flex flex-col items-center md:flex-row md:items-start gap-12">
             <div className="">
               <img
-                src={media.formats.small.url}
+                src={getImageUrl(media)}
                 alt=""
                 className="w-32 h-32 object-contain"
               />

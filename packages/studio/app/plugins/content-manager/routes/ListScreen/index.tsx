@@ -45,8 +45,10 @@ const ListScreen: React.FC = () => {
   const { contentTypes, sdk } = useStrapi();
   const hasPermission = useContentPermission();
   const contentType = contentTypes.find(R.whereEq({ apiID }));
-  const config = useCurator();
-  const contentTypeConfig = config.contentTypes?.find(R.whereEq({ apiID }));
+  const curatorConfig = useCurator();
+  const contentTypeConfig = curatorConfig.contentTypes?.find(
+    R.whereEq({ apiID })
+  );
   const hasDraftState = contentType?.options.draftAndPublish;
   const name = contentTypeConfig?.name ?? contentType?.info.displayName ?? "";
   const [create, setCreate] = useState<string | null>(null);
@@ -266,9 +268,9 @@ const ListScreen: React.FC = () => {
                               case "media":
                                 return value?.mime?.startsWith("image/") ? (
                                   <Image
-                                    src={
-                                      value.formats?.thumbnail.url || value.url
-                                    }
+                                    src={curatorConfig.images.getImageUrl(
+                                      value
+                                    )}
                                     alt=""
                                     width={64}
                                     height={64}
