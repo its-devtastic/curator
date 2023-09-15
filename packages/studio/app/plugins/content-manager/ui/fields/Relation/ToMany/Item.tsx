@@ -33,7 +33,7 @@ const Item: React.FC<{
     <div
       className={classNames(
         "relative border border-solid border-gray-300 bg-white dark:border-gray-900 dark:bg-gray-800 rounded-md flex items-center gap-3 py-3 px-4",
-        isDragging ? "shadow-2xl z-20" : "shadow-sm"
+        isDragging ? "shadow-2xl z-20" : "shadow-sm",
       )}
       ref={setNodeRef}
       style={style}

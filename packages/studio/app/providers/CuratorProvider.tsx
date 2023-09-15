@@ -34,13 +34,13 @@ const CuratorProvider: React.FC<{
       secrets: true,
       images: { getImageUrl: getDefaultImageUrl },
     },
-    config
+    config,
   ) as CuratorConfig;
 
   const configAfterPlugins = config.plugins
     ? config.plugins.reduce(
         (config, plugin) => plugin(config),
-        configWithDefaults
+        configWithDefaults,
       )
     : configWithDefaults;
 

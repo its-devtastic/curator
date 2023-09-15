@@ -41,7 +41,7 @@ const DynamicZone: React.FC<{
     useSensor(PointerSensor, { activationConstraint: { distance: 10 } }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
 
   return (
@@ -59,13 +59,13 @@ const DynamicZone: React.FC<{
               R.where({
                 id: (id: string | number) => String(id) === activeId,
                 __component: R.equals(activeComponent),
-              })
+              }),
             );
             const newIndex = value.findIndex(
               R.where({
                 id: (id: string | number) => String(id) === overId,
                 __component: R.equals(overComponent),
-              })
+              }),
             );
 
             onChange(arrayMove(value, oldIndex, newIndex));
@@ -87,8 +87,8 @@ const DynamicZone: React.FC<{
               onRemove={() =>
                 onChange(
                   R.reject(
-                    R.whereEq({ id: item.id, __component: item.__component })
-                  )(value)
+                    R.whereEq({ id: item.id, __component: item.__component }),
+                  )(value),
                 )
               }
             />
@@ -104,7 +104,7 @@ const DynamicZone: React.FC<{
             {attribute.components?.map((uid) => {
               const component = components.find(R.whereEq({ uid }));
               const customConfig = curatorConfig.components?.find(
-                R.whereEq({ apiID: component?.apiID })
+                R.whereEq({ apiID: component?.apiID }),
               );
 
               return (
@@ -116,10 +116,10 @@ const DynamicZone: React.FC<{
                       R.append({
                         __component: uid,
                         ...R.mapObjIndexed(R.always(undefined))(
-                          component?.attributes ?? {}
+                          component?.attributes ?? {},
                         ),
                         id: sdk.generateTempId(),
-                      })(value as any)
+                      })(value as any),
                     );
                   }}
                   className="select-none border border-solid border-gray-200 p-2 rounded-md cursor-pointer hover:bg-gray-50 hover:border-gray-300 flex gap-2 items-center"
@@ -135,7 +135,7 @@ const DynamicZone: React.FC<{
                         customConfig?.name ?? component?.info.displayName ?? "",
                         {
                           ns: "custom",
-                        }
+                        },
                       )}
                     </div>
                     {customConfig?.description && (

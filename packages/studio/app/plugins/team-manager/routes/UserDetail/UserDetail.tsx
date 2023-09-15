@@ -24,10 +24,10 @@ export default function UserDetail() {
   const [edit, setEdit] = useState(false);
   const isYou = user?.id === Number(id);
   const canUpdate = permissions.some(
-    R.whereEq({ action: "admin::users.update" })
+    R.whereEq({ action: "admin::users.update" }),
   );
   const canDelete = permissions.some(
-    R.whereEq({ action: "admin::users.delete" })
+    R.whereEq({ action: "admin::users.delete" }),
   );
 
   const { value, retry } = useAsyncRetry(async () => {

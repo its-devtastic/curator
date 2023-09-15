@@ -22,7 +22,7 @@ export default function UpdateUserModal({
   const { t } = useTranslation();
   const { sdk, roles, permissions } = useStrapi();
   const canEditRoles = permissions.some(
-    R.whereEq({ action: "admin::roles.read" })
+    R.whereEq({ action: "admin::roles.read" }),
   );
 
   const validationSchema = Schema.object({
@@ -37,7 +37,7 @@ export default function UpdateUserModal({
       initialValues={
         R.pipe<any, any, any>(
           R.pick(["firstname", "lastname", "email", "roles", "isActive", "id"]),
-          R.evolve({ roles: R.pluck("id") })
+          R.evolve({ roles: R.pluck("id") }),
         )(user) as AdminUser & {
           roles: number[];
         }

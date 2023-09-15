@@ -17,7 +17,7 @@ export default function TeamList() {
   const { sdk, permissions } = useStrapi();
   const navigate = useNavigate();
   const canCreate = permissions.some(
-    R.whereEq({ action: "admin::users.create" })
+    R.whereEq({ action: "admin::users.create" }),
   );
   const [create, setCreate] = useState(false);
 
@@ -30,7 +30,7 @@ export default function TeamList() {
   });
 
   const { loading, retry } = useAsyncRetry(async () => {
-    const data = await sdk.getAdminUsers({ sort: "updatedAt:DESC" });
+    const data = await sdk.getAdminUsers({ sort: "id:DESC" });
     setCollection(data);
   }, [sdk]);
 

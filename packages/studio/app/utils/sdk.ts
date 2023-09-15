@@ -50,7 +50,7 @@ export class StrapiSdk {
 
   public async getComponents() {
     const { data } = await this.http.get<{ data: StrapiComponent[] }>(
-      "/content-manager/components"
+      "/content-manager/components",
     );
 
     return data.data;
@@ -58,7 +58,7 @@ export class StrapiSdk {
 
   public async getPermissions() {
     const { data } = await this.http.get<{ data: Permission[] }>(
-      "/admin/users/me/permissions"
+      "/admin/users/me/permissions",
     );
 
     return data.data;
@@ -66,7 +66,7 @@ export class StrapiSdk {
 
   public async getMe() {
     const { data } = await this.http.get<{ data: SessionUser }>(
-      "/admin/users/me"
+      "/admin/users/me",
     );
 
     return data.data;
@@ -133,13 +133,13 @@ export class StrapiSdk {
   public async getOne<T extends Record<string, any>>(
     apiID: string,
     id?: number,
-    config?: any
+    config?: any,
   ) {
     const isSingleType =
       this.contentTypes.find(R.whereEq({ apiID }))?.kind === "singleType";
     const { data } = await this.http.get<T>(
       `${this.getContentUrl(apiID)}/${(isSingleType ? "" : id) ?? ""}`,
-      config
+      config,
     );
 
     return data;
@@ -148,7 +148,7 @@ export class StrapiSdk {
   public async getMany<T>(apiID: string, params?: GetManyParams) {
     const { data } = await this.http.get<PaginatedResponse<any>>(
       this.getContentUrl(apiID),
-      { params }
+      { params },
     );
 
     return data;
@@ -158,7 +158,7 @@ export class StrapiSdk {
     apiID: string,
     id: number,
     field: string,
-    params?: GetManyParams
+    params?: GetManyParams,
   ) {
     const contentType = this.contentTypes.find(R.whereEq({ apiID }));
 
@@ -166,7 +166,7 @@ export class StrapiSdk {
       `/content-manager/relations/${contentType?.uid}/${id}/${field}`,
       {
         params,
-      }
+      },
     );
 
     return data.data;
@@ -176,7 +176,7 @@ export class StrapiSdk {
     apiID: string,
     id: number,
     field: string,
-    params?: GetManyParams
+    params?: GetManyParams,
   ) {
     const contentType = this.contentTypes.find(R.whereEq({ apiID }));
 
@@ -184,7 +184,7 @@ export class StrapiSdk {
       `/content-manager/relations/${contentType?.uid}/${id}/${field}`,
       {
         params,
-      }
+      },
     );
 
     return data;
@@ -193,7 +193,7 @@ export class StrapiSdk {
   public async save(
     apiID: string,
     attributes: Record<string, any>,
-    config?: any
+    config?: any,
   ) {
     const isSingleType =
       this.contentTypes.find(R.whereEq({ apiID }))?.kind === "singleType";
@@ -203,7 +203,7 @@ export class StrapiSdk {
     ](
       `${this.getContentUrl(apiID)}/${isSingleType ? "" : attributes.id ?? ""}`,
       StrapiSdk.removeTmpId(attributes),
-      config
+      config,
     );
 
     return data;
@@ -215,7 +215,7 @@ export class StrapiSdk {
 
   public async publish(apiID: string, id: number) {
     const { data } = await this.http.post(
-      `${this.getContentUrl(apiID)}/${id}/actions/publish`
+      `${this.getContentUrl(apiID)}/${id}/actions/publish`,
     );
 
     return data;
@@ -223,7 +223,7 @@ export class StrapiSdk {
 
   public async unpublish(apiID: string, id: number) {
     const { data } = await this.http.post(
-      `${this.getContentUrl(apiID)}/${id}/actions/unpublish`
+      `${this.getContentUrl(apiID)}/${id}/actions/unpublish`,
     );
 
     return data;
@@ -232,7 +232,7 @@ export class StrapiSdk {
   public async updateProfile(values: Partial<SessionUser>) {
     const { data } = await this.http.put<{ data: SessionUser }>(
       "/admin/users/me",
-      values
+      values,
     );
 
     return data.data;
@@ -241,7 +241,7 @@ export class StrapiSdk {
   public async getMediaItems(params?: GetMediaParams) {
     const { data } = await this.http.get<PaginatedResponse<MediaItem>>(
       "/upload/files",
-      { params }
+      { params },
     );
 
     return data;
@@ -285,7 +285,7 @@ export class StrapiSdk {
   public async createFolder(dto: { parent: number | null; name: string }) {
     const { data } = await this.http.post<{ data: any }>(
       "/upload/folders",
-      dto
+      dto,
     );
 
     return data.data;
@@ -302,7 +302,7 @@ export class StrapiSdk {
   }) {
     const { data } = await this.http.put<{ data: any }>(
       `/upload/folders/${id}`,
-      { parent, name }
+      { parent, name },
     );
 
     return data.data;
@@ -315,7 +315,7 @@ export class StrapiSdk {
         params: {
           "populate[parent][populate][parent]": "*",
         },
-      }
+      },
     );
 
     return data.data;
@@ -333,7 +333,7 @@ export class StrapiSdk {
             pageSize: -1,
           },
         },
-      }
+      },
     );
 
     return data.data;
@@ -341,7 +341,7 @@ export class StrapiSdk {
 
   public async getFolderStructure() {
     const { data } = await this.http.get<{ data: MediaFolderStructure[] }>(
-      "/upload/folder-structure"
+      "/upload/folder-structure",
     );
 
     return data.data;
@@ -383,7 +383,7 @@ export class StrapiSdk {
   }
 
   public async createAdminUser(
-    value: Pick<AdminUser, "email" | "firstname" | "lastname" | "roles">
+    value: Pick<AdminUser, "email" | "firstname" | "lastname" | "roles">,
   ) {
     const { data } = await this.http.post<{
       data: AdminUser & { registrationToken: string };
@@ -422,7 +422,7 @@ export class StrapiSdk {
   public async updateLocale(id: number, payload: { isDefault?: boolean }) {
     const { data } = await this.http.put<StrapiLocale>(
       `/i18n/locales/${id}`,
-      payload
+      payload,
     );
 
     return data;
@@ -433,9 +433,10 @@ export class StrapiSdk {
   }
 
   public async getIsoLocales() {
-    const { data } = await this.http.get<{ code: string; name: string }[]>(
-      "/i18n/iso-locales"
-    );
+    const { data } =
+      await this.http.get<{ code: string; name: string }[]>(
+        "/i18n/iso-locales",
+      );
 
     return data;
   }
@@ -447,9 +448,8 @@ export class StrapiSdk {
    * has access to. It returns a single key-value object.
    */
   public async getSecrets() {
-    const { data } = await this.http.get<Record<string, string>>(
-      "/curator/secrets"
-    );
+    const { data } =
+      await this.http.get<Record<string, string>>("/curator/secrets");
 
     return data;
   }
@@ -472,7 +472,7 @@ export class StrapiSdk {
   public async getVersions(
     apiID: string,
     id: number,
-    params: { page?: number } = {}
+    params: { page?: number } = {},
   ) {
     const uid = this.contentTypes.find(R.whereEq({ apiID }))?.uid;
 
@@ -482,7 +482,7 @@ export class StrapiSdk {
         params: {
           page: params.page ?? 1,
         },
-      }
+      },
     );
 
     return data;
@@ -508,7 +508,7 @@ export class StrapiSdk {
   }
 
   private static removeTmpId<
-    T extends Record<string, unknown> | Record<string, unknown>[]
+    T extends Record<string, unknown> | Record<string, unknown>[],
   >(data: T): T {
     function removeId(value: any): any {
       return R.cond([
@@ -519,7 +519,7 @@ export class StrapiSdk {
             R.evolve({
               id: R.when(R.startsWith("__tmp__"), R.always(undefined)),
             }),
-            R.mapObjIndexed(removeId)
+            R.mapObjIndexed(removeId),
           ),
         ],
         [R.T, R.identity],

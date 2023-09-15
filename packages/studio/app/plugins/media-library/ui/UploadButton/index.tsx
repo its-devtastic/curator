@@ -32,7 +32,7 @@ const UploadButton: React.FC<{
         setLoading(false);
       }
     },
-    [folder]
+    [folder],
   );
 
   return (

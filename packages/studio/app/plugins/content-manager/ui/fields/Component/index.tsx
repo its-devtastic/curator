@@ -13,11 +13,11 @@ const Component: React.FC<ComponentProps> = ({ field, attribute, apiID }) => {
   const { components } = useStrapi();
   const component = components.find(R.whereEq({ uid: attribute.component }));
   const config = curatorConfig.components?.find(
-    R.whereEq({ apiID: component?.apiID })
+    R.whereEq({ apiID: component?.apiID }),
   );
 
   return config && component ? (
-    <div className="w-full relative bg-gray-50 rounded-md">
+    <div className="w-full relative bg-gray-50 dark:bg-gray-800 rounded-md">
       <div className="p-4 space-y-6 rounded-b-lg">
         {config.fields?.map((f: FieldDefinition) => (
           <FieldRenderer

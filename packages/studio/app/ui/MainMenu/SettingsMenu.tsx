@@ -21,14 +21,14 @@ const SettingsMenu: React.FC = () => {
     config.zones?.filter(
       R.whereEq({
         zone: InjectionZone.MainMenuSettings,
-      })
-    ) ?? []
+      }),
+    ) ?? [],
   );
   const canRead = permissions.some(
     R.whereEq({
       action: "plugin::content-manager.explorer.read",
       subject: "plugin::curator.curator-secret",
-    })
+    }),
   );
 
   return (
@@ -45,15 +45,15 @@ const SettingsMenu: React.FC = () => {
             onClick() {
               navigate("/settings/secrets");
             },
-          })
+          }),
         )(
           items.map(
             (item, index) =>
               ({
                 key: String(index),
                 label: item.render(),
-              } as any)
-          )
+              }) as any,
+          ),
         ),
       }}
     >

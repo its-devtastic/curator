@@ -32,8 +32,8 @@ const MainMenu: React.FC & {
             InjectionZone.MainMenuBottom,
             InjectionZone.MainMenuSettings,
           ].includes(zone),
-      })
-    ) ?? []
+      }),
+    ) ?? [],
   );
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const MainMenu: React.FC & {
           "bg-gray-50 dark:bg-gray-900 w-screen md:w-[240px] fixed z-10 bottom-0 top-0 left-0 md:relative transition-transform duration-300 flex flex-col overflow-y-auto",
           {
             "-translate-x-full md:translate-x-0": !isOpen,
-          }
+          },
         )}
       >
         <Button
@@ -115,7 +115,7 @@ const MainMenu: React.FC & {
                 <div key={index}>{render()}</div>
               ))}
             {items.some(
-              R.whereEq({ zone: InjectionZone.MainMenuSettings })
+              R.whereEq({ zone: InjectionZone.MainMenuSettings }),
             ) && <SettingsMenu />}
             <UserMenu />
           </div>

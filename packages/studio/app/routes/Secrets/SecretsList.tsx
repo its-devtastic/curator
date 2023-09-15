@@ -25,19 +25,19 @@ export default function SecretsList() {
     R.whereEq({
       action: "plugin::content-manager.explorer.update",
       subject: "plugin::curator.curator-secret",
-    })
+    }),
   );
   const canCreate = permissions.some(
     R.whereEq({
       action: "plugin::content-manager.explorer.create",
       subject: "plugin::curator.curator-secret",
-    })
+    }),
   );
   const canDelete = permissions.some(
     R.whereEq({
       action: "plugin::content-manager.explorer.delete",
       subject: "plugin::curator.curator-secret",
-    })
+    }),
   );
 
   const { value, loading, retry } = useAsyncRetry(async () => {
@@ -134,7 +134,7 @@ export default function SecretsList() {
                                 async onOk() {
                                   await sdk.deleteOne(
                                     "curator-secret",
-                                    item.id
+                                    item.id,
                                   );
                                   retry();
                                   notification.success({

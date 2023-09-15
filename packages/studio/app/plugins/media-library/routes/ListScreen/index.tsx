@@ -11,7 +11,7 @@ export default function ListScreen() {
   const { t } = useTranslation();
   const { permissions } = useStrapi();
   const hasPermission = permissions.some(
-    R.whereEq({ action: "plugin::upload.read" })
+    R.whereEq({ action: "plugin::upload.read" }),
   );
 
   return hasPermission ? (

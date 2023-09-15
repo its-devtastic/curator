@@ -81,7 +81,7 @@ function FilterValue({ filter }: { filter: Record<string, string> }) {
 
   const label = useMemo(() => {
     return `${t(
-      `filters.${Object.keys(filter)[0]?.replace(/(^\$|i$)/g, "")}`
+      `filters.${Object.keys(filter)[0]?.replace(/(^\$|i$)/g, "")}`,
     )} ${Object.values(filter)[0]}`;
   }, [filter]);
 

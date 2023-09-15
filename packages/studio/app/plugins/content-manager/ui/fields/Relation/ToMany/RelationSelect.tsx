@@ -33,7 +33,7 @@ const RelationSelect: React.FC<{
   const [open, setOpen] = useState(false);
   const [create, setCreate] = useState(false);
   const allowCreate = usePluginOptions(
-    (state) => !R.isNil(state.options.contentTypes?.[targetModelApiID]?.create)
+    (state) => !R.isNil(state.options.contentTypes?.[targetModelApiID]?.create),
   );
 
   const { value: items = [], loading } = useAsync(async () => {

@@ -122,7 +122,7 @@ function FilterValue({ filter }: { filter: Record<string, string> }) {
     if (filter.$gte && !filter.$lte) {
       return `${t("filters.last")} ${dayjs().diff(
         dayjs(filter.$gte),
-        "days"
+        "days",
       )} ${t("filters.days").toLowerCase()}`;
     }
     return "";

@@ -40,14 +40,14 @@ const ListScreen: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const apiID = params.apiID ?? "";
   const pluginOptions = usePluginOptions(
-    (state) => state.options.contentTypes?.[apiID]
+    (state) => state.options.contentTypes?.[apiID],
   );
   const { contentTypes, sdk } = useStrapi();
   const hasPermission = useContentPermission();
   const contentType = contentTypes.find(R.whereEq({ apiID }));
   const curatorConfig = useCurator();
   const contentTypeConfig = curatorConfig.contentTypes?.find(
-    R.whereEq({ apiID })
+    R.whereEq({ apiID }),
   );
   const hasDraftState = contentType?.options.draftAndPublish;
   const name = contentTypeConfig?.name ?? contentType?.info.displayName ?? "";
@@ -69,7 +69,7 @@ const ListScreen: React.FC = () => {
 
     const data = await sdk.getMany(
       apiID,
-      convertSearchParamsToObject(searchParams)
+      convertSearchParamsToObject(searchParams),
     );
     setCollection(data);
   }, [sdk, contentTypes, apiID, searchParams]);
@@ -165,29 +165,29 @@ const ListScreen: React.FC = () => {
                                           const data = isDraft
                                             ? await sdk.publish(
                                                 apiID,
-                                                record.id
+                                                record.id,
                                               )
                                             : await sdk.unpublish(
                                                 apiID,
-                                                record.id
+                                                record.id,
                                               );
                                           setCollection(
                                             R.evolve({
                                               results: R.map((item: any) =>
                                                 item.id === record.id
                                                   ? data
-                                                  : item
+                                                  : item,
                                               ),
-                                            })
+                                            }),
                                           );
                                           notification.success({
                                             message: t(
-                                              "phrases.document_status_changed"
+                                              "phrases.document_status_changed",
                                             ),
                                             description: t(
                                               isDraft
                                                 ? "phrases.document_published"
-                                                : "phrases.document_unpublished"
+                                                : "phrases.document_unpublished",
                                             ),
                                           });
                                         } catch (e) {
@@ -218,13 +218,13 @@ const ListScreen: React.FC = () => {
 
                         if (!config) {
                           console.warn(
-                            `Could not find config for path ${column.path}`
+                            `Could not find config for path ${column.path}`,
                           );
                           return;
                         }
 
                         const sortable = SORTABLE_FIELD_TYPES.includes(
-                          config?.type
+                          config?.type,
                         );
                         const isSorted =
                           searchParams.get("sort")?.split(":")[0] ===
@@ -248,7 +248,7 @@ const ListScreen: React.FC = () => {
                                           ? "ASC"
                                           : "DESC"
                                         : "ASC"
-                                    }`
+                                    }`,
                                   );
                                   return params;
                                 });
@@ -269,7 +269,7 @@ const ListScreen: React.FC = () => {
                                 return value?.mime?.startsWith("image/") ? (
                                   <Image
                                     src={curatorConfig.images.getImageUrl(
-                                      value
+                                      value,
                                     )}
                                     alt=""
                                     width={64}
@@ -286,7 +286,7 @@ const ListScreen: React.FC = () => {
                             }
                           },
                         };
-                      }
+                      },
                     ),
                     contentType?.pluginOptions.i18n?.localized && {
                       title: (

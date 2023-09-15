@@ -27,8 +27,8 @@ const useSession = create<SessionState>()(
         set(initialState);
       },
     }),
-    { name: "curator::session" }
-  )
+    { name: "curator::session" },
+  ),
 );
 
 export default useSession;

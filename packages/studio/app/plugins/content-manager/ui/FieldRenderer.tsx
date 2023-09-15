@@ -28,7 +28,7 @@ const FieldRenderer: React.FC<{
   } = useFormikContext<{ id: number | string | null }>();
 
   const inputName = R.when(R.equals("component"), () =>
-    attribute?.repeatable ? "repeatableComponent" : "component"
+    attribute?.repeatable ? "repeatableComponent" : "component",
   )((typeof field.input === "string" && field.input) || attribute?.type || "");
   const InputComponent =
     typeof field.input !== "string" && !R.isNil(field.input)

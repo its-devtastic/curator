@@ -11,7 +11,7 @@ export default function TeamScreen() {
   const { t } = useTranslation();
   const { permissions } = useStrapi();
   const hasPermission = permissions.some(
-    R.whereEq({ action: "admin::users.read" })
+    R.whereEq({ action: "admin::users.read" }),
   );
 
   return hasPermission ? (

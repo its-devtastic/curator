@@ -14,7 +14,7 @@ export default function AuditScreen() {
     R.whereEq({
       action: "plugin::content-manager.explorer.read",
       subject: "plugin::curator.curator-audit-log",
-    })
+    }),
   );
 
   return hasPermission ? (

@@ -34,7 +34,7 @@ const SecretsProvider: React.FC<{
       }
       return key;
     },
-    [secrets]
+    [secrets],
   );
 
   return (

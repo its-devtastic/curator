@@ -8,7 +8,7 @@ import DashboardScreen from "./routes/DashboardScreen";
 import MainMenuItem from "./MainMenuItem";
 
 export default function dashboardPlugin(
-  pluginOptions: DashboardPluginOptions = {}
+  pluginOptions: DashboardPluginOptions = {},
 ) {
   return (config: CuratorConfig): CuratorConfig => {
     return R.evolve({

@@ -25,7 +25,7 @@ export function parseFilterParams(params: URLSearchParams) {
       R.replace(/]\[id]\[\$eq]/g, "[$relation]"),
       R.split(/[\[\]]/g),
       R.reject(R.anyPass([R.isEmpty, R.test(/^\d+$/), R.equals("$and")])),
-      R.tail
+      R.tail,
     )(key);
 
     return R.assocPath(path as (string | number)[], value, result);
@@ -33,7 +33,7 @@ export function parseFilterParams(params: URLSearchParams) {
 }
 
 export function serializeFilterParams(
-  filters: Record<string, Record<string, string>>
+  filters: Record<string, Record<string, string>>,
 ): Record<string, string> {
   return Object.entries(filters)
     .map(([path, filter]) => [path, Object.entries(filter)[0]])
@@ -47,7 +47,7 @@ export function serializeFilterParams(
               }`]: condition[1],
             }
           : result,
-      {}
+      {},
     );
 }
 

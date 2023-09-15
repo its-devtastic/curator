@@ -30,7 +30,7 @@ const ToOne: React.FC<{
   const [edit, setEdit] = useState(false);
   const [create, setCreate] = useState(false);
   const allowCreate = usePluginOptions(
-    (state) => !R.isNil(state.options.contentTypes?.[targetModelApiID]?.create)
+    (state) => !R.isNil(state.options.contentTypes?.[targetModelApiID]?.create),
   );
 
   const {

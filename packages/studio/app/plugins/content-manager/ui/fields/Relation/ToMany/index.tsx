@@ -41,7 +41,7 @@ const ToMany: React.FC<{
     useSensor(PointerSensor, { activationConstraint: { distance: 10 } }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
 
   const handleChange = useCallback((ids: (number | string)[]) => {
@@ -66,7 +66,7 @@ const ToMany: React.FC<{
         field.path,
         {
           locale: values.locale,
-        }
+        },
       );
       const ids = R.pluck("id", relations);
 
@@ -106,12 +106,12 @@ const ToMany: React.FC<{
             const oldIndex = items.findIndex(
               R.whereEq({
                 id: active.id,
-              })
+              }),
             );
             const newIndex = items.findIndex(
               R.whereEq({
                 id: over.id,
-              })
+              }),
             );
 
             handleChange(arrayMove(R.pluck("id", items), oldIndex, newIndex));

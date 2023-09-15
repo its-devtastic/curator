@@ -10,22 +10,22 @@ export default function useContentPermission() {
     (
       action: "read" | "update" | "create" | "delete" | "publish",
       contentType: string,
-      field?: string | null
+      field?: string | null,
     ) =>
       permissions.some(
         R.where({
           action: R.equals(`plugin::content-manager.explorer.${action}`),
           subject: R.equals(
-            contentTypes.find(R.whereEq({ apiID: contentType }))?.uid
+            contentTypes.find(R.whereEq({ apiID: contentType }))?.uid,
           ),
           properties: R.where({
             fields: R.either(
               () => !field,
-              (fields: string[]) => fields.some(R.startsWith(field as string))
+              (fields: string[]) => fields.some(R.startsWith(field as string)),
             ),
           }),
-        })
+        }),
       ),
-    [permissions, contentTypes]
+    [permissions, contentTypes],
   );
 }

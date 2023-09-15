@@ -51,7 +51,7 @@ const Actions: React.FC<{
     contentType &&
     (contentType.pluginOptions.versioning ||
       Object.values(contentType.attributes).some(
-        R.path(["pluginOptions", "versioning"])
+        R.path(["pluginOptions", "versioning"]),
       ));
   const [showVersioning, setShowVersioning] = useState(false);
   /*
@@ -79,14 +79,14 @@ const Actions: React.FC<{
       }
     },
     3_000,
-    [values.id, isDraft, preferences.autosave, dirty]
+    [values.id, isDraft, preferences.autosave, dirty],
   );
   /*
    * Warn user if navigating from a dirty form.
    */
   useBeforeUnload(
     !R.isNil(values.id) && dirty,
-    t("content_manager.unsaved_changes")
+    t("content_manager.unsaved_changes"),
   );
   useEffect(() => {
     if (
@@ -109,7 +109,7 @@ const Actions: React.FC<{
       }
     },
     {},
-    [modifierKey.value]
+    [modifierKey.value],
   );
 
   return (
@@ -198,7 +198,7 @@ const Actions: React.FC<{
                           description: t(
                             isDraft
                               ? "phrases.document_published"
-                              : "phrases.document_unpublished"
+                              : "phrases.document_unpublished",
                           ),
                         });
                       } catch (e) {

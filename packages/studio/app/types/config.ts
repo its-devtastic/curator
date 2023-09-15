@@ -56,7 +56,7 @@ export interface ComponentConfig {
   collapsible?: boolean;
   renderLabel?(
     entity: Record<string, unknown>,
-    utils: { t: (s: string) => string }
+    utils: { t: (s: string) => string },
   ): React.ReactNode;
 }
 

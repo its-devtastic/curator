@@ -23,11 +23,11 @@ const LanguageSwitcher: React.FC = () => {
   const untranslatedLocales = locales.filter(
     ({ code }) =>
       code !== values.locale &&
-      !values.localizations?.some(R.whereEq({ locale: code }))
+      !values.localizations?.some(R.whereEq({ locale: code })),
   );
   const languageNames = useMemo(
     () => new Intl.DisplayNames([i18n.language], { type: "language" }),
-    [i18n.language]
+    [i18n.language],
   );
 
   return (
@@ -37,21 +37,21 @@ const LanguageSwitcher: React.FC = () => {
         locales={locales.filter(
           ({ code }) =>
             code === values.locale ||
-            values.localizations?.some(R.whereEq({ locale: code }))
+            values.localizations?.some(R.whereEq({ locale: code })),
         )}
         value={values.locale}
         onChange={(locale) => {
           const localizationId = values.localizations?.find(
-            R.whereEq({ locale })
+            R.whereEq({ locale }),
           )?.id;
 
           if (localizationId) {
             navigate(
               isSingleType
                 ? `/content-manager/${apiID}?locale=${locale}`
-                : `/content-manager/${apiID}/${
-                    values.localizations?.find(R.whereEq({ locale }))?.id
-                  }`
+                : `/content-manager/${apiID}/${values.localizations?.find(
+                    R.whereEq({ locale }),
+                  )?.id}`,
             );
           }
         }}
@@ -84,7 +84,7 @@ const LanguageSwitcher: React.FC = () => {
                       "plugins[i18n][locale]": code,
                       "plugins[i18n][relatedEntityId]": values.id,
                     },
-                  }
+                  },
                 );
                 navigate(`/content-manager/${apiID}/${id}`);
               },

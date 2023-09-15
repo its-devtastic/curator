@@ -17,13 +17,13 @@ export default function Internationalization() {
   const [modal, contextHolder] = Modal.useModal();
   const languageNames = useMemo(
     () => new Intl.DisplayNames([i18n.language], { type: "language" }),
-    [i18n.language]
+    [i18n.language],
   );
   const canUpdate = permissions.some(
-    R.whereEq({ action: "plugin::i18n.locale.update" })
+    R.whereEq({ action: "plugin::i18n.locale.update" }),
   );
   const canDelete = permissions.some(
-    R.whereEq({ action: "plugin::i18n.locale.delete" })
+    R.whereEq({ action: "plugin::i18n.locale.delete" }),
   );
 
   return (
@@ -42,7 +42,7 @@ export default function Internationalization() {
         <Table
           dataSource={R.sortWith(
             [R.descend(R.prop("isDefault")), R.ascend(R.prop("name"))],
-            locales
+            locales,
           )}
           pagination={{
             pageSize: 10,
@@ -86,7 +86,7 @@ export default function Internationalization() {
                                 await refresh();
                                 notification.success({
                                   message: t(
-                                    "internationalization.default_updated"
+                                    "internationalization.default_updated",
                                   ),
                                 });
                               },
@@ -100,7 +100,7 @@ export default function Internationalization() {
                                 modal.confirm({
                                   title: t("phrases.are_you_sure"),
                                   content: t(
-                                    "internationalization.delete_warning"
+                                    "internationalization.delete_warning",
                                   ),
                                   okText: t("common.delete"),
                                   cancelText: t("common.cancel"),
@@ -111,7 +111,7 @@ export default function Internationalization() {
                                     refresh();
                                     notification.success({
                                       message: t(
-                                        "internationalization.deleted"
+                                        "internationalization.deleted",
                                       ),
                                     });
                                   },

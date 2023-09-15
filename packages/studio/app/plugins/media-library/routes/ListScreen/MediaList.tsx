@@ -43,13 +43,13 @@ const MediaList: React.FC = () => {
   const [edit, setEdit] = useState<MediaItem | null>(null);
   const view = preferences.mediaLibrary?.listView ?? "list";
   const canUpload = permissions.some(
-    R.whereEq({ action: "plugin::upload.assets.create" })
+    R.whereEq({ action: "plugin::upload.assets.create" }),
   );
   const canEdit = permissions.some(
-    R.whereEq({ action: "plugin::upload.assets.update" })
+    R.whereEq({ action: "plugin::upload.assets.update" }),
   );
   const canCopyLink = permissions.some(
-    R.whereEq({ action: "plugin::upload.assets.copy-link" })
+    R.whereEq({ action: "plugin::upload.assets.copy-link" }),
   );
   const [collection, setCollection] = useState<{
     pagination: IPagination | null;
@@ -118,7 +118,7 @@ const MediaList: React.FC = () => {
                 onChange={(view) =>
                   setPreference(
                     "mediaLibrary.listView",
-                    view as "list" | "grid"
+                    view as "list" | "grid",
                   )
                 }
                 options={[
@@ -187,7 +187,7 @@ const MediaList: React.FC = () => {
                             <Popconfirm
                               title={t("media_library.delete_item_title")}
                               description={t(
-                                "media_library.delete_item_description"
+                                "media_library.delete_item_description",
                               )}
                               onConfirm={async (e) => {
                                 e?.stopPropagation();
@@ -230,7 +230,7 @@ const MediaList: React.FC = () => {
                           <div
                             className={classNames(
                               "flex items-center justify-center bg-indigo-50 rounded-md select-none",
-                              view === "grid" ? "w-32 h-32" : "h-10 w-10"
+                              view === "grid" ? "w-32 h-32" : "h-10 w-10",
                             )}
                           >
                             <FontAwesomeIcon
@@ -261,7 +261,7 @@ const MediaList: React.FC = () => {
                               <span>{item.ext.slice(1).toUpperCase()}</span>
                               <span>
                                 {String(
-                                  filesize(item.size * 1000, { round: 0 })
+                                  filesize(item.size * 1000, { round: 0 }),
                                 )}
                               </span>
                               {item.mime.startsWith("image/") &&

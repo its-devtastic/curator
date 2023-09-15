@@ -27,7 +27,7 @@ export interface ContentTypeConfig {
    */
   render?(
     entity: Entity,
-    utils: { t: TFunction<"custom">; context: RenderContext }
+    utils: { t: TFunction<"custom">; context: RenderContext },
   ): React.ReactNode;
 }
 

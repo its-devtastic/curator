@@ -14,7 +14,7 @@ import Top from "./Top";
 const Main: React.FC<MainProps> = ({ contentType, contentTypeConfig }) => {
   const { apiID = "" } = useParams();
   const blocks = usePluginOptions(
-    (state) => (apiID && state.options.contentTypes?.[apiID]?.edit) || []
+    (state) => (apiID && state.options.contentTypes?.[apiID]?.edit) || [],
   );
 
   return (
@@ -32,14 +32,14 @@ const Main: React.FC<MainProps> = ({ contentType, contentTypeConfig }) => {
                 <div
                   key={field.path}
                   className={classNames(
-                    `col-span-12 lg:col-span-${field.span ?? 12}`
+                    `col-span-12 lg:col-span-${field.span ?? 12}`,
                   )}
                 >
                   <FieldRenderer
                     apiID={apiID}
                     field={
                       contentTypeConfig.fields.find(
-                        R.whereEq({ path: field.path })
+                        R.whereEq({ path: field.path }),
                       )!
                     }
                     attribute={contentType.attributes[field.path]}

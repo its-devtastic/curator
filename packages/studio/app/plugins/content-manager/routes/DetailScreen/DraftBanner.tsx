@@ -31,7 +31,7 @@ const DraftBanner: React.FC = () => {
         description: t(
           isDraft
             ? "phrases.document_published"
-            : "phrases.document_unpublished"
+            : "phrases.document_unpublished",
         ),
       });
     } catch (e) {

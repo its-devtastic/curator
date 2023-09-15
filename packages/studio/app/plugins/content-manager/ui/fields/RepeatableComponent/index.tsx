@@ -40,13 +40,13 @@ const RepeatableComponent: React.FC<RepeatableComponentProps> = ({
   const { sdk, components } = useStrapi();
   const component = components.find(R.whereEq({ uid: attribute.component }));
   const config = curatorConfig.components?.find(
-    R.whereEq({ apiID: component?.apiID })
+    R.whereEq({ apiID: component?.apiID }),
   );
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 10 } }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
 
   return component && config ? (
@@ -94,7 +94,7 @@ const RepeatableComponent: React.FC<RepeatableComponentProps> = ({
             ...value,
             {
               ...R.mapObjIndexed(R.always(undefined))(
-                component?.attributes ?? {}
+                component?.attributes ?? {},
               ),
               id: sdk.generateTempId(),
             },

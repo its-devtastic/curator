@@ -55,7 +55,7 @@ const Main: React.FC<{ curatorConfig: CuratorConfig }> = ({
             },
             algorithm: darkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
           },
-          curatorConfig.theme ?? {}
+          curatorConfig.theme ?? {},
         )}
       >
         <CuratorProvider config={curatorConfig}>
@@ -70,6 +70,6 @@ const Main: React.FC<{ curatorConfig: CuratorConfig }> = ({
 
 export default function createCuratorApp(curatorConfig: CuratorConfig) {
   ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-    <Main curatorConfig={curatorConfig} />
+    <Main curatorConfig={curatorConfig} />,
   );
 }

@@ -30,7 +30,7 @@ const DynamicItem: React.FC<{
   const [opened, setOpened] = useState(false);
   const component = components.find(R.whereEq({ uid: __component }));
   const config = curatorConfig.components?.find(
-    R.whereEq({ apiID: component?.apiID })
+    R.whereEq({ apiID: component?.apiID }),
   );
   const {
     attributes,
@@ -50,7 +50,7 @@ const DynamicItem: React.FC<{
     <div
       className={classNames(
         "w-full relative border border-solid border-gray-300 bg-white rounded-md",
-        isDragging ? "shadow-2xl z-20" : "shadow-sm"
+        isDragging ? "shadow-2xl z-20" : "shadow-sm",
       )}
       ref={setNodeRef}
       style={style}
@@ -60,7 +60,7 @@ const DynamicItem: React.FC<{
           "py-3 px-4 flex items-center gap-3 rounded-t-md hover:cursor-pointer select-none",
           !opened
             ? "rounded-b-md"
-            : "border-b border-solid border-0 border-gray-300"
+            : "border-b border-solid border-0 border-gray-300",
         )}
         onClick={() => setOpened(R.not)}
       >
@@ -120,7 +120,7 @@ const DynamicItem: React.FC<{
                   field={R.evolve({ path: (p) => `${path}.${p}` })(field)}
                   attribute={component.attributes[field.path]}
                 />
-              )
+              ),
           )}
         </div>
       )}

@@ -45,8 +45,8 @@ const RepeatableComponentItem: React.FC<RepeatableComponentItemProps> = ({
   return (
     <div
       className={classNames(
-        "w-full relative border border-solid border-gray-300 bg-white rounded-md",
-        isDragging ? "shadow-2xl z-20" : "shadow-sm"
+        "w-full relative border border-solid border-gray-300 bg-white dark:bg-gray-800 rounded-md",
+        isDragging ? "shadow-2xl z-20" : "shadow-sm",
       )}
       ref={setNodeRef}
       style={style}
@@ -57,7 +57,7 @@ const RepeatableComponentItem: React.FC<RepeatableComponentItemProps> = ({
           !opened
             ? "rounded-b-md"
             : "border-b border-solid border-0 border-gray-300",
-          collapsible ? "py-3" : "pt-1 border-b-0"
+          collapsible ? "py-3" : "pt-1 border-b-0",
         )}
         onClick={() => collapsible && setOpened(R.not)}
       >

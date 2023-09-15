@@ -28,7 +28,7 @@ const MediaLibraryPopover: React.FC<{
   const { t } = useTranslation();
   const [search, setSearch] = useState("");
   const canCreate = permissions.some(
-    R.whereEq({ action: "plugin::upload.assets.create" })
+    R.whereEq({ action: "plugin::upload.assets.create" }),
   );
   const { preferences, setPreference } = usePreferences();
   const view = preferences.mediaLibrary?.popoverView ?? "grid";

@@ -28,7 +28,7 @@ const Relation: React.FC<{
 }> = ({ attribute, field, renderItem, ...props }) => {
   const { contentTypes } = useStrapi();
   const targetModelApiID = contentTypes.find(
-    R.whereEq({ uid: attribute.targetModel })
+    R.whereEq({ uid: attribute.targetModel }),
   )?.apiID;
   const { apiID } = useParams();
 

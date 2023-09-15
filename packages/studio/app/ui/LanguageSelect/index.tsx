@@ -16,7 +16,7 @@ const LanguageSelect: React.FC<SelectProps & { locales?: StrapiLocale[] }> = ({
   const options = locales ?? defaultLocales;
   const languageNames = useMemo(
     () => new Intl.DisplayNames([i18n.language], { type: "language" }),
-    [i18n.language]
+    [i18n.language],
   );
 
   return (
@@ -25,7 +25,7 @@ const LanguageSelect: React.FC<SelectProps & { locales?: StrapiLocale[] }> = ({
       value={value ?? options.find(R.whereEq({ isDefault: true }))?.code}
       options={options.map(({ code }) => ({
         label: (
-          <div className="flex items-center gap-3">
+          <div className="inline-flex items-center gap-3">
             <span
               className={`rounded-sm fi fi-${
                 code.startsWith("en") ? "us" : code.split("-")[0]

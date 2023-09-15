@@ -28,7 +28,7 @@ export default function AuditList() {
       R.defaultTo([] as any),
       R.pluck("subjectId"),
       R.reject(R.isNil) as any,
-      R.uniq
+      R.uniq,
     )(value?.results) as string[];
 
     if (R.isEmpty(ids)) {

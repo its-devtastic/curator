@@ -65,7 +65,7 @@ const VersionList: React.FC<{ onRestore: VoidFunction }> = ({ onRestore }) => {
               type="primary"
               onClick={() => {
                 Object.entries(viewedItem.content).forEach(([key, value]) =>
-                  setFieldValue(key, value)
+                  setFieldValue(key, value),
                 );
                 onRestore();
               }}
@@ -98,7 +98,7 @@ const VersionList: React.FC<{ onRestore: VoidFunction }> = ({ onRestore }) => {
                     className={classNames(
                       item.content.published
                         ? "text-green-500"
-                        : "text-gray-400"
+                        : "text-gray-400",
                     )}
                   />
                 </Tooltip>
@@ -109,7 +109,7 @@ const VersionList: React.FC<{ onRestore: VoidFunction }> = ({ onRestore }) => {
                   "space-y-1 cursor-pointer rounded-sm px-2",
                   item.id === view
                     ? "bg-indigo-50 ring-2 ring-indigo-500"
-                    : "hover:bg-gray-50"
+                    : "hover:bg-gray-50",
                 )}
                 onClick={() => {
                   setView(item.id);

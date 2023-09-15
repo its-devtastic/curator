@@ -44,7 +44,7 @@ const DetailScreen: React.FC = () => {
       const data = await sdk.getOne<any>(
         apiID,
         isSingleType ? undefined : Number(params.id),
-        { params: { locale: defaultLocale } }
+        { params: { locale: defaultLocale } },
       );
 
       const hooks = config.hooks?.filter(R.whereEq({ trigger: "view" })) ?? [];
@@ -91,7 +91,7 @@ const DetailScreen: React.FC = () => {
               config.hooks?.filter(
                 R.whereEq({
                   trigger: params.id === "create" ? "create" : "save",
-                })
+                }),
               ) ?? [];
 
             for (const hook of hooks) {

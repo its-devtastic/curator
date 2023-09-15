@@ -46,7 +46,7 @@ const FormattingMenu: React.FC = () => {
               "richt-text-button",
               editor?.isActive("bold")
                 ? "text-indigo-500"
-                : "text-gray-800 dark:text-white"
+                : "text-gray-800 dark:text-white",
             )}
             onClick={() => editor?.chain().focus().toggleBold().run()}
           >
@@ -57,7 +57,7 @@ const FormattingMenu: React.FC = () => {
               "richt-text-button",
               editor?.isActive("italic")
                 ? "text-indigo-500"
-                : "text-gray-800 dark:text-white"
+                : "text-gray-800 dark:text-white",
             )}
             onClick={() => editor?.chain().focus().toggleItalic().run()}
           >
@@ -68,7 +68,7 @@ const FormattingMenu: React.FC = () => {
               "richt-text-button",
               editor?.isActive("underline")
                 ? "text-indigo-500"
-                : "text-gray-800 dark:text-white"
+                : "text-gray-800 dark:text-white",
             )}
             onClick={() => editor?.chain().focus().toggleUnderline().run()}
           >
@@ -79,7 +79,7 @@ const FormattingMenu: React.FC = () => {
               "richt-text-button",
               editor?.isActive("strike")
                 ? "text-indigo-500"
-                : "text-gray-800 dark:text-white"
+                : "text-gray-800 dark:text-white",
             )}
             onClick={() => editor?.chain().focus().toggleStrike().run()}
           >

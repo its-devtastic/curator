@@ -26,7 +26,7 @@ const CoverImage: React.FC<{
       <div
         className={classNames(
           "h-full items-center justify-center flex-col gap-2 z-10 relative",
-          value ? "hidden group-hover:flex group-hover:bg-black/20" : "flex"
+          value ? "hidden group-hover:flex group-hover:bg-black/20" : "flex",
         )}
       >
         <MediaField

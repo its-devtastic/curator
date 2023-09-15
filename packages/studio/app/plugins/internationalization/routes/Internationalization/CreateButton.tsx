@@ -12,7 +12,7 @@ export default function CreateButton() {
   const [loading, setLoading] = useState(false);
   const { sdk, permissions, locales, refresh } = useStrapi();
   const canCreate = permissions.some(
-    R.whereEq({ action: "plugin::i18n.locale.create" })
+    R.whereEq({ action: "plugin::i18n.locale.create" }),
   );
 
   const { value: availableLocales = [] } = useAsync(async () => {
@@ -58,7 +58,7 @@ export default function CreateButton() {
         .filter(
           R.where({
             code: (code: string) => !locales.some(R.whereEq({ code })),
-          })
+          }),
         )
         .map(({ code, name }) => ({
           key: code,

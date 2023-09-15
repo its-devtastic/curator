@@ -28,10 +28,10 @@ const FolderList: React.FC = () => {
   const [edit, setEdit] = useState<MediaFolder | null>(null);
   const { permissions } = useStrapi();
   const canCreate = permissions.some(
-    R.whereEq({ action: "plugin::upload.assets.create" })
+    R.whereEq({ action: "plugin::upload.assets.create" }),
   );
   const canEdit = permissions.some(
-    R.whereEq({ action: "plugin::upload.assets.update" })
+    R.whereEq({ action: "plugin::upload.assets.update" }),
   );
   const parent = searchParams.get("folder");
 
@@ -60,7 +60,7 @@ const FolderList: React.FC = () => {
         setCreate(false);
       } catch (e) {}
     },
-    [folder?.id, retry]
+    [folder?.id, retry],
   );
 
   useEffect(() => {

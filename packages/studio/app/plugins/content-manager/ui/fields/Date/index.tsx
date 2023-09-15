@@ -24,7 +24,7 @@ const DateField: React.FC<any> = ({
           value &&
             (attribute.type === "date"
               ? value.format("YYYY-MM-DD")
-              : value.toISOString())
+              : value.toISOString()),
         );
       }}
     />

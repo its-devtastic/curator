@@ -17,7 +17,7 @@ export const Context = createContext<{
 const FiltersProvider: React.FC<{ children: any }> = ({ children }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [filters, setFilters] = useState<Filters>(
-    parseFilterParams(searchParams)
+    parseFilterParams(searchParams),
   );
 
   const clearFilters = useCallback(() => {
@@ -28,7 +28,7 @@ const FiltersProvider: React.FC<{ children: any }> = ({ children }) => {
     (path: string) => {
       setFilters(R.dissoc(path, filters));
     },
-    [filters]
+    [filters],
   );
 
   const updateFilter = useCallback(
@@ -40,7 +40,7 @@ const FiltersProvider: React.FC<{ children: any }> = ({ children }) => {
 
       setFilters(newFilters);
     },
-    [filters]
+    [filters],
   );
 
   /**

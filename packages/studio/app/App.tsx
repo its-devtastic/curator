@@ -35,7 +35,7 @@ const App: React.FC = () => {
     notification.config({
       placement: "bottomRight",
       closeIcon: <FontAwesomeIcon icon={faClose} />,
-    })
+    }),
   );
 
   useEffect(() => {

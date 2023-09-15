@@ -26,7 +26,7 @@ export default function CreateContentDialog({
   const contentTypeConfig = config.contentTypes?.find(R.whereEq({ apiID }));
   const contentType = contentTypes.find(R.whereEq({ apiID }));
   const pluginOptions = usePluginOptions(
-    (state) => state.options.contentTypes?.[apiID]
+    (state) => state.options.contentTypes?.[apiID],
   );
   const { getSecret } = useSecrets();
 
@@ -65,7 +65,7 @@ export default function CreateContentDialog({
             contentTypeConfig.name ?? contentType.info.displayName,
             {
               ns: "custom",
-            }
+            },
           ).toLowerCase()}`}
         >
           <Form>
@@ -74,14 +74,14 @@ export default function CreateContentDialog({
                 <div
                   key={field.path}
                   className={classNames(
-                    `col-span-12 lg:col-span-${field.span ?? 12}`
+                    `col-span-12 lg:col-span-${field.span ?? 12}`,
                   )}
                 >
                   <FieldRenderer
                     apiID={apiID}
                     field={
                       contentTypeConfig.fields.find(
-                        R.whereEq({ path: field.path })
+                        R.whereEq({ path: field.path }),
                       )!
                     }
                     attribute={contentType.attributes[field.path]}

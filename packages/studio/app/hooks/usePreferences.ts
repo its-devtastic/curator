@@ -28,7 +28,7 @@ const usePreferences = create<PreferenceState>()(
         set(
           R.evolve({
             preferences: R.assocPath(key.split("."), value),
-          })
+          }),
         );
       },
     }),
@@ -36,8 +36,8 @@ const usePreferences = create<PreferenceState>()(
       name: "curator::preferences",
       merge: (persisted: any = {}, current) =>
         R.mergeDeepRight(current, persisted),
-    }
-  )
+    },
+  ),
 );
 
 export default usePreferences;
