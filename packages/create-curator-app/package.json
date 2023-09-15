@@ -20,7 +20,7 @@
     "chalk": "^5.3.0",
     "commander": "^11.0.0",
     "fs-extra": "^11.1.1",
-    "inquirer": "^9.2.10",
+    "inquirer": "^9.2.11",
     "ora": "^7.0.1",
     "shelljs": "^0.8.5"
   },

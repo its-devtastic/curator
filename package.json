@@ -1,7 +1,7 @@
 {
   "name": "curator",
   "version": "1.0.0",
-  "description": "An alternative admin for Strapi",
+  "description": "Modern full-stack CMS built on Strapi and Next.js",
   "author": "Devtastic <hi@devtastic.build>",
   "directories": {
     "doc": "docs"
@@ -10,7 +10,7 @@
     "packages/*"
   ],
   "devDependencies": {
-    "prettier": "^2.8.8"
+    "prettier": "^3.0.3"
   },
   "homepage": "https://its-devtastic.github.io/curator",
   "maintainers": [
