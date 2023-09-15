@@ -199,5 +199,9 @@
   "audit.action": "Action",
   "audit.subject": "User",
   "audit.object": "Entity",
-  "audit.id": "ID"
+  "audit.id": "ID",
+
+  "network_error.title": "Network error",
+  "network_error.sub_title": "We couldn't reach the Strapi server 😭.",
+  "network_error.try_again": "Try again"
 }

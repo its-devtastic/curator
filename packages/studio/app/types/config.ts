@@ -1,27 +1,35 @@
 import React from "react";
 import { ThemeConfig } from "antd";
 import { RouteObject } from "react-router-dom";
+import { PartialDeep } from "type-fest";
 
 import { ContentTypeConfig, FieldDefinition } from "./contentTypeConfig";
 import { CuratorPlugin } from "./plugin";
+import { MediaItem } from "./media";
 
 export interface CuratorConfig {
   strapiUrl: string;
-  zones?: InjectionZoneEntry[];
-  contentTypes?: ContentTypeConfig[];
-  plugins?: CuratorPlugin[];
-  routes?: RouteObject[];
-  hooks?: Hook[];
-  components?: ComponentConfig[];
-  interfaceLanguages?: string[];
-  theme?: Partial<ThemeConfig>;
-  about?: {
-    icon?: string | { auth: string; header: string };
-    title?: string;
-    website?: string;
+  zones: InjectionZoneEntry[];
+  contentTypes: ContentTypeConfig[];
+  plugins: CuratorPlugin[];
+  routes: RouteObject[];
+  hooks: Hook[];
+  components: ComponentConfig[];
+  interfaceLanguages: string[];
+  theme: Partial<ThemeConfig>;
+  about: {
+    icon: string | { auth: string; header: string };
+    title: string;
+    website: string;
   };
-  secrets?: boolean;
+  secrets: boolean;
+  images: {
+    getImageUrl(image: MediaItem): string;
+  };
 }
+
+export type UserProvidedCuratorConfig = PartialDeep<CuratorConfig> &
+  Pick<CuratorConfig, "strapiUrl">;
 
 export interface InjectionZoneEntry {
   zone: InjectionZone;

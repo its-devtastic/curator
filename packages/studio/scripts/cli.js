@@ -23,7 +23,7 @@ const safelist = [
 function init() {
   program.name(pkg.name).description(pkg.description).version(pkg.version);
 
-  program.command("dev").action(async (dir) => {
+  program.command("dev").action(async () => {
     const root = process.cwd();
 
     const server = await createServer({

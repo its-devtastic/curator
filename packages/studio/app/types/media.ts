@@ -13,17 +13,17 @@ export interface MediaItem {
   alternativeText: string | null;
   caption: string | null;
   folder: MediaFolder | null;
-  formats: {
-    large: {
+  formats?: {
+    large?: {
       url: string;
     };
-    medium: {
+    medium?: {
       url: string;
     };
-    small: {
+    small?: {
       url: string;
     };
-    thumbnail: {
+    thumbnail?: {
       url: string;
     };
   };

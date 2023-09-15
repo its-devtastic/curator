@@ -12,7 +12,7 @@ export { default as auditPlugin } from "./app/plugins/audit";
 
 // Types
 export type {
-  CuratorConfig,
+  UserProvidedCuratorConfig as CuratorConfig,
   ComponentConfig,
   InjectionZoneEntry,
 } from "./app/types/config";

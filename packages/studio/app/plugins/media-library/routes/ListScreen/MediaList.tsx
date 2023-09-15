@@ -29,16 +29,19 @@ import UploadButton from "../../ui/UploadButton";
 import FilterToolbar from "./FilterToolbar";
 import FolderList from "./FolderList";
 import EditMediaModal from "./EditMediaModal";
+import useCurator from "@/hooks/useCurator";
 
 const MediaList: React.FC = () => {
   const { t } = useTranslation();
   const [_, copy] = useCopyToClipboard();
-  const { sdk } = useStrapi();
+  const { sdk, permissions } = useStrapi();
+  const {
+    images: { getImageUrl },
+  } = useCurator();
   const { preferences, setPreference } = usePreferences();
   const [searchParams] = useSearchParams();
   const [edit, setEdit] = useState<MediaItem | null>(null);
   const view = preferences.mediaLibrary?.listView ?? "list";
-  const { permissions } = useStrapi();
   const canUpload = permissions.some(
     R.whereEq({ action: "plugin::upload.assets.create" })
   );
@@ -57,16 +60,15 @@ const MediaList: React.FC = () => {
   });
   const folder = R.unless(R.isNil, Number)(searchParams.get("folder"));
 
-  const { value: media = { results: [], pagination: null }, loading } =
-    useAsync(async () => {
-      const data = await sdk.getMediaItems({
-        sort: "createdAt:DESC",
-        pageSize: 12,
-        "filters[$and][0][folder][id]": folder || undefined,
-        "filters[$and][0][folder][id][$null]": !folder || undefined,
-      });
-      setCollection(data);
-    }, [sdk]);
+  const { loading } = useAsync(async () => {
+    const data = await sdk.getMediaItems({
+      sort: "createdAt:DESC",
+      pageSize: 12,
+      "filters[$and][0][folder][id]": folder || undefined,
+      "filters[$and][0][folder][id][$null]": !folder || undefined,
+    });
+    setCollection(data);
+  }, [sdk]);
 
   return (
     <Formik<{
@@ -217,11 +219,7 @@ const MediaList: React.FC = () => {
                         item.mime.startsWith("image/") ? (
                           <img
                             className="rounded-md object-contain"
-                            src={
-                              item.mime === "image/svg+xml"
-                                ? item.url
-                                : item.formats?.thumbnail?.url
-                            }
+                            src={getImageUrl(item)}
                             style={{
                               width: view === "grid" ? 128 : 40,
                               height: view === "grid" ? 128 : 40,
@@ -266,9 +264,11 @@ const MediaList: React.FC = () => {
                                   filesize(item.size * 1000, { round: 0 })
                                 )}
                               </span>
-                              {item.mime.startsWith("image/") && (
-                                <span>{`${item.width} x ${item.height}`}</span>
-                              )}
+                              {item.mime.startsWith("image/") &&
+                                item.width &&
+                                item.height && (
+                                  <span>{`${item.width} x ${item.height}`}</span>
+                                )}
                               <CalendarTime>{item.createdAt}</CalendarTime>
                             </div>
                           </div>
