@@ -24,7 +24,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
       R.whereEq({
         subject: params.uid,
         action: `plugin::content-manager.explorer.read`,
-      })
+      }),
     );
 
     if (!hasPermission) {
@@ -56,7 +56,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
             $eq: params.uid,
           },
         },
-      }
+      },
     );
 
     const count = await strapi.entityService.count(
@@ -70,7 +70,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
             $eq: params.uid,
           },
         },
-      }
+      },
     );
 
     return {
@@ -82,7 +82,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
       },
       results: Array.isArray(entities)
         ? entities.map(
-            R.pick(["id", "content", "version", "createdAt", "createdBy"])
+            R.pick(["id", "content", "version", "createdAt", "createdBy"]),
           )
         : [],
     };

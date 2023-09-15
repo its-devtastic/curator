@@ -30,7 +30,7 @@ export default function versioningLifecycle(strapi: Strapi) {
    */
   const throttleTime = R.unless(
     (value) => typeof value === "number",
-    R.always(DEFAULT_THROTTLE)
+    R.always(DEFAULT_THROTTLE),
   )(R.prop<number>("throttle", config)) as number;
   /*
    * Make sure versions cannot be updated.
@@ -69,13 +69,13 @@ export default function versioningLifecycle(strapi: Strapi) {
                 ([key, attribute]: [string, any]) =>
                   attribute.writable !== false &&
                   attribute.type !== "relation" &&
-                  !NON_VERSIONED_FIELDS.includes(key)
+                  !NON_VERSIONED_FIELDS.includes(key),
               )
               .map<string>(R.head)
           : Object.entries(event.model.attributes)
               .filter(
                 ([_, attribute]: [string, any]) =>
-                  attribute.pluginOptions?.versioning
+                  attribute.pluginOptions?.versioning,
               )
               .map<string>(R.head);
 
@@ -85,7 +85,7 @@ export default function versioningLifecycle(strapi: Strapi) {
         if (id && !R.isEmpty(fields)) {
           const current = await strapi.entityService.findOne(
             event.model.uid as any,
-            id
+            id,
           );
           /*
            * If for some reason we cannot get the current entity there is no
@@ -106,12 +106,12 @@ export default function versioningLifecycle(strapi: Strapi) {
                 objectId: id,
                 objectUid: event.model.uid,
               },
-            }
+            },
           )) as any[];
 
           const hasChanges = !R.equals(
             R.pick(fields, current),
-            R.pick(fields, data)
+            R.pick(fields, data),
           );
 
           const published =
@@ -129,7 +129,7 @@ export default function versioningLifecycle(strapi: Strapi) {
                 version: lastVersion[0] ? lastVersion[0].version + 1 : 1,
                 content: R.when(
                   R.always(published),
-                  R.assoc("published", published)
+                  R.assoc("published", published),
                 )(R.pick(fields, current)),
                 createdBy: data.updatedBy || data.createdBy,
               },

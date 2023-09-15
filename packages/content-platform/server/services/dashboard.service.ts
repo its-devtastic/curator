@@ -26,12 +26,12 @@ export default ({ strapi }: { strapi: Strapi }) => ({
           },
           action: ["update", "create"],
         },
-      }
+      },
     );
 
     const distinct: Record<string, any>[] = R.uniqBy(
       R.props(["objectId", "objectUid"]),
-      query as any[]
+      query as any[],
     ).slice(0, 5);
 
     let results: any[] = [];
@@ -40,13 +40,15 @@ export default ({ strapi }: { strapi: Strapi }) => ({
       try {
         const data = await strapi.entityService.findOne(
           item.objectUid,
-          item.objectId
+          item.objectId,
         );
 
-        results = [
-          ...results,
-          { uid: item.objectUid, id: item.objectId, attributes: data ?? {} },
-        ];
+        if (data) {
+          results = [
+            ...results,
+            { uid: item.objectUid, id: item.objectId, attributes: data },
+          ];
+        }
       } catch (e) {
         console.warn(e);
       }
