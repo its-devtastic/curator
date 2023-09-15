@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Dropdown, notification, Modal, Tooltip, Switch } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEllipsisV,
   faTrashAlt,
   faExternalLink,
+  faClockRotateLeft,
+  faNewspaper,
+  faPen,
 } from "@fortawesome/free-solid-svg-icons";
 import * as R from "ramda";
 import { useFormikContext } from "formik";
@@ -18,6 +21,8 @@ import useStrapi from "@/hooks/useStrapi";
 import useModifierKey from "@/hooks/useModifierKey";
 import usePreferences from "@/hooks/usePreferences";
 import useContentPermission from "@/hooks/useContentPermission";
+
+import Versioning from "./Versioning";
 
 const Actions: React.FC<{
   contentTypeConfig: ContentTypeConfig;
@@ -38,16 +43,29 @@ const Actions: React.FC<{
   const { preferences, setPreference } = usePreferences();
   const blocker = unstable_useBlocker(!R.isNil(values.id) && dirty);
   const modifierKey = useModifierKey();
-
-  // CRUD permissions
+  /*
+   * Versioning is enabled either on the content type level or if one of the
+   * attributes has versioning enabled.
+   */
+  const hasVersioning =
+    contentType &&
+    (contentType.pluginOptions.versioning ||
+      Object.values(contentType.attributes).some(
+        R.path(["pluginOptions", "versioning"])
+      ));
+  const [showVersioning, setShowVersioning] = useState(false);
+  /*
+   * CRUD permissions.
+   */
   const hasCreatePermission = hasPermission("create", apiID);
   const hasUpdatePermission = hasPermission("update", apiID);
   const hasDeletePermission = hasPermission("delete", apiID);
   const hasPublishPermission = hasPermission("publish", apiID);
   const hasSavePermission =
     (!values.id && hasCreatePermission) || (values.id && hasUpdatePermission);
-
-  // Autosave for drafts
+  /*
+   * Autosave for drafts.
+   */
   useDebounce(
     () => {
       if (
@@ -63,8 +81,9 @@ const Actions: React.FC<{
     3_000,
     [values.id, isDraft, preferences.autosave, dirty]
   );
-
-  // Warn user if navigating from a dirty form
+  /*
+   * Warn user if navigating from a dirty form.
+   */
   useBeforeUnload(
     !R.isNil(values.id) && dirty,
     t("content_manager.unsaved_changes")
@@ -78,8 +97,9 @@ const Actions: React.FC<{
       blocker.proceed();
     }
   }, [location, blocker.state]);
-
-  // Catch native save shortcut
+  /*
+   * Catch native save shortcut.
+   */
   useKey(
     "s",
     (e) => {
@@ -95,7 +115,10 @@ const Actions: React.FC<{
   return (
     <>
       {contextHolder}
-
+      <Versioning
+        show={showVersioning}
+        onClose={() => setShowVersioning(false)}
+      />
       <div className="flex items-top gap-2">
         <div className="flex flex-col items-end">
           {hasSavePermission && (
@@ -161,6 +184,9 @@ const Actions: React.FC<{
                     label: isDraft
                       ? t("common.publish")
                       : t("common.unpublish"),
+                    icon: (
+                      <FontAwesomeIcon icon={isDraft ? faNewspaper : faPen} />
+                    ),
                     async onClick() {
                       try {
                         const data = isDraft
@@ -180,6 +206,14 @@ const Actions: React.FC<{
                       }
                     },
                   },
+                hasVersioning && {
+                  key: "versioning",
+                  label: t("common.versioning"),
+                  icon: <FontAwesomeIcon icon={faClockRotateLeft} />,
+                  onClick() {
+                    setShowVersioning(true);
+                  },
+                },
                 { type: "divider" },
                 {
                   label: t("common.delete"),

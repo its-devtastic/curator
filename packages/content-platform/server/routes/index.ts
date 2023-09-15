@@ -11,4 +11,10 @@ export default [
     handler: "dashboardController.index",
     config: {},
   },
+  {
+    method: "GET",
+    path: "/versioning/:uid/:id",
+    handler: "versioningController.list",
+    config: {},
+  },
 ];

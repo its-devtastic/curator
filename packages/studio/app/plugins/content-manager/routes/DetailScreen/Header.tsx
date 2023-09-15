@@ -8,19 +8,27 @@ import { ContentTypeConfig } from "@/types/contentTypeConfig";
 import CalendarTime from "@/ui/CalendarTime";
 
 import Actions from "./Actions";
+import { useFormikContext } from "formik";
+import { Tag } from "antd";
 
 const Header: React.FC<HeaderProps> = ({ contentTypeConfig, document }) => {
   const { t } = useTranslation();
+  const { dirty } = useFormikContext();
 
   return (
     <div className="pt-8 pb-4 flex flex-col gap-6 md:flex-row justify-between items-center">
       <div>
-        <h1 className="mt-0 mb-2 text-3xl font-semibold">
+        <h1 className="mt-0 mb-2 text-3xl font-semibold flex items-center gap-4">
           {contentTypeConfig.titleField
             ? document[contentTypeConfig.titleField]
             : `${t("common.edit")} ${t(contentTypeConfig?.name ?? "", {
                 ns: "custom",
               }).toLowerCase()}`}
+          {dirty && (
+            <Tag color="yellow" bordered={false}>
+              {t("common.edited")}
+            </Tag>
+          )}
         </h1>
         <div className="text-xs">
           {document.updatedAt && (
