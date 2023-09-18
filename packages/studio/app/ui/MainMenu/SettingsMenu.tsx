@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Dropdown } from "antd";
 import * as R from "ramda";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog, faKey } from "@fortawesome/free-solid-svg-icons";
+import { faCog, faShieldHalved } from "@fortawesome/free-solid-svg-icons";
 
 import { InjectionZone } from "@/types/config";
 import useCurator from "@/hooks/useCurator";
@@ -40,7 +40,7 @@ const SettingsMenu: React.FC = () => {
           () => !!config.secrets && canRead,
           R.append({
             key: "secrets",
-            icon: <FontAwesomeIcon icon={faKey} />,
+            icon: <FontAwesomeIcon icon={faShieldHalved} />,
             label: t("secrets.title"),
             onClick() {
               navigate("/settings/secrets");

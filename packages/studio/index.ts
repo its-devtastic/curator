@@ -9,6 +9,7 @@ export { default as dashboardPlugin } from "./app/plugins/dashboard";
 export { default as teamManagerPlugin } from "./app/plugins/team-manager";
 export { default as internationalizationPlugin } from "./app/plugins/internationalization";
 export { default as auditPlugin } from "./app/plugins/audit";
+export { default as apiTokensPlugin } from "./app/plugins/api-tokens";
 
 // Types
 export type {
@@ -18,6 +19,7 @@ export type {
 } from "./app/types/config";
 export type { ContentTypeConfig } from "./app/types/contentTypeConfig";
 export type { SessionUser } from "./app/types/session";
+export type { CuratorPlugin } from "./app/types/plugin";
 
 // Enum types
 export { InjectionZone } from "./app/types/config";

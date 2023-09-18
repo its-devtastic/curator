@@ -4,15 +4,17 @@ import { RouteObject } from "react-router-dom";
 import {
   InjectionZoneEntry,
   InjectionZone,
-  CuratorConfig,
+  CuratorPlugin,
   MainMenuItem,
 } from "@curatorjs/studio";
 
 import PlausibleDashboard from "./routes/PlausibleDashboard";
 import icon from "./assets/icon.png";
 
-export default function plausiblePlugin({ sharedLink }: PluginOptions) {
-  return (config: CuratorConfig): CuratorConfig => {
+export default function plausiblePlugin({
+  sharedLink,
+}: PluginOptions): CuratorPlugin {
+  return (config) => {
     return R.evolve({
       zones: R.append<InjectionZoneEntry>({
         zone: InjectionZone.MainMenuBottom,

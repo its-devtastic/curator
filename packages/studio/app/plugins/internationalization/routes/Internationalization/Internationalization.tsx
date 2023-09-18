@@ -9,7 +9,6 @@ import useStrapi from "@/hooks/useStrapi";
 import Table from "@/ui/Table";
 
 import CreateButton from "./CreateButton";
-import Boolean from "@/plugins/content-manager/ui/fields/Boolean";
 
 export default function Internationalization() {
   const { t, i18n } = useTranslation();

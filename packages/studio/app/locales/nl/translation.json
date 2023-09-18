@@ -187,6 +187,9 @@
   "common.default": "Standaard",
   "common.apply": "Toepassen",
   "common.versioning": "Versiegeschiedenis",
+  "common.never": "Nooit",
+  "common.description": "Omschrijving",
+  "common.permissions": "Rechten",
 
   "secrets.title": "Geheimen",
   "secrets.description": "Sleutel-waarden met toegang op rolbasis.",
@@ -214,5 +217,24 @@
   "versioning.field": "Veld",
   "versioning.current": "Huidig",
   "versioning.selected": "Geselecteerd",
-  "versioning.restore": "Herstel deze versie"
+  "versioning.restore": "Herstel deze versie",
+
+  "api_tokens.title": "API-sleutels",
+  "api_tokens.description": "API-sleutels geven toegang tot de API.",
+  "api_tokens.delete_warning": "Verwijderde API-sleutels kunnen niet meer worden gebruikt.",
+  "api_tokens.deleted": "API-sleutel is verwijderd.",
+  "api_tokens.last_used": "Laatst gebruikt",
+  "api_tokens.expires_at": "Vervalt",
+  "api_tokens.create_api_token": "Maak API-sleutel aan",
+  "api_tokens.lifespan": "Geldigheidsduur sleutel",
+  "api_tokens.lifespan_days": "{{days}} dagen",
+  "api_tokens.unlimited": "Onbeperkt",
+  "api_tokens.read_only": "Alleen-lezen",
+  "api_tokens.full_access": "Volledige toegang",
+  "api_tokens.custom": "Aangepast",
+  "api_tokens.token_not_accessible_anymore": "Om veiligheidsredenen wordt de sleutel niet meer getoond.",
+  "api_tokens.generated_description": "Dit is een goed moment om de sleutel te kopiëren, want hij wordt slechts eenmaal weergegeven!",
+  "api_tokens.generated_title": "Hier is je API-sleutel",
+  "api_tokens.regenerate": "Opnieuw genereren",
+  "api_tokens.confirm_regeneration": "Hierdoor wordt de huidige API-sleutel ongeldig."
 }
