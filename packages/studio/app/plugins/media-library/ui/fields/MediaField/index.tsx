@@ -27,9 +27,9 @@ const MediaField: React.FC<MediaFieldProps> = ({
   const media = isMulti ? value : value ? [value] : [];
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 bg-gray-50 dark:bg-gray-800 rounded-md p-4">
       {media.map((item) => (
-        <div className="space-y-2">
+        <div className="space-y-4 bg-white dark:bg-gray-700 border-solid border rounded-md border-gray-200 dark:border-gray-500 rounded-md p-4">
           <div className="flex items-center gap-3">
             {showAvatar &&
               (item.mime.startsWith("image/") ? (
@@ -55,7 +55,7 @@ const MediaField: React.FC<MediaFieldProps> = ({
               />
             )}
           </div>
-          <div className="text-gray-500">{item?.name}</div>
+          <div className="text-gray-500 dark:text-gray-300">{item?.name}</div>
         </div>
       ))}
       <Popover

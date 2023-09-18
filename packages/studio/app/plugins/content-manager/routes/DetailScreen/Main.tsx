@@ -27,7 +27,7 @@ const Main: React.FC<MainProps> = ({ contentType, contentTypeConfig }) => {
             key={idx}
             className={classNames(`col-span-12 lg:col-span-${span}`)}
           >
-            <div className="grid grid-cols-12 gap-4">
+            <div className="grid grid-cols-12 gap-x-4 gap-y-6">
               {fields.map((field) => (
                 <div
                   key={field.path}

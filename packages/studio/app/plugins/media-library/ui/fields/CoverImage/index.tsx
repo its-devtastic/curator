@@ -1,42 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 import classNames from "classnames";
+import { Popover } from "antd";
 
 import { MediaItem } from "@/types/media";
 import useCurator from "@/hooks/useCurator";
 
-import MediaField from "../MediaField";
+import MediaLibraryPopover from "../../MediaLibraryPopover";
 
 const CoverImage: React.FC<{
   value: MediaItem | null;
   onChange(item: MediaItem): void;
-}> = ({ value, onChange }) => {
+  objectFit: "contain" | "cover";
+}> = ({ value, onChange, objectFit = "cover" }) => {
+  const [open, setOpen] = useState(false);
   const {
     images: { getImageUrl },
   } = useCurator();
 
   return (
-    <div className="h-48 bg-gray-100 dark:bg-gray-600 rounded-lg relative group overflow-hidden">
-      {value && (
-        <img
-          src={getImageUrl(value)}
-          className="h-48 object-cover w-full absolute"
-          alt=""
+    <Popover
+      trigger={["click"]}
+      placement="top"
+      open={open}
+      onOpenChange={setOpen}
+      content={() => (
+        <MediaLibraryPopover
+          mime="image"
+          onChange={(item) => {
+            onChange(item);
+            setOpen(false);
+          }}
         />
       )}
-      <div
-        className={classNames(
-          "h-full items-center justify-center flex-col gap-2 z-10 relative",
-          value ? "hidden group-hover:flex group-hover:bg-black/20" : "flex",
+      overlayInnerStyle={{ padding: 0 }}
+    >
+      <div className="h-48 bg-gray-100 dark:bg-gray-600 rounded-lg relative group overflow-hidden flex items-center justify-center">
+        {value && (
+          <img
+            src={getImageUrl(value)}
+            className={classNames("h-48 w-full absolute", {
+              "object-contain": objectFit === "contain",
+              "object-cover": objectFit === "cover",
+            })}
+            alt=""
+          />
         )}
-      >
-        <MediaField
-          mime="image"
-          showAvatar={false}
-          value={value}
-          onChange={onChange}
-        />
+        <div
+          className={classNames(
+            "h-full w-full z-10 relative cursor-pointer",
+            value
+              ? "hidden group-hover:flex items-center justify-center group-hover:bg-gray-900/40"
+              : "block",
+          )}
+        >
+          <span className="text-white font-semibold">{value?.name}</span>
+        </div>
       </div>
-    </div>
+    </Popover>
   );
 };
 
