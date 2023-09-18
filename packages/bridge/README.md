@@ -11,7 +11,7 @@
 
 ---
 
-**Curator Bridge** connects your website with Curator Studio providing an integrated editing experience.
+**Curator Bridge** connects your Next.js website with Curator Studio providing an integrated editing experience.
 
 ---
 

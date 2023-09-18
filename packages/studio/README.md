@@ -37,7 +37,7 @@ Documentation is available [here](https://its-devtastic.github.io/curator/).
 Create a new Curator project with the Create Curator App tool:
 
 ```shell
-npx create-curator-app@latest cms
+npx create-curator-app@latest
 ```
 
 Your Curator project will run on http://localhost:1338
@@ -68,8 +68,8 @@ There are some limitations on what you can do with Curator, compared to the Stra
 | Permissions          | ✅️                                       |
 | Dark mode            | ✅                                        |
 | Filters              | ✅                                        |
+| API keys             | ✅                                        |
 | Media library        | 🚧️ (Cropping is currently not supported) |
 | Role management      | ❌                                        |
-| API keys             | ❌                                        |
 | Webhooks             | ❌                                        |
 | Content-type builder | ❌ (not planned)                          |
