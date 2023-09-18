@@ -61,36 +61,46 @@ const MainMenu: React.FC & {
           onClick={() => setOpen(false)}
         />
         <div className="flex flex-col gap-12 p-4 flex-1">
-          <Link
-            to="/"
-            className="flex select-none no-underline items-center gap-3 px-4"
-          >
-            {icon ? (
-              <Avatar
-                shape="square"
-                size="large"
-                src={typeof icon === "string" ? icon : icon.header}
-                alt=""
-              />
-            ) : (
-              <Avatar
-                shape="square"
-                size="large"
-                style={{ backgroundColor: toColor(config.about?.title ?? "") }}
-                alt=""
-              >
-                {config.about?.title?.[0] || "C"}
-              </Avatar>
-            )}
-            <div>
-              <div className="text-gray-800 dark:text-gray-50 text-sm font-semibold">
+          <div className="flex flex-col items-center">
+            <Link
+              to="/"
+              className="flex flex-col select-none no-underline items-center hover:bg-gray-100 p-2 pb-1 rounded-sm"
+            >
+              {icon ? (
+                <img
+                  src={typeof icon === "string" ? icon : icon.header}
+                  alt=""
+                  className="flex-none w-8 h-8 object-contain"
+                />
+              ) : (
+                <Avatar
+                  shape="square"
+                  style={{
+                    backgroundColor: toColor(config.about?.title ?? ""),
+                  }}
+                  alt=""
+                  className="flex-none w-8 h-8"
+                >
+                  {config.about?.title?.[0] || "C"}
+                </Avatar>
+              )}
+              <div className="text-gray-800 dark:text-gray-50 text-sm font-semibold mt-2">
                 {config.about?.title || "Curator"}
               </div>
-              <div className="text-gray-500 dark:text-gray-300 text-xs">
-                {config.about?.website}
-              </div>
-            </div>
-          </Link>
+            </Link>
+            {config.about.website && (
+              <a
+                href={config.about.website}
+                target="_blank"
+                rel="noreferrer nofollow noopener"
+                className="text-gray-500 dark:text-gray-300 text-xs truncate no-underline hover:underline"
+              >
+                {config.about.website
+                  .replace(/http?s:\/\//, "")
+                  .replace("www.", "")}
+              </a>
+            )}
+          </div>
 
           <div className="space-y-1">
             {items

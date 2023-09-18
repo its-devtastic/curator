@@ -18,6 +18,11 @@ const Header: React.FC<HeaderProps> = ({ contentTypeConfig, document }) => {
   return (
     <div className="pt-8 pb-4 flex flex-col gap-6 md:flex-row justify-between items-center">
       <div>
+        <div className="font-semibold text-xs flex items-center gap-2 text-gray-400 mb-2">
+          <span>{contentTypeConfig.icon}</span>
+          <span>{contentTypeConfig.name}</span>
+        </div>
+
         <h1 className="mt-0 mb-2 text-3xl font-semibold flex items-center gap-4">
           {contentTypeConfig.titleField
             ? document[contentTypeConfig.titleField]
@@ -30,6 +35,7 @@ const Header: React.FC<HeaderProps> = ({ contentTypeConfig, document }) => {
             </Tag>
           )}
         </h1>
+
         <div className="text-xs">
           {document.updatedAt && (
             <span className="text-gray-400 space-x-1">

@@ -32,6 +32,7 @@ import { convertSearchParamsToObject } from "../../utils";
 import { usePluginOptions } from "../../hooks";
 import CreateContentDialog from "../../dialogs/CreateContentDialog";
 import FilterToolbar from "./FilterToolbar";
+import { TFunction } from "i18next";
 
 const ListScreen: React.FC = () => {
   const { t } = useTranslation();
@@ -261,7 +262,13 @@ const ListScreen: React.FC = () => {
                               ? "ascend"
                               : "descend"
                             : null,
-                          render(value: any) {
+                          render(value: any, record: any) {
+                            if (column.render) {
+                              return column.render(value, record, {
+                                t: ((key: string) =>
+                                  t(key, { ns: "custom" })) as TFunction,
+                              });
+                            }
                             switch (config?.type) {
                               case "datetime":
                                 return <CalendarTime>{value}</CalendarTime>;

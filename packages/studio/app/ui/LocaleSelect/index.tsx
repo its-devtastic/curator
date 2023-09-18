@@ -15,7 +15,7 @@ const LocaleSelect: React.FC<SelectProps> = ({ className, ...props }) => {
       className={classNames("w-full", className)}
       options={interfaceLanguages.map((code) => ({
         label: (
-          <div className="flex items-center gap-3">
+          <div className="inline-flex items-center gap-3">
             <span
               className={`rounded-sm fi fi-${
                 code.startsWith("en") ? "us" : code.split("-")[0]
