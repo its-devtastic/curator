@@ -5,9 +5,9 @@ import * as R from "ramda";
 
 import useStrapi from "@/hooks/useStrapi";
 
-import Internationalization from "./Internationalization";
+import ApiTokens from "./ApiTokens";
 
-export default function InternationalizationScreen() {
+export default function ApiTokensScreen() {
   const { t } = useTranslation();
   const { permissions } = useStrapi();
   const hasPermission = permissions.some(
@@ -15,7 +15,7 @@ export default function InternationalizationScreen() {
   );
 
   return hasPermission ? (
-    <Internationalization />
+    <ApiTokens />
   ) : (
     <div className="mt-24 px-4 md:px-12">
       <Alert type="warning" description={t("phrases.no_view_permission")} />

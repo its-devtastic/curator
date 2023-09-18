@@ -8,9 +8,10 @@ import { SessionUser } from "@/types/session";
 import { MediaFolder, MediaFolderStructure, MediaItem } from "@/types/media";
 import { PaginatedResponse } from "@/types/response";
 import { GetManyParams, GetMediaParams } from "@/types/request";
-import { Permission, UserRole } from "@/types/permission";
+import { Permission, PermissionConfig, UserRole } from "@/types/permission";
 import { AdminUser } from "@/types/adminUser";
 import { Version } from "@/types/versioning";
+import { ApiToken } from "@/types/apiToken";
 
 export class StrapiSdk {
   public apiUrl: string;
@@ -347,6 +348,14 @@ export class StrapiSdk {
     return data.data;
   }
 
+  public async getAllPermissions() {
+    const { data } = await this.http.get<{
+      data: Record<string, PermissionConfig>;
+    }>("/admin/content-api/permissions");
+
+    return data.data;
+  }
+
   public async getAdminUsers(params: GetManyParams) {
     const { data } = await this.http.get<{
       data: PaginatedResponse<AdminUser>;
@@ -439,6 +448,62 @@ export class StrapiSdk {
       );
 
     return data;
+  }
+
+  /**
+   * API tokens CRUD methods.
+   */
+  public async getApiTokens() {
+    const { data } = await this.http.get<{ data: ApiToken[] }>(
+      "/admin/api-tokens",
+    );
+
+    return R.sortWith([R.descend(R.prop("id"))], data.data);
+  }
+
+  public async createApiToken(
+    payload: Pick<
+      ApiToken,
+      "name" | "description" | "lifespan" | "permissions" | "type"
+    >,
+  ) {
+    const { data } = await this.http.post<{ data: ApiToken }>(
+      "/admin/api-tokens",
+      payload,
+    );
+
+    return data.data;
+  }
+
+  public async updateApiToken(
+    id: number,
+    {
+      name,
+      description,
+      type,
+      permissions,
+    }: Pick<ApiToken, "name" | "description" | "type" | "permissions">,
+  ) {
+    const { data } = await this.http.put<ApiToken>(`/admin/api-tokens/${id}`, {
+      name,
+      description,
+      type,
+      permissions,
+    });
+
+    return data;
+  }
+
+  public async deleteApiToken(id: number) {
+    await this.http.delete(`/admin/api-tokens/${id}`);
+  }
+
+  public async regenerateApiToken(id: number) {
+    const { data } = await this.http.post<{ data: { accessKey: string } }>(
+      `/admin/api-tokens/${id}/regenerate`,
+    );
+
+    return data.data.accessKey;
   }
 
   /**

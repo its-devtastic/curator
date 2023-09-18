@@ -14,3 +14,9 @@ export interface UserRole {
   description: string;
   name: string;
 }
+
+export interface PermissionConfig {
+  controllers: {
+    [name: string]: string[];
+  };
+}

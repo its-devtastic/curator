@@ -185,6 +185,9 @@
   "common.apply": "Apply",
   "common.update": "Update",
   "common.versioning": "Version history",
+  "common.never": "Never",
+  "common.description": "Description",
+  "common.permissions": "Permissions",
 
   "secrets.title": "Secrets",
   "secrets.description": "Key-values with role scoped access.",
@@ -212,5 +215,24 @@
   "versioning.field": "Field",
   "versioning.current": "Current",
   "versioning.selected": "Selected",
-  "versioning.restore": "Restore this version"
+  "versioning.restore": "Restore this version",
+
+  "api_tokens.title": "API tokens",
+  "api_tokens.description": "Generated tokens can consume the API.",
+  "api_tokens.delete_warning": "Once deleted the API key can no longer be used.",
+  "api_tokens.deleted": "API key has been deleted.",
+  "api_tokens.last_used": "Last used",
+  "api_tokens.expires_at": "Expires",
+  "api_tokens.create_api_token": "Create API token",
+  "api_tokens.lifespan": "Token duration",
+  "api_tokens.lifespan_days": "{{days}} days",
+  "api_tokens.unlimited": "Unlimited",
+  "api_tokens.read_only": "Read-only",
+  "api_tokens.full_access": "Full access",
+  "api_tokens.custom": "Custom",
+  "api_tokens.token_not_accessible_anymore": "For security reasons, you can only see your token once.",
+  "api_tokens.generated_description": "Make sure to copy this token, you won't be able to see it again!",
+  "api_tokens.generated_title": "Here is your API key",
+  "api_tokens.regenerate": "Regenerate",
+  "api_tokens.confirm_regeneration": "This will invalidate the current API token."
 }
