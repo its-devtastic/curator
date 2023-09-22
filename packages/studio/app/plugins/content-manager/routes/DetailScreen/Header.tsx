@@ -20,7 +20,9 @@ const Header: React.FC<HeaderProps> = ({ contentTypeConfig, document }) => {
       <div>
         <div className="font-semibold text-xs flex items-center gap-2 text-gray-400 mb-2">
           <span>{contentTypeConfig.icon}</span>
-          <span>{contentTypeConfig.name}</span>
+          {contentTypeConfig.name && (
+            <span>{t(contentTypeConfig.name, { ns: "custom" })}</span>
+          )}
         </div>
 
         <h1 className="mt-0 mb-2 text-3xl font-semibold flex items-center gap-4">
