@@ -27,7 +27,7 @@ const UserMenu: React.FC = () => {
       {contextHolder}
       <Dropdown
         trigger={["click"]}
-        placement="topRight"
+        placement="topLeft"
         dropdownRender={(menu) => (
           <div className="shadow-xl shadow-gray-700/5 bg-white dark:bg-gray-800 rounded-lg border border-solid border-gray-200 dark:border-gray-600">
             <div className="py-2 px-4 border-b border-0 border-solid border-gray-200 dark:border-gray-600">
@@ -106,28 +106,19 @@ const UserMenu: React.FC = () => {
           ],
         }}
       >
-        <div className="flex items-center gap-3 cursor-pointer select-none py-2 px-4 hover:bg-black/5 dark:hover:bg-white/5 rounded-md">
-          <Avatar
-            shape="square"
-            style={{ backgroundColor: toColor(user.email) }}
-          >
+        <Avatar
+          shape="square"
+          className="w-8 h-8 cursor-pointer"
+          style={{ backgroundColor: toColor(user.email) }}
+        >
+          <span className="font-semibold">
             {(
               user.username?.[0] ||
               user.firstname?.[0] ||
               user.email[0]
             ).toUpperCase()}
-          </Avatar>
-          <div>
-            <div className="font-semibold text-sm dark:text-gray-100">
-              {`${user?.firstname ?? ""} ${user?.lastname ?? ""}`}
-            </div>
-            {user.roles && !R.isEmpty(user.roles) && (
-              <div className="text-xs font-semibold text-gray-400">
-                {user.roles[0].name}
-              </div>
-            )}
-          </div>
-        </div>
+          </span>
+        </Avatar>
       </Dropdown>
     </>
   ) : null;

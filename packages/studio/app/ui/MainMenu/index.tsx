@@ -49,7 +49,7 @@ const MainMenu: React.FC & {
       />
       <nav
         className={classNames(
-          "bg-gray-50 dark:bg-gray-900 w-screen md:w-[240px] fixed z-10 bottom-0 top-0 left-0 md:relative transition-transform duration-300 flex flex-col overflow-y-auto",
+          "bg-gray-50 dark:bg-gray-900 w-screen md:w-[240px] fixed z-10 bottom-0 top-0 left-0 md:relative transition-transform duration-300 flex flex-col border-0 border-solid border-r border-gray-200",
           {
             "-translate-x-full md:translate-x-0": !isOpen,
           },
@@ -60,48 +60,47 @@ const MainMenu: React.FC & {
           icon={<FontAwesomeIcon icon={faClose} />}
           onClick={() => setOpen(false)}
         />
-        <div className="flex flex-col gap-12 p-4 flex-1">
-          <div className="flex flex-col items-center">
-            <Link
-              to="/"
-              className="flex flex-col select-none no-underline items-center hover:bg-gray-100 p-2 pb-1 rounded-sm"
-            >
-              {icon ? (
-                <img
-                  src={typeof icon === "string" ? icon : icon.header}
-                  alt=""
-                  className="flex-none w-8 h-8 object-contain"
-                />
-              ) : (
-                <Avatar
-                  shape="square"
-                  style={{
-                    backgroundColor: toColor(config.about?.title ?? ""),
-                  }}
-                  alt=""
-                  className="flex-none w-8 h-8"
-                >
-                  {config.about?.title?.[0] || "C"}
-                </Avatar>
-              )}
-              <div className="text-gray-800 dark:text-gray-50 text-sm font-semibold mt-2">
-                {config.about?.title || "Curator"}
-              </div>
-            </Link>
-            {config.about.website && (
-              <a
-                href={config.about.website}
-                target="_blank"
-                rel="noreferrer nofollow noopener"
-                className="text-gray-500 dark:text-gray-300 text-xs truncate no-underline hover:underline"
+        <div className="flex flex-col items-center border-0 border-b border-solid border-gray-200 p-2">
+          <Link
+            to="/"
+            className="flex flex-col select-none no-underline items-center pb-1"
+          >
+            {icon ? (
+              <img
+                src={typeof icon === "string" ? icon : icon.header}
+                alt=""
+                className="flex-none w-8 h-8 object-contain"
+              />
+            ) : (
+              <Avatar
+                shape="square"
+                style={{
+                  backgroundColor: toColor(config.about?.title ?? ""),
+                }}
+                alt=""
+                className="flex-none w-8 h-8"
               >
-                {config.about.website
-                  .replace(/http?s:\/\//, "")
-                  .replace("www.", "")}
-              </a>
+                {config.about?.title?.[0] || "C"}
+              </Avatar>
             )}
-          </div>
-
+            <div className="text-gray-800 dark:text-gray-50 text-sm font-semibold mt-2">
+              {config.about?.title || "Curator"}
+            </div>
+          </Link>
+          {config.about.website && (
+            <a
+              href={config.about.website}
+              target="_blank"
+              rel="noreferrer nofollow noopener"
+              className="text-gray-500 dark:text-gray-300 text-xs truncate no-underline hover:underline"
+            >
+              {config.about.website
+                .replace(/http?s:\/\//, "")
+                .replace("www.", "")}
+            </a>
+          )}
+        </div>
+        <div className="flex flex-col gap-12 p-4 flex-1 overflow-y-auto">
           <div className="space-y-1">
             {items
               .filter(R.whereEq({ zone: InjectionZone.MainMenuTop }))
@@ -127,11 +126,11 @@ const MainMenu: React.FC & {
             {items.some(
               R.whereEq({ zone: InjectionZone.MainMenuSettings }),
             ) && <SettingsMenu />}
-            <UserMenu />
           </div>
         </div>
-        <div className="border-0 border-t border-solid border-gray-200 dark:border-gray-600 px-6 py-2">
+        <div className="border-0 border-t border-solid border-gray-200 dark:border-gray-600 px-6 py-2 flex items-center justify-between">
           <DarkModeToggle />
+          <UserMenu />
         </div>
       </nav>
     </>
