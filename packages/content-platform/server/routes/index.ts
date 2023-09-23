@@ -17,4 +17,16 @@ export default [
     handler: "versioningController.list",
     config: {},
   },
+  {
+    method: "GET",
+    path: "/profiles/me",
+    handler: "profileController.getMe",
+    config: {},
+  },
+  {
+    method: "PATCH",
+    path: "/profiles/me",
+    handler: "profileController.updateMe",
+    config: {},
+  },
 ];

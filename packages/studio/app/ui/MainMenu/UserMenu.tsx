@@ -17,7 +17,7 @@ import useModifierKey from "@/hooks/useModifierKey";
 
 const UserMenu: React.FC = () => {
   const { t } = useTranslation();
-  const { user, clearSession } = useSession();
+  const { user, profile, clearSession } = useSession();
   const navigate = useNavigate();
   const [modal, contextHolder] = Modal.useModal();
   const modifierKey = useModifierKey();
@@ -110,6 +110,7 @@ const UserMenu: React.FC = () => {
           shape="square"
           className="w-8 h-8 cursor-pointer"
           style={{ backgroundColor: toColor(user.email) }}
+          src={profile?.avatar?.url}
         >
           <span className="font-semibold">
             {(

@@ -58,6 +58,7 @@ export const StrapiProvider: React.FC<{
 
     if (token) {
       const user = await sdk.getMe();
+      const profile = await sdk.getExtendedProfile();
       const permissions = await sdk.getPermissions();
       if (permissions.some(R.whereEq({ action: "admin::roles.read" }))) {
         const roles = await sdk.getAdminRoles();
@@ -70,7 +71,7 @@ export const StrapiProvider: React.FC<{
       setContentTypes(contentTypes);
       setComponents(components);
       setLocales(locales);
-      setSession({ user });
+      setSession({ user, profile });
 
       // Call login hooks
       for (const hook of hooks) {
