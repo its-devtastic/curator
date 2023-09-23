@@ -6,7 +6,7 @@
   "strapi": {
     "displayName": "Curator",
     "name": "curator",
-    "description": "Curator is a full-stack CMS built on Strapi.",
+    "description": "Curator is a full-stack CMS built on Strapi and Next.js.",
     "kind": "plugin"
   },
   "dependencies": {

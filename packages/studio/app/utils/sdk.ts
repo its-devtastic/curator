@@ -9,7 +9,7 @@ import { MediaFolder, MediaFolderStructure, MediaItem } from "@/types/media";
 import { PaginatedResponse } from "@/types/response";
 import { GetManyParams, GetMediaParams } from "@/types/request";
 import { Permission, PermissionConfig, UserRole } from "@/types/permission";
-import { AdminUser } from "@/types/adminUser";
+import { AdminProfile, AdminUser } from "@/types/adminUser";
 import { Version } from "@/types/versioning";
 import { ApiToken } from "@/types/apiToken";
 
@@ -237,6 +237,21 @@ export class StrapiSdk {
     );
 
     return data.data;
+  }
+
+  public async getExtendedProfile() {
+    const { data } = await this.http.get<AdminProfile>("/curator/profiles/me");
+
+    return data;
+  }
+
+  public async updateExtendedProfile(values: Partial<AdminProfile>) {
+    const { data } = await this.http.patch<AdminProfile>(
+      "/curator/profiles/me",
+      values,
+    );
+
+    return data;
   }
 
   public async getMediaItems(params?: GetMediaParams) {

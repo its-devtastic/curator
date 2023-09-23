@@ -1,4 +1,5 @@
 import { UserRole } from "@/types/permission";
+import { MediaItem } from "@/types/media";
 
 export interface AdminUser {
   blocked: boolean;
@@ -12,4 +13,8 @@ export interface AdminUser {
   roles: UserRole[];
   updatedAt: string;
   username: string;
+}
+
+export interface AdminProfile {
+  avatar: MediaItem | null;
 }
