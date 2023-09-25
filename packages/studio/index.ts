@@ -10,6 +10,7 @@ export { default as teamManagerPlugin } from "./app/plugins/team-manager";
 export { default as internationalizationPlugin } from "./app/plugins/internationalization";
 export { default as auditPlugin } from "./app/plugins/audit";
 export { default as apiTokensPlugin } from "./app/plugins/api-tokens";
+export { default as webhooksPlugin } from "./app/plugins/webhooks";
 
 // Types
 export type {

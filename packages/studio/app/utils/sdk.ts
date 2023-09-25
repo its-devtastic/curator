@@ -12,6 +12,7 @@ import { Permission, PermissionConfig, UserRole } from "@/types/permission";
 import { AdminProfile, AdminUser } from "@/types/adminUser";
 import { Version } from "@/types/versioning";
 import { ApiToken } from "@/types/apiToken";
+import { Webhook } from "@/types/webhook";
 
 export class StrapiSdk {
   public apiUrl: string;
@@ -519,6 +520,53 @@ export class StrapiSdk {
     );
 
     return data.data.accessKey;
+  }
+
+  /**
+   * Webhooks CRUD methods.
+   */
+  public async getWebhooks() {
+    const { data } = await this.http.get<{ data: Webhook[] }>(
+      "/admin/webhooks",
+    );
+
+    return R.sortWith([R.descend(R.prop("id"))], data.data);
+  }
+
+  public async createWebhook(payload: Omit<Webhook, "id">) {
+    const { data } = await this.http.post<{ data: Webhook }>(
+      "/admin/webhooks",
+      payload,
+    );
+
+    return data.data;
+  }
+
+  public async updateWebhook(
+    id: number,
+    { name, url, headers, isEnabled, events }: Webhook,
+  ) {
+    const { data } = await this.http.put<Webhook>(`/admin/webhooks/${id}`, {
+      name,
+      url,
+      headers,
+      isEnabled,
+      events,
+    });
+
+    return data;
+  }
+
+  public async deleteWebhook(id: number) {
+    await this.http.delete(`/admin/webhooks/${id}`);
+  }
+
+  public async triggerWebhook(id: number) {
+    const { data } = await this.http.post<{
+      data: { message: string; statusCode: number };
+    }>(`/admin/webhooks/${id}/trigger`);
+
+    return data.data;
   }
 
   /**

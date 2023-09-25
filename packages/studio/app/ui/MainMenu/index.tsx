@@ -49,7 +49,7 @@ const MainMenu: React.FC & {
       />
       <nav
         className={classNames(
-          "bg-gray-50 dark:bg-gray-900 w-screen md:w-[240px] fixed z-10 bottom-0 top-0 left-0 md:relative transition-transform duration-300 flex flex-col border-0 border-solid border-r border-gray-200",
+          "bg-gray-50 dark:bg-gray-900 w-screen md:w-[240px] fixed z-10 bottom-0 top-0 left-0 md:relative transition-transform duration-300 flex flex-col border-0 border-solid border-r border-gray-200 dark:border-gray-600",
           {
             "-translate-x-full md:translate-x-0": !isOpen,
           },
@@ -60,7 +60,7 @@ const MainMenu: React.FC & {
           icon={<FontAwesomeIcon icon={faClose} />}
           onClick={() => setOpen(false)}
         />
-        <div className="flex flex-col items-center border-0 border-b border-solid border-gray-200 p-2">
+        <div className="flex flex-col items-center border-0 border-b border-solid border-gray-200 dark:border-gray-600 p-2">
           <Link
             to="/"
             className="flex flex-col select-none no-underline items-center pb-1"
