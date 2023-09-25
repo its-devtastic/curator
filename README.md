@@ -11,7 +11,7 @@
 
 ---
 
-**Curator** is full-stack, customizable and batteries-included CMS built on [Strapi](https://www.strapi.io) and [Next.js](https://nextjs.org).
+**Curator** is a batteries-included framework for on [Strapi](https://www.strapi.io).
 
 ---
 
@@ -23,10 +23,15 @@ Documentation is available [here](https://its-devtastic.github.io/curator/).
 
 ## 💫 Features
 
-- 🎨 Extremely customizable admin
-- ✍️ Integrated authoring experience
-- 🔋 Batteries-included: content versioning, audit logs, secrets manager, dashboard, rich text editor...
-- 📱 Mobile-friendly
+- (Truly) customizable, mobile-friendly admin
+- Content versioning
+- Dashboard
+- Audit logs
+- Admin user avatars
+- Secrets manager
+- Autosave
+- Dark mode
+- Flexible plugin system
 
 ## Quick Start
 
@@ -40,4 +45,5 @@ Curator Studio will run on http://localhost:1338
 
 ## Motivation
 
-We need a modern WordPress alternative that is easy to customize and batteries-included. Curator is the glue between Strapi and Next.js.
+Strapi is a popular headless CMS, but it's missing some basic features and its admin is notoriously uncustomizable.
+Curator offers a Strapi plugin that adds those features, and an alternative admin app that is easier to customize.

@@ -1,7 +1,15 @@
 {
   "name": "@curatorjs/bridge",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "index.tsx",
+  "author": "Devtastic <hi@devtastic.io>",
+  "maintainers": [
+    {
+      "name": "Leon van der Grient",
+      "url": "https://github.com/StructuralRealist",
+      "email": "leon@devtastic.io"
+    }
+  ],
   "scripts": {
     "prepublishOnly": "npm run styles",
     "styles": "tailwindcss -i ./styles.css -o ./styles.min.css --minify",

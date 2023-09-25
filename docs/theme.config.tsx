@@ -12,7 +12,7 @@ const config: DocsThemeConfig = {
   useNextSeoProps() {
     return {
       title: "Curator",
-      description: "Modern full-stack CMS built on Strapi and Next.js",
+      description: "The Strapi Framework",
     };
   },
   head: () => (
@@ -37,10 +37,14 @@ const config: DocsThemeConfig = {
           </a>
           .
         </div>
-        <div>
-          Created by{" "}
-          <a href="https://www.devtastic.build" target="_blank">
-            Devtastic
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <span>Created by</span>
+          <a href="https://www.devtastic.io" target="_blank">
+            <img
+              src="/devtastic_logo.webp"
+              alt=""
+              style={{ width: 200, height: "auto" }}
+            />
           </a>
         </div>
       </div>

@@ -1,12 +1,12 @@
 {
   "name": "@curatorjs/content-platform",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Curator plugin for Strapi.",
   "main": "strapi-server.js",
   "strapi": {
     "displayName": "Curator",
     "name": "curator",
-    "description": "Curator is a full-stack CMS built on Strapi and Next.js.",
+    "description": "The Strapi Framework.",
     "kind": "plugin"
   },
   "dependencies": {
@@ -22,12 +22,12 @@
   "peerDependencies": {
     "@strapi/strapi": "^4.13.6"
   },
-  "author": "Devtastic <hi@devtastic.build>",
+  "author": "Devtastic <hi@devtastic.io>",
   "maintainers": [
     {
       "name": "Leon van der Grient",
       "url": "https://github.com/StructuralRealist",
-      "email": "leon@devtastic.build"
+      "email": "leon@devtastic.io"
     }
   ],
   "engines": {

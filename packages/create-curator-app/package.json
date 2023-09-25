@@ -1,18 +1,18 @@
 {
   "name": "create-curator-app",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Easily bootstrap a new Curator project.",
   "exports": "./index.js",
   "type": "module",
   "bin": {
     "create-curator-app": "./index.js"
   },
-  "author": "Devtastic <hi@devtastic.build>",
+  "author": "Devtastic <hi@devtastic.io>",
   "maintainers": [
     {
       "name": "Leon van der Grient",
       "url": "https://github.com/StructuralRealist",
-      "email": "leon@devtastic.build"
+      "email": "leon@devtastic.io"
     }
   ],
   "license": "MIT",

@@ -12,28 +12,28 @@
     "type": "git",
     "url": "https://github.com/its-devtastic/curator"
   },
-  "author": "Devtastic <hi@devtastic.build>",
+  "author": "Devtastic <hi@devtastic.io>",
   "maintainers": [
     {
       "name": "Leon van der Grient",
       "url": "https://github.com/StructuralRealist",
-      "email": "leon@devtastic.build"
+      "email": "leon@devtastic.io"
     }
   ],
   "license": "MIT",
   "homepage": "https://github.com/its-devtastic/curator#readme",
   "dependencies": {
-    "next": "^13.4.19",
+    "next": "^13.5.2",
     "next-plausible": "^3.11.1",
-    "nextra": "2.12.3",
-    "nextra-theme-docs": "2.12.3",
+    "nextra": "2.13.0",
+    "nextra-theme-docs": "2.13.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/node": "18.17.14",
-    "autoprefixer": "^10.4.15",
-    "postcss": "^8.4.29",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.30",
     "prettier": "^3.0.3",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.1.6"

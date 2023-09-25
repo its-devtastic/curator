@@ -1,7 +1,16 @@
 {
   "name": "@curatorjs/plausible",
-  "version": "1.2.3",
+  "description": "Plausible plugin for Curator.",
+  "version": "1.2.4",
   "main": "index.tsx",
+  "author": "Devtastic <hi@devtastic.io>",
+  "maintainers": [
+    {
+      "name": "Leon van der Grient",
+      "url": "https://github.com/StructuralRealist",
+      "email": "leon@devtastic.io"
+    }
+  ],
   "peerDependencies": {
     "@curatorjs/studio": "latest"
   }

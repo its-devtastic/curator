@@ -11,26 +11,27 @@
 
 ---
 
-**Curator** Studio is an alternative admin for [Strapi](https://www.strapi.io). It is customizable, translatable and mobile-friendly.
+**Curator** is a batteries-included framework for on [Strapi](https://www.strapi.io).
 
 ---
 
 ![Preview](https://raw.githubusercontent.com/its-devtastic/curator/main/media/preview.png)
 
-## Documentation
+## 📜 Documentation
 
 Documentation is available [here](https://its-devtastic.github.io/curator/).
 
-## Features
+## 💫 Features
 
-- 🌐 Multilingual (i18next)
-- 🎨 Customizable theme (antd and Tailwind)
-- 🧩 Injection zones
-- 🧱 Swappable components
-- 📜 Custom pages
-- 📱 Responsive
-- 🔌 Plugins
-- 💯 100% TypeScript
+- (Truly) customizable, mobile-friendly admin
+- Content versioning
+- Dashboard
+- Audit logs
+- Admin user avatars
+- Secrets manager
+- Autosave
+- Dark mode
+- Flexible plugin system
 
 ## Quick Start
 
@@ -40,13 +41,12 @@ Create a new Curator project with the Create Curator App tool:
 npx create-curator-app@latest
 ```
 
-Your Curator project will run on http://localhost:1338
+Curator Studio will run on http://localhost:1338
 
 ## Motivation
 
-Strapi is the most popular JavaScript headless CMS available but its admin is notoriously uncustomizable. Curator
-provides an alternative admin that is built with React and easy to customize and extend. It uses popular frameworks and
-libraries that should be familiar to many developers.
+Strapi is a popular headless CMS, but it's missing some basic features and its admin is notoriously uncustomizable.
+Curator offers a Strapi plugin that adds those features, and an alternative admin app that is easier to customize.
 
 ## Limitations
 
@@ -69,7 +69,7 @@ There are some limitations on what you can do with Curator, compared to the Stra
 | Dark mode            | ✅                                        |
 | Filters              | ✅                                        |
 | API keys             | ✅                                        |
+| Webhooks             | ✅                                        |
 | Media library        | 🚧️ (Cropping is currently not supported) |
 | Role management      | ❌                                        |
-| Webhooks             | ❌                                        |
 | Content-type builder | ❌ (not planned)                          |

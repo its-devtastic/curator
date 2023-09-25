@@ -5,6 +5,8 @@ import {
   mediaLibraryPlugin,
   teamManagerPlugin,
   internationalizationPlugin,
+  apiTokensPlugin,
+  webhooksPlugin,
 } from "@curatorjs/studio";
 
 import contentTypes from "./config/contentTypes";
@@ -28,6 +30,8 @@ const curatorConfig: CuratorConfig = {
   plugins: [
     mediaLibraryPlugin(),
     teamManagerPlugin(),
+    apiTokensPlugin(),
+    webhooksPlugin(),
     dashboardPlugin({ widgets: ["recent", "drafts"] }),
     internationalizationPlugin(),
     contentManagerPlugin({
