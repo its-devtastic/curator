@@ -40,7 +40,14 @@ const SettingsMenu: React.FC = () => {
           () => !!config.secrets && canRead,
           R.append({
             key: "secrets",
-            icon: <FontAwesomeIcon icon={faShieldHalved} />,
+            icon: (
+              <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-100">
+                <FontAwesomeIcon
+                  className="text-amber-500"
+                  icon={faShieldHalved}
+                />
+              </span>
+            ),
             label: t("secrets.title"),
             onClick() {
               navigate("/settings/secrets");

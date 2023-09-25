@@ -142,6 +142,7 @@
   "phrases.open_this_menu": "Open this menu",
   "phrases.switch_to_dark_mode": "Switch to dark mode",
   "phrases.switch_to_light_mode": "Switch to light mode",
+  "phrases.select_all": "Select all",
 
   "common.edit": "Edit",
   "common.edited": "Edited",
@@ -188,6 +189,9 @@
   "common.never": "Never",
   "common.description": "Description",
   "common.permissions": "Permissions",
+  "common.url": "URL",
+  "common.events": "Events",
+  "common.test": "Test",
 
   "secrets.title": "Secrets",
   "secrets.description": "Key-values with role scoped access.",
@@ -234,5 +238,11 @@
   "api_tokens.generated_description": "Make sure to copy this token, you won't be able to see it again!",
   "api_tokens.generated_title": "Here is your API key",
   "api_tokens.regenerate": "Regenerate",
-  "api_tokens.confirm_regeneration": "This will invalidate the current API token."
+  "api_tokens.confirm_regeneration": "This will invalidate the current API token.",
+
+  "webhooks.title": "Webhooks",
+  "webhooks.description": "Get notified of content changes.",
+  "webhooks.delete_warning": "Once deleted the webhook will no longer be triggered.",
+  "webhooks.deleted": "Webhook has been deleted.",
+  "webhooks.create_webhook": "Create webhook"
 }

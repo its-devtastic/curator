@@ -145,6 +145,7 @@
   "phrases.open_this_menu": "Open dit menu",
   "phrases.switch_to_dark_mode": "Schakel over naar donkere modus",
   "phrases.switch_to_light_mode": "Schakel over naar lichte modus",
+  "phrases.select_all": "Selecteer alles",
 
   "common.edit": "Bewerk",
   "common.edited": "Bewerkt",
@@ -190,6 +191,9 @@
   "common.never": "Nooit",
   "common.description": "Omschrijving",
   "common.permissions": "Rechten",
+  "common.url": "URL",
+  "common.events": "Gebeurtenissen",
+  "common.test": "Test",
 
   "secrets.title": "Geheimen",
   "secrets.description": "Sleutel-waarden met toegang op rolbasis.",
@@ -236,5 +240,11 @@
   "api_tokens.generated_description": "Dit is een goed moment om de sleutel te kopiëren, want hij wordt slechts eenmaal weergegeven!",
   "api_tokens.generated_title": "Hier is je API-sleutel",
   "api_tokens.regenerate": "Opnieuw genereren",
-  "api_tokens.confirm_regeneration": "Hierdoor wordt de huidige API-sleutel ongeldig."
+  "api_tokens.confirm_regeneration": "Hierdoor wordt de huidige API-sleutel ongeldig.",
+
+  "webhooks.title": "Webhooks",
+  "webhooks.description": "Krijg een notificatie wanneer content gewijzigd wordt.",
+  "webhooks.delete_warning": "Verwijderde webhooks krijgen geen notificaties meer.",
+  "webhooks.deleted": "Webhook is verwijderd.",
+  "webhooks.create_webhook": "Maak webhook aan"
 }

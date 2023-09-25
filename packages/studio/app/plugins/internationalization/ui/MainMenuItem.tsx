@@ -16,7 +16,9 @@ const MainMenuItem: React.FC = () => {
 
   return hasPermission ? (
     <Link to="/settings/internationalization" className="space-x-2">
-      <FontAwesomeIcon icon={faLanguage} />
+      <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-cyan-100">
+        <FontAwesomeIcon className="text-cyan-500 text-sm" icon={faLanguage} />
+      </span>
       <span>{t("internationalization.title")}</span>
     </Link>
   ) : null;
