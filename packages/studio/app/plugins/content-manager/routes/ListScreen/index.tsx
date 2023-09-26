@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import {
   Alert,
   Badge,
@@ -14,6 +14,7 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
+import { TFunction } from "i18next";
 
 import { Pagination as IPagination } from "@/types/response";
 
@@ -32,7 +33,11 @@ import { convertSearchParamsToObject } from "../../utils";
 import { usePluginOptions } from "../../hooks";
 import CreateContentDialog from "../../dialogs/CreateContentDialog";
 import FilterToolbar from "./FilterToolbar";
-import { TFunction } from "i18next";
+
+const INITIAL_COLLECTION_STATE = {
+  pagination: null,
+  results: [],
+};
 
 const ListScreen: React.FC = () => {
   const { t } = useTranslation();
@@ -56,12 +61,17 @@ const ListScreen: React.FC = () => {
   const [collection, setCollection] = useState<{
     pagination: IPagination | null;
     results: any[];
-  }>({
-    pagination: null,
-    results: [],
-  });
+  }>(INITIAL_COLLECTION_STATE);
   const hasReadPermission = hasPermission("read", apiID);
   const hasCreatePermission = hasPermission("create", apiID);
+  /*
+   * Reset state whenever the route params change.
+   * Has to be a layout effect to avoid stale data flash.
+   */
+  useLayoutEffect(() => {
+    setCreate(null);
+    setCollection(INITIAL_COLLECTION_STATE);
+  }, [params]);
 
   const { loading, retry } = useAsyncRetry(async () => {
     if (!hasReadPermission) {
@@ -301,6 +311,7 @@ const ListScreen: React.FC = () => {
                           <FontAwesomeIcon icon={faLanguage} />
                         </Tooltip>
                       ),
+                      key: "localizations",
                       dataIndex: "localizations",
                       render(localizations: any[], record: any) {
                         return (
@@ -309,7 +320,10 @@ const ListScreen: React.FC = () => {
                               record,
                               ...(localizations ?? []),
                             ]).map(({ locale = "" }) => (
-                              <Tooltip title={t(`locales.${locale}`)}>
+                              <Tooltip
+                                key={locale}
+                                title={t(`locales.${locale}`)}
+                              >
                                 <span
                                   className={`rounded-sm fi fi-${
                                     locale.startsWith("en")

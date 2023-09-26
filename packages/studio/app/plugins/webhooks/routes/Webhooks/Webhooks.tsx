@@ -69,6 +69,7 @@ export default function Webhooks() {
         <Table
           loading={loading}
           dataSource={items}
+          rowKey="id"
           columns={[
             {
               key: "name",

@@ -31,11 +31,10 @@ const ItemList: React.FC<{ items?: any[] }> = ({ items = [] }) => {
             extra={
               <span className="text-indigo-400">
                 {
-                  (contentType?.icon
-                    ? contentType.icon
-                    : contentType?.name
-                    ? t(contentType.name, { ns: "custom" })
-                    : "") as any
+                  (contentType?.icon ||
+                    (contentType?.name
+                      ? t(contentType.name, { ns: "custom" })
+                      : "")) as any
                 }
               </span>
             }
@@ -47,9 +46,10 @@ const ItemList: React.FC<{ items?: any[] }> = ({ items = [] }) => {
                     context: RenderContext.List,
                     t: ((key: string, opts: any) =>
                       t(key, { ns: "custom", ...opts })) as TFunction,
-                  }) ?? contentType?.titleField
-                    ? item.attributes[contentType.titleField as string]
-                    : ""}
+                  }) ??
+                    (contentType?.titleField
+                      ? item.attributes[contentType.titleField as string]
+                      : "")}
                 </span>
               }
               description={
