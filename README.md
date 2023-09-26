@@ -11,7 +11,7 @@
 
 ---
 
-**Curator** is a batteries-included framework for on [Strapi](https://www.strapi.io).
+**Curator** is a batteries-included framework for [Strapi](https://www.strapi.io).
 
 ---
 
