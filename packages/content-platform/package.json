@@ -1,6 +1,6 @@
 {
   "name": "@curatorjs/content-platform",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Curator plugin for Strapi.",
   "main": "strapi-server.js",
   "strapi": {
@@ -10,17 +10,17 @@
     "kind": "plugin"
   },
   "dependencies": {
-    "dayjs": "^1.11.9",
+    "dayjs": "^1.11.10",
     "ramda": "^0.29.0"
   },
   "devDependencies": {
-    "@strapi/strapi": "^4.13.6",
-    "@strapi/typescript-utils": "4.13.6",
-    "@types/ramda": "0.29.4",
+    "@strapi/strapi": "^4.13.7",
+    "@strapi/typescript-utils": "4.13.7",
+    "@types/ramda": "0.29.5",
     "typescript": "5.2.2"
   },
   "peerDependencies": {
-    "@strapi/strapi": "^4.13.6"
+    "@strapi/strapi": "^4.13.7"
   },
   "author": "Devtastic <hi@devtastic.io>",
   "maintainers": [

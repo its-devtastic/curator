@@ -33,8 +33,11 @@ export default function auditLifecycle(strapi: Strapi) {
           data: {
             action: event.action.replace("after", "").toLowerCase(),
             objectUid: event.model.uid,
-            objectId: String((event as any).result.id),
-            subjectId: String((event as any).result.createdBy.id),
+            objectId: R.unless(R.isNil, String)((event as any).result.id),
+            subjectId: R.unless(
+              R.isNil,
+              String,
+            )((event as any).result.createdBy?.id),
             subjectUid: "admin::user",
           },
         });
