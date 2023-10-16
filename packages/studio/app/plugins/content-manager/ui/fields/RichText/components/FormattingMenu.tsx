@@ -22,7 +22,7 @@ const FormattingMenu: React.FC = () => {
 
   return (
     editor && (
-      <div className="bg-white dark:bg-gray-800 rounded-t-md shadow-sm border-0 border-b border-solid border-gray-200 dark:border-gray-500 h-8 flex items-start overflow-hidden">
+      <div className="bg-white dark:bg-gray-800 rounded-t-md shadow-sm border-0 border-b border-solid border-gray-200 dark:border-gray-500 h-8 flex items-start overflow-x-auto overflow-y-hidden">
         <div className="border-0 border-solid border-r border-gray-200 dark:border-gray-500 h-full flex items-center">
           <button
             className="richt-text-button"

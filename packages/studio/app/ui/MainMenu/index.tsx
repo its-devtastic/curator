@@ -17,7 +17,6 @@ const MainMenu: React.FC & {
 } = () => {
   const [isOpen, setOpen] = useState(false);
   const config = useCurator();
-  const icon = config.about?.icon;
   const location = useLocation();
   const items = R.sortBy(R.prop("weight"))(
     config.zones?.filter(
@@ -40,13 +39,13 @@ const MainMenu: React.FC & {
   return (
     <>
       <Button
-        className="md:hidden fixed top-4 left-4"
+        className="md:hidden fixed top-3 left-4"
         icon={<FontAwesomeIcon icon={faBars} />}
         onClick={() => setOpen(true)}
       />
       <nav
         className={classNames(
-          "dark:bg-gray-900 w-screen md:w-[240px] fixed z-10 bottom-0 top-0 left-0 md:relative transition-transform duration-300 flex flex-col border-0 border-solid border-r border-gray-200 dark:border-gray-600",
+          "bg-white dark:bg-gray-900 w-screen md:w-[240px] fixed z-10 bottom-0 top-0 left-0 md:relative transition-transform duration-300 flex flex-col border-0 border-solid border-r border-gray-200 dark:border-gray-600",
           {
             "-translate-x-full md:translate-x-0": !isOpen,
           },

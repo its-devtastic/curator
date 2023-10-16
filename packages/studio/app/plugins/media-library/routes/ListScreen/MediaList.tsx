@@ -112,7 +112,9 @@ const MediaList: React.FC = () => {
           )}
           <div className="px-4 md:px-12 py-6">
             <div className="flex flex-col md:flex-row items-center my-12 md:mb-24 gap-4">
-              <h1 className="m-0 flex-1">{t("common.media_library")}</h1>
+              <h1 className="m-0 flex-1 font-serif font-normal">
+                {t("common.media_library")}
+              </h1>
               <Segmented
                 value={view}
                 onChange={(view) =>

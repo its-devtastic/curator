@@ -20,7 +20,7 @@ const FilterToolbar: React.FC<{
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-row justify-between items-center gap-4 flex-1">
+      <div className="flex flex-row justify-between items-center gap-4 flex-1 flex-wrap">
         <Input.Search
           onSearch={async (_q) => {
             setSearchParams((params) => {
@@ -31,9 +31,9 @@ const FilterToolbar: React.FC<{
           defaultValue={searchParams.get("_q") ?? ""}
           allowClear
           placeholder={t("filters.search")}
-          className="max-w-[260px]"
+          className="sm:max-w-[260px]"
         />
-        <div className="flex items-center gap-4 flex-1 justify-end">
+        <div className="flex items-center gap-4 flex-1 justify-center sm:justify-end">
           {contentType.pluginOptions.i18n?.localized && (
             <LanguageSelect
               className="max-w-[180px] w-full"

@@ -19,7 +19,7 @@ export default function FieldFilters() {
   const { filters, clearFilters } = useFilters();
 
   return (
-    <div className="flex items-center gap-1 flex-wrap w-full">
+    <div className="flex items-center gap-1 flex-wrap">
       {Object.entries(attributes).map(([path, attribute]) => (
         <FieldFilter
           key={path}

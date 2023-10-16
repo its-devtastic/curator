@@ -111,7 +111,11 @@ const UserMenu: React.FC = () => {
         <Avatar
           shape="circle"
           className="w-8 h-8 cursor-pointer"
-          style={{ backgroundColor: toColor(user.email) }}
+          style={{
+            backgroundColor: !profile?.avatar?.url
+              ? toColor(user.email)
+              : undefined,
+          }}
           src={profile?.avatar?.url}
         >
           <span className="font-semibold">

@@ -66,7 +66,7 @@ export default function UserDetail() {
           </div>
           <div className="flex items-center justify-between">
             <div className="mt-0 mb-4 flex items-center gap-4">
-              <h1 className="m-0">{`${value.firstname} ${value.lastname}`}</h1>
+              <h1 className="m-0 font-serif font-normal">{`${value.firstname} ${value.lastname}`}</h1>
               {isYou && (
                 <Tag bordered={false} color="green">
                   {t("team.this_is_you")}
