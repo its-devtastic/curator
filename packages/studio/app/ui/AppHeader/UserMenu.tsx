@@ -39,7 +39,9 @@ const UserMenu: React.FC = () => {
               </div>
               {user.roles && !R.isEmpty(user.roles) && (
                 <div className="mt-2">
-                  <Tag color="geekblue">{user.roles[0].name}</Tag>
+                  <Tag color="geekblue" bordered={false}>
+                    {user.roles[0].name}
+                  </Tag>
                 </div>
               )}
             </div>
@@ -107,7 +109,7 @@ const UserMenu: React.FC = () => {
         }}
       >
         <Avatar
-          shape="square"
+          shape="circle"
           className="w-8 h-8 cursor-pointer"
           style={{ backgroundColor: toColor(user.email) }}
           src={profile?.avatar?.url}

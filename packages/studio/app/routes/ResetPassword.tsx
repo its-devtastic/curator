@@ -13,7 +13,9 @@ import useSession from "@/hooks/useSession";
 const ResetPassword: React.FC = () => {
   const { t } = useTranslation();
   const { sdk } = useStrapi();
-  const { icon } = useCurator();
+  const {
+    about: { icon },
+  } = useCurator();
   const { setSession } = useSession();
   const [searchParams] = useSearchParams();
   const code = searchParams.get("code");

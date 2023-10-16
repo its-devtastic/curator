@@ -1,12 +1,12 @@
 .rich-text-field {
-  @apply focus:outline-none p-4 min-h-[400px];
+  @apply focus:outline-none p-4 min-h-[400px] font-normal text-sm;
 
   & h1 {
-    @apply mt-0 mb-6;
+    @apply mt-8 mb-6;
   }
 
   & h2 {
-    @apply mt-0 mb-4;
+    @apply mt-6 mb-4;
   }
 
   & h3,

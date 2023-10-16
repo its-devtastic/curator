@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
-import { Button, Card, Input, message } from "antd";
+import { Button, Input, message } from "antd";
 import { useTranslation } from "react-i18next";
 
 import useStrapi from "@/hooks/useStrapi";
@@ -25,10 +25,10 @@ const ForgotPassword: React.FC = () => {
           />
         </div>
       )}
-      <h1 className="text-center mb-12 mt-6 select-none">
+      <h1 className="text-center mb-12 mt-6 select-none font-serif font-normal">
         {t("forgot_password.title")}
       </h1>
-      <Card>
+      <div className="p-6 rounded-lg shadow-xl shadow-indigo-500/5 bg-white/60 backdrop-blur-xl">
         {
           <Formik
             initialValues={{ email: "" }}
@@ -58,7 +58,7 @@ const ForgotPassword: React.FC = () => {
             )}
           </Formik>
         }
-      </Card>
+      </div>
       <div className="text-center my-6">
         <Link to="/login" className="text-sm no-underline text-blue-500">
           {t("forgot_password.ready")}

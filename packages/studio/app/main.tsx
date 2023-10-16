@@ -5,6 +5,8 @@ import { ConfigProvider, theme } from "antd";
 import * as R from "ramda";
 
 import "flag-icons/css/flag-icons.min.css";
+import "@fontsource/young-serif";
+import "@fontsource-variable/inter";
 
 // Day.js plugins
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -47,11 +49,12 @@ const Main: React.FC<{ curatorConfig: CuratorConfig }> = ({
               colorSuccess: "#10b981",
               colorError: "#f43f5e",
               colorWarning: "#f59e0b",
-              colorTextBase: darkMode ? "#FFFFFF" : "#374151", // gray-700
-              colorBgContainer: darkMode ? "#374151" : "#FFFFFF", // gray-700
-              colorBgElevated: darkMode ? "#1f2937" : "#FFFFFF", // gray-800
-              colorBgSpotlight: "#111827", // gray-900
-              colorBorder: darkMode ? "#6b7280" : "#e5e7eb", // gray-500 / gray-200
+              colorTextBase: darkMode ? "#FFFFFF" : "#3f3f46", // gray-700
+              colorBgContainer: darkMode ? "#3f3f46" : "#FFFFFF", // gray-700
+              colorBgElevated: darkMode ? "#27272a" : "#FFFFFF", // gray-800
+              colorBgSpotlight: "#18181b", // gray-900
+              colorBorder: darkMode ? "#71717a" : "#e4e4e7", // gray-500 / gray-200
+              controlHeight: 36,
             },
             algorithm: darkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
           },

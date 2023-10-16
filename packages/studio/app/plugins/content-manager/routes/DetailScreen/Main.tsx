@@ -1,5 +1,4 @@
 import React from "react";
-import { Card } from "antd";
 import * as R from "ramda";
 import { useParams } from "react-router-dom";
 import classNames from "classnames";
@@ -23,9 +22,11 @@ const Main: React.FC<MainProps> = ({ contentType, contentTypeConfig }) => {
 
       <div className="grid grid-cols-12 gap-8">
         {blocks.map(({ fields, span = 12 }, idx) => (
-          <Card
+          <div
             key={idx}
-            className={classNames(`col-span-12 lg:col-span-${span}`)}
+            className={classNames(
+              `shadow-sm p-4 md:p-8 rounded-lg border border-solid border-gray-200 col-span-12 lg:col-span-${span}`,
+            )}
           >
             <div className="grid grid-cols-12 gap-x-4 gap-y-6">
               {fields.map((field) => (
@@ -47,7 +48,7 @@ const Main: React.FC<MainProps> = ({ contentType, contentTypeConfig }) => {
                 </div>
               ))}
             </div>
-          </Card>
+          </div>
         ))}
       </div>
     </div>

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply m-0 p-0 antialiased font-sans text-base text-gray-700 dark:text-gray-50;
+  @apply m-0 p-0 antialiased font-sans text-sm text-gray-700 dark:text-gray-50 font-medium;
 }
 
 .link {
@@ -32,15 +32,30 @@ body {
 }
 
 /* Table */
-.ant-table-content {
-  @apply border-t border-gray-300 dark:border-gray-600 border-solid border-0;
+.ant-table tr > td.ant-table-cell {
+  @apply bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-600;
 }
-.ant-table tr > td {
-  @apply bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-600;
+.ant-table tbody tr:last-of-type > td.ant-table-cell {
+  @apply border-0;
 }
 .ant-table .ant-table-thead > tr > th {
-  @apply bg-white dark:bg-gray-800 uppercase text-xs border-gray-100 dark:border-gray-600 before:hidden;
+  @apply bg-white dark:bg-gray-800 text-gray-500 text-xs border-gray-200 dark:border-gray-600 before:hidden;
 }
 .ant-table .ant-table-thead > tr > td {
-  @apply bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-600 before:hidden;
+  @apply bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-600 before:hidden;
+}
+
+/* Tag */
+.ant-tag {
+  @apply font-medium;
+}
+
+/* Input */
+.ant-input {
+  @apply font-sans text-sm text-gray-700;
+}
+
+/* Select */
+.ant-select-multiple .ant-select-selection-item {
+  @apply font-medium font-sans;
 }

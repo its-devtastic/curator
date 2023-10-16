@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { TFunction } from "i18next";
 import * as R from "ramda";
-import { List } from "antd";
+import { List, Tag } from "antd";
 import { useNavigate } from "react-router-dom";
 
 import { RenderContext } from "@/types/contentTypeConfig";
@@ -20,6 +20,8 @@ const ItemList: React.FC<{ items?: any[] }> = ({ items = [] }) => {
     <List
       dataSource={items}
       size="small"
+      bordered={false}
+      split={false}
       renderItem={(item: any) => {
         const apiID = contentTypes.find(R.whereEq({ uid: item.uid }))?.apiID;
         const contentType = config.contentTypes?.find(R.whereEq({ apiID }));
@@ -29,19 +31,19 @@ const ItemList: React.FC<{ items?: any[] }> = ({ items = [] }) => {
             className="hover:bg-gray-50 dark:hover:bg-gray-600 select-none cursor-pointer last-of-type:rounded-b-lg"
             onClick={() => navigate(`/content-manager/${apiID}/${item.id}`)}
             extra={
-              <span className="text-indigo-400">
+              <Tag color="purple" bordered={false}>
                 {
                   (contentType?.icon ||
                     (contentType?.name
                       ? t(contentType.name, { ns: "custom" })
                       : "")) as any
                 }
-              </span>
+              </Tag>
             }
           >
             <List.Item.Meta
               title={
-                <span className="text-gray-700 dark:text-gray-300">
+                <span className="text-gray-700 dark:text-gray-300 font-semibold">
                   {contentType?.render?.(item, {
                     context: RenderContext.List,
                     t: ((key: string, opts: any) =>

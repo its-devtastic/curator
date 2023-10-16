@@ -15,7 +15,9 @@ const Register: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { sdk } = useStrapi();
-  const { icon } = useCurator();
+  const {
+    about: { icon },
+  } = useCurator();
   const { setSession } = useSession();
   const registrationToken = searchParams.get("registrationToken");
 
@@ -45,8 +47,10 @@ const Register: React.FC = () => {
           />
         </div>
       )}
-      <Card className="shadow-[0_3px_0] shadow-gray-100">
-        <h1 className="mt-0 mb-6 text-center">{t("register.title")}</h1>
+      <div className="p-6 rounded-lg shadow-xl shadow-indigo-500/5 bg-white/60 backdrop-blur-xl">
+        <h1 className="mt-0 mb-6 text-center font-serif font-normal">
+          {t("register.title")}
+        </h1>
         {
           <Formik
             initialValues={{
@@ -105,7 +109,7 @@ const Register: React.FC = () => {
             )}
           </Formik>
         }
-      </Card>
+      </div>
     </div>
   ) : null;
 };
