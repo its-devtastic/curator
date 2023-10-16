@@ -31,7 +31,9 @@ export default function Internationalization() {
       <div className="px-4 md:px-12">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6 my-12 pb-6 border-b border-0 border-solid border-gray-200">
           <div className="text-center lg:text-left">
-            <h1 className="mt-0 mb-4">{t("internationalization.title")}</h1>
+            <h1 className="mt-0 mb-4 font-serif font-normal">
+              {t("internationalization.title")}
+            </h1>
             <div className="text-sm text-gray-600">
               {t("internationalization.description")}
             </div>

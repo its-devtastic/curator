@@ -39,13 +39,15 @@ export default function Profile() {
         >
           {({ values }) => (
             <Form className="px-4 md:px-12">
-              <div className="flex items-center justify-between my-12 pb-6 border-b border-0 border-solid border-gray-200">
-                <h1 className="m-0">{t("common.profile")}</h1>
+              <div className="flex items-center justify-between my-12">
+                <h1 className="m-0 font-serif font-normal">
+                  {t("common.profile")}
+                </h1>
                 <Button type="primary" htmlType="submit">
                   {t("common.save")}
                 </Button>
               </div>
-              <Card className="max-w-lg">
+              <div className="max-w-lg p-8 shadow-sm border border-solid border-gray-200 rounded-lg">
                 <div className="space-y-3">
                   <div className="flex flex-col items-center mb-12">
                     <Popover
@@ -66,7 +68,11 @@ export default function Profile() {
                       <Avatar
                         className="h-32 w-32 text-5xl flex items-center justify-center cursor-pointer"
                         alt={values.firstname}
-                        style={{ backgroundColor: toColor(user.email) }}
+                        style={{
+                          backgroundColor: !profile?.avatar?.url
+                            ? toColor(user.email)
+                            : undefined,
+                        }}
                         src={profile?.avatar?.url}
                       >
                         {(
@@ -109,7 +115,7 @@ export default function Profile() {
                     </Field>
                   </FormField>
                 </div>
-              </Card>
+              </div>
             </Form>
           )}
         </Formik>

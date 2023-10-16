@@ -48,7 +48,9 @@ export default function TeamList() {
       <div className="px-4 md:px-12">
         <div className="flex items-center justify-between my-12 pb-6 border-b border-0 border-solid border-gray-200">
           <div>
-            <h1 className="mt-0 mb-4">{t("team.title")}</h1>
+            <h1 className="mt-0 mb-4 font-serif font-normal">
+              {t("team.title")}
+            </h1>
             <div className="text-sm text-gray-600">{t("team.description")}</div>
           </div>
           {canCreate && (

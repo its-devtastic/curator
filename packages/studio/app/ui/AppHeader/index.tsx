@@ -14,6 +14,7 @@ const AppHeader: React.FC = () => {
 
   return (
     <header className="px-4 py-2 bg-white dark:bg-gray-900 flex justify-between items-center border-0 border-solid border-b border-gray-200 dark:border-gray-600">
+      <div className="md:hidden" />
       <div className="flex items-center gap-4">
         <Link
           to="/"

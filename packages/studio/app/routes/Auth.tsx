@@ -10,7 +10,7 @@ import AppHeader from "@/ui/AppHeader";
 const Auth: React.FC = () => (
   <FiltersProvider>
     <SecretsProvider>
-      <div className="flex flex-col h-screen">
+      <div className="flex flex-col h-[100dvh]">
         <AppHeader />
         <div className="flex-1 flex overflow-hidden">
           <MainMenu />
