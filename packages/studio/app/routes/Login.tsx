@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
-import { Button, Card, Input, message } from "antd";
+import { Button, Input, message } from "antd";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
@@ -26,8 +26,10 @@ const Login: React.FC = () => {
           />
         </div>
       )}
-      <h1 className="text-center mb-12 mt-6 select-none">{t("login.title")}</h1>
-      <Card>
+      <h1 className="text-center mb-12 mt-6 select-none font-serif font-normal">
+        {t("login.title")}
+      </h1>
+      <div className="p-6 rounded-lg shadow-xl shadow-indigo-500/5 bg-white/60 backdrop-blur-xl">
         {
           <Formik
             initialValues={{ email: "", password: "" }}
@@ -48,7 +50,7 @@ const Login: React.FC = () => {
                 <FormField
                   label={t("login.password")}
                   help={
-                    <Link to="/forgot-password">
+                    <Link to="/forgot-password" className="link">
                       {t("login.forgot_password")}
                     </Link>
                   }
@@ -67,7 +69,7 @@ const Login: React.FC = () => {
             )}
           </Formik>
         }
-      </Card>
+      </div>
     </div>
   );
 };

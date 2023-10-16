@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply m-0 p-0 antialiased font-sans text-base text-gray-700 dark:text-gray-50;
+  @apply m-0 p-0 antialiased font-sans text-base text-gray-700 dark:text-gray-50 font-medium;
 }
 
 .link {
@@ -43,4 +43,9 @@ body {
 }
 .ant-table .ant-table-thead > tr > td {
   @apply bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-600 before:hidden;
+}
+
+/* Tag */
+.ant-tag {
+  @apply font-medium;
 }

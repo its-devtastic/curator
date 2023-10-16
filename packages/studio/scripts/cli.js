@@ -2,6 +2,7 @@ const path = require("path");
 const { program } = require("commander");
 const { createServer, build } = require("vite");
 const defaultTheme = require("tailwindcss/defaultTheme");
+const colors = require("tailwindcss/colors");
 
 const pkg = require("../package.json");
 
@@ -50,7 +51,11 @@ function init() {
               theme: {
                 extend: {
                   fontFamily: {
-                    sans: ["Inter", ...defaultTheme.fontFamily.sans],
+                    sans: ['"Inter Variable"', ...defaultTheme.fontFamily.sans],
+                    serif: ['"Young Serif"', ...defaultTheme.fontFamily.serif],
+                  },
+                  colors: {
+                    gray: colors.zinc,
                   },
                 },
               },
@@ -61,6 +66,9 @@ function init() {
       },
       server: {
         port: 1338,
+        fs: {
+          allow: ["/"],
+        },
       },
     });
     await server.listen();
@@ -95,7 +103,11 @@ function init() {
               theme: {
                 extend: {
                   fontFamily: {
-                    sans: ["Inter", ...defaultTheme.fontFamily.sans],
+                    sans: ['"Inter Variable"', ...defaultTheme.fontFamily.sans],
+                    serif: ['"Young Serif"', ...defaultTheme.fontFamily.serif],
+                  },
+                  colors: {
+                    gray: colors.zinc,
                   },
                 },
               },

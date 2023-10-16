@@ -3,7 +3,7 @@
   "login.title": "Log in",
   "login.email": "Email",
   "login.password": "Password",
-  "login.": "Forgot password",
+  "login.forgot_password": "Forgot password",
 
   "forgot_password.button": "Reset password",
   "forgot_password.email": "Email",
