@@ -97,7 +97,9 @@ const ListScreen: React.FC = () => {
       {contentTypeConfig && contentType ? (
         <div>
           <div className="flex flex-col md:flex-row items-center justify-between my-12 md:mb-24 gap-4">
-            <h1 className="m-0">{t(name, { count: 2, ns: "custom" })}</h1>
+            <h1 className="m-0 font-serif font-normal">
+              {t(name, { count: 2, ns: "custom" })}
+            </h1>
 
             {hasCreatePermission && (
               <Button

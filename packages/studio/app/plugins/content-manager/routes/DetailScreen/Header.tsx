@@ -19,13 +19,13 @@ const Header: React.FC<HeaderProps> = ({ contentTypeConfig, document }) => {
     <div className="pt-8 pb-4 flex flex-col gap-6 md:flex-row justify-between items-center">
       <div>
         <div className="font-semibold text-xs flex items-center gap-2 text-gray-400 mb-2">
-          <span>{contentTypeConfig.icon}</span>
+          <span className="empty:hidden">{contentTypeConfig.icon}</span>
           {contentTypeConfig.name && (
             <span>{t(contentTypeConfig.name, { ns: "custom" })}</span>
           )}
         </div>
 
-        <h1 className="mt-0 mb-2 text-3xl font-semibold flex items-center gap-4">
+        <h1 className="mt-0 mb-2 text-3xl font-normal font-serif flex items-center gap-4">
           {contentTypeConfig.titleField
             ? document[contentTypeConfig.titleField]
             : `${t("common.edit")} ${t(contentTypeConfig?.name ?? "", {
