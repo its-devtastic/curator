@@ -11,7 +11,7 @@
 
 ---
 
-**Curator** is a batteries-included framework for on [Strapi](https://www.strapi.io).
+**Curator** is an alternative admin for [Strapi](https://www.strapi.io).
 
 ---
 
@@ -24,14 +24,16 @@ Documentation is available [here](https://its-devtastic.github.io/curator/).
 ## 💫 Features
 
 - (Truly) customizable, mobile-friendly admin
-- Content versioning
-- Dashboard
-- Audit logs
-- Admin user avatars
-- Secrets manager
+- Content versioning\*
+- Dashboard\*
+- Audit logs\*
+- Admin user avatars\*
+- Secrets manager\*
 - Autosave
 - Dark mode
 - Flexible plugin system
+
+\*Requires the Curator Strapi plugin.
 
 ## Quick Start
 
