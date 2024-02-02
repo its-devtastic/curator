@@ -1,18 +1,27 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { type AxiosInstance } from "axios";
 import * as R from "ramda";
 import { nanoid } from "nanoid";
 
-import { StrapiContentType, StrapiComponent } from "@/types/contentType";
-import { StrapiLocale } from "@/types/locales";
-import { SessionUser } from "@/types/session";
-import { MediaFolder, MediaFolderStructure, MediaItem } from "@/types/media";
-import { PaginatedResponse } from "@/types/response";
-import { GetManyParams, GetMediaParams } from "@/types/request";
-import { Permission, PermissionConfig, UserRole } from "@/types/permission";
-import { AdminProfile, AdminUser } from "@/types/adminUser";
-import { Version } from "@/types/versioning";
-import { ApiToken } from "@/types/apiToken";
-import { Webhook } from "@/types/webhook";
+import type {
+  AdminProfile,
+  AdminUser,
+  ApiToken,
+  GetManyParams,
+  GetMediaParams,
+  MediaFolder,
+  MediaFolderStructure,
+  MediaItem,
+  PaginatedResponse,
+  Permission,
+  PermissionConfig,
+  SessionUser,
+  StrapiComponent,
+  StrapiContentType,
+  StrapiLocale,
+  UserRole,
+  Version,
+  Webhook,
+} from "@curatorjs/types";
 
 export class StrapiSdk {
   public apiUrl: string;

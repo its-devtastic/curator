@@ -1,0 +1,32 @@
+{
+  "name": "@curatorjs/strapi-sdk",
+  "version": "0.1.0",
+  "description": "Strapi SDK.",
+  "author": "Devtastic <hi@devtastic.io>",
+  "module": "index.ts",
+  "main": "index.ts",
+  "homepage": "https://its-devtastic.github.io/curator",
+  "maintainers": [
+    {
+      "name": "Leon van der Grient",
+      "url": "https://github.com/StructuralRealist",
+      "email": "leon@devtastic.io"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/its-devtastic/curator"
+  },
+  "bugs": {
+    "url": "https://github.com/its-devtastic/curator/issues"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@curatorjs/types": "latest",
+    "axios": "1.6.7",
+    "ramda": "0.29.1"
+  },
+  "devDependencies": {
+    "@types/ramda": "0.29.10"
+  }
+}
