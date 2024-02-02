@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 import { TFunction } from "i18next";
 
-import { Pagination as IPagination } from "@/types/response";
+import { Pagination as IPagination } from "@curatorjs/types";
 
 import useCurator from "@/hooks/useCurator";
 import useStrapi from "@/hooks/useStrapi";

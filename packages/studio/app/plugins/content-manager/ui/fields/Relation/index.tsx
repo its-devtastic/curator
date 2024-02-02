@@ -2,8 +2,8 @@ import React from "react";
 import * as R from "ramda";
 import { useParams } from "react-router-dom";
 
-import { Entity } from "@/types/content";
-import { FieldDefinition } from "@/types/contentTypeConfig";
+import { Entity } from "@curatorjs/types";
+import { FieldDefinition } from "@curatorjs/types";
 
 import useStrapi from "@/hooks/useStrapi";
 

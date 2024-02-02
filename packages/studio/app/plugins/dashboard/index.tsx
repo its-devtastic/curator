@@ -1,8 +1,8 @@
 import React from "react";
 import * as R from "ramda";
 
-import type { CuratorConfig } from "@/types/config";
-import { InjectionZone, InjectionZoneEntry } from "@/types/config";
+import type { CuratorConfig } from "@curatorjs/types";
+import { InjectionZone, InjectionZoneEntry } from "@curatorjs/types";
 
 import DashboardScreen from "./routes/DashboardScreen";
 import MainMenuItem from "./MainMenuItem";

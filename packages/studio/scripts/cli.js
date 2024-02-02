@@ -1,8 +1,13 @@
-const path = require("path");
-const { program } = require("commander");
-const { createServer, build } = require("vite");
-const defaultTheme = require("tailwindcss/defaultTheme");
-const colors = require("tailwindcss/colors");
+import path from "node:path";
+import { program } from "commander";
+import { createServer, build } from "vite";
+import defaultTheme from "tailwindcss/defaultTheme.js";
+import colors from "tailwindcss/colors.js";
+import { createRequire } from "node:module";
+import { fileURLToPath } from "node:url";
+const require = createRequire(import.meta.url);
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const pkg = require("../package.json");
 
@@ -21,7 +26,7 @@ const safelist = [
   "lg:col-span-12",
 ];
 
-function init() {
+export function init() {
   program.name(pkg.name).description(pkg.description).version(pkg.version);
 
   program.command("dev").action(async () => {
@@ -121,5 +126,3 @@ function init() {
 
   program.parse(process.argv);
 }
-
-module.exports = { init };

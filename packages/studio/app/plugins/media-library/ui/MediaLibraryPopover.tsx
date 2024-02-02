@@ -10,7 +10,7 @@ import {
   faTableList,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { MediaItem } from "@/types/media";
+import { MediaItem } from "@curatorjs/types";
 import useStrapi from "@/hooks/useStrapi";
 import usePreferences from "@/hooks/usePreferences";
 import useCurator from "@/hooks/useCurator";

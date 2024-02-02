@@ -1,5 +1,5 @@
 import React from "react";
-import { MediaFolder } from "@/types/media";
+import { MediaFolder } from "@curatorjs/types";
 import { Input, Modal, TreeSelect } from "antd";
 import { Field, Formik } from "formik";
 import { useTranslation } from "react-i18next";

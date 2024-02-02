@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
 
-import { Entity } from "@/types/content";
+import { Entity } from "@curatorjs/types";
 import useCurator from "@/hooks/useCurator";
 import useStrapi from "@/hooks/useStrapi";
 import useSecrets from "@/hooks/useSecrets";

@@ -17,8 +17,8 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
-import { Entity } from "@/types/content";
-import { FieldDefinition } from "@/types/contentTypeConfig";
+import { Entity } from "@curatorjs/types";
+import { FieldDefinition } from "@curatorjs/types";
 import useStrapi from "@/hooks/useStrapi";
 
 import RelationSelect from "./RelationSelect";

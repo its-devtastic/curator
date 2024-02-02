@@ -1,8 +1,8 @@
 import React from "react";
 import * as R from "ramda";
 
-import { Attribute } from "@/types/contentType";
-import { FieldDefinition } from "@/types/contentTypeConfig";
+import { Attribute } from "@curatorjs/types";
+import { FieldDefinition } from "@curatorjs/types";
 import useCurator from "@/hooks/useCurator";
 import useStrapi from "@/hooks/useStrapi";
 

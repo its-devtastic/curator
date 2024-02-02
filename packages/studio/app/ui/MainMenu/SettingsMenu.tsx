@@ -5,7 +5,7 @@ import * as R from "ramda";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog, faShieldHalved } from "@fortawesome/free-solid-svg-icons";
 
-import { InjectionZone } from "@/types/config";
+import { InjectionZone } from "@curatorjs/types";
 import useCurator from "@/hooks/useCurator";
 import useStrapi from "@/hooks/useStrapi";
 

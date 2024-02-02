@@ -2,7 +2,7 @@ import React from "react";
 import { Select } from "antd";
 import useStrapi from "@/hooks/useStrapi";
 import { useAsync } from "react-use";
-import { PermissionConfig } from "@/types/permission";
+import { PermissionConfig } from "@curatorjs/types";
 import * as R from "ramda";
 
 const PermissionsSelect: React.FC<{

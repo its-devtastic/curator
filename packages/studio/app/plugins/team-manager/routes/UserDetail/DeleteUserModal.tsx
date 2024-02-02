@@ -6,7 +6,7 @@ import * as Schema from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 
-import { AdminUser } from "@/types/adminUser";
+import { AdminUser } from "@curatorjs/types";
 import useStrapi from "@/hooks/useStrapi";
 import FormField from "@/ui/FormField";
 

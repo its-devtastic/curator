@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import * as R from "ramda";
 
-import { MediaItem } from "@/types/media";
+import { MediaItem } from "@curatorjs/types";
 import useCurator from "@/hooks/useCurator";
 
 import MediaLibraryPopover from "../../MediaLibraryPopover";

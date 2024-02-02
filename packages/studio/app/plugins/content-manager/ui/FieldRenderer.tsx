@@ -6,8 +6,8 @@ import { useTranslation } from "react-i18next";
 import * as R from "ramda";
 import { useFormikContext } from "formik";
 
-import { FieldDefinition } from "@/types/contentTypeConfig";
-import { Attribute } from "@/types/contentType";
+import { FieldDefinition } from "@curatorjs/types";
+import { Attribute } from "@curatorjs/types";
 
 import useContentPermission from "@/hooks/useContentPermission";
 
@@ -34,8 +34,8 @@ const FieldRenderer: React.FC<{
     typeof field.input !== "string" && !R.isNil(field.input)
       ? field.input
       : inputName
-      ? FIELD_TYPES[inputName]
-      : null;
+        ? FIELD_TYPES[inputName]
+        : null;
 
   // Don't check for field permissions if it's a field inside a component
   const fieldPermission = !field.path?.includes(".") ? field.path : null;

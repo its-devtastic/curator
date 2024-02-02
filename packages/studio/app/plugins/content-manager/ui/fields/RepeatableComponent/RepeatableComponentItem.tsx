@@ -12,8 +12,8 @@ import { Button } from "antd";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-import { ComponentConfig } from "@/types/config";
-import { StrapiComponent } from "@/types/contentType";
+import { ComponentConfig } from "@curatorjs/types";
+import { StrapiComponent } from "@curatorjs/types";
 
 import FieldRenderer from "../../FieldRenderer";
 

@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faClose } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
 
-import { InjectionZone } from "@/types/config";
+import { InjectionZone } from "@curatorjs/types";
 import useCurator from "@/hooks/useCurator";
 
 import MainMenuItem from "./MainMenuItem";
@@ -45,7 +45,7 @@ const MainMenu: React.FC & {
       />
       <nav
         className={classNames(
-          "bg-white dark:bg-gray-900 w-screen md:w-[240px] fixed z-10 bottom-0 top-0 left-0 md:relative transition-transform duration-300 flex flex-col border-0 border-solid border-r border-gray-200 dark:border-gray-600",
+          "bg-white dark:bg-gray-900 w-screen md:w-[240px] fixed z-10 bottom-0 top-0 left-0 md:relative transition-transform duration-300 flex flex-col border-0 border-solid border-r border-gray-100 dark:border-gray-600",
           {
             "-translate-x-full md:translate-x-0": !isOpen,
           },

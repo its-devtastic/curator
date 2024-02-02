@@ -20,11 +20,11 @@ if (major < REQUIRED_VERSION) {
       ".\n" +
       `Create Curator App requires Node ${REQUIRED_VERSION} or higher. 
 ` +
-      "Please update your version of Node."
+      "Please update your version of Node.",
   );
   process.exit(1);
 }
 
-const { init } = require("./cli");
+import { init } from "./cli.js";
 
 init();

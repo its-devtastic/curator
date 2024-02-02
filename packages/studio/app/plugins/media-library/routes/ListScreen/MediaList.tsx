@@ -17,9 +17,9 @@ import classNames from "classnames";
 import { useSearchParams } from "react-router-dom";
 import * as R from "ramda";
 
-import { Pagination as IPagination } from "@/types/response";
-import { Sort } from "@/types/request";
-import { MediaItem } from "@/types/media";
+import { Pagination as IPagination } from "@curatorjs/types";
+import { Sort } from "@curatorjs/types";
+import { MediaItem } from "@curatorjs/types";
 import usePreferences from "@/hooks/usePreferences";
 import useStrapi from "@/hooks/useStrapi";
 import CalendarTime from "@/ui/CalendarTime";

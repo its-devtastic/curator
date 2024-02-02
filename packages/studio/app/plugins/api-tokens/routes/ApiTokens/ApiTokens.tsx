@@ -7,7 +7,7 @@ import * as R from "ramda";
 import { useAsyncRetry } from "react-use";
 import dayjs from "dayjs";
 
-import { ApiToken } from "@/types/apiToken";
+import { ApiToken } from "@curatorjs/types";
 import useStrapi from "@/hooks/useStrapi";
 import Table from "@/ui/Table";
 

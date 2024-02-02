@@ -7,8 +7,8 @@ import { faEdit, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import { useFormikContext } from "formik";
 
-import { Entity } from "@/types/content";
-import { FieldDefinition } from "@/types/contentTypeConfig";
+import { Entity } from "@curatorjs/types";
+import { FieldDefinition } from "@curatorjs/types";
 import useStrapi from "@/hooks/useStrapi";
 
 import { usePluginOptions } from "../../../hooks";

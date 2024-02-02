@@ -11,11 +11,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import * as R from "ramda";
 import { useFormikContext } from "formik";
-import { useParams, useNavigate, unstable_useBlocker } from "react-router-dom";
+import { useParams, useNavigate, useBlocker } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useDebounce, useBeforeUnload, useKey } from "react-use";
 
-import { ContentTypeConfig } from "@/types/contentTypeConfig";
+import { ContentTypeConfig } from "@curatorjs/types";
 
 import useStrapi from "@/hooks/useStrapi";
 import useModifierKey from "@/hooks/useModifierKey";
@@ -41,7 +41,7 @@ const Actions: React.FC<{
   const isSingleType = contentType?.kind === "singleType";
   const [modal, contextHolder] = Modal.useModal();
   const { preferences, setPreference } = usePreferences();
-  const blocker = unstable_useBlocker(!R.isNil(values.id) && dirty);
+  const blocker = useBlocker(!R.isNil(values.id) && dirty);
   const modifierKey = useModifierKey();
   /*
    * Versioning is enabled either on the content type level or if one of the

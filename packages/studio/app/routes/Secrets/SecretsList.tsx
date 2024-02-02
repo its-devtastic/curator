@@ -7,7 +7,7 @@ import * as R from "ramda";
 import { useAsyncRetry } from "react-use";
 import { useSearchParams } from "react-router-dom";
 
-import { Entity } from "@/types/content";
+import { Entity } from "@curatorjs/types";
 import useStrapi from "@/hooks/useStrapi";
 import Table from "@/ui/Table";
 import Pagination from "@/ui/Pagination";

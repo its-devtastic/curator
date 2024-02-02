@@ -1,7 +1,7 @@
 import React, { createContext } from "react";
 import * as R from "ramda";
 
-import { CuratorConfig } from "@/types/config";
+import { CuratorConfig } from "@curatorjs/types";
 import { getDefaultImageUrl } from "@/utils/images";
 
 export const Context = createContext<CuratorConfig>({} as CuratorConfig);

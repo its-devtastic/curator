@@ -5,8 +5,8 @@ import { useAsyncRetry } from "react-use";
 import * as R from "ramda";
 import { useNavigate } from "react-router-dom";
 
-import { Pagination as IPagination } from "@/types/response";
-import { AdminUser } from "@/types/adminUser";
+import { Pagination as IPagination } from "@curatorjs/types";
+import { AdminUser } from "@curatorjs/types";
 import useStrapi from "@/hooks/useStrapi";
 import Table from "@/ui/Table";
 

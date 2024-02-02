@@ -1,4 +1,4 @@
-import { MediaItem } from "@/types/media";
+import { MediaItem } from "@curatorjs/types";
 
 export function getDefaultImageUrl(image: MediaItem) {
   return (

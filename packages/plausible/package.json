@@ -12,6 +12,6 @@
     }
   ],
   "peerDependencies": {
-    "@curatorjs/studio": "latest"
+    "@curatorjs/studio": "^0"
   }
 }

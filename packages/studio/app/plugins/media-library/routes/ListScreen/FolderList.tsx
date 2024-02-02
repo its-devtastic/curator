@@ -15,7 +15,7 @@ import { useFormikContext } from "formik";
 import * as R from "ramda";
 
 import useStrapi from "@/hooks/useStrapi";
-import { MediaFolder } from "@/types/media";
+import { MediaFolder } from "@curatorjs/types";
 
 import EditFolderModal from "./EditFolderModal";
 

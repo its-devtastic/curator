@@ -9,8 +9,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import useStrapi from "@/hooks/useStrapi";
-import { Entity } from "@/types/content";
-import { FieldDefinition } from "@/types/contentTypeConfig";
+import { Entity } from "@curatorjs/types";
+import { FieldDefinition } from "@curatorjs/types";
 
 import { usePluginOptions } from "../../../../hooks";
 import CreateContentDialog from "../../../../dialogs/CreateContentDialog";

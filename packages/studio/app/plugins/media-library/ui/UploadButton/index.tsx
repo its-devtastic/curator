@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudUpload } from "@fortawesome/free-solid-svg-icons";
 
 import useStrapi from "@/hooks/useStrapi";
-import { MediaItem } from "@/types/media";
+import { MediaItem } from "@curatorjs/types";
 
 const UploadButton: React.FC<{
   button: React.ReactElement<{ onClick: VoidFunction; loading?: boolean }>;

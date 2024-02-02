@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 
 import LanguageSelect from "@/ui/LanguageSelect";
-import { StrapiContentType } from "@/types/contentType";
+import { StrapiContentType } from "@curatorjs/types";
 
 import FieldFilters from "./FieldFilters";
 

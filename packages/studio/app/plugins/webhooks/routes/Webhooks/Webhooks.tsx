@@ -10,7 +10,7 @@ import { Button, Dropdown, Modal, notification, Tag } from "antd";
 import * as R from "ramda";
 import { useAsyncRetry } from "react-use";
 
-import { Webhook } from "@/types/webhook";
+import { Webhook } from "@curatorjs/types";
 import useStrapi from "@/hooks/useStrapi";
 import Table from "@/ui/Table";
 import WebhookForm from "@/plugins/webhooks/routes/Webhooks/WebhookForm";

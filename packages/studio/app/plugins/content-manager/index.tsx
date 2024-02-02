@@ -1,8 +1,8 @@
 import React from "react";
 import * as R from "ramda";
 
-import type { InjectionZoneEntry, CuratorConfig } from "@/types/config";
-import { InjectionZone } from "@/types/config";
+import type { InjectionZoneEntry, CuratorConfig } from "@curatorjs/types";
+import { InjectionZone } from "@curatorjs/types";
 
 import DetailScreen from "./routes/DetailScreen";
 import ContentKindScreen from "./routes/ContentKindScreen";

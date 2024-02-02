@@ -5,7 +5,7 @@ import * as R from "ramda";
 import { List, Tag } from "antd";
 import { useNavigate } from "react-router-dom";
 
-import { RenderContext } from "@/types/contentTypeConfig";
+import { RenderContext } from "@curatorjs/types";
 import CalendarTime from "@/ui/CalendarTime";
 import useCurator from "@/hooks/useCurator";
 import useStrapi from "@/hooks/useStrapi";

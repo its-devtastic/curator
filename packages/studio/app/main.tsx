@@ -5,7 +5,6 @@ import { ConfigProvider, theme } from "antd";
 import * as R from "ramda";
 
 import "flag-icons/css/flag-icons.min.css";
-import "@fontsource/young-serif";
 import "@fontsource-variable/inter";
 
 // Day.js plugins
@@ -21,7 +20,7 @@ import "./index.css";
 import usePreferences from "@/hooks/usePreferences";
 import CuratorProvider from "@/providers/CuratorProvider";
 import StrapiProvider from "@/providers/StrapiProvider";
-import { CuratorConfig } from "@/types/config";
+import { CuratorConfig } from "@curatorjs/types";
 
 dayjs.extend(relativeTime);
 dayjs.extend(localeData);

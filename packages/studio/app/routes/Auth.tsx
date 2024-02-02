@@ -15,7 +15,7 @@ const Auth: React.FC = () => (
         <div className="flex-1 flex overflow-hidden">
           <MainMenu />
           <div className="flex-1 flex flex-col">
-            <div className="flex-1 flex flex-col items-center overflow-y-auto bg-white dark:bg-gray-800">
+            <div className="flex-1 flex flex-col items-center overflow-y-auto bg-gray-50 dark:bg-gray-800">
               <div className="flex-1 flex flex-col w-full">
                 <Outlet />
               </div>

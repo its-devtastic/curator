@@ -19,8 +19,8 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Button, Tooltip } from "antd";
 import { useTranslation } from "react-i18next";
 
-import { Attribute } from "@/types/contentType";
-import { FieldDefinition } from "@/types/contentTypeConfig";
+import { Attribute } from "@curatorjs/types";
+import { FieldDefinition } from "@curatorjs/types";
 import useStrapi from "@/hooks/useStrapi";
 import useCurator from "@/hooks/useCurator";
 import Popover from "@/ui/Popover";

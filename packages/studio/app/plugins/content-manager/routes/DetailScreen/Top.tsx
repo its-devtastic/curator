@@ -1,6 +1,6 @@
 import React from "react";
 
-import { StrapiContentType } from "@/types/contentType";
+import { StrapiContentType } from "@curatorjs/types";
 
 import LanguageSwitcher from "./LanguageSwitcher";
 

@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { SessionUser } from "@/types/session";
-import { AdminProfile } from "@/types/adminUser";
+import { SessionUser } from "@curatorjs/types";
+import { AdminProfile } from "@curatorjs/types";
 
 interface SessionState {
   token: string | null;

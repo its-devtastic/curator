@@ -10,14 +10,18 @@ import * as R from "ramda";
 import { Button, Result } from "antd";
 import { useTranslation } from "react-i18next";
 
-import { StrapiContentType, StrapiComponent } from "@/types/contentType";
-import { StrapiLocale } from "@/types/locales";
-import { Permission, UserRole } from "@/types/permission";
+import {
+  StrapiContentType,
+  StrapiComponent,
+  StrapiLocale,
+  Permission,
+  UserRole,
+} from "@curatorjs/types";
 
 import useSession from "@/hooks/useSession";
 import useCurator from "@/hooks/useCurator";
 
-import { StrapiSdk } from "@/utils/sdk";
+import { StrapiSdk } from "@curatorjs/strapi-sdk";
 
 export const Context = createContext<{
   sdk: StrapiSdk;
@@ -53,7 +57,7 @@ export const StrapiProvider: React.FC<{
     });
   }, [clearSession]);
 
-  const { error } = useAsync(async () => {
+  const { error = false } = useAsync(async () => {
     sdk.setAuthorization(token);
 
     if (token) {

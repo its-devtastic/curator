@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "antd";
 
-import { Attribute } from "@/types/contentType";
+import { Attribute } from "@curatorjs/types";
 import useCurator from "@/hooks/useCurator";
 import useFilters from "@/hooks/useFilters";
 import Popover from "@/ui/Popover";

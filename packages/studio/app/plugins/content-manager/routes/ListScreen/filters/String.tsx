@@ -3,7 +3,7 @@ import { Button, Checkbox, Input, Select } from "antd";
 import { useTranslation } from "react-i18next";
 import { Form, Formik } from "formik";
 
-import { Attribute } from "@/types/contentType";
+import { Attribute } from "@curatorjs/types";
 import Field from "@/ui/Field";
 import useFilters from "@/hooks/useFilters";
 

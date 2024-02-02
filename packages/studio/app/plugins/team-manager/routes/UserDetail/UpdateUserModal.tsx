@@ -8,7 +8,7 @@ import * as R from "ramda";
 import useStrapi from "@/hooks/useStrapi";
 import FormField from "@/ui/FormField";
 import Field from "@/ui/Field";
-import { AdminUser } from "@/types/adminUser";
+import { AdminUser } from "@curatorjs/types";
 
 export default function UpdateUserModal({
   onClose,

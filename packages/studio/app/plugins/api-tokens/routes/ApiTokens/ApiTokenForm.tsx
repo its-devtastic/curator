@@ -14,7 +14,7 @@ import { Form, Formik } from "formik";
 import * as R from "ramda";
 import dayjs from "dayjs";
 
-import { ApiToken } from "@/types/apiToken";
+import { ApiToken } from "@curatorjs/types";
 import useStrapi from "@/hooks/useStrapi";
 import Field from "@/ui/Field";
 import FormField from "@/ui/FormField";
@@ -76,8 +76,8 @@ const ApiTokenForm: React.FC<{
               accessKey
                 ? ""
                 : item.id
-                ? item.name
-                : t("api_tokens.create_api_token")
+                  ? item.name
+                  : t("api_tokens.create_api_token")
             }
             closeIcon={!accessKey}
             onCancel={onClose}

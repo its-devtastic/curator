@@ -6,8 +6,8 @@ import { Typography } from "@tiptap/extension-typography";
 import { Image } from "@tiptap/extension-image";
 import { EditorProvider } from "@tiptap/react";
 
-import { FieldDefinition } from "@/types/contentTypeConfig";
-import { Attribute } from "@/types/contentType";
+import { FieldDefinition } from "@curatorjs/types";
+import { Attribute } from "@curatorjs/types";
 
 import "./RichtText.css";
 import FormattingMenu from "./components/FormattingMenu";

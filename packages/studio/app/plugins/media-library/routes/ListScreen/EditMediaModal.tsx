@@ -1,5 +1,5 @@
 import React from "react";
-import { MediaItem } from "@/types/media";
+import { MediaItem } from "@curatorjs/types";
 import { Button, Input, Modal, TreeSelect } from "antd";
 import { Field, Formik } from "formik";
 import { useTranslation } from "react-i18next";

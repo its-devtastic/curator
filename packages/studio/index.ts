@@ -12,19 +12,6 @@ export { default as auditPlugin } from "./app/plugins/audit";
 export { default as apiTokensPlugin } from "./app/plugins/api-tokens";
 export { default as webhooksPlugin } from "./app/plugins/webhooks";
 
-// Types
-export type {
-  UserProvidedCuratorConfig as CuratorConfig,
-  ComponentConfig,
-  InjectionZoneEntry,
-} from "./app/types/config";
-export type { ContentTypeConfig } from "./app/types/contentTypeConfig";
-export type { SessionUser } from "./app/types/session";
-export type { CuratorPlugin } from "./app/types/plugin";
-
-// Enum types
-export { InjectionZone } from "./app/types/config";
-
 // Components
 export { Item as MainMenuItem } from "./app/ui/MainMenu";
 

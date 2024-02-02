@@ -24,7 +24,7 @@
     "zustand": "^4.4.1"
   },
   "peerDependencies": {
-    "@curatorjs/studio": "latest",
+    "@curatorjs/studio": "^0",
     "react": "latest",
     "react-dom": "latest"
   },

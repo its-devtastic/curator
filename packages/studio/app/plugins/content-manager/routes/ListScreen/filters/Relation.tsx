@@ -6,9 +6,9 @@ import { useAsync } from "react-use";
 import * as R from "ramda";
 import type { TFunction } from "i18next";
 
-import { Attribute } from "@/types/contentType";
-import { RenderContext } from "@/types/contentTypeConfig";
-import { Entity } from "@/types/content";
+import { Attribute } from "@curatorjs/types";
+import { RenderContext } from "@curatorjs/types";
+import { Entity } from "@curatorjs/types";
 import Field from "@/ui/Field";
 import useFilters from "@/hooks/useFilters";
 import useStrapi from "@/hooks/useStrapi";
