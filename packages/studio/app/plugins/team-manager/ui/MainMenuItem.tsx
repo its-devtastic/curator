@@ -1,11 +1,10 @@
+import * as R from "ramda";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import * as R from "ramda";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUsers } from "@fortawesome/free-solid-svg-icons";
+import { PiUsersThreeBold } from "react-icons/pi";
 
-import MainMenu from "@/ui/MainMenu";
 import useStrapi from "@/hooks/useStrapi";
+import MainMenu from "@/ui/MainMenu";
 
 const MainMenuItem: React.FC = () => {
   const { t } = useTranslation();
@@ -18,7 +17,7 @@ const MainMenuItem: React.FC = () => {
     <MainMenu.Item
       to="/team"
       label={t("team.title")}
-      icon={<FontAwesomeIcon icon={faUsers} />}
+      icon={<PiUsersThreeBold className="size-4" />}
     />
   ) : null;
 };

@@ -1,3 +1,9 @@
+import "@/utils/i18n";
+
+import { faClose } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { notification } from "antd";
+import dayjs from "dayjs";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -5,28 +11,21 @@ import {
   redirect,
   RouterProvider,
 } from "react-router-dom";
-import dayjs from "dayjs";
-import { notification } from "antd";
 import { useEffectOnce } from "react-use";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose } from "@fortawesome/free-solid-svg-icons";
 
-import useSession from "@/hooks/useSession";
 import useCurator from "@/hooks/useCurator";
-
-import "@/utils/i18n";
-
-import Auth from "@/routes/Auth";
+import useSession from "@/hooks/useSession";
 import Anon from "@/routes/Anon";
-import Login from "@/routes/Login";
+import Auth from "@/routes/Auth";
 import ForgotPassword from "@/routes/ForgotPassword";
 import ForgotPasswordSuccess from "@/routes/ForgotPasswordSuccess";
-import ResetPassword from "@/routes/ResetPassword";
+import Login from "@/routes/Login";
 import Profile from "@/routes/Profile";
 import Register from "@/routes/Register";
+import ResetPassword from "@/routes/ResetPassword";
 import Secrets from "@/routes/Secrets";
 
-const App: React.FC = () => {
+export default function App() {
   const { i18n } = useTranslation();
   const { user } = useSession();
   const config = useCurator();
@@ -85,7 +84,9 @@ const App: React.FC = () => {
     },
   ]);
 
-  return <RouterProvider router={router} />;
-};
-
-export default App;
+  return (
+    <div className="text-base font-sans antialiased text-gray-800 selection:bg-primary-200">
+      <RouterProvider router={router} />
+    </div>
+  );
+}

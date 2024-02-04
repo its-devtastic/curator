@@ -1,11 +1,12 @@
+import { faBinoculars } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as R from "ramda";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import * as R from "ramda";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBinoculars } from "@fortawesome/free-solid-svg-icons";
+import { PiBinocularsBold } from "react-icons/pi";
 
-import MainMenu from "@/ui/MainMenu";
 import useStrapi from "@/hooks/useStrapi";
+import MainMenu from "@/ui/MainMenu";
 
 const MainMenuItem: React.FC = () => {
   const { t } = useTranslation();
@@ -21,7 +22,7 @@ const MainMenuItem: React.FC = () => {
     <MainMenu.Item
       to="/audit"
       label={t("audit.title")}
-      icon={<FontAwesomeIcon icon={faBinoculars} />}
+      icon={<PiBinocularsBold className="size-4" />}
     />
   ) : null;
 };

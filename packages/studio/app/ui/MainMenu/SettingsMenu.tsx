@@ -1,16 +1,15 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+import { InjectionZone } from "@curatorjs/types";
 import { Dropdown } from "antd";
 import * as R from "ramda";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog, faShieldHalved } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { PiShieldStarBold, PiSlidersBold } from "react-icons/pi";
+import { useNavigate } from "react-router-dom";
 
-import { InjectionZone } from "@curatorjs/types";
 import useCurator from "@/hooks/useCurator";
 import useStrapi from "@/hooks/useStrapi";
 
 import MainMenuItem from "./MainMenuItem";
-import { useNavigate } from "react-router-dom";
 
 const SettingsMenu: React.FC = () => {
   const { t } = useTranslation();
@@ -37,15 +36,12 @@ const SettingsMenu: React.FC = () => {
       placement="topRight"
       menu={{
         items: R.when(
-          () => !!config.secrets && canRead,
+          () => config.secrets && canRead,
           R.append({
             key: "secrets",
             icon: (
               <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-100">
-                <FontAwesomeIcon
-                  className="text-amber-500"
-                  icon={faShieldHalved}
-                />
+                <PiShieldStarBold className="size-4" />
               </span>
             ),
             label: t("secrets.title"),
@@ -68,7 +64,7 @@ const SettingsMenu: React.FC = () => {
         <MainMenuItem
           to="#"
           label={t("common.settings")}
-          icon={<FontAwesomeIcon icon={faCog} />}
+          icon={<PiSlidersBold className="size-4" />}
         />
       </div>
     </Dropdown>

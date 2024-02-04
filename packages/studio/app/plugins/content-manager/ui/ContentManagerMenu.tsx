@@ -1,5 +1,5 @@
-import React from "react";
 import * as R from "ramda";
+import React from "react";
 import { useTranslation } from "react-i18next";
 
 import useCurator from "@/hooks/useCurator";
@@ -14,11 +14,11 @@ const ContentManagerMenu: React.FC<{
   const config = useCurator();
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 pt-2">
       {groups.map(({ label, items }, idx) => (
         <div key={idx}>
           {label && (
-            <h4 className="pl-4 mt-0 mb-2 text-xs font-semibold uppercase text-gray-400 select-none">
+            <h4 className="pl-4 mb-2 text-lg font-bold text-gray-800 select-none">
               {t(label, { ns: "custom" })}
             </h4>
           )}

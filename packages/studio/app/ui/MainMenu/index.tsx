@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
-import * as R from "ramda";
-import { useLocation } from "react-router-dom";
-import { Button } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faClose } from "@fortawesome/free-solid-svg-icons";
-import classNames from "classnames";
-
 import { InjectionZone } from "@curatorjs/types";
+import { faBars, faClose } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Avatar, Button } from "antd";
+import classNames from "classnames";
+import * as R from "ramda";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import toColor from "string-to-color";
+
 import useCurator from "@/hooks/useCurator";
 
 import MainMenuItem from "./MainMenuItem";
@@ -18,6 +19,7 @@ const MainMenu: React.FC & {
   const [isOpen, setOpen] = useState(false);
   const config = useCurator();
   const location = useLocation();
+  const icon = config.about?.icon;
   const items = R.sortBy(R.prop("weight"))(
     config.zones?.filter(
       R.where({
@@ -45,7 +47,7 @@ const MainMenu: React.FC & {
       />
       <nav
         className={classNames(
-          "bg-white dark:bg-gray-900 w-screen md:w-[240px] fixed z-10 bottom-0 top-0 left-0 md:relative transition-transform duration-300 flex flex-col border-0 border-solid border-r border-gray-100 dark:border-gray-600",
+          "bg-white dark:bg-gray-900 w-screen md:w-[240px] fixed z-10 bottom-0 top-0 left-0 md:relative transition-transform duration-300 flex flex-col border-0 border-solid border-r border-gray-200 dark:border-gray-600",
           {
             "-translate-x-full md:translate-x-0": !isOpen,
           },
@@ -57,32 +59,76 @@ const MainMenu: React.FC & {
           onClick={() => setOpen(false)}
         />
 
-        <div className="flex flex-col gap-12 p-4 flex-1 overflow-y-auto">
-          <div className="space-y-1">
-            {items
-              .filter(R.whereEq({ zone: InjectionZone.MainMenuTop }))
-              .map(({ render }, index) => (
-                <div key={index}>{render()}</div>
-              ))}
+        <div>
+          <div className="flex items-center px-4 h-14 border-b border-gray-200">
+            <Link
+              to="/"
+              className="flex select-none no-underline items-center gap-3"
+            >
+              {icon ? (
+                <img
+                  src={typeof icon === "string" ? icon : icon.header}
+                  alt=""
+                  className="flex-none w-8 h-8 object-contain"
+                />
+              ) : (
+                <Avatar
+                  shape="square"
+                  style={{
+                    backgroundColor: toColor(config.about?.title ?? ""),
+                  }}
+                  alt=""
+                  className="flex-none w-8 h-8"
+                >
+                  {config.about?.title?.[0] || "C"}
+                </Avatar>
+              )}
+              <div className="mt-1">
+                <div className="text-gray-800 dark:text-gray-50 text-sm font-semibold">
+                  {config.about?.title || "Curator"}
+                </div>
+                {config.about.website && (
+                  <a
+                    href={config.about.website}
+                    target="_blank"
+                    rel="noreferrer nofollow noopener"
+                    className="text-gray-500 dark:text-gray-300 text-xs truncate no-underline hover:underline inline-block"
+                  >
+                    {config.about.website
+                      .replace(/http?s:\/\//, "")
+                      .replace("www.", "")}
+                  </a>
+                )}
+              </div>
+            </Link>
           </div>
+          <div className="flex flex-col flex-1 overflow-y-auto">
+            <div className="space-y-1 border-b border-gray-200 p-4">
+              {items
+                .filter(R.whereEq({ zone: InjectionZone.MainMenuTop }))
+                .map(({ render }, index) => (
+                  <div key={index}>{render()}</div>
+                ))}
+            </div>
 
-          <div className="space-y-1 flex-1">
-            {items
-              .filter(R.whereEq({ zone: InjectionZone.MainMenuMiddle }))
-              .map(({ render }, index) => (
-                <div key={index}>{render()}</div>
-              ))}
-          </div>
+            <div className="space-y-1 flex-1 p-4 border-b border-gray-200">
+              {items
+                .filter(R.whereEq({ zone: InjectionZone.MainMenuMiddle }))
+                .map(({ render }, index) => (
+                  <div key={index}>{render()}</div>
+                ))}
+            </div>
 
-          <div className="space-y-1">
-            {items
-              .filter(R.whereEq({ zone: InjectionZone.MainMenuBottom }))
-              .map(({ render }, index) => (
-                <div key={index}>{render()}</div>
-              ))}
-            {items.some(
-              R.whereEq({ zone: InjectionZone.MainMenuSettings }),
-            ) && <SettingsMenu />}
+            <div className="space-y-1 p-4">
+              {items
+                .filter(R.whereEq({ zone: InjectionZone.MainMenuBottom }))
+                .map(({ render }, index) => (
+                  <div key={index}>{render()}</div>
+                ))}
+              {items.some(
+                R.whereEq({ zone: InjectionZone.MainMenuSettings }),
+              ) && <SettingsMenu />}
+            </div>
           </div>
         </div>
       </nav>

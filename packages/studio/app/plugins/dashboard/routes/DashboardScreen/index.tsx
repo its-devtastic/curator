@@ -5,8 +5,8 @@ import { useAsync } from "react-use";
 import useStrapi from "@/hooks/useStrapi";
 
 import { DashboardPluginOptions } from "../../index";
-import Recent from "./Recent";
 import Drafts from "./Drafts";
+import Recent from "./Recent";
 
 const DashboardScreen: React.FC<{ pluginOptions: DashboardPluginOptions }> = ({
   pluginOptions,
@@ -22,7 +22,9 @@ const DashboardScreen: React.FC<{ pluginOptions: DashboardPluginOptions }> = ({
   return (
     <div className="px-4 md:px-12 py-12">
       <div className="mb-12">
-        <h1 className="font-semibold">{t("dashboard.welcome")}</h1>
+        <h1 className="font-bold text-3xl tracking-tight">
+          {t("dashboard.welcome")}
+        </h1>
         <div>{t("dashboard.description")}</div>
       </div>
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-12 items-start">

@@ -1,10 +1,11 @@
-import path from "node:path";
-import { program } from "commander";
-import { createServer, build } from "vite";
-import defaultTheme from "tailwindcss/defaultTheme.js";
-import colors from "tailwindcss/colors.js";
 import { createRequire } from "node:module";
+import path from "node:path";
 import { fileURLToPath } from "node:url";
+
+import { program } from "commander";
+import colors from "tailwindcss/colors.js";
+import defaultTheme from "tailwindcss/defaultTheme.js";
+import { build, createServer } from "vite";
 const require = createRequire(import.meta.url);
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -46,7 +47,6 @@ export function init() {
             require("tailwindcss/nesting"),
             require("tailwindcss")({
               // config: path.resolve(__dirname, "../tailwind.config.js"),
-              corePlugins: { preflight: false },
               content: [
                 path.resolve(__dirname, "../app/**/*.{js,ts,jsx,tsx}"),
                 path.resolve(root, "./config/**/*.{js,ts,jsx,tsx}"),
@@ -57,10 +57,10 @@ export function init() {
                 extend: {
                   fontFamily: {
                     sans: ['"Inter Variable"', ...defaultTheme.fontFamily.sans],
-                    serif: ['"Young Serif"', ...defaultTheme.fontFamily.serif],
                   },
                   colors: {
                     gray: colors.zinc,
+                    primary: colors.zinc,
                   },
                 },
               },
@@ -98,7 +98,6 @@ export function init() {
             require("tailwindcss/nesting"),
             require("tailwindcss")({
               // config: path.resolve(__dirname, "../tailwind.config.js"),
-              corePlugins: { preflight: false },
               content: [
                 path.resolve(__dirname, "../app/**/*.{js,ts,jsx,tsx}"),
                 path.resolve(root, "./config/**/*.{js,ts,jsx,tsx}"),
@@ -109,10 +108,10 @@ export function init() {
                 extend: {
                   fontFamily: {
                     sans: ['"Inter Variable"', ...defaultTheme.fontFamily.sans],
-                    serif: ['"Young Serif"', ...defaultTheme.fontFamily.serif],
                   },
                   colors: {
                     gray: colors.zinc,
+                    primary: colors.zinc,
                   },
                 },
               },

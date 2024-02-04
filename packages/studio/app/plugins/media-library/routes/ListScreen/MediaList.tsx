@@ -1,7 +1,4 @@
-import React, { useState } from "react";
-import { Button, List, message, Popconfirm, Segmented, Typography } from "antd";
-import { filesize } from "filesize";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { MediaItem, Pagination as IPagination, Sort } from "@curatorjs/types";
 import {
   faCloudUpload,
   faFile,
@@ -10,26 +7,27 @@ import {
   faTableList,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { useAsync, useCopyToClipboard } from "react-use";
-import { useTranslation } from "react-i18next";
-import { Formik } from "formik";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, List, message, Popconfirm, Segmented, Typography } from "antd";
 import classNames from "classnames";
-import { useSearchParams } from "react-router-dom";
+import { filesize } from "filesize";
+import { Formik } from "formik";
 import * as R from "ramda";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router-dom";
+import { useAsync, useCopyToClipboard } from "react-use";
 
-import { Pagination as IPagination } from "@curatorjs/types";
-import { Sort } from "@curatorjs/types";
-import { MediaItem } from "@curatorjs/types";
+import useCurator from "@/hooks/useCurator";
 import usePreferences from "@/hooks/usePreferences";
 import useStrapi from "@/hooks/useStrapi";
 import CalendarTime from "@/ui/CalendarTime";
 import Pagination from "@/ui/Pagination";
 
 import UploadButton from "../../ui/UploadButton";
+import EditMediaModal from "./EditMediaModal";
 import FilterToolbar from "./FilterToolbar";
 import FolderList from "./FolderList";
-import EditMediaModal from "./EditMediaModal";
-import useCurator from "@/hooks/useCurator";
 
 const MediaList: React.FC = () => {
   const { t } = useTranslation();
@@ -112,7 +110,7 @@ const MediaList: React.FC = () => {
           )}
           <div className="px-4 md:px-12 py-6">
             <div className="flex flex-col md:flex-row items-center my-12 md:mb-24 gap-4">
-              <h1 className="m-0 flex-1 font-serif font-normal">
+              <h1 className="flex-1 text-3xl font-bold">
                 {t("common.media_library")}
               </h1>
               <Segmented
