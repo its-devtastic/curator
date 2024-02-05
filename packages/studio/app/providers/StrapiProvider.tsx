@@ -1,3 +1,13 @@
+import { StrapiSdk } from "@curatorjs/strapi-sdk";
+import {
+  Permission,
+  StrapiComponent,
+  StrapiContentType,
+  StrapiLocale,
+  UserRole,
+} from "@curatorjs/types";
+import { Button } from "@curatorjs/ui";
+import * as R from "ramda";
 import React, {
   createContext,
   useCallback,
@@ -5,23 +15,13 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { useAsync } from "react-use";
-import * as R from "ramda";
-import { Button, Result } from "antd";
 import { useTranslation } from "react-i18next";
+import { PiCloudWarningDuotone } from "react-icons/pi";
+import { useAsync } from "react-use";
 
-import {
-  StrapiContentType,
-  StrapiComponent,
-  StrapiLocale,
-  Permission,
-  UserRole,
-} from "@curatorjs/types";
-
-import useSession from "@/hooks/useSession";
+import CuratorLogo from "@/components/CuratorLogo";
 import useCurator from "@/hooks/useCurator";
-
-import { StrapiSdk } from "@curatorjs/strapi-sdk";
+import useSession from "@/hooks/useSession";
 
 export const Context = createContext<{
   sdk: StrapiSdk;
@@ -113,18 +113,31 @@ export const StrapiProvider: React.FC<{
       }}
     >
       {error && (
-        <div className="h-screen flex flex-col justify-center">
-          <div className="p-4">
-            <Result
-              status="500"
-              title={t("network_error.title")}
-              subTitle={t("network_error.sub_title")}
-              extra={
-                <Button onClick={() => window.location.reload()}>
-                  {t("network_error.try_again")}
-                </Button>
-              }
-            />
+        <div className="h-screen flex flex-col justify-between items-center">
+          <div className="flex-1" />
+          <section className="text-center p-4">
+            <div className="flex justify-center mb-8">
+              <PiCloudWarningDuotone className="size-24 fill-destructive" />
+            </div>
+            <h2 className="text-3xl font-bold mb-4">
+              {t("network_error.title")}
+            </h2>
+            <div className="text-muted-foreground mb-12">
+              {t("network_error.sub_title")}
+            </div>
+            <div>
+              <Button
+                onClick={() => window.location.reload()}
+                variant="outline"
+              >
+                {t("network_error.try_again")}
+              </Button>
+            </div>
+          </section>
+          <div className="flex-1 flex flex-col justify-end">
+            <div className="pb-12">
+              <CuratorLogo />
+            </div>
           </div>
         </div>
       )}

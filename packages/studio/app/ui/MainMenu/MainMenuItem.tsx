@@ -15,15 +15,15 @@ const MainMenuItem: React.FC<{
       className={classNames(
         "flex items-center gap-2 text-sm rounded-md font-medium hover:cursor-pointer no-underline px-4 py-2",
         isActive
-          ? "bg-primary-800 dark:bg-white/5"
-          : "hover:bg-gray-100 dark:hover:bg-white/5",
+          ? "bg-secondary text-secondary-foreground"
+          : "hover:bg-secondary hover:text-secondary-foreground",
       )}
     >
       {icon && (
         <div
           className={classNames(
-            "w-6 flex-none text-center dark:text-gray-200 flex",
-            isActive ? "text-primary-50" : "text-gray-800",
+            "w-6 flex-none text-center",
+            isActive ? "text-secondary-foreground" : "text-foreground",
           )}
         >
           {icon}

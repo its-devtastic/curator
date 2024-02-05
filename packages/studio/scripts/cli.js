@@ -2,30 +2,14 @@ import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import tailwindDefaultConfig from "@curatorjs/ui/tailwindDefaultConfig.js";
 import { program } from "commander";
-import colors from "tailwindcss/colors.js";
-import defaultTheme from "tailwindcss/defaultTheme.js";
 import { build, createServer } from "vite";
 const require = createRequire(import.meta.url);
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const pkg = require("../package.json");
-
-const safelist = [
-  "lg:col-span-1",
-  "lg:col-span-2",
-  "lg:col-span-3",
-  "lg:col-span-4",
-  "lg:col-span-5",
-  "lg:col-span-6",
-  "lg:col-span-7",
-  "lg:col-span-8",
-  "lg:col-span-9",
-  "lg:col-span-10",
-  "lg:col-span-11",
-  "lg:col-span-12",
-];
 
 export function init() {
   program.name(pkg.name).description(pkg.description).version(pkg.version);
@@ -46,24 +30,19 @@ export function init() {
           plugins: [
             require("tailwindcss/nesting"),
             require("tailwindcss")({
-              // config: path.resolve(__dirname, "../tailwind.config.js"),
+              ...tailwindDefaultConfig,
               content: [
                 path.resolve(__dirname, "../app/**/*.{js,ts,jsx,tsx}"),
                 path.resolve(root, "./config/**/*.{js,ts,jsx,tsx}"),
+                path.resolve(
+                  root,
+                  "./node_modules/@curatorjs/**/*.{js,ts,jsx,tsx}",
+                ),
+                path.resolve(
+                  __dirname,
+                  "../../../node_modules/@curatorjs/**/*.{js,ts,jsx,tsx}",
+                ),
               ],
-              safelist,
-              darkMode: "class",
-              theme: {
-                extend: {
-                  fontFamily: {
-                    sans: ['"Inter Variable"', ...defaultTheme.fontFamily.sans],
-                  },
-                  colors: {
-                    gray: colors.zinc,
-                    primary: colors.zinc,
-                  },
-                },
-              },
             }),
             require("autoprefixer")(),
           ],
@@ -97,24 +76,19 @@ export function init() {
           plugins: [
             require("tailwindcss/nesting"),
             require("tailwindcss")({
-              // config: path.resolve(__dirname, "../tailwind.config.js"),
+              ...tailwindDefaultConfig,
               content: [
                 path.resolve(__dirname, "../app/**/*.{js,ts,jsx,tsx}"),
                 path.resolve(root, "./config/**/*.{js,ts,jsx,tsx}"),
+                path.resolve(
+                  root,
+                  "./node_modules/@curatorjs/**/*.{js,ts,jsx,tsx}",
+                ),
+                path.resolve(
+                  __dirname,
+                  "../../../node_modules/@curatorjs/**/*.{js,ts,jsx,tsx}",
+                ),
               ],
-              safelist,
-              darkMode: "class",
-              theme: {
-                extend: {
-                  fontFamily: {
-                    sans: ['"Inter Variable"', ...defaultTheme.fontFamily.sans],
-                  },
-                  colors: {
-                    gray: colors.zinc,
-                    primary: colors.zinc,
-                  },
-                },
-              },
             }),
             require("autoprefixer")(),
           ],
