@@ -1,14 +1,14 @@
+import { AdminUser, Pagination as IPagination } from "@curatorjs/types";
+import { Button, DataTable } from "@curatorjs/ui";
+import { Tag } from "antd";
+import * as R from "ramda";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, Tag } from "antd";
-import { useAsyncRetry } from "react-use";
-import * as R from "ramda";
+import { PiUserCirclePlus } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
+import { useAsyncRetry } from "react-use";
 
-import { Pagination as IPagination } from "@curatorjs/types";
-import { AdminUser } from "@curatorjs/types";
 import useStrapi from "@/hooks/useStrapi";
-import Table from "@/ui/Table";
 
 import InviteUserModal from "./InviteUserModal";
 
@@ -46,57 +46,46 @@ export default function TeamList() {
         />
       )}
       <div className="px-4 md:px-12">
-        <div className="flex items-center justify-between my-12 pb-6 border-b border-0 border-solid border-gray-200">
+        <div className="flex items-center justify-between my-12 pb-6">
           <div>
-            <h1 className="mt-0 mb-4 font-serif font-normal">
-              {t("team.title")}
-            </h1>
-            <div className="text-sm text-gray-600">{t("team.description")}</div>
+            <h1 className="text-3xl font-bold mb-1">{t("team.title")}</h1>
+            <div className="text-sm text-muted-foreground">
+              {t("team.description")}
+            </div>
           </div>
           {canCreate && (
-            <Button
-              type="primary"
-              htmlType="submit"
-              onClick={() => setCreate(true)}
-            >
-              {t("team.invite")}
+            <Button onClick={() => setCreate(true)}>
+              <PiUserCirclePlus className="size-4 mr-2" />
+              <span>{t("team.invite")}</span>
             </Button>
           )}
         </div>
-        <Table
-          dataSource={collection.results}
-          loading={loading}
-          onRow={({ id }) => ({
-            onClick() {
-              navigate(`/team/${id}`);
-            },
-          })}
+        <DataTable
+          data={collection.results}
           columns={[
             {
-              key: "name",
-              title: t("common.name"),
-              render(record) {
+              header: t("common.name"),
+              cell({ row }) {
                 return (
                   <span className="font-medium">
-                    {`${record.firstname ?? ""} ${
-                      record.lastname ?? ""
+                    {`${row.original.firstname ?? ""} ${
+                      row.original.lastname ?? ""
                     }`.trim()}
                   </span>
                 );
               },
             },
             {
-              title: t("common.email"),
-              key: "email",
-              dataIndex: "email",
+              header: t("common.email"),
+              accessorKey: "email",
             },
             {
-              key: "roles",
-              dataIndex: "roles",
-              render(roles: AdminUser["roles"]) {
+              accessorKey: "roles",
+              header: "",
+              cell({ cell }) {
                 return (
                   <div className="space-x-1">
-                    {roles.map((role) => (
+                    {cell.getValue().map((role: AdminUser["roles"][number]) => (
                       <Tag key={role.id} color="geekblue" bordered={false}>
                         {role.name}
                       </Tag>
@@ -106,9 +95,10 @@ export default function TeamList() {
               },
             },
             {
-              key: "isActive",
-              dataIndex: "isActive",
-              render(isActive) {
+              accessorKey: "isActive",
+              header: "",
+              cell({ cell }) {
+                const isActive = cell.getValue();
                 return (
                   <Tag color={isActive ? "green" : "yellow"} bordered={false}>
                     {isActive ? t("common.active") : t("common.inactive")}

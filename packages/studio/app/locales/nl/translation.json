@@ -138,6 +138,7 @@
   "phrases.add_translation": "Voeg vertaling toe",
   "phrases.view_page": "Bekijk pagina",
   "phrases.manage_content": "Beheer content",
+  "phrases.no_permission": "Geen toegang",
   "phrases.no_view_permission": "Je hebt geen toegang tot dit gedeelte",
   "phrases.are_you_sure": "Weet je het zeker?",
   "phrases.type_delete": "Typ DELETE om te bevestigen",

@@ -135,6 +135,7 @@
   "phrases.add_translation": "Add translation",
   "phrases.view_page": "View page",
   "phrases.manage_content": "Manage content",
+  "phrases.no_permission": "No permission",
   "phrases.no_view_permission": "You don't have permission to view this resource",
   "phrases.are_you_sure": "Are you sure?",
   "phrases.type_delete": "Type DELETE to confirm",
