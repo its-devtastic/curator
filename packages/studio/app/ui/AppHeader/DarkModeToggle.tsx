@@ -1,7 +1,7 @@
-import React from "react";
-import { Button, Tooltip } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Tooltip, TooltipContent, TooltipTrigger } from "@curatorjs/ui";
 import { faCircleHalfStroke } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
 import { useTranslation } from "react-i18next";
 
 import usePreferences from "@/hooks/usePreferences";
@@ -12,19 +12,20 @@ const DarkModeToggle: React.FC = () => {
 
   return (
     <div className="">
-      <Tooltip
-        placement="bottomRight"
-        title={
-          preferences.darkMode
+      <Tooltip>
+        <TooltipContent>
+          {preferences.darkMode
             ? t("phrases.switch_to_light_mode")
-            : t("phrases.switch_to_dark_mode")
-        }
-      >
-        <Button
-          type="text"
-          icon={<FontAwesomeIcon icon={faCircleHalfStroke} />}
-          onClick={() => setPreference("darkMode", !preferences.darkMode)}
-        />
+            : t("phrases.switch_to_dark_mode")}
+        </TooltipContent>
+        <TooltipTrigger>
+          <Button
+            variant="ghost"
+            onClick={() => setPreference("darkMode", !preferences.darkMode)}
+          >
+            <FontAwesomeIcon icon={faCircleHalfStroke} />
+          </Button>
+        </TooltipTrigger>
       </Tooltip>
     </div>
   );

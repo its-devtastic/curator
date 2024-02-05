@@ -1,6 +1,5 @@
 import { AdminUser, Pagination as IPagination } from "@curatorjs/types";
-import { Button, DataTable } from "@curatorjs/ui";
-import { Tag } from "antd";
+import { Badge, Button, DataTable } from "@curatorjs/ui";
 import * as R from "ramda";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -86,9 +85,9 @@ export default function TeamList() {
                 return (
                   <div className="space-x-1">
                     {cell.getValue().map((role: AdminUser["roles"][number]) => (
-                      <Tag key={role.id} color="geekblue" bordered={false}>
+                      <Badge key={role.id} variant="outline">
                         {role.name}
-                      </Tag>
+                      </Badge>
                     ))}
                   </div>
                 );
@@ -100,9 +99,9 @@ export default function TeamList() {
               cell({ cell }) {
                 const isActive = cell.getValue();
                 return (
-                  <Tag color={isActive ? "green" : "yellow"} bordered={false}>
+                  <Badge variant={isActive ? "success" : "secondary"}>
                     {isActive ? t("common.active") : t("common.inactive")}
-                  </Tag>
+                  </Badge>
                 );
               },
             },

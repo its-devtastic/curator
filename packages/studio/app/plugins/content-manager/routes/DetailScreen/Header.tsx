@@ -1,15 +1,13 @@
+import { ContentTypeConfig, Entity } from "@curatorjs/types";
+import { Tag } from "antd";
+import { useFormikContext } from "formik";
 import React from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
-import { Entity } from "@curatorjs/types";
-import { StrapiContentType } from "@curatorjs/types";
-import { ContentTypeConfig } from "@curatorjs/types";
 import CalendarTime from "@/ui/CalendarTime";
 
 import Actions from "./Actions";
-import { useFormikContext } from "formik";
-import { Tag } from "antd";
 
 const Header: React.FC<HeaderProps> = ({ contentTypeConfig, document }) => {
   const { t } = useTranslation();

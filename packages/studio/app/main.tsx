@@ -1,26 +1,26 @@
-import React, { useEffect } from "react";
-import ReactDOM from "react-dom/client";
-import dayjs from "dayjs";
-import { ConfigProvider, theme } from "antd";
-import * as R from "ramda";
-
 import "flag-icons/css/flag-icons.min.css";
 import "@fontsource-variable/inter";
+import "dayjs/locale/nl";
+import "./index.css";
 
-// Day.js plugins
-import relativeTime from "dayjs/plugin/relativeTime";
+import { CuratorConfig } from "@curatorjs/types";
+import { TooltipProvider } from "@curatorjs/ui";
+import { ConfigProvider, theme } from "antd";
+import dayjs from "dayjs";
 import calendar from "dayjs/plugin/calendar";
 import localeData from "dayjs/plugin/localeData";
 import localizedFormat from "dayjs/plugin/localizedFormat";
-import "dayjs/locale/nl";
-
-import App from "./App";
-import "./index.css";
+// Day.js plugins
+import relativeTime from "dayjs/plugin/relativeTime";
+import * as R from "ramda";
+import React, { useEffect } from "react";
+import ReactDOM from "react-dom/client";
 
 import usePreferences from "@/hooks/usePreferences";
 import CuratorProvider from "@/providers/CuratorProvider";
 import StrapiProvider from "@/providers/StrapiProvider";
-import { CuratorConfig } from "@curatorjs/types";
+
+import App from "./App";
 
 dayjs.extend(relativeTime);
 dayjs.extend(localeData);
@@ -62,7 +62,9 @@ const Main: React.FC<{ curatorConfig: CuratorConfig }> = ({
       >
         <CuratorProvider config={curatorConfig}>
           <StrapiProvider apiUrl={curatorConfig.strapiUrl}>
-            <App />
+            <TooltipProvider>
+              <App />
+            </TooltipProvider>
           </StrapiProvider>
         </CuratorProvider>
       </ConfigProvider>
