@@ -11,7 +11,6 @@ import toColor from "string-to-color";
 import useCurator from "@/hooks/useCurator";
 
 import MainMenuItem from "./MainMenuItem";
-import SettingsMenu from "./SettingsMenu";
 
 const MainMenu: React.FC & {
   Item: typeof MainMenuItem;
@@ -125,9 +124,6 @@ const MainMenu: React.FC & {
                 .map(({ render }, index) => (
                   <div key={index}>{render()}</div>
                 ))}
-              {items.some(
-                R.whereEq({ zone: InjectionZone.MainMenuSettings }),
-              ) && <SettingsMenu />}
             </div>
           </div>
         </div>

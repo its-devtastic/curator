@@ -21,6 +21,7 @@ const DarkModeToggle: React.FC = () => {
         <TooltipTrigger>
           <Button
             variant="ghost"
+            size="icon"
             onClick={() => setPreference("darkMode", !preferences.darkMode)}
           >
             <FontAwesomeIcon icon={faCircleHalfStroke} />

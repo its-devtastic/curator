@@ -1,8 +1,10 @@
+import { DropdownMenuItem } from "@curatorjs/ui";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as R from "ramda";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { PiTranslateBold } from "react-icons/pi";
 import { Link } from "react-router-dom";
 
 import useStrapi from "@/hooks/useStrapi";
@@ -15,12 +17,14 @@ const MainMenuItem: React.FC = () => {
   );
 
   return hasPermission ? (
-    <Link to="/settings/internationalization" className="space-x-2">
-      <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-cyan-100">
-        <FontAwesomeIcon className="text-cyan-500 text-sm" icon={faLanguage} />
-      </span>
-      <span>{t("internationalization.title")}</span>
-    </Link>
+    <DropdownMenuItem key="internationalization" asChild>
+      <Link to="/settings/internationalization" className="space-x-2">
+        <span className="inline-flex items-center justify-center size-6 rounded-full bg-cyan-100">
+          <PiTranslateBold className="size-3" />
+        </span>
+        <span>{t("internationalization.title")}</span>
+      </Link>
+    </DropdownMenuItem>
   ) : null;
 };
 
