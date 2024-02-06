@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Webhook } from "@curatorjs/types";
 import {
   faEllipsisV,
   faFile,
   faPhotoFilm,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Dropdown, Modal, notification, Tag } from "antd";
 import * as R from "ramda";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAsyncRetry } from "react-use";
 
-import { Webhook } from "@curatorjs/types";
 import useStrapi from "@/hooks/useStrapi";
-import Table from "@/ui/Table";
 import WebhookForm from "@/plugins/webhooks/routes/Webhooks/WebhookForm";
+import Table from "@/ui/Table";
 
 export default function Webhooks() {
   const { t } = useTranslation();

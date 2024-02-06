@@ -61,6 +61,7 @@ export default function TeamList() {
         </div>
         <DataTable
           data={collection.results}
+          onRowClick={(_, { id }) => navigate(`/team/${id}`)}
           columns={[
             {
               header: t("common.name"),

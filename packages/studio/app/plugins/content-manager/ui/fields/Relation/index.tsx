@@ -1,14 +1,12 @@
-import React from "react";
+import { Entity, FieldDefinition } from "@curatorjs/types";
 import * as R from "ramda";
+import React from "react";
 import { useParams } from "react-router-dom";
-
-import { Entity } from "@curatorjs/types";
-import { FieldDefinition } from "@curatorjs/types";
 
 import useStrapi from "@/hooks/useStrapi";
 
-import ToOne from "./ToOne";
 import ToMany from "./ToMany";
+import ToOne from "./ToOne";
 
 const Relation: React.FC<{
   field: FieldDefinition;

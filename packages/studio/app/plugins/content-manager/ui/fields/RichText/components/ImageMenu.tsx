@@ -1,10 +1,10 @@
-import React from "react";
-import { useCurrentEditor } from "@tiptap/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Popover from "@/ui/Popover";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useCurrentEditor } from "@tiptap/react";
+import React from "react";
 
 import { MediaLibraryPopover } from "@/plugins/media-library";
+import Popover from "@/ui/Popover";
 
 const ImageMenu: React.FC = () => {
   const { editor } = useCurrentEditor();

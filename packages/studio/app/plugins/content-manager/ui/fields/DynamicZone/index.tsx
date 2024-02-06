@@ -1,11 +1,4 @@
-import React from "react";
-import * as R from "ramda";
-import {
-  arrayMove,
-  SortableContext,
-  sortableKeyboardCoordinates,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
+import { Attribute, FieldDefinition } from "@curatorjs/types";
 import {
   closestCenter,
   DndContext,
@@ -14,15 +7,21 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Tooltip } from "antd";
+import * as R from "ramda";
+import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { Attribute } from "@curatorjs/types";
-import { FieldDefinition } from "@curatorjs/types";
-import useStrapi from "@/hooks/useStrapi";
 import useCurator from "@/hooks/useCurator";
+import useStrapi from "@/hooks/useStrapi";
 import Popover from "@/ui/Popover";
 
 import DynamicItem from "./DynamicItem";

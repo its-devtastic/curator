@@ -1,12 +1,12 @@
-import React from "react";
-import { Formik, Form, Field } from "formik";
 import { Button, Input, message } from "antd";
+import { Field, Form, Formik } from "formik";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import useStrapi from "@/hooks/useStrapi";
-import useSession from "@/hooks/useSession";
 import useCurator from "@/hooks/useCurator";
+import useSession from "@/hooks/useSession";
+import useStrapi from "@/hooks/useStrapi";
 import FormField from "@/ui/FormField";
 
 const Login: React.FC = () => {

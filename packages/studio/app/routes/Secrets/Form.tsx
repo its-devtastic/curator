@@ -1,13 +1,13 @@
+import { Input, Modal, Select } from "antd";
+import { Formik } from "formik";
+import * as R from "ramda";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Modal, Input, Select } from "antd";
-import { Formik } from "formik";
 import { useAsync } from "react-use";
-import * as R from "ramda";
 
+import useStrapi from "@/hooks/useStrapi";
 import Field from "@/ui/Field";
 import FormField from "@/ui/FormField";
-import useStrapi from "@/hooks/useStrapi";
 
 export default function SecretsForm({
   item,

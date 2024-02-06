@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { Avatar, Button, Popover } from "antd";
-import { useTranslation } from "react-i18next";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import * as R from "ramda";
-
 import { MediaItem } from "@curatorjs/types";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Avatar, Button, Popover } from "antd";
+import * as R from "ramda";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import useCurator from "@/hooks/useCurator";
 
 import MediaLibraryPopover from "../../MediaLibraryPopover";

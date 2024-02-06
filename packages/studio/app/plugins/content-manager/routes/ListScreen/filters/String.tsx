@@ -1,11 +1,11 @@
-import React, { useMemo } from "react";
-import { Button, Checkbox, Input, Select } from "antd";
-import { useTranslation } from "react-i18next";
-import { Form, Formik } from "formik";
-
 import { Attribute } from "@curatorjs/types";
-import Field from "@/ui/Field";
+import { Button, Checkbox, Input, Select } from "antd";
+import { Form, Formik } from "formik";
+import React, { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+
 import useFilters from "@/hooks/useFilters";
+import Field from "@/ui/Field";
 
 const OPERATORS = ["eq", "contains", "startsWith", "endsWith"];
 

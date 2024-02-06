@@ -1,18 +1,17 @@
-import React from "react";
-import { Form, Formik } from "formik";
-import { useTranslation } from "react-i18next";
 import { Avatar, Button, Card, Input } from "antd";
+import { Form, Formik } from "formik";
+import React from "react";
+import { useTranslation } from "react-i18next";
 import toColor from "string-to-color";
 
 import useSession from "@/hooks/useSession";
 import useStrapi from "@/hooks/useStrapi";
-
-import Spinner from "@/ui/Spinner";
+import { MediaLibraryPopover } from "@/plugins/media-library";
 import Field from "@/ui/Field";
 import FormField from "@/ui/FormField";
 import LocaleSelect from "@/ui/LocaleSelect";
-import { MediaLibraryPopover } from "@/plugins/media-library";
 import Popover from "@/ui/Popover";
+import Spinner from "@/ui/Spinner";
 
 export default function Profile() {
   const { user, profile, setSession } = useSession();

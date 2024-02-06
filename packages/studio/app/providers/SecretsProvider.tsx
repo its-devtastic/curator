@@ -1,53 +1,51 @@
+import { Spinner } from "@curatorjs/ui";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { createContext, useCallback } from "react";
-import { useAsync } from "react-use";
+import { useUpdateEffect } from "react-use";
 
-import useStrapi from "@/hooks/useStrapi";
-import useSession from "@/hooks/useSession";
 import useCurator from "@/hooks/useCurator";
-import Spinner from "@/ui/Spinner";
+import useSession from "@/hooks/useSession";
+import useStrapi from "@/hooks/useStrapi";
 
 export const Context = createContext({} as any);
 
-const SecretsProvider: React.FC<{
+export default function SecretsProvider({
+  children,
+}: {
   children: React.ReactNode;
-}> = ({ children }) => {
+}) {
   const { sdk } = useStrapi();
   const { secrets: enabled } = useCurator();
   const { token } = useSession();
+  const queryClient = useQueryClient();
 
-  const { value: secrets = {}, loading } = useAsync(async () => {
-    // Don't fetch anything if the secrets feature is disabled
-    if (!enabled) {
-      return;
-    }
-    try {
+  const { data: secrets, isPending } = useQuery({
+    enabled,
+    refetchOnWindowFocus: false,
+    queryKey: ["secrets"],
+    async queryFn() {
       return await sdk.getSecrets();
-    } catch (e) {
-      console.error(e);
-    }
-  }, [sdk, token]);
+    },
+  });
+
+  useUpdateEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ["secrets"] });
+  }, [token]);
 
   const getSecret = useCallback(
-    (key: string) => {
-      if (key.startsWith("$")) {
-        return secrets[key.slice(1)] || key;
-      }
-      return key;
-    },
+    (key: string) => (key.startsWith("$") && secrets?.[key.slice(1)]) || key,
     [secrets],
   );
 
   return (
     <Context.Provider value={{ secrets, getSecret }}>
-      {enabled && loading ? (
+      {enabled && isPending ? (
         <div className="h-screen flex items-center justify-center">
-          <Spinner size={24} />
+          <Spinner className="size-8" />
         </div>
       ) : (
         children
       )}
     </Context.Provider>
   );
-};
-
-export default SecretsProvider;
+}

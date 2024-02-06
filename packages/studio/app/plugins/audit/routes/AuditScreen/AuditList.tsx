@@ -1,14 +1,11 @@
+import { Badge, DataTable, Pagination } from "@curatorjs/ui";
+import * as R from "ramda";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Tag } from "antd";
-import { useAsync, useAsyncRetry } from "react-use";
 import { useSearchParams } from "react-router-dom";
-import * as R from "ramda";
+import { useAsync, useAsyncRetry } from "react-use";
 
 import useStrapi from "@/hooks/useStrapi";
-import Table from "@/ui/Table";
-import Pagination from "@/ui/Pagination";
-import { isEmpty } from "ramda";
 import CalendarTime from "@/ui/CalendarTime";
 
 export default function AuditList() {
@@ -24,10 +21,10 @@ export default function AuditList() {
   }, [sdk, searchParams]);
 
   const { value: adminUsers = [] } = useAsync(async () => {
-    const ids = R.pipe(
-      R.defaultTo([] as any),
+    const ids = R.pipe<any, any, any, any, any>(
+      R.defaultTo([]),
       R.pluck("subjectId"),
-      R.reject(R.isNil) as any,
+      R.reject(R.isNil),
       R.uniq,
     )(value?.results) as string[];
 
@@ -44,64 +41,61 @@ export default function AuditList() {
 
   return (
     <div className="px-4 md:px-12">
-      <div className="flex items-center justify-between my-12 pb-6 border-b border-0 border-solid border-gray-200">
+      <div className="flex items-center justify-between my-12">
         <div>
-          <h1 className="mt-0 mb-4 font-serif font-normal">
-            {t("audit.title")}
-          </h1>
-          <div className="text-sm text-gray-600">{t("audit.description")}</div>
+          <h1 className="text-3xl font-bold mb-1">{t("audit.title")}</h1>
+          <div className="text-sm text-muted-foreground">
+            {t("audit.description")}
+          </div>
         </div>
       </div>
-      <Table
-        dataSource={value?.results}
-        loading={loading}
-        rowKey="id"
+      <DataTable
+        data={value?.results ?? []}
         columns={[
           {
-            key: "createdAt",
-            dataIndex: "createdAt",
-            render(value) {
+            accessorKey: "createdAt",
+            header: "",
+            cell({ cell }) {
               return (
                 <CalendarTime className="text-xs text-gray-500">
-                  {value}
+                  {cell.getValue<string>()}
                 </CalendarTime>
               );
             },
           },
           {
-            key: "action",
-            dataIndex: "action",
-            render(action: string) {
+            accessorKey: "action",
+            header: "",
+            cell({ cell }) {
+              const action = cell.getValue<string>();
               return (
-                <Tag
-                  color={
+                <Badge
+                  variant={
                     {
-                      create: "green",
-                      update: "blue",
-                      delete: "red",
-                    }[action]
+                      create: "success",
+                      update: "outline",
+                      delete: "destructive",
+                    }[action] as any
                   }
                 >
                   {action.toUpperCase()}
-                </Tag>
+                </Badge>
               );
             },
           },
           {
-            key: "objectUid",
-            dataIndex: "objectUid",
-            title: t("audit.object"),
+            accessorKey: "objectUid",
+            header: t("audit.object"),
           },
           {
-            key: "objectId",
-            dataIndex: "objectId",
-            title: t("audit.id"),
+            accessorKey: "objectId",
+            header: t("audit.id"),
           },
           {
-            key: "subject",
-            dataIndex: "subjectId",
-            title: t("audit.subject"),
-            render(subjectId) {
+            accessorKey: "subjectId",
+            header: t("audit.subject"),
+            cell({ cell }) {
+              const subjectId = cell.getValue<number>();
               const user =
                 subjectId &&
                 adminUsers.find(R.whereEq({ id: Number(subjectId) }));

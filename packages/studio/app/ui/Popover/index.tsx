@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import { Popover as BasePopover, PopoverProps } from "antd";
+import React, { useState } from "react";
 
 const Popover: React.FC<
   { content(close: VoidFunction): React.ReactNode } & Omit<

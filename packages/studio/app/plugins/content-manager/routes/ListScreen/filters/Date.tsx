@@ -1,12 +1,12 @@
-import React, { useMemo } from "react";
-import { Button, DatePicker, InputNumber, Select } from "antd";
-import { useTranslation } from "react-i18next";
-import { Form, Formik } from "formik";
-import dayjs, { ManipulateType } from "dayjs";
-
 import { Attribute } from "@curatorjs/types";
-import Field from "@/ui/Field";
+import { Button, DatePicker, InputNumber, Select } from "antd";
+import dayjs, { ManipulateType } from "dayjs";
+import { Form, Formik } from "formik";
+import React, { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+
 import useFilters from "@/hooks/useFilters";
+import Field from "@/ui/Field";
 
 const OPERATORS = ["last_n", "eq"];
 

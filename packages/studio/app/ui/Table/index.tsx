@@ -1,6 +1,6 @@
-import React from "react";
 import { Table as BaseTable, TableProps } from "antd";
 import classNames from "classnames";
+import React from "react";
 
 const Table: React.FC<TableProps<any>> = ({ className, ...props }) => {
   return (

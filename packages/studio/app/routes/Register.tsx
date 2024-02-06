@@ -1,13 +1,13 @@
-import React from "react";
-import { Formik, Form, Field } from "formik";
 import { Button, Card, Input, message } from "antd";
+import { Field, Form, Formik } from "formik";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import { useAsync } from "react-use";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useAsync } from "react-use";
 
-import useStrapi from "@/hooks/useStrapi";
-import useSession from "@/hooks/useSession";
 import useCurator from "@/hooks/useCurator";
+import useSession from "@/hooks/useSession";
+import useStrapi from "@/hooks/useStrapi";
 import FormField from "@/ui/FormField";
 
 const Register: React.FC = () => {

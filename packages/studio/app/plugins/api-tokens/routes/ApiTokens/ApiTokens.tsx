@@ -1,19 +1,19 @@
+import { ApiToken } from "@curatorjs/types";
+import { faEllipsisV, faUnlock } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Dropdown, Modal, notification, Tag } from "antd";
+import dayjs from "dayjs";
+import * as R from "ramda";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisV, faUnlock } from "@fortawesome/free-solid-svg-icons";
-import { Button, Dropdown, Modal, notification, Tag } from "antd";
-import * as R from "ramda";
 import { useAsyncRetry } from "react-use";
-import dayjs from "dayjs";
 
-import { ApiToken } from "@curatorjs/types";
 import useStrapi from "@/hooks/useStrapi";
+import CalendarTime from "@/ui/CalendarTime";
 import Table from "@/ui/Table";
 
-import CreateButton from "./CreateButton";
 import ApiTokenForm from "./ApiTokenForm";
-import CalendarTime from "@/ui/CalendarTime";
+import CreateButton from "./CreateButton";
 
 export default function ApiTokens() {
   const { t } = useTranslation();

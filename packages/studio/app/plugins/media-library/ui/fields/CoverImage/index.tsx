@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import classNames from "classnames";
-import { Popover } from "antd";
-
 import { MediaItem } from "@curatorjs/types";
+import { Popover } from "antd";
+import classNames from "classnames";
+import React, { useState } from "react";
+
 import useCurator from "@/hooks/useCurator";
 
 import MediaLibraryPopover from "../../MediaLibraryPopover";

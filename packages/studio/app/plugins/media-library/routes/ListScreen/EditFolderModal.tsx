@@ -1,12 +1,12 @@
-import React from "react";
 import { MediaFolder } from "@curatorjs/types";
 import { Input, Modal, TreeSelect } from "antd";
 import { Field, Formik } from "formik";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { useAsync } from "react-use";
 
-import FormField from "@/ui/FormField";
 import useStrapi from "@/hooks/useStrapi";
+import FormField from "@/ui/FormField";
 
 export default function EditFolderModal({
   folder,

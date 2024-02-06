@@ -1,7 +1,4 @@
-import React, { useCallback, useState } from "react";
-import { useAsync } from "react-use";
-import { useFormikContext } from "formik";
-import * as R from "ramda";
+import { Entity, FieldDefinition } from "@curatorjs/types";
 import {
   closestCenter,
   DndContext,
@@ -16,13 +13,15 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { useFormikContext } from "formik";
+import * as R from "ramda";
+import React, { useCallback, useState } from "react";
+import { useAsync } from "react-use";
 
-import { Entity } from "@curatorjs/types";
-import { FieldDefinition } from "@curatorjs/types";
 import useStrapi from "@/hooks/useStrapi";
 
-import RelationSelect from "./RelationSelect";
 import Item from "./Item";
+import RelationSelect from "./RelationSelect";
 
 const ToMany: React.FC<{
   apiID: string;

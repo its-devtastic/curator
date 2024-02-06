@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { ApiToken } from "@curatorjs/types";
 import {
   Alert,
   Button,
@@ -10,11 +9,12 @@ import {
   Result,
   Typography,
 } from "antd";
+import dayjs from "dayjs";
 import { Form, Formik } from "formik";
 import * as R from "ramda";
-import dayjs from "dayjs";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
-import { ApiToken } from "@curatorjs/types";
 import useStrapi from "@/hooks/useStrapi";
 import Field from "@/ui/Field";
 import FormField from "@/ui/FormField";

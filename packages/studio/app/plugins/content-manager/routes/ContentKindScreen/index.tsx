@@ -1,11 +1,11 @@
+import * as R from "ramda";
 import React from "react";
 import { useParams } from "react-router-dom";
-import * as R from "ramda";
 
 import useStrapi from "@/hooks/useStrapi";
 
-import ListScreen from "../ListScreen";
 import DetailScreen from "../DetailScreen";
+import ListScreen from "../ListScreen";
 
 const ContentKindScreen: React.FC = () => {
   const { contentTypes } = useStrapi();

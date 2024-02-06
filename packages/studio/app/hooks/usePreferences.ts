@@ -1,6 +1,6 @@
+import * as R from "ramda";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import * as R from "ramda";
 
 interface PreferenceState {
   preferences: Record<string, any>;

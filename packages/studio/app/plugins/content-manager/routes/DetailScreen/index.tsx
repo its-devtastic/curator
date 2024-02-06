@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { notification } from "antd";
-import * as R from "ramda";
-import { useAsync } from "react-use";
-import { Formik } from "formik";
-import { useParams, useNavigate, useSearchParams } from "react-router-dom";
-
 import { Entity } from "@curatorjs/types";
+import { notification } from "antd";
+import { Formik } from "formik";
+import * as R from "ramda";
+import React, { useState } from "react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useAsync } from "react-use";
+
+import useCurator from "@/hooks/useCurator";
 import useSecrets from "@/hooks/useSecrets";
 import useStrapi from "@/hooks/useStrapi";
-import useCurator from "@/hooks/useCurator";
 import Spinner from "@/ui/Spinner";
 
+import DraftBanner from "./DraftBanner";
 import Header from "./Header";
 import Main from "./Main";
-import DraftBanner from "./DraftBanner";
 
 const DetailScreen: React.FC = () => {
   const params = useParams();

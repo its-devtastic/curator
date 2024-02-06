@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import * as R from "ramda";
-import { useTranslation } from "react-i18next";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCaretUp,
-  faTrashAlt,
-  faGripVertical,
-} from "@fortawesome/free-solid-svg-icons";
-import classNames from "classnames";
-import { Button } from "antd";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import {
+  faCaretUp,
+  faGripVertical,
+  faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "antd";
+import classNames from "classnames";
+import * as R from "ramda";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
-import useStrapi from "@/hooks/useStrapi";
 import useCurator from "@/hooks/useCurator";
+import useStrapi from "@/hooks/useStrapi";
 
 import FieldRenderer from "../../FieldRenderer";
 import { DynamicZoneEntry } from "./index";

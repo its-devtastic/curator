@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Entity } from "@curatorjs/types";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Dropdown, Modal, notification, Tag, Typography } from "antd";
 import * as R from "ramda";
-import { useAsyncRetry } from "react-use";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
+import { useAsyncRetry } from "react-use";
 
-import { Entity } from "@curatorjs/types";
 import useStrapi from "@/hooks/useStrapi";
-import Table from "@/ui/Table";
 import Pagination from "@/ui/Pagination";
+import Table from "@/ui/Table";
 
 import Form from "./Form";
 

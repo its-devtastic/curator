@@ -1,8 +1,8 @@
+import { faKey } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as R from "ramda";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import * as R from "ramda";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faKey } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 import useStrapi from "@/hooks/useStrapi";

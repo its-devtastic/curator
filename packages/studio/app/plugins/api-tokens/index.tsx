@@ -1,12 +1,11 @@
-import React from "react";
+import type { CuratorConfig, InjectionZoneEntry } from "@curatorjs/types";
+import { InjectionZone } from "@curatorjs/types";
 import * as R from "ramda";
+import React from "react";
 import { RouteObject } from "react-router-dom";
 
-import type { InjectionZoneEntry, CuratorConfig } from "@curatorjs/types";
-import { InjectionZone } from "@curatorjs/types";
-
-import MainMenuItem from "./ui/MainMenuItem";
 import ApiTokens from "./routes/ApiTokens";
+import MainMenuItem from "./ui/MainMenuItem";
 
 /**
  * Plugin for managing available API tokens.

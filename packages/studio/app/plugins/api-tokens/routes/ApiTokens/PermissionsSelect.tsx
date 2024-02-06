@@ -1,9 +1,10 @@
-import React from "react";
-import { Select } from "antd";
-import useStrapi from "@/hooks/useStrapi";
-import { useAsync } from "react-use";
 import { PermissionConfig } from "@curatorjs/types";
+import { Select } from "antd";
 import * as R from "ramda";
+import React from "react";
+import { useAsync } from "react-use";
+
+import useStrapi from "@/hooks/useStrapi";
 
 const PermissionsSelect: React.FC<{
   onChange?(): void;

@@ -1,5 +1,5 @@
-import { useCallback } from "react";
 import * as R from "ramda";
+import { useCallback } from "react";
 
 import useStrapi from "@/hooks/useStrapi";
 

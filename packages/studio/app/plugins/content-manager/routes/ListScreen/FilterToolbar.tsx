@@ -1,12 +1,12 @@
-import React from "react";
-import { Button, Input } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { StrapiContentType } from "@curatorjs/types";
 import { faRefresh } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Input } from "antd";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 
 import LanguageSelect from "@/ui/LanguageSelect";
-import { StrapiContentType } from "@curatorjs/types";
 
 import FieldFilters from "./FieldFilters";
 

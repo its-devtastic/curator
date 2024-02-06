@@ -1,19 +1,17 @@
-import React, { useState } from "react";
-import * as R from "ramda";
-import { useTranslation } from "react-i18next";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCaretUp,
-  faTrashAlt,
-  faGripVertical,
-} from "@fortawesome/free-solid-svg-icons";
-import classNames from "classnames";
-import { Button } from "antd";
+import { ComponentConfig, StrapiComponent } from "@curatorjs/types";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-
-import { ComponentConfig } from "@curatorjs/types";
-import { StrapiComponent } from "@curatorjs/types";
+import {
+  faCaretUp,
+  faGripVertical,
+  faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "antd";
+import classNames from "classnames";
+import * as R from "ramda";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import FieldRenderer from "../../FieldRenderer";
 

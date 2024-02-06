@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { useCurrentEditor } from "@tiptap/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Input, Space } from "antd";
-import Popover from "@/ui/Popover";
 import { faCheck, faLink, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useCurrentEditor } from "@tiptap/react";
+import { Button, Input, Space } from "antd";
+import React, { useState } from "react";
+
+import Popover from "@/ui/Popover";
 
 const LinkMenu: React.FC = () => {
   const { editor } = useCurrentEditor();

@@ -1,19 +1,18 @@
-import React, { useState } from "react";
-import { Button, Select } from "antd";
-import { useAsync } from "react-use";
-import { TFunction } from "i18next";
-import { useTranslation } from "react-i18next";
-import { useFormikContext } from "formik";
-import * as R from "ramda";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Entity, FieldDefinition } from "@curatorjs/types";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Select } from "antd";
+import { useFormikContext } from "formik";
+import { TFunction } from "i18next";
+import * as R from "ramda";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useAsync } from "react-use";
 
 import useStrapi from "@/hooks/useStrapi";
-import { Entity } from "@curatorjs/types";
-import { FieldDefinition } from "@curatorjs/types";
 
-import { usePluginOptions } from "../../../../hooks";
 import CreateContentDialog from "../../../../dialogs/CreateContentDialog";
+import { usePluginOptions } from "../../../../hooks";
 
 const RelationSelect: React.FC<{
   idsToOmit: (number | string)[];

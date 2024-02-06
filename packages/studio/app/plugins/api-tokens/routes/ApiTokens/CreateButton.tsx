@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { Button } from "antd";
 import * as R from "ramda";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import useStrapi from "@/hooks/useStrapi";
 

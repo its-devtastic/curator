@@ -1,16 +1,13 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Attribute, FieldDefinition } from "@curatorjs/types";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip } from "antd";
-import { useTranslation } from "react-i18next";
-import * as R from "ramda";
 import { useFormikContext } from "formik";
-
-import { FieldDefinition } from "@curatorjs/types";
-import { Attribute } from "@curatorjs/types";
+import * as R from "ramda";
+import React from "react";
+import { useTranslation } from "react-i18next";
 
 import useContentPermission from "@/hooks/useContentPermission";
-
 import Field from "@/ui/Field";
 import FormField from "@/ui/FormField";
 

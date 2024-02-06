@@ -1,20 +1,20 @@
-import React from "react";
-import * as R from "ramda";
-import { useTranslation } from "react-i18next";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "antd";
-
 import { Attribute } from "@curatorjs/types";
+import { faClose, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "antd";
+import * as R from "ramda";
+import React from "react";
+import { useTranslation } from "react-i18next";
+
 import useCurator from "@/hooks/useCurator";
 import useFilters from "@/hooks/useFilters";
 import Popover from "@/ui/Popover";
 
+import AdminUser from "./filters/AdminUser";
 import Date from "./filters/Date";
 import Integer from "./filters/Integer";
-import String from "./filters/String";
 import Relation from "./filters/Relation";
-import AdminUser from "./filters/AdminUser";
+import String from "./filters/String";
 
 const FILTER_FORMS: Record<string, any> = {
   datetime: Date,

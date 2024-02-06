@@ -1,12 +1,11 @@
-import React from "react";
+import type { CuratorConfig, InjectionZoneEntry } from "@curatorjs/types";
+import { InjectionZone } from "@curatorjs/types";
 import * as R from "ramda";
+import React from "react";
 import { RouteObject } from "react-router-dom";
 
-import type { InjectionZoneEntry, CuratorConfig } from "@curatorjs/types";
-import { InjectionZone } from "@curatorjs/types";
-
-import MainMenuItem from "./ui/MainMenuItem";
 import AuditScreen from "./routes/AuditScreen";
+import MainMenuItem from "./ui/MainMenuItem";
 
 export default function auditPlugin({ weight }: { weight?: number } = {}) {
   return (config: CuratorConfig): CuratorConfig => {

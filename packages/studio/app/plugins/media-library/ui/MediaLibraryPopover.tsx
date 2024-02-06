@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { useAsyncRetry } from "react-use";
-import { Button, Input, Segmented, Tooltip } from "antd";
-import { useTranslation } from "react-i18next";
-import * as R from "ramda";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { MediaItem } from "@curatorjs/types";
 import {
   faFileAudio,
   faTableCells,
   faTableList,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Input, Segmented, Tooltip } from "antd";
+import * as R from "ramda";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useAsyncRetry } from "react-use";
 
-import { MediaItem } from "@curatorjs/types";
-import useStrapi from "@/hooks/useStrapi";
-import usePreferences from "@/hooks/usePreferences";
 import useCurator from "@/hooks/useCurator";
+import usePreferences from "@/hooks/usePreferences";
+import useStrapi from "@/hooks/useStrapi";
 
 import UploadButton from "./UploadButton";
 

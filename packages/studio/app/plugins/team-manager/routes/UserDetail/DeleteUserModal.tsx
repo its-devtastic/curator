@@ -1,12 +1,12 @@
+import { AdminUser } from "@curatorjs/types";
+import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Input, Modal, notification } from "antd";
+import { Field, Formik } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Modal, Input, notification } from "antd";
-import { Formik, Field } from "formik";
 import * as Schema from "yup";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 
-import { AdminUser } from "@curatorjs/types";
 import useStrapi from "@/hooks/useStrapi";
 import FormField from "@/ui/FormField";
 

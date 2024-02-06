@@ -1,10 +1,10 @@
-import React, { useMemo } from "react";
+import { StrapiLocale } from "@curatorjs/types";
 import { Select, SelectProps } from "antd";
-import { useTranslation } from "react-i18next";
 import * as R from "ramda";
+import React, { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 import useStrapi from "@/hooks/useStrapi";
-import { StrapiLocale } from "@curatorjs/types";
 
 const LanguageSelect: React.FC<SelectProps & { locales?: StrapiLocale[] }> = ({
   value,

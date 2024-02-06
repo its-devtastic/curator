@@ -1,7 +1,7 @@
-import React, { useCallback, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { notification, Select } from "antd";
 import * as R from "ramda";
+import React, { useCallback, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAsync } from "react-use";
 
 import useStrapi from "@/hooks/useStrapi";

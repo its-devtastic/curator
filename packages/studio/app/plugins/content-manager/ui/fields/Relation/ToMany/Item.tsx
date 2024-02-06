@@ -1,13 +1,12 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { Button } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGripVertical, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { Entity } from "@curatorjs/types";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { faGripVertical, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "antd";
 import classNames from "classnames";
-
-import { Entity } from "@curatorjs/types";
+import React from "react";
+import { useTranslation } from "react-i18next";
 
 const Item: React.FC<{
   item: Entity;

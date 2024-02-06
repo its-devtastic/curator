@@ -1,7 +1,7 @@
-import React from "react";
 import { Button, Select } from "antd";
-import { useTranslation } from "react-i18next";
 import * as R from "ramda";
+import React from "react";
+import { useTranslation } from "react-i18next";
 
 const EVENTS = [
   "entry.create",

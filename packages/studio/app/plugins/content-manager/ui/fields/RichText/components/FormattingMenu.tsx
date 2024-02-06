@@ -1,7 +1,3 @@
-import React from "react";
-import { useCurrentEditor } from "@tiptap/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import classNames from "classnames";
 import {
   faBold,
   faItalic,
@@ -12,10 +8,14 @@ import {
   faUnderline,
   faUndo,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useCurrentEditor } from "@tiptap/react";
+import classNames from "classnames";
+import React from "react";
 
 import HeadingMenu from "./HeadingMenu";
-import LinkMenu from "./LinkMenu";
 import ImageMenu from "./ImageMenu";
+import LinkMenu from "./LinkMenu";
 
 const FormattingMenu: React.FC = () => {
   const { editor } = useCurrentEditor();

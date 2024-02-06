@@ -1,11 +1,11 @@
-import React, { useCallback, useRef, useState } from "react";
-import { useDrop } from "react-use";
-import { useTranslation } from "react-i18next";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { MediaItem } from "@curatorjs/types";
 import { faCloudUpload } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useCallback, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDrop } from "react-use";
 
 import useStrapi from "@/hooks/useStrapi";
-import { MediaItem } from "@curatorjs/types";
 
 const UploadButton: React.FC<{
   button: React.ReactElement<{ onClick: VoidFunction; loading?: boolean }>;

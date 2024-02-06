@@ -1,11 +1,10 @@
-import React from "react";
-import * as R from "ramda";
-
 import type { CuratorConfig } from "@curatorjs/types";
 import { InjectionZone, InjectionZoneEntry } from "@curatorjs/types";
+import * as R from "ramda";
+import React from "react";
 
-import DashboardScreen from "./routes/DashboardScreen";
 import MainMenuItem from "./MainMenuItem";
+import DashboardScreen from "./routes/DashboardScreen";
 
 export default function dashboardPlugin(
   pluginOptions: DashboardPluginOptions = {},

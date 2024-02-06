@@ -1,16 +1,17 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { Dropdown, Modal, Typography } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faQuestionCircle,
   faBook,
   faKeyboard,
+  faQuestionCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Dropdown, Modal, Typography } from "antd";
+import React from "react";
+import { useTranslation } from "react-i18next";
 
-import AppHeaderItem from "@/ui/AppHeader/AppHeaderItem";
-import useModifierKey from "@/hooks/useModifierKey";
 import logo from "@/assets/logo.svg";
+import useModifierKey from "@/hooks/useModifierKey";
+import AppHeaderItem from "@/ui/AppHeader/AppHeaderItem";
+
 import pkg from "../../../package.json";
 
 const HelpMenu: React.FC = () => {

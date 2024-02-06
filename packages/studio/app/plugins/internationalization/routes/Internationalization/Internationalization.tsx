@@ -1,9 +1,9 @@
-import React, { useMemo } from "react";
-import { useTranslation } from "react-i18next";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Dropdown, Modal, notification, Tag } from "antd";
 import * as R from "ramda";
+import React, { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 import useStrapi from "@/hooks/useStrapi";
 import Table from "@/ui/Table";

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Button, Input } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRefresh } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Input } from "antd";
 import { useFormikContext } from "formik";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const FilterToolbar: React.FC = () => {

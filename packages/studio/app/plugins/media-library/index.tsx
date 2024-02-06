@@ -1,11 +1,10 @@
-import React from "react";
-import * as R from "ramda";
-
-import type { InjectionZoneEntry, CuratorConfig } from "@curatorjs/types";
+import type { CuratorConfig, InjectionZoneEntry } from "@curatorjs/types";
 import { InjectionZone } from "@curatorjs/types";
+import * as R from "ramda";
+import React from "react";
 
-import MainMenuItem from "./ui/MainMenuItem";
 import ListScreen from "./routes/ListScreen";
+import MainMenuItem from "./ui/MainMenuItem";
 
 export { default as MediaLibraryPopover } from "./ui/MediaLibraryPopover";
 

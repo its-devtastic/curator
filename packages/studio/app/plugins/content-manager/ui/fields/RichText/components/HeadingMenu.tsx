@@ -1,6 +1,6 @@
-import React from "react";
 import { useCurrentEditor } from "@tiptap/react";
 import { Select } from "antd";
+import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { getNodeType } from "../utils";

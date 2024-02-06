@@ -1,13 +1,11 @@
-import React from "react";
-import * as R from "ramda";
-import { useParams } from "react-router-dom";
+import { ContentTypeConfig, StrapiContentType } from "@curatorjs/types";
 import classNames from "classnames";
+import * as R from "ramda";
+import React from "react";
+import { useParams } from "react-router-dom";
 
-import { StrapiContentType } from "@curatorjs/types";
-import { ContentTypeConfig } from "@curatorjs/types";
-
-import FieldRenderer from "../../ui/FieldRenderer";
 import { usePluginOptions } from "../../hooks";
+import FieldRenderer from "../../ui/FieldRenderer";
 import Top from "./Top";
 
 const Main: React.FC<MainProps> = ({ contentType, contentTypeConfig }) => {

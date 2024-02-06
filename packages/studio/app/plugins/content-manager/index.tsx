@@ -1,13 +1,12 @@
-import React from "react";
-import * as R from "ramda";
-
-import type { InjectionZoneEntry, CuratorConfig } from "@curatorjs/types";
+import type { CuratorConfig, InjectionZoneEntry } from "@curatorjs/types";
 import { InjectionZone } from "@curatorjs/types";
+import * as R from "ramda";
+import React from "react";
 
-import DetailScreen from "./routes/DetailScreen";
-import ContentKindScreen from "./routes/ContentKindScreen";
-import { PluginOptions } from "./types";
 import { usePluginOptions } from "./hooks";
+import ContentKindScreen from "./routes/ContentKindScreen";
+import DetailScreen from "./routes/DetailScreen";
+import { PluginOptions } from "./types";
 import ContentManagerMenu from "./ui/ContentManagerMenu";
 
 export default function contentManagerPlugin(options: PluginOptions) {

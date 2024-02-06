@@ -1,12 +1,12 @@
-import React, { useMemo, useState } from "react";
 import { Button, Select } from "antd";
-import { useTranslation } from "react-i18next";
 import { Form, Formik } from "formik";
+import React, { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAsync } from "react-use";
 
-import Field from "@/ui/Field";
 import useFilters from "@/hooks/useFilters";
 import useStrapi from "@/hooks/useStrapi";
+import Field from "@/ui/Field";
 import Spinner from "@/ui/Spinner";
 
 export default function AdminUser({

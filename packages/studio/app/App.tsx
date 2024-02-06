@@ -84,9 +84,5 @@ export default function App() {
     },
   ]);
 
-  return (
-    <div className="text-base font-sans antialiased text-gray-800 selection:bg-primary-200">
-      <RouterProvider router={router} />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }

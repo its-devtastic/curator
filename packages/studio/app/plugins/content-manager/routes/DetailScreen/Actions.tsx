@@ -1,26 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { Button, Dropdown, notification, Modal, Tooltip, Switch } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ContentTypeConfig } from "@curatorjs/types";
 import {
-  faEllipsisV,
-  faTrashAlt,
-  faExternalLink,
   faClockRotateLeft,
+  faEllipsisV,
+  faExternalLink,
   faNewspaper,
   faPen,
+  faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import * as R from "ramda";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Dropdown, Modal, notification, Switch, Tooltip } from "antd";
 import { useFormikContext } from "formik";
-import { useParams, useNavigate, useBlocker } from "react-router-dom";
+import * as R from "ramda";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDebounce, useBeforeUnload, useKey } from "react-use";
+import { useBlocker, useNavigate, useParams } from "react-router-dom";
+import { useBeforeUnload, useDebounce, useKey } from "react-use";
 
-import { ContentTypeConfig } from "@curatorjs/types";
-
-import useStrapi from "@/hooks/useStrapi";
+import useContentPermission from "@/hooks/useContentPermission";
 import useModifierKey from "@/hooks/useModifierKey";
 import usePreferences from "@/hooks/usePreferences";
-import useContentPermission from "@/hooks/useContentPermission";
+import useStrapi from "@/hooks/useStrapi";
 
 import Versioning from "./Versioning";
 

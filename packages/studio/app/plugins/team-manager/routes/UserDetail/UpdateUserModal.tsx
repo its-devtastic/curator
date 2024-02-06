@@ -1,14 +1,14 @@
+import { AdminUser } from "@curatorjs/types";
+import { Input, message, Modal, Select } from "antd";
+import { Field as FormikField, Formik } from "formik";
+import * as R from "ramda";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Modal, Input, Select, message } from "antd";
-import { Formik, Field as FormikField } from "formik";
 import * as Schema from "yup";
-import * as R from "ramda";
 
 import useStrapi from "@/hooks/useStrapi";
-import FormField from "@/ui/FormField";
 import Field from "@/ui/Field";
-import { AdminUser } from "@curatorjs/types";
+import FormField from "@/ui/FormField";
 
 export default function UpdateUserModal({
   onClose,

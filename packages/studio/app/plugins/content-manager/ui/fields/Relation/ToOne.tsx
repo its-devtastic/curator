@@ -1,18 +1,17 @@
-import React, { useState } from "react";
-import { Button, Select } from "antd";
-import * as R from "ramda";
-import { useAsync, useAsyncRetry } from "react-use";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Entity, FieldDefinition } from "@curatorjs/types";
 import { faEdit, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { useTranslation } from "react-i18next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Select } from "antd";
 import { useFormikContext } from "formik";
+import * as R from "ramda";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useAsync, useAsyncRetry } from "react-use";
 
-import { Entity } from "@curatorjs/types";
-import { FieldDefinition } from "@curatorjs/types";
 import useStrapi from "@/hooks/useStrapi";
 
-import { usePluginOptions } from "../../../hooks";
 import CreateContentDialog from "../../../dialogs/CreateContentDialog";
+import { usePluginOptions } from "../../../hooks";
 
 const ToOne: React.FC<{
   apiID: string;

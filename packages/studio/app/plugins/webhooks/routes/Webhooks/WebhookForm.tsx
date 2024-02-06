@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { Webhook } from "@curatorjs/types";
 import { Alert, Button, Input, message, Modal, Space } from "antd";
 import { Form, Formik } from "formik";
 import * as R from "ramda";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
-import { Webhook } from "@curatorjs/types";
 import useStrapi from "@/hooks/useStrapi";
 import Field from "@/ui/Field";
 import FormField from "@/ui/FormField";

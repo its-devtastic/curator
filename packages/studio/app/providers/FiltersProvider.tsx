@@ -1,6 +1,6 @@
+import * as R from "ramda";
 import React, { createContext, useCallback, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import * as R from "ramda";
 import { useDeepCompareEffect } from "react-use";
 
 import { parseFilterParams, serializeFilterParams } from "@/utils/filters";

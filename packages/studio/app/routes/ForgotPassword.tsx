@@ -1,11 +1,11 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Formik, Form, Field } from "formik";
 import { Button, Input, message } from "antd";
+import { Field, Form, Formik } from "formik";
+import React from "react";
 import { useTranslation } from "react-i18next";
+import { Link, useNavigate } from "react-router-dom";
 
-import useStrapi from "@/hooks/useStrapi";
 import useCurator from "@/hooks/useCurator";
+import useStrapi from "@/hooks/useStrapi";
 import FormField from "@/ui/FormField";
 
 const ForgotPassword: React.FC = () => {

@@ -1,8 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useAsyncRetry } from "react-use";
-import { Button, Input, List } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { MediaFolder } from "@curatorjs/types";
 import {
   faAngleRight,
   faFolder,
@@ -10,12 +6,16 @@ import {
   faPen,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import { useSearchParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Input, List } from "antd";
 import { useFormikContext } from "formik";
 import * as R from "ramda";
+import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router-dom";
+import { useAsyncRetry } from "react-use";
 
 import useStrapi from "@/hooks/useStrapi";
-import { MediaFolder } from "@curatorjs/types";
 
 import EditFolderModal from "./EditFolderModal";
 

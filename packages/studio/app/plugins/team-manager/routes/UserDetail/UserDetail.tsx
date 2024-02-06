@@ -1,14 +1,13 @@
+import { Badge, Button } from "@curatorjs/ui";
+import * as R from "ramda";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useAsyncRetry } from "react-use";
-import * as R from "ramda";
+import { PiArrowLeft, PiTrash } from "react-icons/pi";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { faArrowLeft, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Tag } from "antd";
+import { useAsyncRetry } from "react-use";
 
-import useStrapi from "@/hooks/useStrapi";
 import useSession from "@/hooks/useSession";
+import useStrapi from "@/hooks/useStrapi";
 import Spinner from "@/ui/Spinner";
 
 import DeleteUserModal from "./DeleteUserModal";
@@ -60,42 +59,42 @@ export default function UserDetail() {
       <div className="px-4 md:px-12">
         <div className="my-12">
           <div className="mb-4">
-            <Link to="/team" className="no-underline text-sm text-indigo-500">
-              <FontAwesomeIcon icon={faArrowLeft} /> {t("common.back")}
+            <Link
+              to="/team"
+              className="no-underline text-sm flex items-center gap-2"
+            >
+              <PiArrowLeft /> {t("common.back")}
             </Link>
           </div>
-          <div className="flex items-center justify-between">
-            <div className="mt-0 mb-4 flex items-center gap-4">
-              <h1 className="m-0 font-serif font-normal">{`${value.firstname} ${value.lastname}`}</h1>
+          <div className="flex items-center justify-between border-b mb-4 pb-4">
+            <div className="flex items-center gap-4">
+              <h1 className="text-3xl font-bold">{`${value.firstname} ${value.lastname}`}</h1>
               {isYou && (
-                <Tag bordered={false} color="green">
-                  {t("team.this_is_you")}
-                </Tag>
+                <Badge variant="success">{t("team.this_is_you")}</Badge>
               )}
             </div>
-            <div className="space-x-2">
+            <div className="flex items-center gap-2">
               {canUpdate && (
-                <Button onClick={() => setEdit(true)}>
+                <Button variant="outline" onClick={() => setEdit(true)}>
                   {t("common.edit")}
                 </Button>
               )}
               {canDelete && !isYou && (
-                <Button
-                  type="text"
-                  danger
-                  icon={<FontAwesomeIcon icon={faTrash} />}
-                  onClick={() => setRemove(true)}
-                />
+                <Button variant="destructive" onClick={() => setRemove(true)}>
+                  <PiTrash />
+                </Button>
               )}
             </div>
           </div>
 
-          <div className="text-sm text-gray-600 mb-4">{value.email}</div>
-          <div className="text-sm text-gray-600">
+          <div className="text-sm text-muted-foreground mb-4">
+            {value.email}
+          </div>
+          <div className="space-x-2">
             {value.roles.map((role) => (
-              <Tag key={role.id} color="geekblue" bordered={false}>
+              <Badge key={role.id} variant="outline">
                 {role.name}
-              </Tag>
+              </Badge>
             ))}
           </div>
         </div>

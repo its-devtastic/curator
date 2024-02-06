@@ -1,15 +1,14 @@
-import React from "react";
-import { StarterKit } from "@tiptap/starter-kit";
-import { Underline } from "@tiptap/extension-underline";
+import "./RichtText.css";
+
+import { Attribute, FieldDefinition } from "@curatorjs/types";
+import { Image } from "@tiptap/extension-image";
 import { Link } from "@tiptap/extension-link";
 import { Typography } from "@tiptap/extension-typography";
-import { Image } from "@tiptap/extension-image";
+import { Underline } from "@tiptap/extension-underline";
 import { EditorProvider } from "@tiptap/react";
+import { StarterKit } from "@tiptap/starter-kit";
+import React from "react";
 
-import { FieldDefinition } from "@curatorjs/types";
-import { Attribute } from "@curatorjs/types";
-
-import "./RichtText.css";
 import FormattingMenu from "./components/FormattingMenu";
 
 const extensions = [

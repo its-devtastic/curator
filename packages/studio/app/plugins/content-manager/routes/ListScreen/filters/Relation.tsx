@@ -1,18 +1,16 @@
-import React, { useMemo, useState } from "react";
+import { Attribute, Entity, RenderContext } from "@curatorjs/types";
 import { Button, Select, Spin } from "antd";
-import { useTranslation } from "react-i18next";
 import { Form, Formik } from "formik";
-import { useAsync } from "react-use";
-import * as R from "ramda";
 import type { TFunction } from "i18next";
+import * as R from "ramda";
+import React, { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useAsync } from "react-use";
 
-import { Attribute } from "@curatorjs/types";
-import { RenderContext } from "@curatorjs/types";
-import { Entity } from "@curatorjs/types";
-import Field from "@/ui/Field";
+import useCurator from "@/hooks/useCurator";
 import useFilters from "@/hooks/useFilters";
 import useStrapi from "@/hooks/useStrapi";
-import useCurator from "@/hooks/useCurator";
+import Field from "@/ui/Field";
 import Spinner from "@/ui/Spinner";
 
 export default function Relation({

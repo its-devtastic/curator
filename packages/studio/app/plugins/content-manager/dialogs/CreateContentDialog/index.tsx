@@ -1,16 +1,16 @@
-import React from "react";
-import { Modal, notification } from "antd";
-import { useTranslation } from "react-i18next";
-import * as R from "ramda";
-import { Formik, Form } from "formik";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose } from "@fortawesome/free-solid-svg-icons";
-import classNames from "classnames";
-
 import { Entity } from "@curatorjs/types";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Modal, notification } from "antd";
+import classNames from "classnames";
+import { Form, Formik } from "formik";
+import * as R from "ramda";
+import React from "react";
+import { useTranslation } from "react-i18next";
+
 import useCurator from "@/hooks/useCurator";
-import useStrapi from "@/hooks/useStrapi";
 import useSecrets from "@/hooks/useSecrets";
+import useStrapi from "@/hooks/useStrapi";
 
 import { usePluginOptions } from "../../hooks";
 import FieldRenderer from "../../ui/FieldRenderer";

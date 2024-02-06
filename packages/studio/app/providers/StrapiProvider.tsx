@@ -33,10 +33,13 @@ export const Context = createContext<{
   refresh: () => Promise<void>;
 }>({} as any);
 
-export const StrapiProvider: React.FC<{
+export default function StrapiProvider({
+  apiUrl,
+  children,
+}: {
   apiUrl: string;
   children: React.ReactNode;
-}> = ({ apiUrl, children }) => {
+}) {
   const { t } = useTranslation();
   const { token, clearSession, setSession } = useSession();
   const [init, setInit] = useState(false);
@@ -144,6 +147,4 @@ export const StrapiProvider: React.FC<{
       {init && children}
     </Context.Provider>
   );
-};
-
-export default StrapiProvider;
+}
