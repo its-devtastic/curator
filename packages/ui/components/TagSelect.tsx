@@ -11,6 +11,7 @@ export default function TagSelect({
   className,
   value = [],
   onChange,
+  disabled = false,
   ...props
 }: TagSelectProps) {
   return (
@@ -21,15 +22,17 @@ export default function TagSelect({
             size="sm"
             variant="outline"
             key={v}
+            disabled={disabled}
             onClick={() => onChange?.(R.without([v], value))}
           >
             {options.find(R.whereEq({ value: v }))?.label}
-            <PiXBold className="size-3 ml-2" />
+            {!disabled && <PiXBold className="size-3 ml-2" />}
           </Button>
         ))}
       </div>
       <Combobox
         keepOpen
+        disabled={disabled}
         options={options.filter(
           R.where({ value: (v: string) => !value?.includes(v) }),
         )}
@@ -47,4 +50,5 @@ export interface TagSelectProps
   value?: string[];
   onChange?(value: string[]): void;
   className?: string;
+  disabled?: boolean;
 }

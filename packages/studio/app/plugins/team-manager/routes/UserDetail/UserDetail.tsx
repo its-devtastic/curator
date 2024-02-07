@@ -20,7 +20,6 @@ export default function UserDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [remove, setRemove] = useState(false);
-  const [edit, setEdit] = useState(false);
   const isYou = user?.id === Number(id);
   const canUpdate = permissions.some(
     R.whereEq({ action: "admin::users.update" }),
@@ -46,16 +45,6 @@ export default function UserDetail() {
           }}
         />
       )}
-      {edit && (
-        <UpdateUserModal
-          user={value}
-          onClose={() => setEdit(false)}
-          onUpdate={() => {
-            setEdit(false);
-            retry();
-          }}
-        />
-      )}
       <div className="px-4 md:px-12">
         <div className="my-12">
           <div className="mb-4">
@@ -75,9 +64,9 @@ export default function UserDetail() {
             </div>
             <div className="flex items-center gap-2">
               {canUpdate && (
-                <Button variant="outline" onClick={() => setEdit(true)}>
-                  {t("common.edit")}
-                </Button>
+                <UpdateUserModal user={value}>
+                  <Button variant="outline">{t("common.edit")}</Button>
+                </UpdateUserModal>
               )}
               {canDelete && !isYou && (
                 <Button variant="destructive" onClick={() => setRemove(true)}>

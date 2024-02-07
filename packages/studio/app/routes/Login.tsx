@@ -98,7 +98,7 @@ const Login: React.FC = () => {
                   <FormItem>
                     <FormLabel>{t("login.password")}</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} type="password" />
                     </FormControl>
                     <FormDescription>
                       <Link to="/forgot-password" className="hover:underline">

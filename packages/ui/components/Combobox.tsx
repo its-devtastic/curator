@@ -25,6 +25,7 @@ export function Combobox({
   emptySearch,
   noResults,
   keepOpen,
+  disabled = false,
 }: ComboboxProps) {
   const { t } = useTranslation();
   const [open, setOpen] = React.useState(false);
@@ -37,6 +38,7 @@ export function Combobox({
           variant="outline"
           role="combobox"
           aria-expanded={open}
+          disabled={disabled}
           className="justify-between"
         >
           {selectedOption
@@ -84,4 +86,5 @@ export interface ComboboxProps {
   placeholder?: string;
   emptySearch?: string;
   noResults?: string;
+  disabled?: boolean;
 }
