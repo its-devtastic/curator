@@ -45,7 +45,7 @@
   "profile.firstname": "First name",
   "profile.lastname": "Last name",
   "profile.username": "Username",
-  "profile.interfaceLanguage": "Interface language",
+  "profile.interface_language": "Interface language",
 
   "team.title": "Manage team",
   "team.description": "Users of the CMS such as admins, editors and authors.",
@@ -148,6 +148,7 @@
   "phrases.switch_to_light_mode": "Switch to light mode",
   "phrases.select_all": "Select all",
   "phrases.no_results": "No results",
+  "phrases.select_language": "Select a language",
 
   "common.edit": "Edit",
   "common.edited": "Edited",

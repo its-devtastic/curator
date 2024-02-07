@@ -57,7 +57,11 @@ export default function UpdateUserModal({
   });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: R.evolve({ roles: R.map((role) => String(role.id)) })(user),
+    defaultValues: R.evolve({
+      roles: R.map<AdminUser["roles"][number], string>((role) =>
+        String(role.id),
+      ),
+    })(user),
   });
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {

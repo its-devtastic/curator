@@ -1,5 +1,5 @@
-import { UserRole } from "./permission";
 import { MediaItem } from "./media";
+import { UserRole } from "./permission";
 
 export interface AdminUser {
   blocked: boolean;
@@ -9,7 +9,7 @@ export interface AdminUser {
   id: number;
   isActive: boolean;
   lastname: string;
-  preferedLanguage: string;
+  preferedLanguage: string | null;
   roles: UserRole[];
   updatedAt: string;
   username: string;

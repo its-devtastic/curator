@@ -1,33 +1,62 @@
-import { Select, SelectProps } from "antd";
-import classNames from "classnames";
+import {
+  cn,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@curatorjs/ui";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
 import useCurator from "@/hooks/useCurator";
 
-const LocaleSelect: React.FC<SelectProps> = ({ className, ...props }) => {
+export default function LocaleSelect({
+  className,
+  value,
+  onChange,
+}: LocaleSelectProps) {
   const { interfaceLanguages = [] } = useCurator();
   const { t } = useTranslation();
 
   return (
-    <Select
-      {...props}
-      className={classNames("w-full", className)}
-      options={interfaceLanguages.map((code) => ({
-        label: (
+    <Select onValueChange={onChange}>
+      <SelectTrigger className={className}>
+        {value ? (
           <div className="inline-flex items-center gap-3">
             <span
               className={`rounded-sm fi fi-${
-                code.startsWith("en") ? "us" : code.split("-")[0]
+                value.startsWith("en") ? "us" : value.split("-")[0]
               }`}
             />
-            <span>{t(`locales.${code}`)}</span>
+            <span>{t(`locales.${value}`)}</span>
           </div>
-        ),
-        value: code,
-      }))}
-    />
+        ) : (
+          <SelectValue placeholder={t("phrases.select_language")} />
+        )}
+      </SelectTrigger>
+      <SelectContent>
+        {interfaceLanguages.map((code) => (
+          <SelectItem key={code} value={code}>
+            <div className="inline-flex items-center gap-3">
+              <span
+                className={`rounded-sm fi fi-${
+                  code.startsWith("en") ? "us" : code.split("-")[0]
+                }`}
+              />
+              <span>{t(`locales.${code}`)}</span>
+            </div>
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
-};
+}
 
-export default LocaleSelect;
+interface LocaleSelectProps {
+  value?: string;
+
+  onChange?(value: string): void;
+
+  className?: string;
+}

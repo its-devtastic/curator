@@ -45,7 +45,7 @@
   "profile.firstname": "Voornaam",
   "profile.lastname": "Achternaam",
   "profile.username": "Gebruikersnaam",
-  "profile.interfaceLanguage": "Interface-taal",
+  "profile.interface_language": "Interface-taal",
 
   "team.title": "Beheer team",
   "team.description": "Gebruikers van het CMS zoals admins, editors and authors.",
@@ -151,6 +151,7 @@
   "phrases.switch_to_light_mode": "Schakel over naar lichte modus",
   "phrases.select_all": "Selecteer alles",
   "phrases.no_results": "Geen resultaten",
+  "phrases.select_language": "Selecteer een taal",
 
   "common.edit": "Bewerk",
   "common.edited": "Bewerkt",

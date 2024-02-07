@@ -1,52 +1,86 @@
-import { Avatar, Button, Card, Input } from "antd";
-import { Form, Formik } from "formik";
+import { SessionUser } from "@curatorjs/types";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Input,
+  Spinner,
+} from "@curatorjs/ui";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { message } from "antd";
+import * as R from "ramda";
 import React from "react";
+import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import toColor from "string-to-color";
+import { z } from "zod";
 
 import useSession from "@/hooks/useSession";
 import useStrapi from "@/hooks/useStrapi";
 import { MediaLibraryPopover } from "@/plugins/media-library";
-import Field from "@/ui/Field";
-import FormField from "@/ui/FormField";
 import LocaleSelect from "@/ui/LocaleSelect";
 import Popover from "@/ui/Popover";
-import Spinner from "@/ui/Spinner";
 
 export default function Profile() {
   const { user, profile, setSession } = useSession();
   const { t } = useTranslation();
   const { sdk } = useStrapi();
 
+  const formSchema = z.object({
+    email: z
+      .string()
+      .min(1, t("validations.required"))
+      .email({
+        message: t("validations.invalid_email"),
+      }),
+    username: z.string().optional(),
+    firstname: z.string().min(1, t("validations.required")),
+    lastname: z.string().min(1, t("validations.required")),
+    preferedLanguage: z.string(),
+  });
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: R.evolve({
+      username: R.defaultTo(""),
+      preferedLanguage: R.defaultTo(""),
+    })(user!) as Omit<SessionUser, "preferedLanguage" | "username"> & {
+      preferedLanguage: string;
+      username: string;
+    },
+  });
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      const user = await sdk.updateProfile(values);
+      setSession({ user });
+    } catch (e: any) {
+      message.error(e.response.data.error.message);
+    }
+  };
+
   return (
     <div>
       {user ? (
-        <Formik
-          initialValues={{
-            email: user.email,
-            firstname: user.firstname,
-            lastname: user.lastname,
-            username: user.username,
-            preferedLanguage: user.preferedLanguage,
-          }}
-          onSubmit={async (values) => {
-            try {
-              const user = await sdk.updateProfile(values);
-              setSession({ user });
-            } catch (e) {}
-          }}
-        >
-          {({ values }) => (
-            <Form className="px-4 md:px-12">
-              <div className="flex items-center justify-between my-12">
-                <h1 className="m-0 font-serif font-normal">
-                  {t("common.profile")}
-                </h1>
-                <Button type="primary" htmlType="submit">
-                  {t("common.save")}
-                </Button>
-              </div>
-              <div className="max-w-lg p-8 shadow-sm border border-solid border-gray-200 rounded-lg">
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="px-4 md:px-12"
+          >
+            <div className="flex items-center justify-between my-12">
+              <h1 className="text-3xl font-bold">{t("common.profile")}</h1>
+              <Button type="submit">{t("common.save")}</Button>
+            </div>
+            <Card className="max-w-lg">
+              <CardHeader />
+              <CardContent>
                 <div className="space-y-3">
                   <div className="flex flex-col items-center mb-12">
                     <Popover
@@ -64,60 +98,96 @@ export default function Profile() {
                         />
                       )}
                     >
-                      <Avatar
-                        className="h-32 w-32 text-5xl flex items-center justify-center cursor-pointer"
-                        alt={values.firstname}
-                        style={{
-                          backgroundColor: !profile?.avatar?.url
-                            ? toColor(user.email)
-                            : undefined,
-                        }}
-                        src={profile?.avatar?.url}
-                      >
-                        {(
-                          user.username?.[0] ||
-                          user.firstname?.[0] ||
-                          user.email[0]
-                        ).toUpperCase()}
+                      <Avatar className="size-24 text-3xl cursor-pointer">
+                        {profile?.avatar?.url && (
+                          <AvatarImage src={profile.avatar.url} alt="" />
+                        )}
+                        <AvatarFallback>
+                          {(
+                            user.username?.[0] ||
+                            user.firstname?.[0] ||
+                            user.email[0]
+                          ).toUpperCase()}
+                        </AvatarFallback>
                       </Avatar>
                     </Popover>
                   </div>
-                  <FormField label={t("profile.email")}>
-                    <Field name="email">
-                      <Input type="email" />
-                    </Field>
-                  </FormField>
+                  <FormField
+                    name="email"
+                    control={form.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t("profile.email")}</FormLabel>
+                        <FormControl>
+                          <Input type="email" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                   <div className="flex items-start gap-3">
                     <div className="flex-1">
-                      <FormField label={t("profile.firstname")}>
-                        <Field name="firstname">
-                          <Input />
-                        </Field>
-                      </FormField>
+                      <FormField
+                        name="firstname"
+                        control={form.control}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{t("profile.firstname")}</FormLabel>
+                            <FormControl>
+                              <Input {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
                     </div>
                     <div className="flex-1">
-                      <FormField label={t("profile.lastname")}>
-                        <Field name="lastname">
-                          <Input />
-                        </Field>
-                      </FormField>
+                      <FormField
+                        name="lastname"
+                        control={form.control}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{t("profile.lastname")}</FormLabel>
+                            <FormControl>
+                              <Input {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
                     </div>
                   </div>
-                  <FormField label={t("profile.username")}>
-                    <Field name="username">
-                      <Input />
-                    </Field>
-                  </FormField>
-                  <FormField label={t("profile.interfaceLanguage")}>
-                    <Field name="preferedLanguage">
-                      <LocaleSelect />
-                    </Field>
-                  </FormField>
+                  <FormField
+                    name="username"
+                    control={form.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t("profile.username")}</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    name="preferedLanguage"
+                    control={form.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t("profile.interface_language")}</FormLabel>
+                        <FormControl>
+                          <LocaleSelect {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </div>
-              </div>
-            </Form>
-          )}
-        </Formik>
+              </CardContent>
+            </Card>
+          </form>
+        </Form>
       ) : (
         <Spinner />
       )}

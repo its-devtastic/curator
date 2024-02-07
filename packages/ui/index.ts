@@ -2,6 +2,7 @@ export * from "./utils";
 
 // Components
 export * from "./components/Alert";
+export * from "./components/Avatar";
 export * from "./components/Badge";
 export * from "./components/Button";
 export * from "./components/Card";
@@ -18,5 +19,6 @@ export * from "./components/Popover";
 export * from "./components/Select";
 export * from "./components/Spinner";
 export * from "./components/Table";
+export * from "./components/Tabs";
 export * from "./components/TagSelect";
 export * from "./components/Tooltip";
