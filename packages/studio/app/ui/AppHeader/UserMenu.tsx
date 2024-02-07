@@ -1,6 +1,7 @@
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -66,42 +67,44 @@ const UserMenu: React.FC = () => {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => navigate("/profile")}>
-            {t("user_menu.profile")}
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => {
-              modal.info({
-                title: t("help_menu.shortcuts"),
-                centered: true,
-                content: (
-                  <table className="w-full py-12 dark:text-gray-50">
-                    <tbody>
-                      <tr>
-                        <td className="text-sm">{t("common.save")}</td>
-                        <td>
-                          <Typography.Text
-                            keyboard
-                          >{`${modifierKey.label}+S`}</Typography.Text>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                ),
-                okText: t("common.close"),
-                okType: "default",
-              });
-            }}
-          >
-            {t("help_menu.shortcuts")}
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => {
-              window.open("https://its-devtastic.github.io/curator");
-            }}
-          >
-            {t("help_menu.docs")}
-          </DropdownMenuItem>
+          <DropdownMenuGroup>
+            <DropdownMenuItem onClick={() => navigate("/profile")}>
+              {t("user_menu.profile")}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                modal.info({
+                  title: t("help_menu.shortcuts"),
+                  centered: true,
+                  content: (
+                    <table className="w-full py-12 dark:text-gray-50">
+                      <tbody>
+                        <tr>
+                          <td className="text-sm">{t("common.save")}</td>
+                          <td>
+                            <Typography.Text
+                              keyboard
+                            >{`${modifierKey.label}+S`}</Typography.Text>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  ),
+                  okText: t("common.close"),
+                  okType: "default",
+                });
+              }}
+            >
+              {t("help_menu.shortcuts")}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                window.open("https://its-devtastic.github.io/curator");
+              }}
+            >
+              {t("help_menu.docs")}
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => clearSession()}>
             <span className="text-destructive">{t("user_menu.log_out")}</span>

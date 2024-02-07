@@ -3,6 +3,7 @@ import {
   Button,
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@curatorjs/ui";
@@ -42,15 +43,19 @@ const SettingsMenu: React.FC = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem asChild>
-          <Link to="/settings/secrets" className="space-x-2">
-            <span className="inline-flex items-center justify-center size-6 rounded-full bg-amber-100">
-              <PiShieldStarBold className="size-3" />
-            </span>
-            <span>{t("secrets.title")}</span>
-          </Link>
-        </DropdownMenuItem>
-        {items.map((item) => item.render()).filter(Boolean)}
+        <DropdownMenuGroup>
+          {canRead && (
+            <DropdownMenuItem asChild>
+              <Link to="/settings/secrets" className="space-x-2">
+                <span className="inline-flex items-center justify-center size-6 rounded-full bg-amber-100">
+                  <PiShieldStarBold className="size-3" />
+                </span>
+                <span>{t("secrets.title")}</span>
+              </Link>
+            </DropdownMenuItem>
+          )}
+          {items.map((item) => item.render()).filter(Boolean)}
+        </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -1,42 +1,36 @@
-import { faRefresh } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Input } from "antd";
-import { useFormikContext } from "formik";
+import { Input } from "@curatorjs/ui";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router-dom";
+import { useDebounce } from "react-use";
 
 const FilterToolbar: React.FC = () => {
   const { t } = useTranslation();
-  const [loading, setLoading] = useState<false | "button" | "search">(false);
-  const { setFieldValue, submitForm } = useFormikContext<any>();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [search, setSearch] = useState(searchParams.get("_q") ?? "");
+
+  useDebounce(
+    () => {
+      setSearchParams((params) => {
+        search ? params.set("_q", search) : params.delete("_q");
+        return params;
+      });
+    },
+    500,
+    [search],
+  );
 
   return (
     <div className="flex justify-between items-center">
-      <div className="flex gap-4 items-center">
-        <Input.Search
-          allowClear
-          loading={loading === "search"}
-          onSearch={async (_q) => {
-            await setFieldValue("_q", _q);
-            setLoading("search");
-            await submitForm();
-            setLoading(false);
+      <div className="flex gap-1 items-center">
+        <Input
+          onChange={(e) => {
+            setSearch(e.target.value);
           }}
           placeholder={t("filters.search")}
         />
       </div>
-      <div className="flex items-center gap-2">
-        <Button
-          loading={loading === "button"}
-          type="text"
-          icon={<FontAwesomeIcon icon={faRefresh} />}
-          onClick={async () => {
-            setLoading("button");
-            await submitForm();
-            setLoading(false);
-          }}
-        />
-      </div>
+      <div className="flex items-center gap-2"></div>
     </div>
   );
 };

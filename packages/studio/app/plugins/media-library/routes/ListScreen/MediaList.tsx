@@ -1,41 +1,34 @@
 import { MediaItem, Pagination as IPagination, Sort } from "@curatorjs/types";
 import {
-  faCloudUpload,
-  faFile,
-  faLink,
-  faTableCells,
-  faTableList,
-  faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, List, message, Popconfirm, Segmented, Typography } from "antd";
-import classNames from "classnames";
-import { filesize } from "filesize";
+  Button,
+  Pagination,
+  Table,
+  TableBody,
+  Tabs,
+  TabsList,
+  TabsTrigger,
+} from "@curatorjs/ui";
 import { Formik } from "formik";
 import * as R from "ramda";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { PiGridFour, PiListBold, PiUploadSimpleBold } from "react-icons/pi";
 import { useSearchParams } from "react-router-dom";
-import { useAsync, useCopyToClipboard } from "react-use";
+import { useAsync } from "react-use";
 
-import useCurator from "@/hooks/useCurator";
 import usePreferences from "@/hooks/usePreferences";
 import useStrapi from "@/hooks/useStrapi";
-import CalendarTime from "@/ui/CalendarTime";
-import Pagination from "@/ui/Pagination";
+import ListView from "@/plugins/media-library/routes/ListScreen/ListView";
 
 import UploadButton from "../../ui/UploadButton";
 import EditMediaModal from "./EditMediaModal";
 import FilterToolbar from "./FilterToolbar";
 import FolderList from "./FolderList";
+import FolderPath from "./FolderPath";
 
 const MediaList: React.FC = () => {
   const { t } = useTranslation();
-  const [_, copy] = useCopyToClipboard();
   const { sdk, permissions } = useStrapi();
-  const {
-    images: { getImageUrl },
-  } = useCurator();
   const { preferences, setPreference } = usePreferences();
   const [searchParams] = useSearchParams();
   const [edit, setEdit] = useState<MediaItem | null>(null);
@@ -46,9 +39,7 @@ const MediaList: React.FC = () => {
   const canEdit = permissions.some(
     R.whereEq({ action: "plugin::upload.assets.update" }),
   );
-  const canCopyLink = permissions.some(
-    R.whereEq({ action: "plugin::upload.assets.copy-link" }),
-  );
+
   const [collection, setCollection] = useState<{
     pagination: IPagination | null;
     results: any[];
@@ -113,173 +104,52 @@ const MediaList: React.FC = () => {
               <h1 className="flex-1 text-3xl font-bold">
                 {t("common.media_library")}
               </h1>
-              <Segmented
+              <Tabs
                 value={view}
-                onChange={(view) =>
+                onValueChange={(view) =>
                   setPreference(
                     "mediaLibrary.listView",
                     view as "list" | "grid",
                   )
                 }
-                options={[
-                  {
-                    icon: <FontAwesomeIcon icon={faTableCells} />,
-                    value: "grid",
-                  },
-                  {
-                    icon: <FontAwesomeIcon icon={faTableList} />,
-                    value: "list",
-                  },
-                ]}
-              />
+              >
+                <TabsList>
+                  <TabsTrigger value="grid">
+                    <PiGridFour className="size-4" />
+                  </TabsTrigger>
+                  <TabsTrigger value="list">
+                    <PiListBold className="size-4" />
+                  </TabsTrigger>
+                </TabsList>
+              </Tabs>
               {canUpload && (
                 <UploadButton
                   onUploadComplete={submitForm}
                   folder={folder}
                   button={
-                    <Button type="primary" className="space-x-2">
-                      <FontAwesomeIcon icon={faCloudUpload} />
-                      <span>{t("media_library.upload")}</span>
+                    <Button>
+                      <PiUploadSimpleBold className="size-4 mr-2" />
+                      {t("media_library.upload")}
                     </Button>
                   }
                 />
               )}
             </div>
-            <div className="mb-12">
+            <div className="mb-4">
               <FilterToolbar />
             </div>
-            <div className="border-solid border border-gray-200 dark:border-gray-500 dark:bg-gray-700 rounded-md">
-              <div className={classNames({ "pb-6": view === "grid" })}>
-                <FolderList />
-              </div>
+            <Table>
+              <FolderPath />
 
-              <List
-                grid={
-                  view === "grid"
-                    ? { gutter: 24, lg: 6, md: 4, sm: 4, xs: 2 }
-                    : undefined
-                }
-                loading={loading}
-                dataSource={collection.results}
-                size="small"
-                renderItem={(item) => (
-                  <List.Item
-                    className={classNames({
-                      "hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer":
-                        canEdit,
-                    })}
-                    onClick={() => setEdit(item)}
-                    extra={
-                      view === "grid" ? null : (
-                        <div className="h-full flex gap-2 items-center justify-center">
-                          {canCopyLink && (
-                            <Button
-                              type="text"
-                              icon={<FontAwesomeIcon icon={faLink} />}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                copy(item.url);
-                                message.success(t("media_library.url_copied"));
-                              }}
-                            />
-                          )}
-                          {canEdit && (
-                            <Popconfirm
-                              title={t("media_library.delete_item_title")}
-                              description={t(
-                                "media_library.delete_item_description",
-                              )}
-                              onConfirm={async (e) => {
-                                e?.stopPropagation();
-                                await sdk.deleteMediaItem(item.id);
-                                submitForm();
-                              }}
-                              onCancel={(e) => {
-                                e?.stopPropagation();
-                              }}
-                              okText={t("common.yes")}
-                              cancelText={t("common.no")}
-                              okButtonProps={{ type: "primary", danger: true }}
-                            >
-                              <Button
-                                type="text"
-                                icon={<FontAwesomeIcon icon={faTrashAlt} />}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                }}
-                              />
-                            </Popconfirm>
-                          )}
-                        </div>
-                      )
-                    }
-                  >
-                    <List.Item.Meta
-                      avatar={
-                        item.mime.startsWith("image/") ? (
-                          <img
-                            className="rounded-md object-contain"
-                            src={getImageUrl(item)}
-                            style={{
-                              width: view === "grid" ? 128 : 40,
-                              height: view === "grid" ? 128 : 40,
-                            }}
-                            alt=""
-                          />
-                        ) : (
-                          <div
-                            className={classNames(
-                              "flex items-center justify-center bg-indigo-50 rounded-md select-none",
-                              view === "grid" ? "w-32 h-32" : "h-10 w-10",
-                            )}
-                          >
-                            <FontAwesomeIcon
-                              icon={faFile}
-                              className="text-indigo-500"
-                            />
-                          </div>
-                        )
-                      }
-                      title={
-                        view === "grid" ? undefined : (
-                          <div className="max-w-xs select-none">
-                            <Typography.Text ellipsis={{ tooltip: true }}>
-                              {item.name}
-                            </Typography.Text>
-                          </div>
-                        )
-                      }
-                      description={
-                        view === "grid" ? undefined : (
-                          <div className="space-y-2 select-none dark:text-gray-300">
-                            {item.caption && (
-                              <div className="font-mono truncate">
-                                {item.caption}
-                              </div>
-                            )}
-                            <div className="space-x-4">
-                              <span>{item.ext.slice(1).toUpperCase()}</span>
-                              <span>
-                                {String(
-                                  filesize(item.size * 1000, { round: 0 }),
-                                )}
-                              </span>
-                              {item.mime.startsWith("image/") &&
-                                item.width &&
-                                item.height && (
-                                  <span>{`${item.width} x ${item.height}`}</span>
-                                )}
-                              <CalendarTime>{item.createdAt}</CalendarTime>
-                            </div>
-                          </div>
-                        )
-                      }
-                    />
-                  </List.Item>
+              <TableBody>
+                <FolderList />
+
+                {view === "list" && (
+                  <ListView mediaItems={collection.results} />
                 )}
-              />
-            </div>
-            <div className="mt-12">
+              </TableBody>
+            </Table>
+            <div className="mt-4">
               <Pagination
                 current={collection.pagination?.page}
                 pageSize={collection.pagination?.pageSize}

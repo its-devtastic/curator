@@ -1,127 +1,180 @@
 import { MediaItem } from "@curatorjs/types";
-import { Button, Input, Modal, TreeSelect } from "antd";
-import { Field, Formik } from "formik";
-import React from "react";
+import {
+  Button,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Input,
+} from "@curatorjs/ui";
+import { zodResolver } from "@hookform/resolvers/zod";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useAsync } from "react-use";
+import { z } from "zod";
 
 import useCurator from "@/hooks/useCurator";
 import useStrapi from "@/hooks/useStrapi";
-import FormField from "@/ui/FormField";
+import FolderSelect from "@/plugins/media-library/routes/ListScreen/FolderSelect";
 
 export default function EditMediaModal({
   media,
-  onCancel,
-  onSave,
-  onDelete,
+  children,
 }: {
   media: MediaItem;
-  onCancel?: VoidFunction;
-  onSave?: VoidFunction;
-  onDelete?: VoidFunction;
+  children: (openModal: VoidFunction) => React.ReactElement;
 }) {
   const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
   const {
     images: { getImageUrl },
   } = useCurator();
   const { sdk } = useStrapi();
   const { id, caption, alternativeText, name, folder } = media;
 
-  const { value: folders = [] } = useAsync(async () => {
+  const formSchema = z.object({
+    caption: z.string().optional().nullable(),
+    alternativeText: z.string().optional().nullable(),
+    name: z.string().optional(),
+    folder: z.number().nullable(),
+  });
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      caption,
+      alternativeText,
+      name,
+      folder: folder?.id ?? null,
+    },
+  });
+  const onSubmit = async ({
+    folder,
+    ...values
+  }: z.infer<typeof formSchema>) => {
     try {
-      return await sdk.getFolderStructure();
+      await sdk.updateMediaItem({
+        id,
+        folder: folder ? Number(folder) : null,
+        ...values,
+      });
+      setOpen(false);
     } catch (e) {}
-  }, []);
+  };
 
   return (
-    <Formik
-      initialValues={{
-        caption,
-        alternativeText,
-        name,
-        folder: folder?.id ?? null,
-      }}
-      onSubmit={async (values) => {
-        try {
-          await sdk.updateMediaItem({ id, ...values });
-          onSave?.();
-        } catch (e) {}
-      }}
-    >
-      {({ submitForm, isSubmitting, setFieldValue, values }) => (
-        <Modal
-          open
-          centered
-          onCancel={onCancel}
-          title={t("media_library.edit_media_item")}
-          confirmLoading={isSubmitting}
-          footer={
-            <div className="flex items-center justify-between">
-              <Button
-                danger
-                type="text"
-                onClick={async () => {
-                  await sdk.deleteMediaItem(id);
-                  onDelete?.();
-                }}
-              >
-                {t("common.delete")}
-              </Button>
-              <div>
-                <Button onClick={onCancel}>{t("common.cancel")}</Button>
-                <Button onClick={submitForm} type="primary">
-                  {t("common.save")}
-                </Button>
+    <Dialog open={open} onOpenChange={setOpen}>
+      {children(() => setOpen(true))}
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{t("media_library.edit_media_item")}</DialogTitle>
+        </DialogHeader>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="py-12 flex flex-col items-center md:flex-row md:items-start gap-12">
+              <div className="">
+                <img
+                  src={getImageUrl(media)}
+                  alt=""
+                  className="w-32 h-32 object-contain"
+                />
+              </div>
+              <div className="space-y-4 w-full md:w-auto flex-1">
+                <FormField
+                  name="name"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("common.name")}</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="caption"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("common.caption")}</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="alternativeText"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("common.alternative_text")}</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="folder"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("common.location")}</FormLabel>
+                      <div>
+                        <FormControl>
+                          <FolderSelect
+                            value={field.value}
+                            onChange={(folder) => {
+                              field.onChange(folder);
+                            }}
+                          />
+                        </FormControl>
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
             </div>
-          }
-        >
-          <div className="py-12 flex flex-col items-center md:flex-row md:items-start gap-12">
-            <div className="">
-              <img
-                src={getImageUrl(media)}
-                alt=""
-                className="w-32 h-32 object-contain"
-              />
-            </div>
-            <div className="space-y-4 w-full md:w-auto flex-1">
-              <FormField label={t("common.name")}>
-                <Field name="name" as={Input} disabled={isSubmitting} />
-              </FormField>
-              <FormField label={t("common.caption")}>
-                <Field name="caption" as={Input} disabled={isSubmitting} />
-              </FormField>
-              <FormField label={t("common.alternative_text")}>
-                <Field
-                  name="alternativeText"
-                  as={Input}
-                  disabled={isSubmitting}
-                />
-              </FormField>
-              <FormField label={t("common.location")}>
-                <TreeSelect
-                  className="w-full"
-                  disabled={isSubmitting}
-                  onChange={(value) => setFieldValue("folder", value || null)}
-                  value={values.folder ?? ""}
-                  showSearch
-                  filterTreeNode={(input, { name }) =>
-                    name.toLowerCase().includes(input.toLowerCase())
-                  }
-                  fieldNames={{
-                    label: "name",
-                    children: "children",
-                    value: "id",
-                  }}
-                  treeData={[
-                    { name: "Media Library", children: folders, id: "" },
-                  ]}
-                />
-              </FormField>
-            </div>
+          </form>
+        </Form>
+        <DialogFooter>
+          <div className="flex-1">
+            <Button
+              variant="destructive"
+              onClick={async () => {
+                await sdk.deleteMediaItem(id);
+                setOpen(false);
+              }}
+            >
+              {t("common.delete")}
+            </Button>
           </div>
-        </Modal>
-      )}
-    </Formik>
+          <div className="flex items-center gap-2">
+            <DialogClose asChild>
+              <Button variant="ghost">{t("common.cancel")}</Button>
+            </DialogClose>
+            <Button
+              onClick={form.handleSubmit(onSubmit)}
+              loading={form.formState.isLoading}
+            >
+              {t("common.save")}
+            </Button>
+          </div>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
