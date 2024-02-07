@@ -19,10 +19,11 @@ import {
 } from "@curatorjs/ui";
 import TagSelect from "@curatorjs/ui/components/TagSelect";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { message, Result, Select, Typography } from "antd";
+import { message } from "antd";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useCopyToClipboard } from "react-use";
 import { z } from "zod";
 
 import useStrapi from "@/hooks/useStrapi";
@@ -34,6 +35,7 @@ export default function InviteUserModal({
 }) {
   const { t } = useTranslation();
   const { sdk, roles } = useStrapi();
+  const [_, copy] = useCopyToClipboard();
   const [user, setUser] = useState<
     (AdminUser & { registrationToken: string }) | null
   >(null);
@@ -75,22 +77,39 @@ export default function InviteUserModal({
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             {user ? (
-              <div>
-                <Result
-                  status="success"
-                  title={t("team.copy_link", {
-                    name: user.firstname,
-                  })}
-                  subTitle={
-                    <Typography.Text
-                      copyable
-                      className="font-mono font-semibold text-indigo-500"
-                    >
-                      {`${window.location.origin}/register?registrationToken=${user.registrationToken}`}
-                    </Typography.Text>
+              <div className="text-center flex flex-col items-center">
+                <h2 className="text-2xl font-bold mb-8">
+                  {t("team.copy_link", { name: user.firstname })}
+                </h2>
+
+                <div
+                  role="button"
+                  tabIndex={0}
+                  className="font-mono font-semibold text-success cursor-pointer w-full mb-4"
+                  onClick={() =>
+                    copy(
+                      `${window.location.origin}/register?registrationToken=${user.registrationToken}`,
+                    )
                   }
-                  extra={[<Button key="done">{t("common.done")}</Button>]}
-                />
+                >
+                  {`${window.location.origin}/register?registrationToken=${user.registrationToken}`}
+                </div>
+                <Button
+                  className="mb-4"
+                  variant="outline"
+                  onClick={() =>
+                    copy(
+                      `${window.location.origin}/register?registrationToken=${user.registrationToken}`,
+                    )
+                  }
+                >
+                  {t("common.copy")}
+                </Button>
+                <DialogClose asChild>
+                  <Button variant="ghost" key="done">
+                    {t("common.done")}
+                  </Button>
+                </DialogClose>
               </div>
             ) : (
               <div className="py-4 space-y-4">
@@ -165,14 +184,16 @@ export default function InviteUserModal({
             )}
           </form>
         </Form>
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="outline">{t("common.cancel")}</Button>
-          </DialogClose>
-          <Button type="submit" onClick={form.handleSubmit(onSubmit)}>
-            {t("team.send_invite")}
-          </Button>
-        </DialogFooter>
+        {!user && (
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline">{t("common.cancel")}</Button>
+            </DialogClose>
+            <Button type="submit" onClick={form.handleSubmit(onSubmit)}>
+              {t("team.send_invite")}
+            </Button>
+          </DialogFooter>
+        )}
       </DialogContent>
     </Dialog>
   );

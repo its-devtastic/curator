@@ -199,6 +199,7 @@
   "common.url": "URL",
   "common.events": "Gebeurtenissen",
   "common.test": "Test",
+  "common.copy": "Kopiëren",
 
   "secrets.title": "Geheimen",
   "secrets.description": "Sleutel-waarden met toegang op rolbasis.",

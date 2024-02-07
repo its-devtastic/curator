@@ -197,6 +197,7 @@
   "common.url": "URL",
   "common.events": "Events",
   "common.test": "Test",
+  "common.copy": "Copy",
 
   "secrets.title": "Secrets",
   "secrets.description": "Key-values with role scoped access.",
