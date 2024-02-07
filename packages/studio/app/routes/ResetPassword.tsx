@@ -1,14 +1,29 @@
-import { Button, Card, Input, message } from "antd";
-import { Field, Form, Formik } from "formik";
+import {
+  Alert,
+  Button,
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  Input,
+} from "@curatorjs/ui";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { message } from "antd";
 import React from "react";
+import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router-dom";
-import * as Schema from "yup";
+import { z } from "zod";
 
 import useCurator from "@/hooks/useCurator";
 import useSession from "@/hooks/useSession";
 import useStrapi from "@/hooks/useStrapi";
-import FormField from "@/ui/FormField";
 
 const ResetPassword: React.FC = () => {
   const { t } = useTranslation();
@@ -20,71 +35,102 @@ const ResetPassword: React.FC = () => {
   const [searchParams] = useSearchParams();
   const code = searchParams.get("code");
 
-  const validationSchema = Schema.object({
-    password: Schema.string().required().min(8),
-    confirmPassword: Schema.string()
-      .required()
-      .oneOf([Schema.ref("password")]),
+  const formSchema = z
+    .object({
+      password: z.string().min(8, t("validations.required")),
+      confirmPassword: z.string().min(8, t("validations.required")),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: t("reset_password.no_match"),
+      path: ["confirmPassword"],
+    });
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      password: "",
+      confirmPassword: "",
+    },
   });
+  const onSubmit = async ({ password }: z.infer<typeof formSchema>) => {
+    if (!code) {
+      return;
+    }
+    try {
+      const data = await sdk.resetPassword({ password, code });
+      setSession(data);
+    } catch (e: any) {
+      message.error(t("reset_password.error"));
+    }
+  };
 
   return (
     <div className="max-w-sm w-full">
       {icon && (
-        <div className="text-center mb-6">
+        <div className="mb-6">
           <img
             src={typeof icon === "string" ? icon : icon.auth}
             alt=""
-            className="h-16"
+            className="h-16 mx-auto"
           />
         </div>
       )}
-      <h1 className="text-center mb-12 mt-6 select-none">
+      <h1 className="text-center mb-12 mt-6 select-none text-2xl font-bold">
         {t("reset_password.title")}
       </h1>
-      <Card className="shadow-[0_3px_0] shadow-gray-100">
-        {code ? (
-          <Formik
-            initialValues={{ password: "", confirmPassword: "" }}
-            validationSchema={validationSchema}
-            validateOnMount
-            onSubmit={async ({ password }) => {
-              try {
-                const data = await sdk.resetPassword({ password, code });
-                setSession(data);
-              } catch (e: any) {
-                message.error(t("reset_password.error"));
-              }
-            }}
-          >
-            {({ isSubmitting, isValid }) => (
-              <Form className="space-y-4">
+      {code ? (
+        <Form {...form}>
+          <Card>
+            <CardHeader />
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <CardContent className="space-y-3">
                 <FormField
-                  label={t("reset_password.password")}
-                  help={t("reset_password.requirements")}
-                >
-                  <Field name="password" as={Input.Password} />
-                </FormField>
-                <FormField label={t("reset_password.confirm_password")}>
-                  <Field name="confirmPassword" as={Input.Password} />
-                </FormField>
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("reset_password.password")}</FormLabel>
+                      <FormControl>
+                        <Input type="password" {...field} />
+                      </FormControl>
+                      <FormDescription>
+                        {t("reset_password.requirements")}
+                      </FormDescription>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        {t("reset_password.confirm_password")}
+                      </FormLabel>
+                      <FormControl>
+                        <Input type="password" {...field} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </CardContent>
+              <CardFooter>
                 <Button
-                  type="primary"
                   className="w-full"
-                  htmlType="submit"
-                  loading={isSubmitting}
-                  disabled={!isValid}
+                  type="submit"
+                  loading={form.formState.isSubmitting}
+                  disabled={!form.formState.isValid}
                 >
                   {t("reset_password.button")}
                 </Button>
-              </Form>
-            )}
-          </Formik>
-        ) : (
-          <div>{t("reset_password.no_code")}</div>
-        )}
-      </Card>
+              </CardFooter>
+            </form>
+          </Card>
+        </Form>
+      ) : (
+        <Alert variant="destructive">{t("reset_password.no_code")}</Alert>
+      )}
       <div className="text-center my-6">
-        <Link to="/login" className="text-sm no-underline text-blue-500">
+        <Link to="/login" className="text-sm hover:underline">
           {t("reset_password.ready")}
         </Link>
       </div>

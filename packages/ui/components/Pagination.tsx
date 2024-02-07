@@ -15,7 +15,7 @@ export function Pagination({
   return (
     <div className="w-full flex items-center justify-between">
       {!R.isNil(total) && (
-        <div className="text-sm text-muted-foreground">
+        <div className="text-sm text-muted-foreground select-none">
           {`${total} ${t("common.result", {
             count: total,
           }).toLowerCase()}`}

@@ -1,15 +1,8 @@
 import { Pagination as IPagination } from "@curatorjs/types";
+import { Button, Pagination, Spinner } from "@curatorjs/ui";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  Alert,
-  Badge,
-  Button,
-  Dropdown,
-  Image,
-  notification,
-  Tooltip,
-} from "antd";
+import { Badge, Dropdown, Image, notification, Tooltip } from "antd";
 import { TFunction } from "i18next";
 import * as R from "ramda";
 import React, { useLayoutEffect, useState } from "react";
@@ -17,12 +10,11 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useAsyncRetry } from "react-use";
 
+import NoPermission from "@/components/NoPermission";
 import useContentPermission from "@/hooks/useContentPermission";
 import useCurator from "@/hooks/useCurator";
 import useStrapi from "@/hooks/useStrapi";
 import CalendarTime from "@/ui/CalendarTime";
-import Pagination from "@/ui/Pagination";
-import Spinner from "@/ui/Spinner";
 import Table from "@/ui/Table";
 
 import { SORTABLE_FIELD_TYPES } from "../../constants";
@@ -84,7 +76,7 @@ const ListScreen: React.FC = () => {
   }, [sdk, contentTypes, apiID, searchParams]);
 
   return hasReadPermission || hasCreatePermission ? (
-    <div className="px-4 md:px-12 py-6">
+    <div className="px-4 lg:px-12 py-6">
       {create && (
         <CreateContentDialog
           apiID={apiID}
@@ -95,13 +87,12 @@ const ListScreen: React.FC = () => {
       {contentTypeConfig && contentType ? (
         <div>
           <div className="flex flex-col md:flex-row items-center justify-between my-12 md:mb-24 gap-4">
-            <h1 className="m-0 font-serif font-normal">
+            <h1 className="text-3xl font-bold">
               {t(name, { count: 2, ns: "custom" })}
             </h1>
 
             {hasCreatePermission && (
               <Button
-                type="primary"
                 onClick={() => {
                   if (
                     pluginOptions?.create &&
@@ -361,9 +352,7 @@ const ListScreen: React.FC = () => {
       )}
     </div>
   ) : (
-    <div className="p-4 lg:p-12">
-      <Alert type="warning" description={t("phrases.no_view_permission")} />
-    </div>
+    <NoPermission />
   );
 };
 

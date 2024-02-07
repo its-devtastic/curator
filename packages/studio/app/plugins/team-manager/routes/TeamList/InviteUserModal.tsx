@@ -1,28 +1,36 @@
 import { AdminUser } from "@curatorjs/types";
 import {
   Button,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
   Input,
-  message,
-  Modal,
-  Result,
-  Select,
-  Typography,
-} from "antd";
-import { Field as FormikField, Formik } from "formik";
+} from "@curatorjs/ui";
+import TagSelect from "@curatorjs/ui/components/TagSelect";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { message, Result, Select, Typography } from "antd";
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import * as Schema from "yup";
+import { z } from "zod";
 
 import useStrapi from "@/hooks/useStrapi";
-import Field from "@/ui/Field";
-import FormField from "@/ui/FormField";
 
 export default function InviteUserModal({
-  onClose,
-  onCreate,
+  children,
 }: {
-  onClose?: VoidFunction;
-  onCreate?: VoidFunction;
+  children: React.ReactElement;
 }) {
   const { t } = useTranslation();
   const { sdk, roles } = useStrapi();
@@ -30,106 +38,142 @@ export default function InviteUserModal({
     (AdminUser & { registrationToken: string }) | null
   >(null);
 
-  const validationSchema = Schema.object({
-    firstname: Schema.string().required(),
-    lastname: Schema.string().required(),
-    email: Schema.string().email().required(),
-    roles: Schema.array().min(1),
+  const formSchema = z.object({
+    firstname: z.string().min(1, t("validations.required")),
+    lastname: z.string().min(1, t("validations.required")),
+    email: z
+      .string()
+      .min(1, t("validations.required"))
+      .email(t("validations.invalid_email")),
+    roles: z.array(z.string()).min(1),
   });
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: { firstname: "", lastname: "", email: "", roles: [] },
+  });
+  const onSubmit = async ({ roles, ...values }: z.infer<typeof formSchema>) => {
+    try {
+      const user = await sdk.createAdminUser({
+        roles: roles.map(Number),
+        ...values,
+      });
+      setUser(user);
+    } catch (e) {
+      message.error(t("team.error"));
+    }
+  };
 
   return (
-    <Formik
-      initialValues={{ firstname: "", lastname: "", email: "", roles: [] }}
-      validationSchema={validationSchema}
-      onSubmit={async (values) => {
-        try {
-          const user = await sdk.createAdminUser(values);
-          setUser(user);
-        } catch (e) {
-          message.error(t("team.error"));
-        }
-      }}
-    >
-      {({ submitForm, isSubmitting, errors, touched }) => (
-        <Modal
-          open
-          centered
-          footer={user ? null : undefined}
-          title={!user && t("team.invite")}
-          cancelText={t("common.cancel")}
-          okText={t("team.send_invite")}
-          onCancel={onClose}
-          onOk={submitForm}
-          confirmLoading={isSubmitting}
-        >
-          {user ? (
-            <div>
-              <Result
-                status="success"
-                title={t("team.copy_link", {
-                  name: user.firstname,
-                })}
-                subTitle={
-                  <Typography.Text
-                    copyable
-                    className="font-mono font-semibold text-indigo-500"
-                  >
-                    {`${window.location.origin}/register?registrationToken=${user.registrationToken}`}
-                  </Typography.Text>
-                }
-                extra={[
-                  <Button key="done" onClick={onCreate}>
-                    {t("common.done")}
-                  </Button>,
-                ]}
-              />
-            </div>
-          ) : (
-            <div className="py-12">
-              <div className="grid grid-cols-2 gap-3 mb-6">
-                <FormField
-                  label={t("common.first_name")}
-                  error={touched.firstname && errors.firstname}
-                >
-                  <FormikField name="firstname" as={Input} />
-                </FormField>
-                <FormField
-                  label={t("common.last_name")}
-                  error={touched.lastname && errors.lastname}
-                >
-                  <FormikField name="lastname" as={Input} />
-                </FormField>
-                <FormField
-                  label={t("common.email")}
-                  error={touched.email && errors.email}
-                >
-                  <FormikField name="email" as={Input} type="email" />
-                </FormField>
-              </div>
-
+    <Dialog>
+      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogContent>
+        {!user && (
+          <DialogHeader>
+            <DialogTitle>{t("team.invite")}</DialogTitle>
+          </DialogHeader>
+        )}
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            {user ? (
               <div>
-                <h3 className="m-0 mb-3">{t("common.role_other")}</h3>
-                <FormField
-                  label={t("team.user_roles_label")}
-                  help={t("team.user_roles_help")}
-                  error={touched.roles && errors.roles}
-                >
-                  <Field name="roles">
-                    <Select
-                      mode="multiple"
-                      className="w-full"
-                      options={roles.map((role) => ({
-                        label: role.name,
-                        value: role.id,
-                      }))}
-                    />
-                  </Field>
-                </FormField>
+                <Result
+                  status="success"
+                  title={t("team.copy_link", {
+                    name: user.firstname,
+                  })}
+                  subTitle={
+                    <Typography.Text
+                      copyable
+                      className="font-mono font-semibold text-indigo-500"
+                    >
+                      {`${window.location.origin}/register?registrationToken=${user.registrationToken}`}
+                    </Typography.Text>
+                  }
+                  extra={[<Button key="done">{t("common.done")}</Button>]}
+                />
               </div>
-            </div>
-          )}
-        </Modal>
-      )}
-    </Formik>
+            ) : (
+              <div className="py-4 space-y-4">
+                <div className="grid grid-cols-2 gap-3">
+                  <FormField
+                    control={form.control}
+                    name="firstname"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t("common.first_name")}</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="lastname"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t("common.last_name")}</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("common.email")}</FormLabel>
+                      <FormControl>
+                        <Input {...field} type="email" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="roles"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("team.user_roles_label")}</FormLabel>
+                      <FormControl>
+                        <TagSelect
+                          className="w-full"
+                          placeholder={t("team.user_roles_input")}
+                          options={roles.map((role) => ({
+                            label: role.name,
+                            value: String(role.id),
+                          }))}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        {t("team.user_roles_help")}
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            )}
+          </form>
+        </Form>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button variant="outline">{t("common.cancel")}</Button>
+          </DialogClose>
+          <Button type="submit" onClick={form.handleSubmit(onSubmit)}>
+            {t("team.send_invite")}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }

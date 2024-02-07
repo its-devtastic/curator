@@ -1,5 +1,3 @@
-import * as R from "ramda";
-
 /**
  * Takes a URLSearchParams instance and returns a plain javascript object.
  */

@@ -1,3 +1,4 @@
+import { Alert } from "@curatorjs/ui";
 import { Button, Card, Input, message } from "antd";
 import { Field, Form, Formik } from "formik";
 import React from "react";
@@ -36,22 +37,24 @@ const Register: React.FC = () => {
     }
   }, [registrationToken]);
 
-  return registrationInfo && registrationToken ? (
+  return (
     <div className="max-w-md w-full">
-      {icon && (
-        <div className="text-center mb-6">
-          <img
-            src={typeof icon === "string" ? icon : icon.auth}
-            alt=""
-            className="h-16"
-          />
-        </div>
-      )}
-      <div className="p-6 rounded-lg shadow-xl shadow-indigo-500/5 bg-white/60 backdrop-blur-xl">
-        <h1 className="mt-0 mb-6 text-center font-serif font-normal">
-          {t("register.title")}
-        </h1>
-        {
+      {registrationInfo && registrationToken ? (
+        <div>
+          {icon && (
+            <div className="mb-6">
+              <img
+                src={typeof icon === "string" ? icon : icon.auth}
+                alt=""
+                className="h-16 mx-auto"
+              />
+            </div>
+          )}
+          <div className="p-6 rounded-lg shadow-xl shadow-indigo-500/5 bg-white/60 backdrop-blur-xl">
+            <h1 className="mt-0 mb-6 text-center font-serif font-normal">
+              {t("register.title")}
+            </h1>
+          </div>
           <Formik
             initialValues={{
               email: registrationInfo.email ?? "",
@@ -108,9 +111,11 @@ const Register: React.FC = () => {
               </Form>
             )}
           </Formik>
-        }
-      </div>
+        </div>
+      ) : (
+        <Alert variant="destructive">{t("register.invalid_token")}</Alert>
+      )}
     </div>
-  ) : null;
+  );
 };
 export default Register;

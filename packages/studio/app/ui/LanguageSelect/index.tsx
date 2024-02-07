@@ -1,16 +1,22 @@
 import { StrapiLocale } from "@curatorjs/types";
-import { Select, SelectProps } from "antd";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@curatorjs/ui";
 import * as R from "ramda";
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import useStrapi from "@/hooks/useStrapi";
 
-const LanguageSelect: React.FC<SelectProps & { locales?: StrapiLocale[] }> = ({
-  value,
-  locales,
-  ...props
-}) => {
+const LanguageSelect: React.FC<{
+  locales?: StrapiLocale[];
+  value?: string | null;
+  onValueChange?(value: string): void;
+}> = ({ value, locales, ...props }) => {
   const { locales: defaultLocales } = useStrapi();
   const { i18n } = useTranslation();
   const options = locales ?? defaultLocales;
@@ -18,13 +24,12 @@ const LanguageSelect: React.FC<SelectProps & { locales?: StrapiLocale[] }> = ({
     () => new Intl.DisplayNames([i18n.language], { type: "language" }),
     [i18n.language],
   );
+  const code = value ?? options.find(R.whereEq({ isDefault: true }))?.code;
 
   return (
-    <Select
-      {...props}
-      value={value ?? options.find(R.whereEq({ isDefault: true }))?.code}
-      options={options.map(({ code }) => ({
-        label: (
+    <Select {...props}>
+      <SelectTrigger>
+        {code && (
           <div className="inline-flex items-center gap-3">
             <span
               className={`rounded-sm fi fi-${
@@ -33,10 +38,23 @@ const LanguageSelect: React.FC<SelectProps & { locales?: StrapiLocale[] }> = ({
             />
             <span>{languageNames.of(code)}</span>
           </div>
-        ),
-        value: code,
-      }))}
-    />
+        )}
+      </SelectTrigger>
+      <SelectContent>
+        {options.map(({ code }) => (
+          <SelectItem key={code} value={code}>
+            <div className="inline-flex items-center gap-3">
+              <span
+                className={`rounded-sm fi fi-${
+                  code.startsWith("en") ? "us" : code.split("-")[0]
+                }`}
+              />
+              <span>{languageNames.of(code)}</span>
+            </div>
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 };
 

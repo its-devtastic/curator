@@ -1,7 +1,3 @@
-import axios, { type AxiosInstance } from "axios";
-import * as R from "ramda";
-import { nanoid } from "nanoid";
-
 import type {
   AdminProfile,
   AdminUser,
@@ -22,6 +18,9 @@ import type {
   Version,
   Webhook,
 } from "@curatorjs/types";
+import axios, { type AxiosInstance } from "axios";
+import { nanoid } from "nanoid";
+import * as R from "ramda";
 
 export class StrapiSdk {
   public apiUrl: string;
@@ -417,7 +416,9 @@ export class StrapiSdk {
   }
 
   public async createAdminUser(
-    value: Pick<AdminUser, "email" | "firstname" | "lastname" | "roles">,
+    value: Pick<AdminUser, "email" | "firstname" | "lastname"> & {
+      roles: number[];
+    },
   ) {
     const { data } = await this.http.post<{
       data: AdminUser & { registrationToken: string };

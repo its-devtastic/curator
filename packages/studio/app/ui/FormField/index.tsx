@@ -14,7 +14,7 @@ const FormField: React.FC<FormFieldProps> = ({
 
   return (
     <div className={className}>
-      <div className="flex justify-between mb-2">
+      <div className="flex items-center justify-between mb-2">
         {label && (
           <label
             htmlFor={id}
@@ -24,7 +24,9 @@ const FormField: React.FC<FormFieldProps> = ({
           </label>
         )}
         {hint && (
-          <div className="text-gray-500 cursor-default text-xs">{hint}</div>
+          <div className="text-muted-foreground cursor-default text-xs">
+            {hint}
+          </div>
         )}
       </div>
 

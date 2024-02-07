@@ -1,11 +1,12 @@
 import { Attribute, FieldDefinition } from "@curatorjs/types";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@curatorjs/ui";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Tooltip } from "antd";
 import { useFormikContext } from "formik";
 import * as R from "ramda";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { PiTranslateBold } from "react-icons/pi";
 
 import useContentPermission from "@/hooks/useContentPermission";
 import Field from "@/ui/Field";
@@ -53,14 +54,16 @@ const FieldRenderer: React.FC<{
       label={field.label && t(field.label, { ns: "custom" })}
       help={field.description}
       hint={
-        <div className="space-x-2">
-          <span>{field.hint}</span>
+        <div className="flex items-center gap-2">
+          {field.hint && <span>{field.hint}</span>}
           {attribute?.pluginOptions?.i18n?.localized && (
-            <Tooltip title={t("phrases.translated_field")}>
-              <FontAwesomeIcon
-                icon={faLanguage}
-                className="text-gray-500 dark:text-gray-200"
-              />
+            <Tooltip>
+              <TooltipContent>{t("phrases.translated_field")}</TooltipContent>
+              <TooltipTrigger asChild>
+                <span>
+                  <PiTranslateBold className="size-4 inline-flex" />
+                </span>
+              </TooltipTrigger>
             </Tooltip>
           )}
         </div>

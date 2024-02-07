@@ -1,4 +1,5 @@
 import { TFunction } from "i18next";
+import React from "react";
 
 export interface FieldConfig {
   path: string;

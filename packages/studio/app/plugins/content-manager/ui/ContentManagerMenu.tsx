@@ -18,7 +18,7 @@ const ContentManagerMenu: React.FC<{
       {groups.map(({ label, items }, idx) => (
         <div key={idx}>
           {label && (
-            <h4 className="pl-4 mb-2 text-lg font-bold text-gray-800 select-none">
+            <h4 className="pl-4 mb-2 text-lg font-bold select-none">
               {t(label, { ns: "custom" })}
             </h4>
           )}

@@ -1,6 +1,7 @@
 {
   "login.button": "Log in",
-  "login.title": "Log in",
+  "login.title": "Log in to your account",
+  "login.subtitle": "No account? Ask your administrator to create an account.",
   "login.email": "Email",
   "login.password": "Password",
   "login.forgot_password": "Forgot password",
@@ -19,6 +20,7 @@
   "reset_password.requirements": "Your password needs to be at least 8 characters and contain at least 1 uppercase, 1 lowercase and 1 number.",
   "reset_password.password": "Password",
   "reset_password.confirm_password": "Confirm password",
+  "reset_password.no_match": "Passwords don't match",
   "reset_password.ready": "Ready to log in?",
   "reset_password.error": "The reset code is not valid. Please request a new one.",
   "reset_password.no_code": "We could not find a reset code. Check if the URL matches the link from the reset email.",
@@ -50,6 +52,7 @@
   "team.invite": "Invite new user",
   "team.send_invite": "Send invite",
   "team.user_roles_label": "User roles",
+  "team.user_roles_input": "Select user roles",
   "team.user_roles_help": "A user can have one or more roles",
   "team.error": "Could not create user. Make sure the email address is not already in use.",
   "team.copy_link": "Copy and share this link with {{name}}",
@@ -144,6 +147,7 @@
   "phrases.switch_to_dark_mode": "Switch to dark mode",
   "phrases.switch_to_light_mode": "Switch to light mode",
   "phrases.select_all": "Select all",
+  "phrases.no_results": "No results",
 
   "common.edit": "Edit",
   "common.edited": "Edited",
@@ -245,5 +249,8 @@
   "webhooks.description": "Get notified of content changes.",
   "webhooks.delete_warning": "Once deleted the webhook will no longer be triggered.",
   "webhooks.deleted": "Webhook has been deleted.",
-  "webhooks.create_webhook": "Create webhook"
+  "webhooks.create_webhook": "Create webhook",
+
+  "validations.invalid_email": "Invalid email address",
+  "validations.required": "This field is required"
 }

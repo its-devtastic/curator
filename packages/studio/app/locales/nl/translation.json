@@ -1,7 +1,8 @@
 {
   "login.button": "Inloggen",
   "login.email": "E-mail",
-  "login.title": "Inloggen",
+  "login.title": "Log in op je account",
+  "login.subtitle": "Geen account? Vraag je administrator om een account aan te maken.",
   "login.password": "Wachtwoord",
   "login.forgot_password": "Wachtwoord vergeten",
 
@@ -19,6 +20,7 @@
   "reset_password.requirements": "Je wachtwoord moet minstens 8 karakters, 1 hoofdletter, 1 kleine letter en 1 nummer bevatten",
   "reset_password.password": "Wachtwoord",
   "reset_password.confirm_password": "Bevestig wachtwoord",
+  "reset_password.no_match": "Wachtwoorden komen niet overeen",
   "reset_password.ready": "Klaar om in te loggen?",
   "reset_password.error": "De resetcode is niet geldig. Vraag een nieuwe aan.",
   "reset_password.no_code": "We kunnen geen resetcode vinden. Controleer dat de URL gelijk is aan de link in de reset-mail.",
@@ -50,6 +52,7 @@
   "team.invite": "Nieuwe gebruiker uitnodigen",
   "team.send_invite": "Verstuur uitnodiging",
   "team.user_roles_label": "Gebruikersrollen",
+  "team.user_roles_input": "Selecteer gebruikersrollen",
   "team.user_roles_help": "Een gebruiker kan één of meerdere rollen hebben",
   "team.error": "Kan gebruiker niet aanmaken. Controleer of het e-mailadres niet al in gebruik is.",
   "team.copy_link": "Kopieer en deel deze link met {{name}}",
@@ -147,6 +150,7 @@
   "phrases.switch_to_dark_mode": "Schakel over naar donkere modus",
   "phrases.switch_to_light_mode": "Schakel over naar lichte modus",
   "phrases.select_all": "Selecteer alles",
+  "phrases.no_results": "Geen resultaten",
 
   "common.edit": "Bewerk",
   "common.edited": "Bewerkt",
@@ -247,5 +251,8 @@
   "webhooks.description": "Krijg een notificatie wanneer content gewijzigd wordt.",
   "webhooks.delete_warning": "Verwijderde webhooks krijgen geen notificaties meer.",
   "webhooks.deleted": "Webhook is verwijderd.",
-  "webhooks.create_webhook": "Maak webhook aan"
+  "webhooks.create_webhook": "Maak webhook aan",
+
+  "validations.invalid_email": "Ongeldig e-mailadres",
+  "validations.required": "Dit veld is verplicht"
 }
