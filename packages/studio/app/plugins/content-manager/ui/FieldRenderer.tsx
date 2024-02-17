@@ -2,6 +2,7 @@ import { Attribute, FieldDefinition } from "@curatorjs/types";
 import {
   FormControl,
   FormDescription,
+  FormField,
   FormItem,
   FormLabel,
   FormMessage,
@@ -16,7 +17,6 @@ import { useTranslation } from "react-i18next";
 import { PiTranslateBold } from "react-icons/pi";
 
 import useContentPermission from "@/hooks/useContentPermission";
-import FormField from "@/ui/FormField";
 
 import { FIELD_TYPES } from "../constants";
 
@@ -27,10 +27,8 @@ const FieldRenderer: React.FC<{
 }> = ({ field = {}, attribute, apiID }) => {
   const { t } = useTranslation();
   const hasPermission = useContentPermission();
-  const { getValues, control } = useFormContext<{
-    id: number | string | null;
-  }>();
-  const id = getValues("id");
+  const { watch, control } = useFormContext<any>();
+  const id = watch("id");
 
   const inputName = R.when(R.equals("component"), () =>
     attribute?.repeatable ? "repeatableComponent" : "component",
@@ -60,7 +58,7 @@ const FieldRenderer: React.FC<{
     <FormField
       name={field.path}
       control={control}
-      render={({ field }) => (
+      render={({ field: formField }) => (
         <FormItem>
           {(field.label ||
             field.hint ||
@@ -90,7 +88,7 @@ const FieldRenderer: React.FC<{
               field,
               apiID,
               disabled: !hasSavePermission,
-              ...field,
+              ...formField,
             })}
           </FormControl>
           {field.description && (

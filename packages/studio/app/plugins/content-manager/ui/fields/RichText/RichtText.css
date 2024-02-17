@@ -17,16 +17,16 @@
   }
 
   & blockquote {
-    @apply border-l-2 border-gray-200 border-solid border-0 mx-0 px-4 text-gray-600 dark:text-gray-100;
+    @apply border-l-2 border-muted border-solid border-0 mx-0 px-4 text-muted-foreground;
   }
 
   & .rich-text-image {
-    @apply bg-gray-100 rounded-md h-auto max-w-full cursor-grab h-12 w-12 active:cursor-grabbing;
+    @apply bg-secondary rounded-md h-auto max-w-full cursor-grab h-12 w-12 active:cursor-grabbing;
     &.ProseMirror-selectednode {
-      @apply ring-1 ring-indigo-500;
+      @apply ring-1 ring-primary;
     }
   }
 }
 .richt-text-button {
-  @apply bg-transparent hover:bg-gray-50 dark:hover:bg-gray-700 dark:text-white border-none h-full flex items-center justify-center cursor-pointer min-w-[32px];
+  @apply bg-transparent hover:bg-secondary border-none h-full flex items-center justify-center cursor-pointer min-w-[32px];
 }

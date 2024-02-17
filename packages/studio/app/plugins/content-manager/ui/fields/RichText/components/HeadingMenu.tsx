@@ -1,5 +1,10 @@
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "@curatorjs/ui";
 import { useCurrentEditor } from "@tiptap/react";
-import { Select } from "antd";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -20,36 +25,38 @@ const NODE_TYPES = [
 const HeadingMenu: React.FC = () => {
   const { editor } = useCurrentEditor();
   const { t } = useTranslation();
+  const value = editor ? getNodeType(editor) : undefined;
 
   return (
-    editor && (
-      <Select
-        bordered={false}
-        className="w-[140px]"
-        value={getNodeType(editor)}
-        options={NODE_TYPES.map((nodeType) => ({
-          label: t(`rich_text_editor.${nodeType}`),
-          value: nodeType,
-        }))}
-        onChange={(nodeType) => {
-          const baseCommands = editor.chain().focus().clearNodes();
-          if (nodeType.startsWith("heading")) {
-            baseCommands
-              .setHeading({ level: Number(nodeType.at(-1)) as any })
-              .run();
-          }
-          if (nodeType === "blockquote") {
-            baseCommands.setBlockquote().run();
-          }
-          if (nodeType === "codeBlock") {
-            baseCommands.setCodeBlock().run();
-          }
-          if (nodeType === "paragraph") {
-            baseCommands.setParagraph().run();
-          }
-        }}
-      />
-    )
+    <Select
+      value={value}
+      onValueChange={(nodeType) => {
+        const baseCommands = editor!.chain().focus().clearNodes();
+        if (nodeType.startsWith("heading")) {
+          baseCommands
+            .setHeading({ level: Number(nodeType.at(-1)) as any })
+            .run();
+        }
+        if (nodeType === "blockquote") {
+          baseCommands.setBlockquote().run();
+        }
+        if (nodeType === "codeBlock") {
+          baseCommands.setCodeBlock().run();
+        }
+        if (nodeType === "paragraph") {
+          baseCommands.setParagraph().run();
+        }
+      }}
+    >
+      <SelectTrigger>{t(`rich_text_editor.${value}`)}</SelectTrigger>
+      <SelectContent>
+        {NODE_TYPES.map((nodeType) => (
+          <SelectItem key={nodeType} value={nodeType}>
+            {t(`rich_text_editor.${nodeType}`)}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 };
 

@@ -1,4 +1,4 @@
-import { Input } from "antd";
+import { Input } from "@curatorjs/ui";
 import React from "react";
 
 const StringField: React.FC<any> = ({

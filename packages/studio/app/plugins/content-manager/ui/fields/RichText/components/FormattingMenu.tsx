@@ -1,3 +1,4 @@
+import { Button, Separator, Toggle } from "@curatorjs/ui";
 import {
   faBold,
   faItalic,
@@ -10,7 +11,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCurrentEditor } from "@tiptap/react";
-import classNames from "classnames";
 import React from "react";
 
 import HeadingMenu from "./HeadingMenu";
@@ -22,88 +22,74 @@ const FormattingMenu: React.FC = () => {
 
   return (
     editor && (
-      <div className="bg-white dark:bg-gray-800 rounded-t-md shadow-sm border-0 border-b border-solid border-gray-200 dark:border-gray-500 h-8 flex items-start overflow-x-auto overflow-y-hidden">
-        <div className="border-0 border-solid border-r border-gray-200 dark:border-gray-500 h-full flex items-center">
-          <button
-            className="richt-text-button"
-            onClick={() => editor?.chain().focus().undo().run()}
-          >
-            <FontAwesomeIcon icon={faUndo} />
-          </button>
-          <button
-            className="richt-text-button"
-            onClick={() => editor?.chain().focus().redo().run()}
-          >
-            <FontAwesomeIcon icon={faRedo} />
-          </button>
-        </div>
-        <div className="border-0 border-solid border-r border-gray-200 dark:border-gray-500 h-full">
+      <div className="border-b flex items-center gap-2 p-1 overflow-x-auto overflow-y-hidden">
+        <Button
+          size="sm"
+          variant="ghost"
+          onClick={() => editor?.chain().focus().undo().run()}
+        >
+          <FontAwesomeIcon icon={faUndo} />
+        </Button>
+        <Button
+          size="sm"
+          variant="ghost"
+          onClick={() => editor?.chain().focus().redo().run()}
+        >
+          <FontAwesomeIcon icon={faRedo} />
+        </Button>
+
+        <div className="w-[140px]">
           <HeadingMenu />
         </div>
-        <div className="border-0 border-solid border-r border-gray-200 dark:border-gray-500 h-full flex items-center">
-          <button
-            className={classNames(
-              "richt-text-button",
-              editor?.isActive("bold")
-                ? "text-indigo-500"
-                : "text-gray-800 dark:text-white",
-            )}
-            onClick={() => editor?.chain().focus().toggleBold().run()}
-          >
-            <FontAwesomeIcon icon={faBold} />
-          </button>
-          <button
-            className={classNames(
-              "richt-text-button",
-              editor?.isActive("italic")
-                ? "text-indigo-500"
-                : "text-gray-800 dark:text-white",
-            )}
-            onClick={() => editor?.chain().focus().toggleItalic().run()}
-          >
-            <FontAwesomeIcon icon={faItalic} />
-          </button>
-          <button
-            className={classNames(
-              "richt-text-button",
-              editor?.isActive("underline")
-                ? "text-indigo-500"
-                : "text-gray-800 dark:text-white",
-            )}
-            onClick={() => editor?.chain().focus().toggleUnderline().run()}
-          >
-            <FontAwesomeIcon icon={faUnderline} />
-          </button>
-          <button
-            className={classNames(
-              "richt-text-button",
-              editor?.isActive("strike")
-                ? "text-indigo-500"
-                : "text-gray-800 dark:text-white",
-            )}
-            onClick={() => editor?.chain().focus().toggleStrike().run()}
-          >
-            <FontAwesomeIcon icon={faStrikethrough} />
-          </button>
-        </div>
-        <div className="border-0 border-solid border-r border-gray-200 dark:border-gray-500 h-full flex items-center">
-          <button
-            className="richt-text-button"
-            onClick={() => editor?.chain().focus().toggleOrderedList().run()}
-          >
-            <FontAwesomeIcon icon={faListOl} />
-          </button>
-          <button
-            className="richt-text-button"
-            onClick={() => editor?.chain().focus().toggleBulletList().run()}
-          >
-            <FontAwesomeIcon icon={faListUl} />
-          </button>
-        </div>
-        <div className="border-0 border-solid border-r border-gray-200 dark:border-gray-500 h-full flex items-center">
-          <LinkMenu />
-          <ImageMenu />
-        </div>
+
+        <Toggle
+          pressed={editor?.isActive("bold")}
+          onPressedChange={() => editor?.chain().focus().toggleBold().run()}
+        >
+          <FontAwesomeIcon icon={faBold} />
+        </Toggle>
+        <Toggle
+          pressed={editor?.isActive("italic")}
+          onPressedChange={() => editor?.chain().focus().toggleItalic().run()}
+        >
+          <FontAwesomeIcon icon={faItalic} />
+        </Toggle>
+        <Toggle
+          pressed={editor?.isActive("underline")}
+          onPressedChange={() =>
+            editor?.chain().focus().toggleUnderline().run()
+          }
+        >
+          <FontAwesomeIcon icon={faUnderline} />
+        </Toggle>
+        <Toggle
+          pressed={editor?.isActive("strike")}
+          onPressedChange={() => editor?.chain().focus().toggleStrike().run()}
+        >
+          <FontAwesomeIcon icon={faStrikethrough} />
+        </Toggle>
+
+        <Separator orientation="vertical" />
+
+        <Button
+          size="sm"
+          variant="ghost"
+          onClick={() => editor?.chain().focus().toggleOrderedList().run()}
+        >
+          <FontAwesomeIcon icon={faListOl} />
+        </Button>
+        <Button
+          size="sm"
+          variant="ghost"
+          onClick={() => editor?.chain().focus().toggleBulletList().run()}
+        >
+          <FontAwesomeIcon icon={faListUl} />
+        </Button>
+
+        <Separator orientation="vertical" />
+
+        <LinkMenu />
+        <ImageMenu />
       </div>
     )
   );

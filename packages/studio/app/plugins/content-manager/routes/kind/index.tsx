@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 import useStrapi from "@/hooks/useStrapi";
 
-import DetailScreen from "../DetailScreen";
+import { DetailScreen } from "../detail";
 import { ListScreen } from "../list";
 
 export function ContentKindScreen() {

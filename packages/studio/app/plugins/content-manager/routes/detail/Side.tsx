@@ -9,7 +9,7 @@ export default function Side({
   contentType: StrapiContentType;
 }) {
   return (
-    <section className="flex-none w-full md:w-64 bg-muted/50 border-l h-full px-4 py-6">
+    <section className="flex-none w-full md:w-64 bg-muted/50 h-full px-4 py-6">
       {contentType?.pluginOptions.i18n?.localized && <LanguageSwitcher />}
     </section>
   );

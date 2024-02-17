@@ -1,11 +1,21 @@
 import { MediaItem } from "@curatorjs/types";
 import {
+  Button,
+  Input,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@curatorjs/ui";
+import {
   faFileAudio,
   faTableCells,
   faTableList,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Input, Segmented, Tooltip } from "antd";
 import * as R from "ramda";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -44,124 +54,125 @@ const MediaLibraryPopover: React.FC<{
 
   return (
     <div>
-      <div className="p-2 border-b border-0 border-solid border-gray-200 flex items-center gap-2">
-        {canCreate && (
-          <UploadButton
-            onUploadComplete={(item) => {
-              retry();
-              item?.[0] && onChange(item[0]);
-            }}
-            button={
-              <Button size="small" type="primary">
-                {t("media_library.upload")}
-              </Button>
-            }
-          />
-        )}
-        <Input.Search
-          size="small"
-          onSearch={(value) => setSearch(value)}
-          loading={loading}
-        />
-        <Segmented
-          value={view}
-          onChange={(view) =>
-            setPreference("mediaLibrary.popoverView", view as "list" | "grid")
-          }
-          options={[
-            { icon: <FontAwesomeIcon icon={faTableCells} />, value: "grid" },
-            { icon: <FontAwesomeIcon icon={faTableList} />, value: "list" },
-          ]}
-        />
-      </div>
-      {view === "grid" ? (
-        <div className="grid grid-cols-4 gap-2 p-2">
-          {loading && !value && (
-            <>
-              {R.times(R.identity, 12).map((idx) => (
-                <div
-                  key={idx}
-                  className="w-24 h-24 rounded-sm bg-gray-100 dark:bg-gray-700 animate-pulse"
-                />
-              ))}
-            </>
+      <Tabs
+        value={view}
+        onValueChange={(view) =>
+          setPreference("mediaLibrary.popoverView", view as "list" | "grid")
+        }
+      >
+        <div className="p-2 border-b border-0 border-solid border-gray-200 flex items-center gap-2">
+          {canCreate && (
+            <UploadButton
+              onUploadComplete={(item) => {
+                retry();
+                item?.[0] && onChange(item[0]);
+              }}
+              button={<Button size="sm">{t("media_library.upload")}</Button>}
+            />
           )}
-          {value?.results.map((item) => (
-            <div
-              key={item.id}
-              onClick={() => onChange(item)}
-              className="hover:cursor-pointer w-24 h-24"
-            >
-              <Tooltip title={item.name}>
-                {item.mime.startsWith("image/") ? (
-                  <img
-                    className="flex w-full h-full rounded-sm object-cover hover:opacity-80 bg-gray-50 dark:bg-gray-700"
-                    src={getImageUrl(item)}
-                    alt=""
-                  />
-                ) : item.mime.startsWith("video/") ? (
-                  <video
-                    className="flex w-full h-full rounded-sm object-cover hover:opacity-80 bg-gray-50 dark:bg-gray-700"
-                    src={item.url}
-                  />
-                ) : item.mime.startsWith("audio/") ? (
-                  <div className="flex items-center justify-center bg-indigo-50 rounded-sm w-full h-full">
-                    <FontAwesomeIcon
-                      icon={faFileAudio}
-                      className="text-lg text-indigo-500"
-                    />
-                  </div>
-                ) : null}
-              </Tooltip>
-            </div>
-          ))}
+          <Input autoFocus onChange={(e) => setSearch(e.target.value)} />
+          <TabsList>
+            <TabsTrigger value="grid">
+              <FontAwesomeIcon icon={faTableCells} />
+            </TabsTrigger>
+            <TabsTrigger value="list">
+              <FontAwesomeIcon icon={faTableList} />
+            </TabsTrigger>
+          </TabsList>
         </div>
-      ) : (
-        <div className="flex flex-col gap-2 p-2 max-h-[320px] overflow-y-auto">
-          {loading && !value && (
-            <>
-              {R.times(R.identity, 12).map((idx) => (
-                <div
-                  key={idx}
-                  className="h-4 rounded-sm bg-gray-100 dark:bg-gray-700 animate-pulse"
-                />
-              ))}
-            </>
-          )}
-          {value?.results.map((item) => (
-            <div
-              key={item.id}
-              onClick={() => onChange(item)}
-              className="hover:cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-2 flex gap-4"
-            >
-              <div className="w-10 h-10">
-                {item.mime.startsWith("image/") ? (
-                  <img
-                    className="flex w-full h-full rounded-sm object-cover hover:opacity-80 bg-gray-50"
-                    src={getImageUrl(item)}
-                    alt=""
+        <TabsContent value="grid">
+          <div className="grid grid-cols-4 gap-2 p-2">
+            {loading && !value && (
+              <>
+                {R.times(R.identity, 12).map((idx) => (
+                  <div
+                    key={idx}
+                    className="w-24 h-24 rounded-sm bg-gray-100 dark:bg-gray-700 animate-pulse"
                   />
-                ) : item.mime.startsWith("video/") ? (
-                  <video
-                    className="flex w-full h-full rounded-sm object-cover hover:opacity-80 bg-gray-50"
-                    src={item.url}
+                ))}
+              </>
+            )}
+            {value?.results.map((item) => (
+              <div
+                key={item.id}
+                onClick={() => onChange(item)}
+                className="hover:cursor-pointer w-24 h-24"
+              >
+                <Tooltip>
+                  <TooltipContent>{item.name}</TooltipContent>
+                  <TooltipTrigger asChild>
+                    {item.mime.startsWith("image/") ? (
+                      <img
+                        className="flex w-full h-full rounded-sm object-cover hover:opacity-80 bg-gray-50 dark:bg-gray-700"
+                        src={getImageUrl(item)}
+                        alt=""
+                      />
+                    ) : item.mime.startsWith("video/") ? (
+                      <video
+                        className="flex w-full h-full rounded-sm object-cover hover:opacity-80 bg-gray-50 dark:bg-gray-700"
+                        src={item.url}
+                      />
+                    ) : item.mime.startsWith("audio/") ? (
+                      <div className="flex items-center justify-center bg-indigo-50 rounded-sm w-full h-full">
+                        <FontAwesomeIcon
+                          icon={faFileAudio}
+                          className="text-lg text-indigo-500"
+                        />
+                      </div>
+                    ) : null}
+                  </TooltipTrigger>
+                </Tooltip>
+              </div>
+            ))}
+          </div>
+        </TabsContent>
+        <TabsContent value="list">
+          <div className="flex flex-col gap-2 p-2 max-h-[320px] overflow-y-auto">
+            {loading && !value && (
+              <>
+                {R.times(R.identity, 12).map((idx) => (
+                  <div
+                    key={idx}
+                    className="h-4 rounded-sm bg-gray-100 dark:bg-gray-700 animate-pulse"
                   />
-                ) : item.mime.startsWith("audio/") ? (
-                  <div className="flex items-center justify-center bg-indigo-50 rounded-sm w-full h-full">
-                    <FontAwesomeIcon
-                      icon={faFileAudio}
-                      className="text-lg text-indigo-500"
+                ))}
+              </>
+            )}
+            {value?.results.map((item) => (
+              <div
+                key={item.id}
+                onClick={() => onChange(item)}
+                className="hover:cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-2 flex gap-4"
+              >
+                <div className="w-10 h-10">
+                  {item.mime.startsWith("image/") ? (
+                    <img
+                      className="flex w-full h-full rounded-sm object-cover hover:opacity-80 bg-gray-50"
+                      src={getImageUrl(item)}
+                      alt=""
                     />
-                  </div>
-                ) : null}
+                  ) : item.mime.startsWith("video/") ? (
+                    <video
+                      className="flex w-full h-full rounded-sm object-cover hover:opacity-80 bg-gray-50"
+                      src={item.url}
+                    />
+                  ) : item.mime.startsWith("audio/") ? (
+                    <div className="flex items-center justify-center bg-indigo-50 rounded-sm w-full h-full">
+                      <FontAwesomeIcon
+                        icon={faFileAudio}
+                        className="text-lg text-indigo-500"
+                      />
+                    </div>
+                  ) : null}
+                </div>
+                <div>
+                  <div className="truncate">{item.name}</div>
+                </div>
               </div>
-              <div>
-                <div className="truncate">{item.name}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };

@@ -31,7 +31,7 @@ const RichTextField: React.FC<{
   disabled?: boolean;
 }> = ({ value, onChange, disabled }) => {
   return (
-    <div className="border border-solid rounded-md bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-500 focus-within:border-indigo-500 focus-within:ring-2 ring-indigo-500/5">
+    <div className="border border-solid rounded-md bg-background focus-within:border-ring">
       <EditorProvider
         extensions={extensions}
         content={value}
