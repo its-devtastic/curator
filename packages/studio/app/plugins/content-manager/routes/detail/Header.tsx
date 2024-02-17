@@ -1,6 +1,5 @@
 import { ContentTypeConfig, Entity } from "@curatorjs/types";
-import { Tag } from "antd";
-import { useFormikContext } from "formik";
+import { Badge, useFormContext } from "@curatorjs/ui";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -11,28 +10,26 @@ import Actions from "./Actions";
 
 const Header: React.FC<HeaderProps> = ({ contentTypeConfig, document }) => {
   const { t } = useTranslation();
-  const { dirty } = useFormikContext();
+  const { formState } = useFormContext();
 
   return (
-    <div className="pt-8 pb-4 flex flex-col gap-6 md:flex-row justify-between items-center">
-      <div>
-        <div className="font-semibold text-xs flex items-center gap-2 text-gray-400 mb-2">
+    <div className="px-4 lg:px-12 py-6 flex flex-col gap-6 md:flex-row justify-between items-center border-b">
+      <div className="flex flex-col items-center md:items-start">
+        <div className="font-semibold text-xs flex items-center gap-2 text-muted-foreground mb-2">
           <span className="empty:hidden">{contentTypeConfig.icon}</span>
           {contentTypeConfig.name && (
             <span>{t(contentTypeConfig.name, { ns: "custom" })}</span>
           )}
         </div>
 
-        <h1 className="mt-0 mb-2 text-3xl font-normal font-serif flex items-center gap-4">
-          {contentTypeConfig.titleField
-            ? document[contentTypeConfig.titleField]
-            : `${t("common.edit")} ${t(contentTypeConfig?.name ?? "", {
-                ns: "custom",
-              }).toLowerCase()}`}
-          {dirty && (
-            <Tag color="yellow" bordered={false}>
-              {t("common.edited")}
-            </Tag>
+        <h1 className="text-3xl/tight font-bold flex items-center gap-4">
+          {(contentTypeConfig.titleField &&
+            document[contentTypeConfig.titleField]) ||
+            `${t("common.edit")} ${t(contentTypeConfig?.name ?? "", {
+              ns: "custom",
+            }).toLowerCase()}`}
+          {formState.isDirty && (
+            <Badge variant="secondary">{t("common.edited")}</Badge>
           )}
         </h1>
 

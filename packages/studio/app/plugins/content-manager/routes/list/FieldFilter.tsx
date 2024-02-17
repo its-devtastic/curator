@@ -1,14 +1,17 @@
 import { Attribute } from "@curatorjs/types";
-import { faClose, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "antd";
+import {
+  Badge,
+  Button,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@curatorjs/ui";
 import * as R from "ramda";
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import useCurator from "@/hooks/useCurator";
 import useFilters from "@/hooks/useFilters";
-import Popover from "@/ui/Popover";
 
 import AdminUser from "./filters/AdminUser";
 import Date from "./filters/Date";
@@ -38,17 +41,32 @@ export default function FieldFilter({
   const field = contentTypes
     ?.find(R.whereEq({ apiID }))
     ?.fields.find(R.whereEq({ path }));
-  const { filters, removeFilter } = useFilters();
+  const { filters } = useFilters();
   const filterComponent =
     FILTER_FORMS[attribute.target === "admin::user" ? "admin" : attribute.type];
   const isActive = R.has(path, filters);
   const label = t(field?.label ?? path, { ns: "custom" });
+  const [open, setOpen] = useState(false);
 
   return filterComponent ? (
-    <Popover
-      arrow
-      trigger={["click"]}
-      content={(close) => (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button size="sm" variant="outline" className="border-dashed">
+          <div className="flex items-center gap-2">
+            <span>{label}</span>
+            {isActive && (
+              <Badge variant="secondary">
+                {filterComponent?.FilterValue &&
+                  React.createElement(filterComponent.FilterValue, {
+                    filter: filters[path],
+                    attribute,
+                  })}
+              </Badge>
+            )}
+          </div>
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent>
         <div className="min-w-[200px]">
           <h4 className="mt-0 mb-2">
             {t("content_manager.filtering_on", { type: label })}
@@ -57,38 +75,10 @@ export default function FieldFilter({
             React.createElement(filterComponent, {
               attribute,
               path,
-              onSubmit: close,
+              onSubmit: () => setOpen(false),
             })}
         </div>
-      )}
-    >
-      <Button size="small" type={isActive ? "default" : "dashed"}>
-        <div className="flex items-center gap-2">
-          <span
-            role="button"
-            tabIndex={0}
-            className="rounded-full h-4 w-4 bg-gray-200 text-[10px] text-gray-500 inline-flex items-center justify-center"
-            onClick={(e) => {
-              if (isActive) {
-                e.stopPropagation();
-                removeFilter(path);
-              }
-            }}
-          >
-            {<FontAwesomeIcon icon={isActive ? faClose : faPlus} />}
-          </span>
-          <span>{label}</span>
-          {isActive && (
-            <span className="text-indigo-500 text-xs font-semibold">
-              {filterComponent?.FilterValue &&
-                React.createElement(filterComponent.FilterValue, {
-                  filter: filters[path],
-                  attribute,
-                })}
-            </span>
-          )}
-        </div>
-      </Button>
+      </PopoverContent>
     </Popover>
   ) : null;
 }

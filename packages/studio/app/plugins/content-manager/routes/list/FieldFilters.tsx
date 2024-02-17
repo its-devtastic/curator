@@ -1,8 +1,8 @@
-import { Button } from "antd";
+import { Button } from "@curatorjs/ui";
 import * as R from "ramda";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import useFilters from "@/hooks/useFilters";
 import useStrapi from "@/hooks/useStrapi";
@@ -11,7 +11,6 @@ import FieldFilter from "./FieldFilter";
 
 export default function FieldFilters() {
   const { t } = useTranslation();
-  const [_, setSearchParams] = useSearchParams();
   const params = useParams();
   const { contentTypes } = useStrapi();
   const apiID = params.apiID as string;
@@ -29,7 +28,7 @@ export default function FieldFilters() {
         />
       ))}
       {!R.isEmpty(filters) && (
-        <Button type="link" onClick={() => clearFilters()}>
+        <Button variant="ghost" size="sm" onClick={() => clearFilters()}>
           {t("content_manager.clear_filters")}
         </Button>
       )}

@@ -47,6 +47,8 @@ export default function FilterToolbar({
           placeholder={t("filters.search")}
           className="sm:max-w-[260px]"
         />
+        <FieldFilters />
+
         <div className="flex items-center gap-4 flex-1 justify-center sm:justify-end">
           {contentType.pluginOptions.i18n?.localized && (
             <div className="max-w-[180px] w-full">
@@ -72,7 +74,6 @@ export default function FilterToolbar({
           </Button>
         </div>
       </div>
-      <FieldFilters />
     </div>
   );
 }

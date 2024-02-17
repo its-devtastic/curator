@@ -1,15 +1,21 @@
 import { Attribute, FieldDefinition } from "@curatorjs/types";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@curatorjs/ui";
-import { faLanguage } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useFormikContext } from "formik";
+import {
+  FormControl,
+  FormDescription,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  useFormContext,
+} from "@curatorjs/ui";
 import * as R from "ramda";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { PiTranslateBold } from "react-icons/pi";
 
 import useContentPermission from "@/hooks/useContentPermission";
-import Field from "@/ui/Field";
 import FormField from "@/ui/FormField";
 
 import { FIELD_TYPES } from "../constants";
@@ -21,9 +27,10 @@ const FieldRenderer: React.FC<{
 }> = ({ field = {}, attribute, apiID }) => {
   const { t } = useTranslation();
   const hasPermission = useContentPermission();
-  const {
-    values: { id },
-  } = useFormikContext<{ id: number | string | null }>();
+  const { getValues, control } = useFormContext<{
+    id: number | string | null;
+  }>();
+  const id = getValues("id");
 
   const inputName = R.when(R.equals("component"), () =>
     attribute?.repeatable ? "repeatableComponent" : "component",
@@ -51,34 +58,48 @@ const FieldRenderer: React.FC<{
     InputComponent &&
     field.path ? (
     <FormField
-      label={field.label && t(field.label, { ns: "custom" })}
-      help={field.description}
-      hint={
-        <div className="flex items-center gap-2">
-          {field.hint && <span>{field.hint}</span>}
-          {attribute?.pluginOptions?.i18n?.localized && (
-            <Tooltip>
-              <TooltipContent>{t("phrases.translated_field")}</TooltipContent>
-              <TooltipTrigger asChild>
-                <span>
-                  <PiTranslateBold className="size-4 inline-flex" />
-                </span>
-              </TooltipTrigger>
-            </Tooltip>
+      name={field.path}
+      control={control}
+      render={({ field }) => (
+        <FormItem>
+          {(field.label ||
+            field.hint ||
+            attribute?.pluginOptions?.i18n?.localized) && (
+            <FormLabel className="flex items-center justify-between">
+              {field.label && <span>{t(field.label, { ns: "custom" })}</span>}
+              <div className="flex items-center gap-2">
+                {field.hint && <span>{field.hint}</span>}
+                {attribute?.pluginOptions?.i18n?.localized && (
+                  <Tooltip>
+                    <TooltipContent>
+                      {t("phrases.translated_field")}
+                    </TooltipContent>
+                    <TooltipTrigger asChild>
+                      <span>
+                        <PiTranslateBold className="size-4 inline-flex" />
+                      </span>
+                    </TooltipTrigger>
+                  </Tooltip>
+                )}
+              </div>
+            </FormLabel>
           )}
-        </div>
-      }
-    >
-      <Field name={field.path}>
-        {React.createElement(InputComponent, {
-          attribute,
-          field,
-          apiID,
-          disabled: !hasSavePermission,
-          ...field.inputProps,
-        })}
-      </Field>
-    </FormField>
+          <FormControl>
+            {React.createElement(InputComponent, {
+              attribute,
+              field,
+              apiID,
+              disabled: !hasSavePermission,
+              ...field,
+            })}
+          </FormControl>
+          {field.description && (
+            <FormDescription>{field.description}</FormDescription>
+          )}
+          <FormMessage />
+        </FormItem>
+      )}
+    />
   ) : null;
 };
 

@@ -27,7 +27,10 @@ export interface PluginOptions {
       /**
        * Configure the fields in the edit screen.
        */
-      edit?: { fields: FieldConfig[]; span?: number }[];
+      edit?: {
+        main?: { fields: FieldConfig[]; span?: number }[];
+        side?: { fields: FieldConfig[]; span?: number }[];
+      };
       /**
        * Configure the fields in the create dialog.
        * If omitted, content will be created through the edit screen.
@@ -49,7 +52,7 @@ export interface PluginOptions {
     }
   >;
   /**
-   * A higher weight results in the main menu item moving more to the right.
+   * A higher weight results in the main menu item moving more to the bottom.
    */
   weight?: number;
 }

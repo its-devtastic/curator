@@ -1,11 +1,11 @@
-import type React from "react";
 import type { ThemeConfig } from "antd";
+import type React from "react";
 import type { RouteObject } from "react-router-dom";
 import type { PartialDeep } from "type-fest";
 
 import { ContentTypeConfig, FieldDefinition } from "./contentTypeConfig";
-import { CuratorPlugin } from "./plugin";
 import { MediaItem } from "./media";
+import { CuratorPlugin } from "./plugin";
 
 export interface CuratorConfig {
   strapiUrl: string;

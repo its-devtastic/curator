@@ -4,8 +4,8 @@ import * as R from "ramda";
 import React from "react";
 
 import { usePluginOptions } from "./hooks";
-import ContentKindScreen from "./routes/ContentKindScreen";
-import DetailScreen from "./routes/DetailScreen";
+import { DetailScreen } from "./routes/detail";
+import { ContentKindScreen } from "./routes/kind";
 import { PluginOptions } from "./types";
 import ContentManagerMenu from "./ui/ContentManagerMenu";
 
@@ -16,7 +16,7 @@ export default function contentManagerPlugin(options: PluginOptions) {
     setOptions(options);
 
     return R.evolve({
-      routes: R.concat([
+      routes: R.concat<CuratorConfig["routes"][number]>([
         {
           path: "/content-manager/:apiID",
           element: <ContentKindScreen />,

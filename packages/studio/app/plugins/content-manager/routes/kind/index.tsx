@@ -5,9 +5,9 @@ import { useParams } from "react-router-dom";
 import useStrapi from "@/hooks/useStrapi";
 
 import DetailScreen from "../DetailScreen";
-import ListScreen from "../ListScreen";
+import { ListScreen } from "../list";
 
-const ContentKindScreen: React.FC = () => {
+export function ContentKindScreen() {
   const { contentTypes } = useStrapi();
   const { apiID } = useParams();
   const contentType = contentTypes.find(R.whereEq({ apiID }));
@@ -17,6 +17,4 @@ const ContentKindScreen: React.FC = () => {
     apiID &&
     (contentType.kind === "singleType" ? <DetailScreen /> : <ListScreen />)
   );
-};
-
-export default ContentKindScreen;
+}

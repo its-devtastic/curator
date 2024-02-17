@@ -1,6 +1,6 @@
 import { ContentTypeConfig } from "@curatorjs/types";
+import { Button, useFormContext } from "@curatorjs/ui";
 import {
-  faClockRotateLeft,
   faEllipsisV,
   faExternalLink,
   faNewspaper,
@@ -8,24 +8,23 @@ import {
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Dropdown, Modal, notification, Switch, Tooltip } from "antd";
-import { useFormikContext } from "formik";
+import { Dropdown, Modal, notification, Switch, Tooltip } from "antd";
 import * as R from "ramda";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import { useBlocker, useNavigate, useParams } from "react-router-dom";
-import { useBeforeUnload, useDebounce, useKey } from "react-use";
+import { useNavigate, useParams } from "react-router-dom";
 
 import useContentPermission from "@/hooks/useContentPermission";
-import useModifierKey from "@/hooks/useModifierKey";
 import usePreferences from "@/hooks/usePreferences";
 import useStrapi from "@/hooks/useStrapi";
 
-import Versioning from "./Versioning";
+import LanguageSwitcher from "./LanguageSwitcher";
 
-const Actions: React.FC<{
+export default function Action({
+  contentTypeConfig,
+}: {
   contentTypeConfig: ContentTypeConfig;
-}> = ({ contentTypeConfig }) => {
+}) {
   const { t } = useTranslation();
   const params = useParams();
   const hasPermission = useContentPermission();
@@ -33,26 +32,13 @@ const Actions: React.FC<{
   const navigate = useNavigate();
   const { contentTypes, sdk } = useStrapi();
   const contentType = contentTypes.find(R.whereEq({ apiID }));
-  const { values, resetForm, dirty, isSubmitting, submitForm } =
-    useFormikContext<any>();
+  const { watch, getValues, formState, reset } = useFormContext<any>();
   const hasDraftState = contentType?.options.draftAndPublish;
-  const isDraft = hasDraftState && !values.publishedAt;
+  const isDraft = hasDraftState && !watch("publishedAt");
   const isSingleType = contentType?.kind === "singleType";
   const [modal, contextHolder] = Modal.useModal();
   const { preferences, setPreference } = usePreferences();
-  const blocker = useBlocker(!R.isNil(values.id) && dirty);
-  const modifierKey = useModifierKey();
-  /*
-   * Versioning is enabled either on the content type level or if one of the
-   * attributes has versioning enabled.
-   */
-  const hasVersioning =
-    contentType &&
-    (contentType.pluginOptions.versioning ||
-      Object.values(contentType.attributes).some(
-        R.path(["pluginOptions", "versioning"]),
-      ));
-  const [showVersioning, setShowVersioning] = useState(false);
+  const id = watch("id");
   /*
    * CRUD permissions.
    */
@@ -61,99 +47,43 @@ const Actions: React.FC<{
   const hasDeletePermission = hasPermission("delete", apiID);
   const hasPublishPermission = hasPermission("publish", apiID);
   const hasSavePermission =
-    (!values.id && hasCreatePermission) || (values.id && hasUpdatePermission);
-  /*
-   * Autosave for drafts.
-   */
-  useDebounce(
-    () => {
-      if (
-        hasUpdatePermission &&
-        values.id &&
-        isDraft &&
-        preferences.autosave &&
-        dirty
-      ) {
-        submitForm();
-      }
-    },
-    3_000,
-    [values.id, isDraft, preferences.autosave, dirty],
-  );
-  /*
-   * Warn user if navigating from a dirty form.
-   */
-  useBeforeUnload(
-    !R.isNil(values.id) && dirty,
-    t("content_manager.unsaved_changes"),
-  );
-  useEffect(() => {
-    if (
-      location &&
-      blocker.state === "blocked" &&
-      confirm(t("content_manager.unsaved_changes"))
-    ) {
-      blocker.proceed();
-    }
-  }, [location, blocker.state]);
-  /*
-   * Catch native save shortcut.
-   */
-  useKey(
-    "s",
-    (e) => {
-      if (e[modifierKey.value] && hasSavePermission) {
-        e.preventDefault();
-        submitForm();
-      }
-    },
-    {},
-    [modifierKey.value],
-  );
+    (!id && hasCreatePermission) || (id && hasUpdatePermission);
 
   return (
     <>
       {contextHolder}
-      <Versioning
-        show={showVersioning}
-        onClose={() => setShowVersioning(false)}
-      />
+
       <div className="flex items-top gap-2">
         <div className="flex flex-col items-end">
           {hasSavePermission && (
-            <Button
-              type="primary"
-              loading={isSubmitting}
-              onClick={async () => {
-                await submitForm();
-                notification.success({ message: t("phrases.document_saved") });
-              }}
-            >
+            <Button type="submit" loading={formState.isSubmitting}>
               {t("common.save")}
             </Button>
           )}
         </div>
 
-        {values.id && contentTypeConfig?.getEntityUrl && (
+        {id && contentTypeConfig?.getEntityUrl && (
           <Tooltip title={t("phrases.view_page")}>
             <Button
-              type="text"
+              variant="ghost"
+              size="icon"
               onClick={() => {
-                window.open(contentTypeConfig.getEntityUrl?.(values));
+                window.open(contentTypeConfig.getEntityUrl?.(getValues()));
               }}
-              icon={<FontAwesomeIcon icon={faExternalLink} />}
-            />
+            >
+              <FontAwesomeIcon icon={faExternalLink} />
+            </Button>
           </Tooltip>
         )}
 
-        {values.id && !isSingleType && hasDeletePermission && (
+        {id && !isSingleType && hasDeletePermission && (
           <Dropdown
             trigger={["click"]}
             placement="bottomRight"
             menu={{
               items: [
                 isDraft &&
-                  !R.isNil(values.id) &&
+                  !R.isNil(id) &&
                   hasSavePermission && {
                     key: "autosave",
                     label: (
@@ -164,7 +94,7 @@ const Actions: React.FC<{
                         }
                       >
                         <Switch
-                          loading={isSubmitting}
+                          loading={formState.isSubmitting}
                           size="small"
                           checked={Boolean(preferences.autosave)}
                         />
@@ -189,9 +119,9 @@ const Actions: React.FC<{
                     async onClick() {
                       try {
                         const data = isDraft
-                          ? await sdk.publish(apiID, values.id)
-                          : await sdk.unpublish(apiID, values.id);
-                        resetForm({ values: data });
+                          ? await sdk.publish(apiID, id)
+                          : await sdk.unpublish(apiID, id);
+                        reset(data);
                         notification.success({
                           message: t("phrases.document_status_changed"),
                           description: t(
@@ -205,14 +135,6 @@ const Actions: React.FC<{
                       }
                     },
                   },
-                hasVersioning && {
-                  key: "versioning",
-                  label: t("common.versioning"),
-                  icon: <FontAwesomeIcon icon={faClockRotateLeft} />,
-                  onClick() {
-                    setShowVersioning(true);
-                  },
-                },
                 { type: "divider" },
                 {
                   label: t("common.delete"),
@@ -227,7 +149,7 @@ const Actions: React.FC<{
                       okButtonProps: { danger: true },
                       centered: true,
                       async onOk() {
-                        await sdk.deleteOne(apiID, values.id);
+                        await sdk.deleteOne(apiID, id);
                         notification.success({
                           message: t("phrases.document_deleted"),
                         });
@@ -239,12 +161,12 @@ const Actions: React.FC<{
               ].filter(Boolean) as any,
             }}
           >
-            <Button type="text" icon={<FontAwesomeIcon icon={faEllipsisV} />} />
+            <Button variant="ghost" size="icon">
+              <FontAwesomeIcon icon={faEllipsisV} />
+            </Button>
           </Dropdown>
         )}
       </div>
     </>
   );
-};
-
-export default Actions;
+}

@@ -16,7 +16,8 @@ const LanguageSelect: React.FC<{
   locales?: StrapiLocale[];
   value?: string | null;
   onValueChange?(value: string): void;
-}> = ({ value, locales, ...props }) => {
+  className?: string;
+}> = ({ value, locales, className, ...props }) => {
   const { locales: defaultLocales } = useStrapi();
   const { i18n } = useTranslation();
   const options = locales ?? defaultLocales;
@@ -28,7 +29,7 @@ const LanguageSelect: React.FC<{
 
   return (
     <Select {...props}>
-      <SelectTrigger>
+      <SelectTrigger className={className}>
         {code && (
           <div className="inline-flex items-center gap-3">
             <span
@@ -40,6 +41,18 @@ const LanguageSelect: React.FC<{
           </div>
         )}
       </SelectTrigger>
+      <SelectValue>
+        {code && (
+          <div className="inline-flex items-center gap-3">
+            <span
+              className={`rounded-sm fi fi-${
+                code.startsWith("en") ? "us" : code.split("-")[0]
+              }`}
+            />
+            <span>{languageNames.of(code)}</span>
+          </div>
+        )}
+      </SelectValue>
       <SelectContent>
         {options.map(({ code }) => (
           <SelectItem key={code} value={code}>
