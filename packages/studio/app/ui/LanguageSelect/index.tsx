@@ -4,7 +4,6 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
 } from "@curatorjs/ui";
 import * as R from "ramda";
 import React, { useMemo } from "react";
@@ -41,18 +40,7 @@ const LanguageSelect: React.FC<{
           </div>
         )}
       </SelectTrigger>
-      <SelectValue>
-        {code && (
-          <div className="inline-flex items-center gap-3">
-            <span
-              className={`rounded-sm fi fi-${
-                code.startsWith("en") ? "us" : code.split("-")[0]
-              }`}
-            />
-            <span>{languageNames.of(code)}</span>
-          </div>
-        )}
-      </SelectValue>
+
       <SelectContent>
         {options.map(({ code }) => (
           <SelectItem key={code} value={code}>

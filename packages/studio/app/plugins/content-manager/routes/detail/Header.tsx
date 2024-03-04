@@ -1,4 +1,4 @@
-import { ContentTypeConfig, Entity } from "@curatorjs/types";
+import { ContentTypeConfig } from "@curatorjs/types";
 import { Badge, useFormContext } from "@curatorjs/ui";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -8,9 +8,10 @@ import CalendarTime from "@/ui/CalendarTime";
 
 import Actions from "./Actions";
 
-const Header: React.FC<HeaderProps> = ({ contentTypeConfig, document }) => {
+const Header: React.FC<HeaderProps> = ({ contentTypeConfig }) => {
   const { t } = useTranslation();
   const { formState } = useFormContext();
+  const document = formState.defaultValues!;
 
   return (
     <div className="px-4 lg:px-12 py-6 flex flex-col gap-6 md:flex-row justify-between items-center border-b">
@@ -72,5 +73,4 @@ export default Header;
 
 interface HeaderProps {
   contentTypeConfig: ContentTypeConfig;
-  document: Omit<Entity, "id">;
 }

@@ -1,13 +1,25 @@
-import { Pagination as IPagination } from "@curatorjs/types";
-import { Button, DataTable, Pagination, Spinner } from "@curatorjs/ui";
-import { Badge, Dropdown, Image, notification, Tooltip } from "antd";
+import {
+  Button,
+  cn,
+  DataTable,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  Pagination,
+  Spinner,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@curatorjs/ui";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { notification } from "antd";
 import { TFunction } from "i18next";
 import * as R from "ramda";
 import React, { useLayoutEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { PiTranslateBold } from "react-icons/pi";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { useAsyncRetry } from "react-use";
 
 import NoPermission from "@/components/NoPermission";
 import useContentPermission from "@/hooks/useContentPermission";
@@ -22,16 +34,13 @@ import { ColumnConfig } from "../../types";
 import { convertSearchParamsToObject } from "../../utils";
 import FilterToolbar from "./FilterToolbar";
 
-const INITIAL_COLLECTION_STATE = {
-  pagination: null,
-  results: [],
-};
-
 export function ListScreen() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const params = useParams();
+  const queryClient = useQueryClient();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [create, setCreate] = useState<string | null>(null);
   const apiID = params.apiID ?? "";
   const pluginOptions = usePluginOptions(
     (state) => state.options.contentTypes?.[apiID],
@@ -45,11 +54,6 @@ export function ListScreen() {
   );
   const hasDraftState = contentType?.options.draftAndPublish;
   const name = contentTypeConfig?.name ?? contentType?.info.displayName ?? "";
-  const [create, setCreate] = useState<string | null>(null);
-  const [collection, setCollection] = useState<{
-    pagination: IPagination | null;
-    results: any[];
-  }>(INITIAL_COLLECTION_STATE);
   const hasReadPermission = hasPermission("read", apiID);
   const hasCreatePermission = hasPermission("create", apiID);
   /*
@@ -58,20 +62,18 @@ export function ListScreen() {
    */
   useLayoutEffect(() => {
     setCreate(null);
-    setCollection(INITIAL_COLLECTION_STATE);
   }, [params]);
 
-  const { loading, retry } = useAsyncRetry(async () => {
-    if (!hasReadPermission) {
-      return;
-    }
-
-    const data = await sdk.getMany(
-      apiID,
-      convertSearchParamsToObject(searchParams),
-    );
-    setCollection(data);
-  }, [sdk, contentTypes, apiID, searchParams]);
+  const { data, isLoading } = useQuery({
+    enabled: hasReadPermission,
+    queryKey: ["content", apiID, convertSearchParamsToObject(searchParams)],
+    async queryFn({ queryKey }) {
+      return await sdk.getMany(
+        queryKey[1] as string,
+        queryKey[2] as Record<string, string>,
+      );
+    },
+  });
 
   return hasReadPermission || hasCreatePermission ? (
     <div className="px-4 lg:px-12 py-6">
@@ -82,7 +84,7 @@ export function ListScreen() {
           onCreate={({ id }) => navigate(`/content-manager/${apiID}/${id}`)}
         />
       )}
-      {contentTypeConfig && contentType ? (
+      {contentTypeConfig && contentType && !isLoading ? (
         <div>
           <div className="flex flex-col md:flex-row items-center justify-between my-12 md:mb-24 gap-4">
             <h1 className="text-3xl font-bold">
@@ -111,88 +113,80 @@ export function ListScreen() {
           {hasReadPermission && (
             <>
               <div className="space-y-4">
-                <FilterToolbar
-                  contentType={contentType}
-                  onRefresh={retry}
-                  loading={loading}
-                />
+                <FilterToolbar contentType={contentType} loading={isLoading} />
                 <DataTable
-                  data={collection.results}
-                  onRowClick={(_, record) => ({
-                    onClick: () =>
-                      navigate(`/content-manager/${apiID}/${record.id}`),
-                  })}
+                  data={data?.results ?? []}
+                  onRowClick={(_, record) => {
+                    navigate(`/content-manager/${apiID}/${record.id}`);
+                  }}
                   columns={
                     [
                       hasDraftState && {
                         id: "draftStatus",
                         accessorKey: "publishedAt",
-                        width: 40,
+                        header: "",
                         cell({ row }: any) {
                           const id = row.getValue("id");
                           const value = row.getValue("publishedAt");
                           return (
-                            <Tooltip
-                              placement="top"
-                              title={
-                                value
+                            <Tooltip>
+                              <TooltipContent>
+                                {value
                                   ? t("common.published")
-                                  : t("common.draft")
-                              }
-                            >
-                              <div
-                                className="flex"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                }}
-                              >
-                                <Dropdown
-                                  menu={{
-                                    items: [
-                                      {
-                                        key: 1,
-                                        label: value
-                                          ? t("common.unpublish")
-                                          : t("common.publish"),
-                                        async onClick() {
-                                          const isDraft = !value;
-                                          try {
-                                            const data = isDraft
-                                              ? await sdk.publish(apiID, id)
-                                              : await sdk.unpublish(apiID, id);
-                                            setCollection(
-                                              R.evolve({
-                                                results: R.map((item: any) =>
-                                                  item.id === id ? data : item,
-                                                ),
-                                              }),
-                                            );
-                                            notification.success({
-                                              message: t(
-                                                "phrases.document_status_changed",
-                                              ),
-                                              description: t(
-                                                isDraft
-                                                  ? "phrases.document_published"
-                                                  : "phrases.document_unpublished",
-                                              ),
-                                            });
-                                          } catch (e) {
-                                            notification.error({
-                                              message: "Oops",
-                                            });
-                                          }
-                                        },
-                                      },
-                                    ],
-                                  }}
-                                  trigger={["click"]}
-                                >
-                                  <Button variant="ghost">
-                                    <Badge color={value ? "green" : "yellow"} />
-                                  </Button>
-                                </Dropdown>
-                              </div>
+                                  : t("common.draft")}
+                              </TooltipContent>
+                              <DropdownMenu>
+                                <DropdownMenuContent>
+                                  <DropdownMenuItem>
+                                    {value
+                                      ? t("common.unpublish")
+                                      : t("common.publish")}
+                                  </DropdownMenuItem>
+                                </DropdownMenuContent>
+                                <DropdownMenuTrigger asChild>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      variant="ghost"
+                                      size="icon"
+                                      onClick={async (e) => {
+                                        e.stopPropagation();
+                                        const isDraft = !value;
+                                        try {
+                                          isDraft
+                                            ? await sdk.publish(apiID, id)
+                                            : await sdk.unpublish(apiID, id);
+                                          await queryClient.invalidateQueries({
+                                            queryKey: ["content", apiID],
+                                          });
+                                          notification.success({
+                                            message: t(
+                                              "phrases.document_status_changed",
+                                            ),
+                                            description: t(
+                                              isDraft
+                                                ? "phrases.document_published"
+                                                : "phrases.document_unpublished",
+                                            ),
+                                          });
+                                        } catch (e) {
+                                          notification.error({
+                                            message: "Oops",
+                                          });
+                                        }
+                                      }}
+                                    >
+                                      <div
+                                        className={cn(
+                                          "size-1.5 rounded-full",
+                                          value
+                                            ? "bg-emerald-500"
+                                            : "bg-amber-400",
+                                        )}
+                                      />
+                                    </Button>
+                                  </TooltipTrigger>
+                                </DropdownMenuTrigger>
+                              </DropdownMenu>
                             </Tooltip>
                           );
                         },
@@ -264,15 +258,13 @@ export function ListScreen() {
                                   return <CalendarTime>{value}</CalendarTime>;
                                 case "media":
                                   return value?.mime?.startsWith("image/") ? (
-                                    <Image
+                                    <img
                                       src={curatorConfig.images.getImageUrl(
                                         value,
                                       )}
                                       alt=""
                                       width={64}
                                       height={64}
-                                      preview={false}
-                                      fallback="/image_fallback.png"
                                       className="rounded-md object-cover"
                                     />
                                   ) : (
@@ -287,31 +279,43 @@ export function ListScreen() {
                       ),
                       contentType?.pluginOptions.i18n?.localized && {
                         header: (
-                          <Tooltip title={t("common.translation_plural")}>
-                            <PiTranslateBold size={16} />
+                          <Tooltip>
+                            <TooltipContent>
+                              {t("common.translation_other")}
+                            </TooltipContent>
+                            <TooltipTrigger asChild>
+                              <span className="inline-flex">
+                                <PiTranslateBold size={16} />
+                              </span>
+                            </TooltipTrigger>
                           </Tooltip>
                         ),
                         id: "localizations",
                         accessorKey: "localizations",
-                        cell({ cell }: any) {
+                        cell({ cell, row }: any) {
+                          const localizations = cell.getValue();
+                          const locale = row.original.locale;
                           return (
-                            <div className="space-x-1">
-                              {R.sortBy(R.prop("locale"))([]).map(
-                                ({ locale = "" }) => (
-                                  <Tooltip
-                                    key={locale}
-                                    title={t(`locales.${locale}`)}
-                                  >
+                            <div>
+                              {R.sortBy(R.prop("locale"))([
+                                { locale },
+                                ...localizations,
+                              ]).map(({ locale = "" }) => (
+                                <Tooltip key={locale}>
+                                  <TooltipContent>
+                                    {t(`locales.${locale}`)}
+                                  </TooltipContent>
+                                  <TooltipTrigger asChild>
                                     <span
-                                      className={`rounded-sm fi fi-${
+                                      className={`mr-1 rounded-sm inline-flex fi fi-${
                                         locale.startsWith("en")
                                           ? "us"
                                           : locale.split("-")[0]
                                       }`}
                                     />
-                                  </Tooltip>
-                                ),
-                              )}
+                                  </TooltipTrigger>
+                                </Tooltip>
+                              ))}
                             </div>
                           );
                         },
@@ -322,7 +326,7 @@ export function ListScreen() {
                 <Pagination
                   current={Number(searchParams.get("page") ?? 1)}
                   pageSize={Number(searchParams.get("pageSize") ?? 10)}
-                  total={collection.pagination?.total}
+                  total={data?.pagination?.total}
                   onChange={(page) => {
                     setSearchParams((params) => {
                       params.set("page", String(page));

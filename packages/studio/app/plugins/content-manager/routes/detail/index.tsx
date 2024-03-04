@@ -1,9 +1,8 @@
-import { Entity } from "@curatorjs/types";
 import { Form, Spinner } from "@curatorjs/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { notification } from "antd";
 import * as R from "ramda";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
@@ -39,7 +38,6 @@ export function DetailScreen() {
   const { contentTypes, sdk, locales } = useStrapi();
   const { getSecret } = useSecrets();
   const { preferences } = usePreferences();
-  const [document, setDocument] = useState<Omit<Entity, "id"> | null>(null);
   const hasCreatePermission = hasPermission("create", apiID);
   const hasUpdatePermission = hasPermission("update", apiID);
   const hasSavePermission =
@@ -56,7 +54,7 @@ export function DetailScreen() {
 
     if (params.id === "create") {
       await new Promise((resolve) => setTimeout(resolve, 0));
-      setDocument({ locale: defaultLocale });
+      form.reset({ locale: defaultLocale });
       return;
     }
 
@@ -77,12 +75,12 @@ export function DetailScreen() {
         }
       }
 
-      setDocument(data);
+      form.reset(data);
     } catch (e: any) {
       console.error(e);
       if (e.response.status === 404) {
         if (isSingleType) {
-          return setDocument({ locale: defaultLocale });
+          return form.reset({ locale: defaultLocale });
         }
         navigate(`/content-manager/${apiID}`);
       }
@@ -92,14 +90,14 @@ export function DetailScreen() {
   const formSchema = z.any();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: document,
+    defaultValues: {},
   });
   const onSubmit = async (values: any) => {
     try {
       const data = await sdk.save(apiID, values, {
-        params: { "plugins[i18n][locale]": values.locale },
+        params: { locale: values.locale },
       });
-      setDocument(data);
+      form.reset(data);
       const hooks =
         config.hooks?.filter(
           R.whereEq({
@@ -171,20 +169,23 @@ export function DetailScreen() {
     }
   }, [location, blocker.state]);
 
-  return contentTypeConfig && contentType && document && !loading ? (
+  return contentTypeConfig && contentType && !loading ? (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col flex-1"
       >
         <DraftBanner />
-        <Header contentTypeConfig={contentTypeConfig} document={document} />
-        <div className="flex flex-col md:flex-row flex-1">
+        <Header contentTypeConfig={contentTypeConfig} />
+        <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
           <Main
             contentType={contentType}
             contentTypeConfig={contentTypeConfig}
           />
-          <Side contentType={contentType} />
+          <Side
+            contentType={contentType}
+            contentTypeConfig={contentTypeConfig}
+          />
         </div>
       </form>
     </Form>

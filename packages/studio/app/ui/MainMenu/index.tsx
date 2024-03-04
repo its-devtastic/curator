@@ -58,7 +58,7 @@ const MainMenu: React.FC & {
           onClick={() => setOpen(false)}
         />
 
-        <div>
+        <div className="flex flex-col overflow-hidden">
           <div className="flex items-center px-4 h-14 border-b">
             <Link
               to="/"

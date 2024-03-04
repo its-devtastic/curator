@@ -1,5 +1,12 @@
 import { Attribute, Entity, RenderContext } from "@curatorjs/types";
-import { Button, Select, Spin } from "antd";
+import {
+  Button,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@curatorjs/ui";
 import { Form, Formik } from "formik";
 import type { TFunction } from "i18next";
 import * as R from "ramda";
@@ -59,31 +66,27 @@ export default function Relation({
       {({ values, submitForm, setFieldValue }) => (
         <Form className="space-y-2">
           <Field name="value">
-            <Select
-              showSearch
-              searchValue={search}
-              onSearch={setSearch}
-              filterOption={false}
-              className="w-full"
-              options={relatedItems.map((item) => ({
-                label: targetConfig?.render
-                  ? targetConfig.render(item, {
-                      t: ((key: string, opts?: any) =>
-                        t(key, { ns: "custom", ...opts })) as TFunction,
-                      context: RenderContext.List,
-                    })
-                  : item.id,
-                value: item.id,
-              }))}
-            />
+            <Select>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {relatedItems.map((item) => (
+                  <SelectItem key={item.id} value={item.id}>
+                    {targetConfig?.render
+                      ? targetConfig.render(item, {
+                          t: ((key: string, opts?: any) =>
+                            t(key, { ns: "custom", ...opts })) as TFunction,
+                          context: RenderContext.List,
+                        })
+                      : item.id}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </Field>
 
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="w-full"
-            onClick={submitForm}
-          >
+          <Button className="w-full" size="sm" onClick={submitForm}>
             {t("common.apply")}
           </Button>
         </Form>

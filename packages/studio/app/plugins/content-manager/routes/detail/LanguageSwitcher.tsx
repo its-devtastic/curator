@@ -40,6 +40,10 @@ const LanguageSwitcher: React.FC = () => {
     ({ code }) =>
       code !== locale && !localizations?.some(R.whereEq({ locale: code })),
   );
+  const translatedLocales = locales.filter(
+    ({ code }) =>
+      code === locale || localizations?.some(R.whereEq({ locale: code })),
+  );
   const languageNames = useMemo(
     () => new Intl.DisplayNames([i18n.language], { type: "language" }),
     [i18n.language],
@@ -51,11 +55,7 @@ const LanguageSwitcher: React.FC = () => {
       <div className="flex items-center gap-1">
         <LanguageSelect
           className="w-52"
-          locales={locales.filter(
-            ({ code }) =>
-              code === locale ||
-              localizations?.some(R.whereEq({ locale: code })),
-          )}
+          locales={translatedLocales}
           value={locale}
           onValueChange={(locale) => {
             const localizationId = localizations?.find(
@@ -94,15 +94,27 @@ const LanguageSwitcher: React.FC = () => {
                     <CommandItem
                       key={code}
                       onSelect={async () => {
+                        const values = getValues();
                         const { id } = await sdk.save(
                           apiID,
                           {
-                            ...R.omit(["id", "locale"])(getValues()),
+                            localizations: [
+                              ...values.localizations.map(R.prop("id")),
+                              values.id,
+                            ],
+                            locale: code,
+                            ...R.omit([
+                              "id",
+                              "locale",
+                              "localizations",
+                              "createdBy",
+                              "updatedBy",
+                            ])(values),
                           },
                           {
                             params: {
-                              "plugins[i18n][locale]": code,
-                              "plugins[i18n][relatedEntityId]": watch("id"),
+                              locale: code,
+                              relatedEntityId: values.id,
                             },
                           },
                         );

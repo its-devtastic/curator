@@ -1,4 +1,11 @@
-import { Button, Select } from "antd";
+import {
+  Button,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@curatorjs/ui";
 import { Form, Formik } from "formik";
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -42,34 +49,32 @@ export default function AdminUser({
         onSubmit();
       }}
     >
-      {({ submitForm }) => (
-        <Form className="space-y-2">
-          <Field name="value">
-            <Select
-              showSearch
-              searchValue={search}
-              onSearch={setSearch}
-              filterOption={false}
-              className="w-full"
-              options={relatedItems.map((item) => ({
-                label:
-                  [item.firstname, item.lastname].filter(Boolean).join(" ") ??
-                  item.email,
-                value: item.id,
-              }))}
-            />
-          </Field>
+      {({ submitForm, values }) => {
+        return (
+          <Form className="space-y-4">
+            <Field name="value">
+              <Select>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {relatedItems.map((item) => (
+                    <SelectItem key={item.id} value={item.id}>
+                      {[item.firstname, item.lastname]
+                        .filter(Boolean)
+                        .join(" ") ?? item.email}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </Field>
 
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="w-full"
-            onClick={submitForm}
-          >
-            {t("common.apply")}
-          </Button>
-        </Form>
-      )}
+            <Button className="w-full" onClick={submitForm} size="sm">
+              {t("common.apply")}
+            </Button>
+          </Form>
+        );
+      }}
     </Formik>
   );
 }

@@ -68,7 +68,7 @@ export default function FieldFilter({
       </PopoverTrigger>
       <PopoverContent>
         <div className="min-w-[200px]">
-          <h4 className="mt-0 mb-2">
+          <h4 className="mb-4 text-sm font-semibold">
             {t("content_manager.filtering_on", { type: label })}
           </h4>
           {filterComponent &&

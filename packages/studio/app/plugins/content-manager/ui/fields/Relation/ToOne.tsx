@@ -1,8 +1,8 @@
 import { Entity, FieldDefinition } from "@curatorjs/types";
+import { useFormContext } from "@curatorjs/ui";
 import { faEdit, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Select } from "antd";
-import { useFormikContext } from "formik";
 import * as R from "ramda";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -24,7 +24,7 @@ const ToOne: React.FC<{
   const { t } = useTranslation();
   const [model, setModel] = useState(value);
   const { sdk } = useStrapi();
-  const { values } = useFormikContext<{ locale: string; id: number }>();
+  const { watch } = useFormContext<{ locale: string; id: number }>();
   const [search, setSearch] = useState("");
   const [edit, setEdit] = useState(false);
   const [create, setCreate] = useState(false);
@@ -40,7 +40,7 @@ const ToOne: React.FC<{
     try {
       const { results } = await sdk.getMany(targetModelApiID, {
         _q: search,
-        locale: values.locale,
+        locale: watch("locale"),
       });
 
       return results;
@@ -51,14 +51,14 @@ const ToOne: React.FC<{
 
   useAsync(async () => {
     // Get ID of related item
-    const { id } = await sdk.getRelation(apiID, values.id, field.path, {
-      locale: values.locale,
+    const { id } = await sdk.getRelation(apiID, watch("id"), field.path, {
+      locale: watch("locale"),
     });
 
     // Get full related item object
     const relation = await sdk.getOne<Entity>(targetModelApiID, id, {
       params: {
-        locale: values.locale,
+        locale: watch("locale"),
       },
     });
 

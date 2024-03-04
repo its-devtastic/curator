@@ -2,11 +2,7 @@ import { StrapiContentType } from "@curatorjs/types";
 import { Button, Input } from "@curatorjs/ui";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  PiArrowsClockwiseBold,
-  PiSlidersHorizontal,
-  PiSlidersHorizontalBold,
-} from "react-icons/pi";
+import { PiSlidersHorizontalBold } from "react-icons/pi";
 import { useSearchParams } from "react-router-dom";
 import { useDebounce } from "react-use";
 
@@ -16,11 +12,9 @@ import FieldFilters from "./FieldFilters";
 
 export default function FilterToolbar({
   contentType,
-  onRefresh,
   loading,
 }: {
   contentType: StrapiContentType;
-  onRefresh: VoidFunction;
   loading: boolean;
 }) {
   const { t } = useTranslation();
@@ -63,12 +57,7 @@ export default function FilterToolbar({
               />
             </div>
           )}
-          <Button
-            size="sm"
-            loading={loading}
-            variant="outline"
-            onClick={onRefresh}
-          >
+          <Button size="sm" loading={loading} variant="outline">
             <PiSlidersHorizontalBold className="size-4 mr-2" />
             {t("View")}
           </Button>

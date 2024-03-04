@@ -15,8 +15,8 @@ const Main: React.FC<MainProps> = ({ contentType, contentTypeConfig }) => {
   );
 
   return (
-    <div className="gap-8 flex-1 p-6 bg-muted/50">
-      <Card className="min-h-full grid grid-cols-12 gap-4 p-8">
+    <div className="gap-8 flex-1 p-6 bg-muted/50 flex flex-col overflow-y-auto">
+      <Card className="flex-1 grid grid-cols-12 gap-4 p-8">
         {blocks.map(({ fields, span = 12 }, idx) => (
           <div
             key={idx}

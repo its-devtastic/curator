@@ -1,5 +1,15 @@
 import { Attribute } from "@curatorjs/types";
-import { Button, Checkbox, Input, Select } from "antd";
+import {
+  Button,
+  Checkbox,
+  Input,
+  Label,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@curatorjs/ui";
 import { Form, Formik } from "formik";
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -39,15 +49,20 @@ export default function String({
       }}
     >
       {({ values, submitForm, setFieldValue }) => (
-        <Form className="space-y-2">
+        <Form className="space-y-4">
           <Field name="operator">
-            <Select
-              className="w-full"
-              options={OPERATORS.map((operator) => ({
-                label: t(`filters.${operator}`),
-                value: operator,
-              }))}
-            />
+            <Select>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {OPERATORS.map((operator) => (
+                  <SelectItem key={operator} value={operator}>
+                    {t(`filters.${operator}`)}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </Field>
           <Field name="value">
             <Input />
@@ -57,18 +72,15 @@ export default function String({
             <label className="space-x-2">
               <Checkbox
                 checked={values.insensitive}
-                onChange={(e) => setFieldValue("insensitive", e.target.checked)}
+                onCheckedChange={(checked) =>
+                  setFieldValue("insensitive", checked)
+                }
               />
-              <span>{t("filters.insensitive")}</span>
+              <Label>{t("filters.insensitive")}</Label>
             </label>
           </div>
 
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="w-full"
-            onClick={submitForm}
-          >
+          <Button className="w-full" size="sm" onClick={submitForm}>
             {t("common.apply")}
           </Button>
         </Form>
