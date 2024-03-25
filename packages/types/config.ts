@@ -26,6 +26,11 @@ export interface CuratorConfig {
    * @curatorjs/strapi-plugin-secrets Strapi plugin.
    */
   secrets: boolean;
+  /**
+   * Whether to enable admin user avatars. Requires the @curatorjs/strapi-plugin-user-avatar
+   * Strapi plugin.
+   */
+  userAvatars: boolean;
   images: {
     getImageUrl(image: MediaItem): string;
   };

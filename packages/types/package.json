@@ -1,6 +1,6 @@
 {
   "name": "@curatorjs/types",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "TypeScript types used by Curator.",
   "author": "Devtastic <hi@devtastic.io>",
   "module": "index.ts",

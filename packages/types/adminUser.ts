@@ -15,6 +15,6 @@ export interface AdminUser {
   username: string;
 }
 
-export interface AdminProfile {
+export interface AdminUserAvatar {
   avatar: MediaItem | null;
 }
