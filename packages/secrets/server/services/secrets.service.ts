@@ -9,7 +9,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
       R.whereEq({ code: "strapi-super-admin" })
     );
     const query = await strapi.entityService!.findMany(
-      "plugin::curator.curator-secret",
+      "plugin::curator-secrets.curator-secret",
       {
         filters: isAdmin ? undefined : { roles: userRoles },
       }
