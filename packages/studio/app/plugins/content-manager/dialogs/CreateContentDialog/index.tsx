@@ -1,9 +1,12 @@
 import { Entity } from "@curatorjs/types";
-import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Modal, notification } from "antd";
-import classNames from "classnames";
-import { Form, Formik } from "formik";
+import {
+  cn,
+  Dialog,
+  DialogHeader,
+  DialogTitle,
+  Form,
+  useToast,
+} from "@curatorjs/ui";
 import * as R from "ramda";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -22,6 +25,7 @@ export default function CreateContentDialog({
 }: CreateContentDialogProps) {
   const { t } = useTranslation();
   const config = useCurator();
+  const { toast } = useToast();
   const { contentTypes, sdk } = useStrapi();
   const contentTypeConfig = config.contentTypes?.find(R.whereEq({ apiID }));
   const contentType = contentTypes.find(R.whereEq({ apiID }));
@@ -30,69 +34,57 @@ export default function CreateContentDialog({
   );
   const { getSecret } = useSecrets();
 
+  const onSubmit = async (values) => {
+    try {
+      const data = await sdk.save(apiID, values, {
+        params: { "plugins[i18n][locale]": values.locale },
+      });
+      const hooks =
+        config.hooks?.filter(R.whereEq({ trigger: "create" })) ?? [];
+
+      for (const hook of hooks) {
+        hook.action(apiID, data, { getSecret });
+      }
+
+      onCreate?.(data);
+    } catch (e) {
+      toast({ title: "Oops" });
+    }
+  };
+
   return contentTypeConfig && contentType ? (
-    <Formik<Partial<Entity>>
-      initialValues={{}}
-      onSubmit={async (values) => {
-        try {
-          const data = await sdk.save(apiID, values, {
-            params: { "plugins[i18n][locale]": values.locale },
-          });
-          const hooks =
-            config.hooks?.filter(R.whereEq({ trigger: "create" })) ?? [];
-
-          for (const hook of hooks) {
-            hook.action(apiID, data, { getSecret });
-          }
-
-          onCreate?.(data);
-        } catch (e) {
-          notification.error({ message: "Oops" });
-        }
-      }}
-    >
-      {({ submitForm, isSubmitting }) => (
-        <Modal
-          open
-          onCancel={onCancel}
-          onOk={submitForm}
-          confirmLoading={isSubmitting}
-          closeIcon={<FontAwesomeIcon icon={faClose} />}
-          maskClosable={false}
-          okText={t("common.create")}
-          cancelText={t("common.cancel")}
-          title={`${t("phrases.create_new")} ${t(
-            contentTypeConfig.name ?? contentType.info.displayName,
-            {
-              ns: "custom",
-            },
-          ).toLowerCase()}`}
-        >
-          <Form>
-            <div className="py-12 grid grid-cols-12 gap-6">
-              {pluginOptions?.create?.main?.map((field) => (
-                <div
-                  key={field.path}
-                  className={classNames(
-                    `col-span-12 lg:col-span-${field.span ?? 12}`,
-                  )}
-                >
-                  <FieldRenderer
-                    apiID={apiID}
-                    field={
-                      contentTypeConfig.fields.find(
-                        R.whereEq({ path: field.path }),
-                      )!
-                    }
-                    attribute={contentType.attributes[field.path]}
-                  />
-                </div>
-              ))}
+    <Form>
+      <Dialog>
+        <DialogHeader>
+          <DialogTitle>
+            {`${t("phrases.create_new")} ${t(
+              contentTypeConfig.name ?? contentType.info.displayName,
+              {
+                ns: "custom",
+              },
+            ).toLowerCase()}`}
+          </DialogTitle>
+        </DialogHeader>
+        <div className="py-12 grid grid-cols-12 gap-6">
+          {pluginOptions?.create?.main?.map((field) => (
+            <div
+              key={field.path}
+              className={cn(`col-span-12 lg:col-span-${field.span ?? 12}`)}
+            >
+              <FieldRenderer
+                apiID={apiID}
+                field={
+                  contentTypeConfig.fields.find(
+                    R.whereEq({ path: field.path }),
+                  )!
+                }
+                attribute={contentType.attributes[field.path]}
+              />
             </div>
-          </Form>
-        </Modal>
-      )}
-    </Formik>
+          ))}
+        </div>
+      </Dialog>
+    </Form>
   ) : null;
 }
 

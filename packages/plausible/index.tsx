@@ -1,15 +1,15 @@
-import React from "react";
-import * as R from "ramda";
-import { RouteObject } from "react-router-dom";
+import { MainMenuItem } from "@curatorjs/studio";
 import {
-  InjectionZoneEntry,
-  InjectionZone,
   CuratorPlugin,
-  MainMenuItem,
-} from "@curatorjs/studio";
+  InjectionZone,
+  InjectionZoneEntry,
+} from "@curatorjs/types";
+import * as R from "ramda";
+import * as React from "react";
+import { RouteObject } from "react-router-dom";
 
-import PlausibleDashboard from "./routes/PlausibleDashboard";
 import icon from "./assets/icon.png";
+import PlausibleDashboard from "./routes/PlausibleDashboard";
 
 export default function plausiblePlugin({
   sharedLink,

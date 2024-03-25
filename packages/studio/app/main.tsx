@@ -3,8 +3,8 @@ import "@fontsource-variable/inter";
 import "dayjs/locale/nl";
 import "./index.css";
 
-import { CuratorConfig } from "@curatorjs/types";
-import { TooltipProvider } from "@curatorjs/ui";
+import { UserProvidedCuratorConfig } from "@curatorjs/types";
+import { Toaster, TooltipProvider } from "@curatorjs/ui";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import calendar from "dayjs/plugin/calendar";
@@ -28,7 +28,7 @@ dayjs.extend(calendar);
 
 const queryClient = new QueryClient();
 
-const Main: React.FC<{ curatorConfig: CuratorConfig }> = ({
+const Main: React.FC<{ curatorConfig: UserProvidedCuratorConfig }> = ({
   curatorConfig,
 }) => {
   const darkMode = usePreferences((state) => state.preferences.darkMode);
@@ -46,6 +46,7 @@ const Main: React.FC<{ curatorConfig: CuratorConfig }> = ({
           <StrapiProvider apiUrl={curatorConfig.strapiUrl}>
             <TooltipProvider>
               <App />
+              <Toaster />
             </TooltipProvider>
           </StrapiProvider>
         </CuratorProvider>
@@ -54,7 +55,9 @@ const Main: React.FC<{ curatorConfig: CuratorConfig }> = ({
   );
 };
 
-export default function createCuratorApp(curatorConfig: CuratorConfig) {
+export default function createCuratorApp(
+  curatorConfig: UserProvidedCuratorConfig,
+) {
   ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <Main curatorConfig={curatorConfig} />,
   );

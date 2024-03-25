@@ -4,7 +4,7 @@ export default {
   info: {
     singularName: "curator-user-avatar",
     pluralName: "curator-user-avatars",
-    displayName: "Curator Admin User Avatars",
+    displayName: "Curator Admin User Avatar",
     description: "Avatars for admin users.",
   },
   options: {

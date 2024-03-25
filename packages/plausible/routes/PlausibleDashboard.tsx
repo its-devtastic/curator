@@ -1,5 +1,5 @@
-import React from "react";
 import { useSecrets } from "@curatorjs/studio";
+import * as React from "react";
 
 const PlausibleDashboard: React.FC<{ sharedLink: string }> = ({
   sharedLink,

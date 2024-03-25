@@ -1,4 +1,4 @@
-import { CuratorConfig } from "@curatorjs/types";
+import { CuratorConfig, UserProvidedCuratorConfig } from "@curatorjs/types";
 import * as R from "ramda";
 import React, { createContext, useMemo } from "react";
 
@@ -13,12 +13,15 @@ export default function CuratorProvider({
   children,
   config,
 }: {
-  config: PartialCuratorConfig;
+  config: UserProvidedCuratorConfig;
   children: React.ReactNode;
 }) {
   const configWithDefaults = useMemo(
     () =>
-      R.mergeDeepRight<Omit<CuratorConfig, "strapiUrl">, PartialCuratorConfig>(
+      R.mergeDeepRight<
+        Omit<CuratorConfig, "strapiUrl">,
+        UserProvidedCuratorConfig
+      >(
         {
           interfaceLanguages: ["en"],
           plugins: [],
@@ -26,7 +29,6 @@ export default function CuratorProvider({
           contentTypes: [],
           components: [],
           routes: [],
-          theme: {},
           hooks: [],
           about: {
             icon: "",
@@ -34,6 +36,7 @@ export default function CuratorProvider({
             title: "",
           },
           secrets: true,
+          userAvatars: false,
           images: { getImageUrl: getDefaultImageUrl },
         },
         config,
