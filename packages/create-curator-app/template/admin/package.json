@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@curatorjs/studio": "latest",
+    "@curatorjs/types": "latest",
     "react": "18.2.0"
   }
 }

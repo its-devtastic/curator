@@ -1,4 +1,3 @@
-import type { ThemeConfig } from "antd";
 import type React from "react";
 import type { RouteObject } from "react-router-dom";
 import type { PartialDeep } from "type-fest";
@@ -16,12 +15,16 @@ export interface CuratorConfig {
   hooks: Hook[];
   components: ComponentConfig[];
   interfaceLanguages: string[];
-  theme: Partial<ThemeConfig>;
   about: {
     icon: string | { auth: string; header: string };
     title: string;
     website: string;
   };
+  /**
+   * Whether to enable the secrets service. Allows you to pass in $SECRET_VALUES
+   * that will be replaced by a value stored in Strapi. Requires the
+   * @curatorjs/strapi-plugin-secrets Strapi plugin.
+   */
   secrets: boolean;
   images: {
     getImageUrl(image: MediaItem): string;

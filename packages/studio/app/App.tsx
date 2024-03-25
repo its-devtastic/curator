@@ -1,8 +1,5 @@
 import "@/utils/i18n";
 
-import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { notification } from "antd";
 import dayjs from "dayjs";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -11,7 +8,6 @@ import {
   redirect,
   RouterProvider,
 } from "react-router-dom";
-import { useEffectOnce } from "react-use";
 
 import useCurator from "@/hooks/useCurator";
 import useSession from "@/hooks/useSession";
@@ -29,13 +25,6 @@ export default function App() {
   const { i18n } = useTranslation();
   const { user } = useSession();
   const config = useCurator();
-
-  useEffectOnce(() =>
-    notification.config({
-      placement: "bottomRight",
-      closeIcon: <FontAwesomeIcon icon={faClose} />,
-    }),
-  );
 
   useEffect(() => {
     if (user?.preferedLanguage) {

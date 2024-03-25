@@ -1,18 +1,18 @@
 import {
-  CuratorConfig,
-  dashboardPlugin,
+  apiTokensPlugin,
   contentManagerPlugin,
+  dashboardPlugin,
+  internationalizationPlugin,
   mediaLibraryPlugin,
   teamManagerPlugin,
-  internationalizationPlugin,
-  apiTokensPlugin,
   webhooksPlugin,
 } from "@curatorjs/studio";
+import { UserProvidedCuratorConfig } from "@curatorjs/types";
 
-import contentTypes from "./config/contentTypes";
 import components from "./config/components";
+import contentTypes from "./config/contentTypes";
 
-const curatorConfig: CuratorConfig = {
+const curatorConfig: UserProvidedCuratorConfig = {
   // @ts-ignores
   strapiUrl: (import.meta as any).env.VITE_STRAPI_URL,
   about: {
@@ -44,7 +44,9 @@ const curatorConfig: CuratorConfig = {
       contentTypes: {
         page: {
           list: {},
-          edit: [{ fields: [], span: 6 }],
+          edit: {
+            main: [{ fields: [], span: 6 }],
+          },
           create: {},
         },
       },
