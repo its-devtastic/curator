@@ -5,19 +5,13 @@ import { persist } from "zustand/middleware";
 interface SessionState {
   token: string | null;
   user: SessionUser | null;
-  profile: AdminProfile | null;
-  setSession(session: {
-    token?: string;
-    user?: SessionUser;
-    profile?: AdminProfile;
-  }): void;
+  setSession(session: { token?: string; user?: SessionUser }): void;
   clearSession(): void;
 }
 
 const initialState = {
   token: null,
   user: null,
-  profile: null,
 };
 
 const useSession = create<SessionState>()(

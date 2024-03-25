@@ -40,7 +40,6 @@ export default function StrapiProvider({
   apiUrl: string;
   children: React.ReactNode;
 }) {
-  const { t } = useTranslation();
   const { token, clearSession, setSession } = useSession();
   const [init, setInit] = useState(false);
   const [contentTypes, setContentTypes] = useState<StrapiContentType[]>([]);
@@ -65,7 +64,6 @@ export default function StrapiProvider({
 
     if (token) {
       const user = await sdk.getMe();
-      const profile = await sdk.getExtendedProfile();
       const permissions = await sdk.getPermissions();
       if (permissions.some(R.whereEq({ action: "admin::roles.read" }))) {
         const roles = await sdk.getAdminRoles();
@@ -78,7 +76,7 @@ export default function StrapiProvider({
       setContentTypes(contentTypes);
       setComponents(components);
       setLocales(locales);
-      setSession({ user, profile });
+      setSession({ user });
 
       // Call login hooks
       for (const hook of hooks) {
@@ -115,37 +113,36 @@ export default function StrapiProvider({
         refresh,
       }}
     >
-      {error ? (
-        <div className="h-screen flex flex-col justify-between items-center">
-          <div className="flex-1" />
-          <section className="text-center p-4">
-            <div className="flex justify-center mb-8">
-              <PiCloudWarningDuotone className="size-24 fill-destructive" />
-            </div>
-            <h2 className="text-3xl font-bold mb-4">
-              {t("network_error.title")}
-            </h2>
-            <div className="text-muted-foreground mb-12">
-              {t("network_error.sub_title")}
-            </div>
-            <div>
-              <Button
-                onClick={() => window.location.reload()}
-                variant="outline"
-              >
-                {t("network_error.try_again")}
-              </Button>
-            </div>
-          </section>
-          <div className="flex-1 flex flex-col justify-end">
-            <div className="pb-12">
-              <CuratorLogo />
-            </div>
-          </div>
-        </div>
-      ) : (
-        init && children
-      )}
+      {error ? <ErrorScreen /> : init && children}
     </Context.Provider>
+  );
+}
+
+function ErrorScreen() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="h-screen flex flex-col justify-between items-center">
+      <div className="flex-1" />
+      <section className="text-center p-4">
+        <div className="flex justify-center mb-8">
+          <PiCloudWarningDuotone className="size-24 fill-destructive" />
+        </div>
+        <h2 className="text-3xl font-bold mb-4">{t("network_error.title")}</h2>
+        <div className="text-muted-foreground mb-12">
+          {t("network_error.sub_title")}
+        </div>
+        <div>
+          <Button onClick={() => window.location.reload()} variant="outline">
+            {t("network_error.try_again")}
+          </Button>
+        </div>
+      </section>
+      <div className="flex-1 flex flex-col justify-end">
+        <div className="pb-12">
+          <CuratorLogo />
+        </div>
+      </div>
+    </div>
   );
 }

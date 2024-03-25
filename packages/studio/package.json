@@ -1,6 +1,6 @@
 {
   "name": "@curatorjs/studio",
-  "version": "0.20.3",
+  "version": "1.0.0-alpha.1",
   "description": "An alternative admin for Strapi.",
   "author": "Devtastic <hi@devtastic.io>",
   "module": "index.ts",
