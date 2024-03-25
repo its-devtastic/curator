@@ -1,6 +1,6 @@
-import type {
-  AdminProfile,
+import {
   AdminUser,
+  AdminUserAvatar,
   ApiToken,
   GetManyParams,
   GetMediaParams,
@@ -15,7 +15,6 @@ import type {
   StrapiContentType,
   StrapiLocale,
   UserRole,
-  Version,
   Webhook,
 } from "@curatorjs/types";
 import axios, { type AxiosInstance } from "axios";
@@ -248,19 +247,21 @@ export class StrapiSdk {
     return data.data;
   }
 
-  public async getExtendedProfile() {
-    const { data } = await this.http.get<AdminProfile>("/curator/profiles/me");
+  public async getAvatar() {
+    const { data } = await this.http.get<AdminUserAvatar>(
+      "/curator-user-avatar/avatar",
+    );
 
-    return data;
+    return data.avatar;
   }
 
-  public async updateExtendedProfile(values: Partial<AdminProfile>) {
-    const { data } = await this.http.patch<AdminProfile>(
-      "/curator/profiles/me",
+  public async updateAvatar(values: Partial<AdminUserAvatar>) {
+    const { data } = await this.http.patch<AdminUserAvatar>(
+      "/curator-user-avatar/avatar",
       values,
     );
 
-    return data;
+    return data.avatar;
   }
 
   public async getMediaItems(params?: GetMediaParams) {
@@ -586,8 +587,9 @@ export class StrapiSdk {
    * has access to. It returns a single key-value object.
    */
   public async getSecrets() {
-    const { data } =
-      await this.http.get<Record<string, string>>("/curator/secrets");
+    const { data } = await this.http.get<Record<string, string>>(
+      "/curator-secrets/secrets",
+    );
 
     return data;
   }
@@ -599,29 +601,7 @@ export class StrapiSdk {
     const { data } = await this.http.get<{
       recent: Record<string, any>[];
       drafts: Record<string, any>[];
-    }>("/curator/dashboard");
-
-    return data;
-  }
-
-  /**
-   * Versioning.
-   */
-  public async getVersions(
-    apiID: string,
-    id: number,
-    params: { page?: number } = {},
-  ) {
-    const uid = this.contentTypes.find(R.whereEq({ apiID }))?.uid;
-
-    const { data } = await this.http.get<PaginatedResponse<Version>>(
-      `/curator/versioning/${uid}/${id}`,
-      {
-        params: {
-          page: params.page ?? 1,
-        },
-      },
-    );
+    }>("/curator-dashboard/dashboard");
 
     return data;
   }
