@@ -115,7 +115,7 @@ export default function StrapiProvider({
         refresh,
       }}
     >
-      {error && (
+      {error ? (
         <div className="h-screen flex flex-col justify-between items-center">
           <div className="flex-1" />
           <section className="text-center p-4">
@@ -143,8 +143,9 @@ export default function StrapiProvider({
             </div>
           </div>
         </div>
+      ) : (
+        init && children
       )}
-      {init && children}
     </Context.Provider>
   );
 }

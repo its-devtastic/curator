@@ -18,8 +18,6 @@ import useContentPermission from "@/hooks/useContentPermission";
 import usePreferences from "@/hooks/usePreferences";
 import useStrapi from "@/hooks/useStrapi";
 
-import LanguageSwitcher from "./LanguageSwitcher";
-
 export default function Action({
   contentTypeConfig,
 }: {
