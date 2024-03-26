@@ -10,15 +10,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@curatorjs/ui";
-import {
-  faFileAudio,
-  faTableCells,
-  faTableList,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as R from "ramda";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { PiFileAudioBold, PiGridFourBold, PiListBold } from "react-icons/pi";
 import { useAsyncRetry } from "react-use";
 
 import useCurator from "@/hooks/useCurator";
@@ -73,10 +68,10 @@ const MediaLibraryPopover: React.FC<{
           <Input autoFocus onChange={(e) => setSearch(e.target.value)} />
           <TabsList>
             <TabsTrigger value="grid">
-              <FontAwesomeIcon icon={faTableCells} />
+              <PiGridFourBold />
             </TabsTrigger>
             <TabsTrigger value="list">
-              <FontAwesomeIcon icon={faTableList} />
+              <PiListBold />
             </TabsTrigger>
           </TabsList>
         </div>
@@ -114,10 +109,7 @@ const MediaLibraryPopover: React.FC<{
                       />
                     ) : item.mime.startsWith("audio/") ? (
                       <div className="flex items-center justify-center bg-indigo-50 rounded-sm w-full h-full">
-                        <FontAwesomeIcon
-                          icon={faFileAudio}
-                          className="text-lg text-indigo-500"
-                        />
+                        <PiFileAudioBold className="text-lg text-indigo-500" />
                       </div>
                     ) : null}
                   </TooltipTrigger>
@@ -158,10 +150,7 @@ const MediaLibraryPopover: React.FC<{
                     />
                   ) : item.mime.startsWith("audio/") ? (
                     <div className="flex items-center justify-center bg-indigo-50 rounded-sm w-full h-full">
-                      <FontAwesomeIcon
-                        icon={faFileAudio}
-                        className="text-lg text-indigo-500"
-                      />
+                      <PiFileAudioBold className="text-lg text-indigo-500" />
                     </div>
                   ) : null}
                 </div>

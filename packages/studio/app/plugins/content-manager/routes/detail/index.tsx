@@ -1,6 +1,5 @@
-import { Form, Spinner } from "@curatorjs/ui";
+import { Form, Spinner, useToast } from "@curatorjs/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { notification } from "antd";
 import * as R from "ramda";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -28,6 +27,7 @@ import Side from "./Side";
 
 export function DetailScreen() {
   const { t } = useTranslation();
+  const { toast } = useToast();
   const params = useParams();
   const apiID = params.apiID as string;
   const [search] = useSearchParams();
@@ -113,7 +113,7 @@ export function DetailScreen() {
         navigate(`/content-manager/${apiID}/${data.id}`);
       }
     } catch (e) {
-      notification.error({ message: "Oops" });
+      toast({ message: "Oops", variant: "danger" });
     }
   };
   const hasDraftState = contentType?.options.draftAndPublish;

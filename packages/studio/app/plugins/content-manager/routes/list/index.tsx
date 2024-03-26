@@ -11,9 +11,9 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
+  useToast,
 } from "@curatorjs/ui";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { notification } from "antd";
 import { TFunction } from "i18next";
 import * as R from "ramda";
 import React, { useLayoutEffect, useState } from "react";
@@ -36,6 +36,7 @@ import FilterToolbar from "./FilterToolbar";
 
 export function ListScreen() {
   const { t } = useTranslation();
+  const { toast } = useToast();
   const navigate = useNavigate();
   const params = useParams();
   const queryClient = useQueryClient();
@@ -158,8 +159,8 @@ export function ListScreen() {
                                           await queryClient.invalidateQueries({
                                             queryKey: ["content", apiID],
                                           });
-                                          notification.success({
-                                            message: t(
+                                          toast({
+                                            title: t(
                                               "phrases.document_status_changed",
                                             ),
                                             description: t(
@@ -169,8 +170,9 @@ export function ListScreen() {
                                             ),
                                           });
                                         } catch (e) {
-                                          notification.error({
+                                          toast({
                                             message: "Oops",
+                                            variant: "danger",
                                           });
                                         }
                                       }}

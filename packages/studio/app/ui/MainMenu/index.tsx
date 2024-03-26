@@ -1,10 +1,9 @@
 import { InjectionZone } from "@curatorjs/types";
-import { faBars, faClose } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Avatar, Button } from "antd";
-import classNames from "classnames";
+import { Avatar, Button, cn } from "@curatorjs/ui";
 import * as R from "ramda";
 import React, { useEffect, useState } from "react";
+import { FiMenu } from "react-icons/fi";
+import { PiXBold } from "react-icons/pi";
 import { Link, useLocation } from "react-router-dom";
 import toColor from "string-to-color";
 
@@ -40,12 +39,15 @@ const MainMenu: React.FC & {
   return (
     <>
       <Button
+        variant="outline"
+        size="icon"
         className="md:hidden fixed top-3 left-4"
-        icon={<FontAwesomeIcon icon={faBars} />}
         onClick={() => setOpen(true)}
-      />
+      >
+        <FiMenu />
+      </Button>
       <nav
-        className={classNames(
+        className={cn(
           "bg-background w-screen md:w-[240px] fixed z-10 bottom-0 top-0 left-0 md:relative transition-transform duration-300 flex flex-col border-r",
           {
             "-translate-x-full md:translate-x-0": !isOpen,
@@ -53,10 +55,13 @@ const MainMenu: React.FC & {
         )}
       >
         <Button
+          variant="outline"
           className="md:hidden absolute top-4 right-4"
-          icon={<FontAwesomeIcon icon={faClose} />}
           onClick={() => setOpen(false)}
-        />
+          size="icon"
+        >
+          <PiXBold />
+        </Button>
 
         <div className="flex flex-col overflow-hidden">
           <div className="flex items-center px-4 h-14 border-b">
@@ -72,11 +77,9 @@ const MainMenu: React.FC & {
                 />
               ) : (
                 <Avatar
-                  shape="square"
                   style={{
                     backgroundColor: toColor(config.about?.title ?? ""),
                   }}
-                  alt=""
                   className="flex-none size-8"
                 >
                   {config.about?.title?.[0] || "C"}
